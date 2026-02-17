@@ -63,8 +63,8 @@ const navItems = [
   },
 
   /* FLOW FIX */
-  { name: "Careers", path: "/careers" },
-  { name: "Media", path: "/media" },
+  // { name: "Careers", path: "/careers" },
+  // { name: "Media", path: "/media" },
   { name: "People At Zigma", path: "/people" },
   { name: "Contact", path: "/contact" },
 ];
@@ -140,8 +140,9 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-      <div className="container-main">
+    <header className="fixed top-0 inset-x-0 z-50 bg-background/95 backdrop-blur border-b border-border ">
+     <div className="container-main">
+
         <div className="flex items-center justify-between h-20">
           {/* LOGO */}
           <Link to="/" className="flex items-center gap-3 shrink-0">

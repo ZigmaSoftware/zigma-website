@@ -70,26 +70,37 @@ const PartnersSection = () => {
             animation: none;
           }
         `}</style>
-        <div className="text-center mb-10 md:mb-14">
+
+        {/* <div className="text-center mb-10 md:mb-14">
           <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
             Trusted Partners
           </p>
           <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">
             Partnerships with <span className="text-primary">Cement Plants</span>
           </h2>
+        </div> */}
+        <div className="text-left mb-10 md:mb-14">
+          <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
+            Trusted Partners
+          </p>
+
+          <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+            Partnerships with <span className="text-primary">Cement Plants</span>
+          </h2>
+          
         </div>
 
-        <div className="relative space-y-6 md:space-y-8 bg-card p-6 md:p-8 rounded-2xl border border-border">
-          <div className="flex flex-nowrap justify-center gap-6 md:gap-8 overflow-hidden">
+
+        <div className="relative space-y-6 md:space-y-8 bg-card p-6 md:p-8 ">
+          <div className="flex flex-nowrap justify-center gap-6 md:gap-8 ">
             {rowOne.map((partner, index) => {
               const isVisible = index < visibleCount;
               const shouldShow = isVisible && !isResetting;
               return (
                 <div
                   key={`row1-${partner.name}`}
-                  className={`transition-all duration-300 ease-out ${
-                    shouldShow ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"
-                  }`}
+                  className={`transition-all duration-300 ease-out ${shouldShow ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"
+                    }`}
                   style={{ willChange: "transform, opacity" }}
                 >
                   <div className="relative group w-[clamp(7.5rem,11vw,13rem)] h-16 md:h-20 bg-card shadow-sm flex items-center justify-center px-6 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md shrink-0 border border-border rounded-lg">
@@ -104,16 +115,15 @@ const PartnersSection = () => {
               );
             })}
           </div>
-          <div className="flex flex-nowrap justify-center gap-6 md:gap-8 overflow-hidden">
+          <div className="flex flex-nowrap justify-center gap-4 md:gap-8 ">
             {rowTwo.map((partner, index) => {
               const isVisible = index < visibleCount;
               const shouldShow = isVisible && !isResetting;
               return (
                 <div
                   key={`row2-${partner.name}`}
-                  className={`transition-all duration-300 ease-out ${
-                    shouldShow ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
-                  }`}
+                  className={`transition-all duration-300 ease-out ${shouldShow ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
+                    }`}
                   style={{ willChange: "transform, opacity" }}
                 >
                   <div className="relative group w-[clamp(7.5rem,11vw,13rem)] h-16 md:h-20 bg-card shadow-sm flex items-center justify-center px-6 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md shrink-0 border border-border rounded-lg">

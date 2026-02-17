@@ -34,7 +34,7 @@ const ServicesSection = () => {
               Services
             </span>
             <h2 className="mt-2 text-3xl md:text-4xl font-bold text-foreground">
-              Waste Management Solutions
+              Waste Management <span className="text-primary">Solutions</span>
             </h2>
           </div>
 

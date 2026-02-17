@@ -14,7 +14,7 @@ import img10 from "@/assets/website/image ewd.png";
 import img11 from "@/assets/website/image site.png";
 
 import company from "@/assets/website/Picture1.png";
-import hero  from "@/assets/website/chess_bg.avif";
+// import hero  from "@/assets/website/chess_bg.avif";
 
 
 import picture1 from "@/assets/website/Mr. Boopathy Dharmaraj.png"; 
@@ -294,7 +294,8 @@ const MilestonNew = () => {
          <video
            className="absolute inset-0 h-full w-full object-cover"
           //  src={heroVideo}
-           src={hero}
+           src="https://drive.google.com/uc?export=download&id=102iiVC0N2G-DG3ZCEqARkVcY7MJsDAdt"
+           
            autoPlay
            loop
            muted

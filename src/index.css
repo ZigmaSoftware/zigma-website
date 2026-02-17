@@ -190,7 +190,7 @@
 
 @layer components {
   .container-main {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply w-[95%] max-w-5xl mx-auto;
   }
 
   .section-padding {
@@ -390,6 +390,14 @@
   .animate-slide-in-right {
     animation: slideInRight 0.85s var(--motion-ease-standard) both;
   }
+
+  .animate-lineGrow {
+    animation: lineGrow 0.6s var(--motion-ease-standard) forwards;
+  }
+
+  .animate-slideIn {
+    animation: slideIn 0.6s var(--motion-ease-standard) forwards;
+  }
 }
 
 @keyframes fadeUp {
@@ -570,6 +578,43 @@
     opacity: 1;
     transform: translateY(0);
   }
+}@layer utilities {
+  .animate-heroZoom {
+    animation: heroZoom 8s ease-out forwards;
+  }
+
+  @keyframes heroZoom {
+    from {
+      transform: scale(1.12);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}
+
+@keyframes lineGrow {
+  from {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  to {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .hero-kenburns {
@@ -607,3 +652,11 @@
     animation: none;
   }
 }
+
+/*  */
+.container-custom {
+  @apply w-[95%] max-w-5xl mx-auto;
+}
+
+  
+/* progress - buttons hero */
