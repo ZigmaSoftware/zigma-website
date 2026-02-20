@@ -11,14 +11,14 @@ const navItems = [
   {
     name: "About Us",
     path: "/about",
-    dropdown: [
-      { name: "Milestones", path: "/about#milestones"},
-      { name: "Awards", path: "/awards"},
-      { name: "Facilities", path: "/facilities" },
-      { name: "Governance Policies", path: "/governance-policies" },
-      // { name: "Policies", path: "/policies" },
+    // dropdown: [
+    //   { name: "Milestones", path: "/about#milestones"},
+    //   { name: "Awards", path: "/awards"},
+    //   { name: "Facilities", path: "/facilities" },
+    //   { name: "Governance Policies", path: "/governance-policies" },
+    //   // { name: "Policies", path: "/policies" },
       
-    ],
+    // ],
   },
 
   {

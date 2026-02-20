@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import landfillMining from "@/assets/website/The Landfill Mining.jpg";
 import landfillManagement from "@/assets/website/noida present.png";
-import wetWaste from "@/assets/website/landfill mining.png";
+import wetWaste from "@/assets/Wet Waste Management.jpeg";
 import Servicescp from "./Servicescp";
 
 const services = [

@@ -46,7 +46,7 @@ export default function Servicescp() {
     : sections[0].image; // Default to first section's image
 
   return (
-    <div className="relative w-full h-screen bg-black overflow-hidden">
+    <div className="relative w-full h-screen bg-black overflow-hidden ">
       {/* Full Screen Background Image */}
       <div className="absolute inset-0 transition-opacity duration-500">
         <img

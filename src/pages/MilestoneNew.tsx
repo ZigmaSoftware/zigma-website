@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play, Linkedin } from 'lucide-react';
 
 import img1 from "@/assets/website/Kumbakonam.png";
@@ -14,7 +14,7 @@ import img10 from "@/assets/website/image ewd.png";
 import img11 from "@/assets/website/image site.png";
 
 import company from "@/assets/website/Picture1.png";
-// import hero  from "@/assets/website/chess_bg.avif";
+import hero  from "@/assets/website/The Landfill Mining.jpg";
 
 
 import picture1 from "@/assets/website/Mr. Boopathy Dharmaraj.png"; 
@@ -194,14 +194,7 @@ const leaders = [
 const MilestonNew = () => {
   const [currentIndex, setCurrentIndex] = useState(3);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
-  const orgCardRef = useRef<HTMLDivElement | null>(null);
-  const orgTitleMeasureRef = useRef<HTMLHeadingElement | null>(null);
-  const orgP1MeasureRef = useRef<HTMLParagraphElement | null>(null);
-  const orgP2MeasureRef = useRef<HTMLParagraphElement | null>(null);
-  const [orgTitleLines, setOrgTitleLines] = useState<string[]>([]);
-  const [orgP1Lines, setOrgP1Lines] = useState<string[]>([]);
-  const [orgP2Lines, setOrgP2Lines] = useState<string[]>([]);
-
+  
   const handlePrevious = () => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
   };
@@ -218,101 +211,32 @@ const MilestonNew = () => {
     if (!isAutoPlay) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) =>
-        prev === milestones.length - 1 ? 0 : prev + 1
-      );
-    }, 3000); // 3s slide
+      setCurrentIndex((prev) => (prev === milestones.length - 1 ? 0 : prev + 1));
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [isAutoPlay]);
 
-  const orgTitleText = "Built For Scale And Accountability";
-  const orgP1Text =
-    "Since its inception, Zigma has come a long way by evolving and pioneering Landfill Mining across various Urban and Local Bodies in India. This approach has firmly positioned the organisation as one of the leading Landfill Mining companies of India and continues to further improve its reach and acceptance across represented geographies. Zigma is headquartered in Erode, Tamilnadu where it manages its all research, development and administration. The company operates twenty plants across in India.";
-  const orgP2Text =
-    "Zigmaites are guided by the passion to converge technology and knowledge together to empower solutions and embark upon a methodology which can resolve the waste menace constantly harassing the Urban/Local Bodies and the surrounding communities at large. Our ethos are built on the principle of valuing the 'values' and trust skill over shortcuts.";
-
-  const splitTextToLines = (el: HTMLElement | null, text: string): string[] => {
-    if (!el) return [];
-    el.innerHTML = '';
-    const words = text.split(' ');
-    const spans: HTMLSpanElement[] = [];
-    words.forEach((word, index) => {
-      const span = document.createElement('span');
-      span.textContent = word + (index < words.length - 1 ? ' ' : '');
-      el.appendChild(span);
-      spans.push(span);
-    });
-
-    const lines: string[] = [];
-    let currentTop = -1;
-    let currentLine = '';
-    spans.forEach((span) => {
-      const top = span.offsetTop;
-      if (currentTop === -1) {
-        currentTop = top;
-      }
-      if (top !== currentTop) {
-        lines.push(currentLine.trim());
-        currentLine = '';
-        currentTop = top;
-      }
-      currentLine += span.textContent ?? '';
-    });
-    if (currentLine.trim()) {
-      lines.push(currentLine.trim());
-    }
-    el.innerHTML = '';
-    return lines;
-  };
-
-  useLayoutEffect(() => {
-    const card = orgCardRef.current;
-    if (!card) return;
-
-    const updateLines = () => {
-      setOrgTitleLines(splitTextToLines(orgTitleMeasureRef.current, orgTitleText));
-      setOrgP1Lines(splitTextToLines(orgP1MeasureRef.current, orgP1Text));
-      setOrgP2Lines(splitTextToLines(orgP2MeasureRef.current, orgP2Text));
-    };
-
-    updateLines();
-    const resizeObserver = new ResizeObserver(() => updateLines());
-    resizeObserver.observe(card);
-
-    return () => resizeObserver.disconnect();
-  }, [orgTitleText, orgP1Text, orgP2Text]);
-
   const currentMilestone = milestones[currentIndex];
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="overflow-x-hidden">
       {/* tw-line animation classes are in index.css */}
-      <div className="min-h-screen scroll-smooth scroll-pt-24 lg:scroll-pt-28">
+      <div className="scroll-pt-24 lg:scroll-pt-28">
       {/* Hero Section */}
-       <section className="relative min-h-screen flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
-         <video
-           className="absolute inset-0 h-full w-full object-cover"
-          //  src={heroVideo}
-           src="https://drive.google.com/uc?export=download&id=102iiVC0N2G-DG3ZCEqARkVcY7MJsDAdt"
-           
-           autoPlay
-           loop
-           muted
-           playsInline
-           preload="auto"
-           aria-label="Milestones hero background video"
-         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/5 to-transparent" />
+       <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
+         <div className="absolute inset-0 h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${hero})` }} aria-hidden="true" />
+        <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
         <div className="relative max-w-6xl mx-auto w-full px-6 lg:px-10 pt-28 pb-20 text-white">
           <div className="max-w-2xl">
-            <div className="text-xs tracking-[0.35em] uppercase text-white/70 font-medium mb-4">
+            <div className="text-xs tracking-[0.35em] uppercase text-white/85 font-medium mb-4">
               Our Journey
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight text-white">
               Milestones That Shaped Us
             </h1>
-            <p className="mt-6 text-lg text-white/80 leading-relaxed">
+            <p className="mt-6 text-lg text-white/90 leading-relaxed">
               Explore the defining moments that transformed our vision into a global footprint.
               Each year marks a new chapter in growth, innovation, and impact.
             </p>
@@ -396,7 +320,7 @@ const MilestonNew = () => {
       </section>
 
       {/* Milestones Content */}
-      <section className="min-h-[100dvh] bg-gradient-to-br from-slate-50 to-slate-100 px-6 lg:px-8 pt-16 pb-4 lg:pt-20 lg:pb-6 scroll-mt-24 lg:scroll-mt-28">
+      <section className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 px-6 lg:px-8 pt-16 pb-4 lg:pt-20 lg:pb-6 scroll-mt-24 lg:scroll-mt-28">
         <div className="max-w-7xl mx-auto w-full flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between mb-4">

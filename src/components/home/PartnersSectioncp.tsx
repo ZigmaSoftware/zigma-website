@@ -79,7 +79,7 @@ const PartnersSection = () => {
             Partnerships with <span className="text-primary">Cement Plants</span>
           </h2>
         </div> */}
-        <div className="text-left mb-10 md:mb-14">
+        <div className="text-center">
           <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
             Trusted Partners
           </p>
@@ -91,7 +91,7 @@ const PartnersSection = () => {
         </div>
 
 
-        <div className="relative space-y-6 md:space-y-8 bg-card p-6 md:p-8 ">
+        <div className="mt-6 relative space-y-6 bg-card ">
           <div className="flex flex-nowrap justify-center gap-6 md:gap-8 ">
             {rowOne.map((partner, index) => {
               const isVisible = index < visibleCount;

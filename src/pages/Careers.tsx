@@ -2,9 +2,17 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import bg1 from "@/assets/bamboo-forest-china.jpg";
-import bg2 from "@/assets/eco-friendly-environment-bamboo-tube-straws-background.jpg";
-import bg3 from "@/assets/nature-background-green-foliage-bamboo-leaves-with-bokeh-sunlight.jpg"
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import bg from "@/assets/background-1.png";
 import picture1 from "@/assets/Office Img/IT department  floor.jpeg";
 import picture2 from "@/assets/Office Img/Admin & Finance department floor.jpeg";
 import picture3 from "@/assets/Office Img/HR, Tender Department floor.jpeg";
@@ -17,13 +25,13 @@ import people5 from "@/assets/people at zigma/image cdb.jpg";
 import people6 from "@/assets/people at zigma/image cej.jpg";
 import people7 from "@/assets/people at zigma/image dcd.jpg";
 import people8 from "@/assets/people at zigma/image frhb.jpg";
-import people9 from "@/assets/people at zigma/image frhb.jpg";  
-import { 
-  Briefcase, 
-  MapPin, 
-  Clock, 
-  Heart, 
-  Leaf, 
+import people9 from "@/assets/people at zigma/image frhb.jpg";
+import {
+  Briefcase,
+  MapPin,
+  Clock,
+  Heart,
+  Leaf,
   TrendingUp,
   GraduationCap,
   Award,
@@ -31,8 +39,10 @@ import {
   Send,
   ChevronRight,
   Building2,
-  Check
+  Check,
+  Upload
 } from "lucide-react";
+import { toast } from "sonner";
 
 const jobOpenings = [
   {
@@ -50,7 +60,7 @@ const jobOpenings = [
       "Monitor compliance with environmental regulations",
       "Prepare technical reports and documentation"
     ]
-  
+
   },
   {
     id: 2,
@@ -94,7 +104,7 @@ const jobOpenings = [
     id: 4,
     title: "Stores Executive",
     department: "Stores & Logistics",
-    location: "Puducherry, Kodungaiyur(Chennai)",  
+    location: "Puducherry, Kodungaiyur(Chennai)",
     type: "Full-time",
     Qualifications: " Any degree",
     experience: "0-3 years",
@@ -106,7 +116,7 @@ const jobOpenings = [
       " Maintain store hygiene, safety, and compliance standards"
     ]
   },
-  
+
   // {
   //   id: 5,
   //   title: "Lab Technician",
@@ -195,11 +205,21 @@ const teamAvatars = [
 const spotlightRowCounts = [16, 18, 20, 18, 16];
 const spotlightPlaceholderCounts = [4, 4, 5, 4, 4];
 
+const initialApplicationForm = {
+  fullName: "",
+  email: "",
+  phone: "",
+  coverLetter: "",
+};
+
 const Careers = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string>("all");
   const [selectedLocation, setSelectedLocation] = useState<string>("all");
   const [activeAvatarIndex, setActiveAvatarIndex] = useState<number>(0);
-  const [expandedJobs, setExpandedJobs] = useState<Set<number>>(new Set());
+  const [selectedJob, setSelectedJob] = useState<(typeof jobOpenings)[number] | null>(null);
+  const [applicationForm, setApplicationForm] = useState(initialApplicationForm);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [isDragOverResume, setIsDragOverResume] = useState(false);
 
   useEffect(() => {
     const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -251,47 +271,114 @@ const Careers = () => {
     return departmentMatch && locationMatch;
   });
 
-  const toggleJobDetails = (jobId: number) => {
-    setExpandedJobs((prev) => {
-      const next = new Set(prev);
-      if (next.has(jobId)) {
-        next.delete(jobId);
-      } else {
-        next.add(jobId);
-      }
-      return next;
-    });
+  const openApplicationForm = (jobId: number) => {
+    const job = jobOpenings.find((item) => item.id === jobId) ?? null;
+    setSelectedJob(job);
+  };
+
+  const closeApplicationForm = () => {
+    setSelectedJob(null);
+    setApplicationForm(initialApplicationForm);
+    setResumeFile(null);
+  };
+
+  const handleApplicationFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setApplicationForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    setResumeFile(file);
+  };
+
+  const handleResumeDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOverResume(true);
+  };
+
+  const handleResumeDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOverResume(false);
+  };
+
+  const handleResumeDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOverResume(false);
+    const file = e.dataTransfer.files?.[0] ?? null;
+    if (file) setResumeFile(file);
+  };
+
+  const handleApplicationSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!selectedJob) return;
+    if (!resumeFile) {
+      toast.error("Please upload your resume.");
+      return;
+    }
+    toast.success(`Application submitted for ${selectedJob.title}.`);
+    closeApplicationForm();
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div
+      className="min-h-screen bg-background"
+    // style={{
+    //   backgroundImage: `url(${bg1})`,
+    //   backgroundSize: "cover",
+    //   backgroundPosition: "center",
+    //   backgroundRepeat: "no-repeat",
+    //   backgroundAttachment: "fixed",
+    // }}
+    >
       <Header />
-      <main className="pt-20">
+      <main >
         {/* Animation classes are in index.css */}
         {/* Hero Section */}
-        <section className="bg-background" id="overview">
+        <section id="overview"
+          className="section-padding bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${bg})` }}
+        >
           <div className="container-main py-0 md:py-0 space-y-0">
+
             <div
-              className="relative overflow-hidden border border-border"
-              style={{ backgroundImage: `url(${bg1})`, backgroundSize: "cover", backgroundPosition: "center" }}
+              className="relative overflow-hidden  "
             >
               <div
-                className="absolute inset-0 bg-black/35"
+                className="absolute inset-0 "
                 aria-hidden="true"
               />
               <div
                 className="relative z-10 grid min-h-screen items-center gap-10 px-6 py-16 md:px-12 lg:grid-cols-[1.1fr_1fr] reveal hero-block"
                 data-reveal
               >
-                <div className="space-y-4 hero-text">
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+                {/* <div className="space-y-4 hero-text">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black/30">
                     Careers
                   </h1>
-                  <p className="text-white/80 max-w-xl text-lg">
+                  <p className="text-black/80 max-w-xl text-lg">
                     Join Zigma to build sustainable infrastructure, solve real-world challenges, and grow with a team
                     that values craft, safety, and impact.
                   </p>
+                </div> */}
+
+                <div className="text-center">
+                  <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
+                     Shape the Future
+                  </p>
+
+                  <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                    Build Careers that Drive  <span className="text-primary">Sustainability</span>
+                  </h2>
+
+                   <p className="mt-6  text-center  leading-relaxed text-muted-foreground text-lg">
+                    Join Zigma to build sustainable infrastructure, solve real-world challenges, and grow with a team
+                    that values craft, safety, and impact.
+                  </p>
+
                 </div>
+
                 <div className="relative h-72 md:h-96 lg:h-[28rem] reveal hero-visual" data-reveal>
                   <div className="relative h-full overflow-hidden shadow-2xl ring-1 ring-black/10 [clip-path:polygon(8%_0%,100%_0%,92%_100%,0%_100%)]">
                     <img src={picture1} alt="Office environment" className="w-full h-full object-cover" />
@@ -300,12 +387,9 @@ const Careers = () => {
               </div>
             </div>
 
-            <div
-              className="relative overflow-hidden border border-border"
-              style={{ backgroundImage: `url(${bg2})`, backgroundSize: "cover", backgroundPosition: "center" }}
-            >
+            {/* <div className="relative overflow-hidden border border-border">
               <div
-                className="absolute inset-0 bg-black/35"
+                className="absolute inset-0 "
                 aria-hidden="true"
               />
               <div
@@ -313,10 +397,10 @@ const Careers = () => {
                 data-reveal
               >
                 <div className="space-y-4 lg:order-2 hero-text">
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black/30">
                     Grow With Us
                   </h2>
-                  <p className="text-white/80 max-w-xl text-lg">
+                  <p className="text-black/80 max-w-xl text-lg">
                     Learn on the job, take on meaningful responsibility, and shape projects that serve communities.
                   </p>
                 </div>
@@ -326,14 +410,11 @@ const Careers = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            <div
-              className="relative overflow-hidden border border-border"
-              style={{ backgroundImage: `url(${bg3})`, backgroundSize: "cover", backgroundPosition: "center" }}
-            >
+            {/* <div className="relative overflow-hidden border border-border">
               <div
-                className="absolute inset-0 bg-black/35"
+                className="absolute inset-0 "
                 aria-hidden="true"
               />
               <div
@@ -341,10 +422,10 @@ const Careers = () => {
                 data-reveal
               >
                 <div className="space-y-4 hero-text">
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black/30">
                     Work With Purpose
                   </h2>
-                  <p className="text-white/80 max-w-xl text-lg">
+                  <p className="text-black/80 max-w-xl text-lg">
                     Make measurable environmental impact through engineering, operations, and innovation.
                   </p>
                 </div>
@@ -354,7 +435,7 @@ const Careers = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
         {/* Quick Nav */}
@@ -462,8 +543,20 @@ const Careers = () => {
 
         {/* Team Spotlight */}
         <section className="section-padding" id="culture">
+           <div className="text-center">
+                  <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
+                  Join a team of builders.
+                  </p>
+
+                  <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                   Explore Your <span className="text-primary"> Career Path </span>
+                  </h2>
+
+                </div>
+          
           <div className="container-main text-center">
-            <h2
+            
+            {/* <h2
               className="text-2xl md:text-3xl font-bold text-foreground mb-2 reveal"
               data-reveal
             >
@@ -471,9 +564,9 @@ const Careers = () => {
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto reveal" data-reveal>
               We're looking for highly ambitious and talented people to help us drive real change.
-            </p>
+            </p> */}
 
-            <div className="relative mt-10 mb-10 flex justify-center reveal" data-reveal>
+            <div className="relative mt-6 flex justify-center reveal" data-reveal>
               <div
                 className="w-full max-w-5xl h-48 md:h-56 rounded-full"
                 style={{
@@ -532,7 +625,7 @@ const Careers = () => {
               </div>
             </div>
 
-            <p className="text-sm text-muted-foreground italic max-w-2xl mx-auto">
+            <p className="mt-3 text-lg text-muted-foreground  max-w-2xl mx-auto">
               "I'm proud to be part of a team creating such a thoughtfully crafted product, centered on our customer
               experiences."
             </p>
@@ -546,150 +639,85 @@ const Careers = () => {
 
 
         {/* Job Openings */}
-        <section className="section-padding section-alt-bg" id="openings">
+        <section className="section-padding bg-transparent" id="openings">
           <div className="container-main">
-            <div className="text-center mb-12">
-              {/* <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4">
+            {/* <div className="text-center mb-12">
+              <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4">
                 Open Positions
-              </span> */}
+              </span>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 Explore Our Roles
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Filter by team or location to find the right opportunity.
               </p>
-            </div>
+            </div> */}
 
-            <div className="grid lg:grid-cols-[320px_1fr] gap-8">
-              <div className="bg-card border border-border rounded-2xl p-6 h-fit lg:sticky lg:top-24">
-                <h3 className="text-lg font-semibold text-foreground mb-4">
-                  Refine Your Search
-                </h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-muted-foreground mb-2">
-                      Department
-                    </label>
-                    <select
-                      value={selectedDepartment}
-                      onChange={(e) => setSelectedDepartment(e.target.value)}
-                      className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
-                    >
-                      {departments.map((dept) => (
-                        <option key={dept} value={dept}>
-                          {dept === "all" ? "All Departments" : dept}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-muted-foreground mb-2">
-                      Location
-                    </label>
-                    <select
-                      value={selectedLocation}
-                      onChange={(e) => setSelectedLocation(e.target.value)}
-                      className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
-                    >
-                      {locations.map((loc) => (
-                        <option key={loc} value={loc}>
-                          {loc === "all" ? "All Locations" : loc}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="rounded-xl border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-                    <span className="font-semibold text-foreground">{filteredJobs.length}</span> roles match your filters.
-                  </div>
-                  <button
-                    className="w-full px-4 py-2 text-sm font-medium text-muted-foreground border border-border rounded-lg hover:text-foreground hover:border-primary/40 hover:bg-muted/40 transition-colors"
-                    onClick={() => {
-                      setSelectedDepartment("all");
-                      setSelectedLocation("all");
-                    }}
-                  >
-                    Clear Filters
-                  </button>
+
+             <div className="text-center">
+                  <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
+                   Explore Our Roles
+                  </p>
+
+                  <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                   Explore Your <span className="text-primary"> Career Path </span>
+                  </h2>
+
+                </div>
+
+
+            <div className="mt-6 space-y-6">
+              <div className="border-b border-border/80">
+                <div className="flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  {departments.map((dept) => {
+                    const isActive = selectedDepartment === dept;
+                    return (
+                      <button
+                        key={dept}
+                        onClick={() => {
+                          setSelectedDepartment(dept);
+                          setSelectedLocation("all");
+                        }}
+                        className={`relative shrink-0 px-3 py-3 text-sm md:text-base font-semibold transition-colors ${
+                          isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {dept === "all" ? "All Openings" : dept}
+                        <span
+                          className={`absolute left-0 right-0 -bottom-[1px] h-[3px] transition-opacity ${
+                            isActive ? "bg-primary opacity-100" : "bg-transparent opacity-0"
+                          }`}
+                        />
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {filteredJobs.map((job) => (
                   <div
                     key={job.id}
-                    className="bg-card border border-border rounded-2xl p-6 transition-all hover:shadow-lg hover:border-primary/40"
+                    className="relative bg-card border border-border rounded-xl p-4 transition-all hover:shadow-lg hover:border-primary/40"
                   >
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2 text-sm text-primary font-medium">
-                          <Building2 className="w-4 h-4" />
-                          {job.department}
-                        </div>
-                        <h3 className="text-2xl font-bold text-foreground mb-2">
-                          {job.title}
-                        </h3>
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          <span className="inline-flex items-center gap-1 px-3 py-1 bg-muted rounded-full text-xs font-medium text-muted-foreground">
-                            <MapPin className="w-3.5 h-3.5" /> {job.location}
-                          </span>
-                          <span className="inline-flex items-center gap-1 px-3 py-1 bg-muted rounded-full text-xs font-medium text-muted-foreground">
-                            <Clock className="w-3.5 h-3.5" /> {job.type}
-                          </span>
-                          <span className="inline-flex items-center gap-1 px-3 py-1 bg-primary/10 rounded-full text-xs font-medium text-primary">
-                            <Briefcase className="w-3.5 h-3.5" /> {job.experience}
-                          </span>
-                        </div>
-                        <p className="text-muted-foreground text-sm mb-4">{job.description}</p>
-                        {expandedJobs.has(job.id) && (
-                          <>
-                            {job.Qualifications && (
-                              <div className="mb-3 flex flex-col gap-2 text-sm">
-                                <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                                  Qualification
-                                </span>
-                                {Array.isArray(job.Qualifications) ? (
-                                  <ul className="space-y-1.5 text-muted-foreground">
-                                    {job.Qualifications.map((item, idx) => (
-                                      <li key={idx} className="flex items-start gap-2">
-                                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary/70" />
-                                        <span className="text-foreground/90">{item}</span>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                ) : (
-                                  <span className="text-foreground/90">{job.Qualifications}</span>
-                                )}
-                              </div>
-                            )}
-                            <div className="mt-4 rounded-xl border border-border/80 bg-muted/30 p-3">
-                              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-                                Responsibilities
-                              </p>
-                              <ul className="space-y-2">
-                                {job.responsibilities.slice(0, 3).map((resp, idx) => (
-                                  <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                    <span className="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-primary/10 text-primary">
-                                      <Check className="h-3 w-3" />
-                                    </span>
-                                    <span>{resp}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </>
-                        )}
+                    <span className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
+                      <Building2 className="h-4 w-4" />
+                    </span>
+                    <div className="flex h-full flex-col gap-3">
+                      <div className=" text-xs uppercase tracking-[0.35em] text-muted-foreground">
+                        {job.department}
                       </div>
-                      <div className="flex flex-col gap-2 min-w-[160px]">
-                        <Button className="w-full">
-                          <Send className="mr-2 h-4 w-4" /> Apply Now
-                        </Button>
-                        <button
-                          className="w-full px-4 py-2 text-sm font-medium text-primary border border-primary/30 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors"
-                          onClick={() => toggleJobDetails(job.id)}
-                        >
-                          {expandedJobs.has(job.id) ? "Hide Details" : "View Details"}
-                        </button>
-                      </div>
+                      <h3 className="text-lg font-bold text-foreground leading-snug">
+                        {job.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{job.description}</p>
+                      <Button
+                        variant="outline"
+                        className="mt-auto w-full h-9 rounded-md border-primary/40 bg-transparent text-primary hover:bg-primary/10"
+                        onClick={() => openApplicationForm(job.id)}
+                      >
+                        <Send className="mr-2 h-4 w-4" /> View Openings
+                      </Button>
                     </div>
                   </div>
                 ))}
@@ -706,7 +734,180 @@ const Careers = () => {
           </div>
         </section>
 
-        
+        <Dialog open={Boolean(selectedJob)} onOpenChange={(open) => !open && closeApplicationForm()}>
+          <DialogContent className="max-w-4xl p-0 overflow-hidden">
+            <div className="grid max-h-[85vh] md:grid-cols-[320px_1fr]">
+              {selectedJob && (
+                <aside className="border-b md:border-b-0 md:border-r border-border bg-muted/20 p-5 overflow-y-auto">
+                  <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary mb-3">
+                    <Briefcase className="h-4 w-4" />
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground leading-tight">
+                    {selectedJob.title}
+                  </h3>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-primary">
+                    {selectedJob.department}
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-background rounded-full text-[11px] font-medium text-muted-foreground border border-border">
+                      <MapPin className="w-3.5 h-3.5" /> {selectedJob.location}
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-background rounded-full text-[11px] font-medium text-muted-foreground border border-border">
+                      <Clock className="w-3.5 h-3.5" /> {selectedJob.type}
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary/10 rounded-full text-[11px] font-medium text-primary border border-primary/20">
+                      <Briefcase className="w-3.5 h-3.5" /> {selectedJob.experience}
+                    </span>
+                  </div>
+
+                  {selectedJob.Qualifications && (
+                    <div className="mt-5">
+                      <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+                        Qualifications
+                      </p>
+                      {Array.isArray(selectedJob.Qualifications) ? (
+                        <ul className="space-y-1.5">
+                          {selectedJob.Qualifications.map((item, idx) => (
+                            <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary/70" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-xs text-muted-foreground">{selectedJob.Qualifications}</p>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="mt-5">
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+                      Responsibilities
+                    </p>
+                    <ul className="space-y-1.5">
+                      {selectedJob.responsibilities.slice(0, 4).map((resp, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                          <span className="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-primary/10 text-primary">
+                            <Check className="h-3 w-3" />
+                          </span>
+                          <span>{resp}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </aside>
+              )}
+
+              <section className="p-5 md:p-6 overflow-y-auto">
+                <DialogHeader className="text-left">
+                  <DialogTitle className="text-xl">Application Form</DialogTitle>
+                  <DialogDescription>
+                    Complete the details below and upload your resume.
+                  </DialogDescription>
+                </DialogHeader>
+
+                <form onSubmit={handleApplicationSubmit} className="mt-5 space-y-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="fullName">Full Name *</Label>
+                      <Input
+                        id="fullName"
+                        name="fullName"
+                        value={applicationForm.fullName}
+                        onChange={handleApplicationFormChange}
+                        placeholder="Your full name"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone *</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        name="phone"
+                        value={applicationForm.phone}
+                        onChange={handleApplicationFormChange}
+                        placeholder="+91 98765 43210"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      name="email"
+                      value={applicationForm.email}
+                      onChange={handleApplicationFormChange}
+                      placeholder="name@example.com"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="resumeUpload">Upload Resume *</Label>
+                    <div
+                      onDragOver={handleResumeDragOver}
+                      onDragLeave={handleResumeDragLeave}
+                      onDrop={handleResumeDrop}
+                      className={`relative flex min-h-[120px] w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-3 text-center transition-colors ${
+                        isDragOverResume
+                          ? "border-primary bg-primary/10"
+                          : "border-border bg-muted/20 hover:border-primary/60"
+                      }`}
+                    >
+                      <input
+                        id="resumeUpload"
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        className="absolute inset-0 cursor-pointer opacity-0"
+                        onChange={handleResumeUpload}
+                      />
+                      <span className="inline-flex items-center gap-1 text-primary text-xs font-medium">
+                        <Upload className="h-4 w-4" />
+                        Drag & Drop Resume
+                      </span>
+                      <span className="mt-1.5 px-2 text-[11px] text-muted-foreground">
+                        {resumeFile ? resumeFile.name : "or click to browse file"}
+                      </span>
+                      <span className="mt-1 text-[10px] text-muted-foreground/80">
+                        PDF, DOC, DOCX
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="coverLetter">Why are you a fit for this role? *</Label>
+                    <Textarea
+                      id="coverLetter"
+                      name="coverLetter"
+                      value={applicationForm.coverLetter}
+                      onChange={handleApplicationFormChange}
+                      placeholder="Share your relevant experience and motivation..."
+                      rows={4}
+                      required
+                    />
+                  </div>
+
+                  <div className="flex justify-end gap-2 pt-2">
+                    <Button type="button" variant="outline" onClick={closeApplicationForm}>
+                      Cancel
+                    </Button>
+                    <Button type="submit">
+                      <Send className="mr-2 h-4 w-4" />
+                      Submit Application
+                    </Button>
+                  </div>
+                </form>
+              </section>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+
 
         {/* CTA Section */}
         <section className="section-padding section-dark-bg relative overflow-hidden">
@@ -716,7 +917,7 @@ const Careers = () => {
               Don't See Your Perfect Role?
             </h2>
             <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-              We're always looking for talented individuals. Send us your resume and 
+              We're always looking for talented individuals. Send us your resume and
               we'll reach out when a suitable position opens up.
             </p>
             <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
