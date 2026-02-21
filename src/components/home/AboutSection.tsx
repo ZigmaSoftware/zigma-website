@@ -8,7 +8,7 @@ const AboutSection = () => {
   return (
 
     <div>
-{/* 
+    {/* 
     <section className="section-padding">
             <ScrollToTop />
 

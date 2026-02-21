@@ -1,7 +1,8 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MapPin, CheckCircle, Clock } from "lucide-react";
 import indiaMap from "@/assets/india-map.png";
+import PresenceSectioncp from "./PresenceSectioncp";
 
 const presenceLocations = [
   {
@@ -93,10 +94,11 @@ const PresenceSection = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="container-main">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      {/* <div className="container-main">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"> */}
           {/* Map */}
-          <div className="relative order-2 lg:order-1">
+
+          {/* <div className="relative order-2 lg:order-1">
             <img
               src={indiaMap}
               alt="Pan-India Presence Map"
@@ -144,10 +146,11 @@ const PresenceSection = () => {
                 </motion.div>
               ))}
             </motion.div>
-          </div>
+          </div> */}
 
           {/* Content */}
-          <div className="order-1 lg:order-2">
+
+          {/* <div className="order-1 lg:order-2">
             <h2
               className="text-3xl md:text-4xl font-bold text-foreground mb-6"
             >
@@ -194,6 +197,10 @@ const PresenceSection = () => {
             </motion.div>
           </div>
         </div>
+      </div> */}
+
+      <div>
+        <PresenceSectioncp />
       </div>
     </motion.section>
   );

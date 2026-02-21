@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import landfillMining from "@/assets/website/landfill mining.png";
 import landfillManagement from "@/assets/website/noida present.png";
-import wetWaste from "@/assets/website/The Landfill Mining.jpg";
+import wetWaste from "@/assets/Wet Waste Management.jpeg";
+import bg from "@/assets/background-1.png";
 
 const services = [
   {
@@ -26,18 +27,23 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section className="section-padding ">
+    <section
+      className="section-padding bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${bg})` }}
+    >
+      
       <div className="container-main">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+         <div className="text-center">
+            <span className="text-sm  uppercase tracking-[0.3em] text-muted-foreground">
               Services
             </span>
             <h2 className="mt-2 text-3xl md:text-4xl font-bold text-foreground">
-              Waste Management Solutions
+              Waste Management <span className="text-primary">Solutions</span>
             </h2>
           </div>
 
+        <div className="flex items-center justify-between mb-8">
+         
           {/* <div className="hidden items-center gap-3 md:flex">
             <button
               type="button"
@@ -57,13 +63,13 @@ const ServicesSection = () => {
            */}
         </div>
 
-        <div className="overflow-hidden">
-          <div className="flex gap-2 md:gap-6 w-[1200px] mx-auto" >
+        <div className="overflow-hidden ">
+          <div className="flex gap-2 md:gap-4 w-[1000px] mx-auto" >
             {services.map((service, index) => (
               <div
                 key={service.title}
                 className={[
-                  "group relative flex overflow-hidden rounded-xl border border-border shadow-lg transition-[flex] duration-500",
+                  "group relative flex overflow-hidden shadow-lg transition-[flex] duration-500",
                   "flex-[1] basis-0 min-w-[160px] sm:min-w-[200px] md:min-w-0",
                   index === 1
                     ? "scale-[1.02]"
@@ -81,18 +87,18 @@ const ServicesSection = () => {
                   <div className="absolute left-4 bottom-6 flex items-start gap-3">
                     <div
                       className="flex flex-col items-start"
-                      style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+                    
                     >
-                      <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-white/90 md:text-base">
+                      <h3 className="text-sm font-semibold uppercase  text-white/90 md:text-base">
                         {service.title}
                       </h3>
                       <Link
                         to="/services"
-                        className="mt-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/80 opacity-0 transition duration-300 group-hover:opacity-100 hover:text-white"
+                        className=" text-sm font-semibold   text-white/80 opacity-0 transition duration-300 group-hover:opacity-100 hover:text-white"
                       >
                         Read More &#8594;
                       </Link>
-                      <span className="mt-4 h-12 w-px bg-primary/70" />
+                      {/* <span className="mt-4 h-12 w-px bg-primary/70" /> */}
                     </div>
                   </div>
                 </div>

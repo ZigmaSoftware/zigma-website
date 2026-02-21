@@ -20,80 +20,98 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="bg-gradient-to-br from-foreground via-foreground to-foreground/95 text-background relative overflow-hidden">
+      <footer className="bg-gradient-to-br from-slate-200 via-white to-slate-100 text-foreground relative overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,hsl(var(--primary)/0.3),transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,hsl(var(--accent)/0.2),transparent_50%)]" />
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(16,185,129,0.12),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(148,163,184,0.14),transparent_50%)]" />
         </div>
 
         <div className="container-main py-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.05fr_1.1fr_1fr_1.2fr] gap-5 lg:gap-x-4 lg:gap-y-6">
             {/* Company Info */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-primary-foreground font-bold text-lg">Z</span>
-                </div>
-                <div>
-                  <span className="text-lg font-bold">ZIGMA</span>
-                  <span className="block text-xs text-background/70">Global Environ Solutions</span>
-                </div>
-              </div>
-              <p className="text-background/70 text-sm leading-relaxed mb-4">
+            <div>
+              <a  href="/"
+              className="flex items-center gap-3 mb-4">
+                <img
+                  src="/zigma_blueplanet_logo.png"
+                  alt="Zigma Blue Planet"
+                  className="h-12 w-auto object-contain"
+                  loading="lazy"
+                />
+              </a>
+              {/* <p className="text-background/70 text-sm leading-relaxed mb-4">
                 Driving sustainable landfill reclamation across India through advanced biomining,
                 transforming waste into reusable resources.
-              </p>
+              </p> */}
 
               {/* Social Media Links */}
               <div className="flex gap-3">
                 <a
-                  href="#"
-                  className="w-9 h-9 bg-background/10 hover:bg-primary rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  href="https://www.facebook.com/zigmaglobal/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 hover:bg-[#1877F2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on Facebook"
                 >
                   <Facebook className="w-4 h-4" />
                 </a>
                 <a
-                  href="#"
-                  className="w-9 h-9 bg-background/10 hover:bg-primary rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  href="https://x.com/zigmaglobal1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10  hover:bg-[#000000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on Twitter"
                 >
-                  <Twitter className="w-4 h-4" />
+                  {/* <Twitter className="w-4 h-4" /> */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4 fill-current"
+                  >
+                    <path d="M18.244 2H21.5l-7.38 8.43L22 22h-6.87l-5.39-7.05L3.5 22H.244l7.89-9.01L2 2h7l4.89 6.43L18.244 2z" />
+                  </svg>
+
                 </a>
                 <a
-                  href="#"
-                  className="w-9 h-9 bg-background/10 hover:bg-primary rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  href="https://in.linkedin.com/company/zigma-global-environ-solutions-plc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10  hover:bg-[#0A66C2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on LinkedIn"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
                 <a
-                  href="#"
-                  className="w-9 h-9 bg-background/10 hover:bg-primary rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  href="https://www.instagram.com/zigma_2015/?hl=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 hover:bg-[#E1306C] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on Instagram"
                 >
                   <Instagram className="w-4 h-4" />
                 </a>
                 <a
-                  href="#"
-                  className="w-9 h-9 bg-background/10 hover:bg-primary rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  href="https://www.youtube.com/channel/UCoSAp-9wtY6m58IknjmweHg/null"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10  hover:bg-[#FF0000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on YouTube"
                 >
-                  <Youtube className="w-4 h-4" />
+                  <Youtube className="w-5 h-5" />
                 </a>
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-base font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                {["About Us", "Services", "Projects", "Contact"].map((link) => (
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
+                {["About Us", "Services", "Projects", "Facilities", "Awards", "Careers", "Governance Policies", "Contact"].map((link) => (
                   <li key={link}>
                     <Link
                       to={`/${link.toLowerCase().replace(" ", "-")}`}
-                      className="text-background/70 hover:text-primary transition-all duration-300 text-sm hover:translate-x-1 inline-block"
+                      className="text-foreground/70 hover:text-primary transition-all duration-300 text-md hover:translate-x-1 inline-block"
                     >
                       {link}
                     </Link>
@@ -104,13 +122,13 @@ const Footer = () => {
 
             {/* Services */}
             <div>
-              <h4 className="text-base font-semibold mb-4">Services</h4>
+              <h4 className="text-lg font-semibold mb-4">Services</h4>
               <ul className="space-y-2">
                 {["Landfill Mining", "Landfill Management", "Wet Waste Management"].map((service) => (
                   <li key={service}>
                     <Link
                       to="/services"
-                      className="text-background/70 hover:text-primary transition-all duration-300 text-sm hover:translate-x-1 inline-block"
+                      className="text-foreground/70 hover:text-primary transition-all duration-300 text-md hover:translate-x-1 inline-block"
                     >
                       {service}
                     </Link>
@@ -121,27 +139,29 @@ const Footer = () => {
 
             {/* Contact Info & Newsletter */}
             <div>
-              <h4 className="text-base font-semibold mb-4">Contact Us</h4>
+              <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
               <ul className="space-y-3 mb-4">
                 <li className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-background/70 text-sm">
-                   HO : 178, Indu Nagar, Palayapalayam,Perundurai Road, Erode, Tamilnadu - 638 011.
+                  {/* <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" /> */}
+                  <span className="text-foreground/70 text-md text-justify">
+                    Head Office : 178, Indu Nagar, Palayapalayam,Perundurai Road, Erode, Tamilnadu - 638 011.
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-                  <a href="mailto:connect@zigma.in" className="text-background/70 hover:text-primary text-sm transition-colors">
+                  {/* <Mail className="w-4 h-4 text-primary flex-shrink-0" /> */}
+                  <a href="mailto:connect@zigma.in" className="text-foreground/70 hover:text-primary text-md transition-colors">
                     connect@zigma.in
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                  <a href="tel:+911234567890" className="text-background/70 hover:text-primary text-sm transition-colors">
-                    +91 123 456 7890
+                  {/* <Phone className="w-4 h-4 text-primary flex-shrink-0" /> */}
+                  <a href="tel:+911234567890" className="text-foreground/70 hover:text-primary text-md transition-colors">
+                    +91 98943 26007
                   </a>
                 </li>
               </ul>
+
+
 
               {/* Newsletter Signup */}
               {/* <div>
@@ -161,19 +181,22 @@ const Footer = () => {
                 </form>
               </div> */}
 
+
+
+
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <div className="mt-8 pt-6 border-t border-background/20 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-background/60 text-sm">
+          <div className="mt-8 pt-6 border-t border-foreground/20 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-foreground/60 text-sm">
               © {new Date().getFullYear()} Zigma Global Environ Solutions Pvt Ltd. All Rights Reserved.
             </p>
             <div className="flex gap-6">
-              <Link to="/governance-policies" className="text-background/60 hover:text-background text-sm transition-colors">
+              <Link to="/governance-policies" className="text-foreground/60 hover:text-foreground text-sm transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/governance-policies" className="text-background/60 hover:text-background text-sm transition-colors">
+              <Link to="/governance-policies" className="text-foreground/60 hover:text-foreground text-sm transition-colors">
                 Terms of Service
               </Link>
             </div>
