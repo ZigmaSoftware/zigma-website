@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dropdown } from "react-day-picker";
 
 
 /* NAV ITEMS */
@@ -50,21 +51,29 @@ const navItems = [
 
   {
     name: "Projects",
-    path: "/projects",
-    dropdown: [
-      { name: "Completed Projects", path: "/projects?tab=completed" },
-      { name: "Project Showcase", path: "/project-showcase" },
-      { name: "Ongoing Projects", path: "/projects?tab=ongoing" },
-      { name: "Upcoming Projects", path: "/vertical-scroll-slider" },
-      // { name: "Project Showcase", path: "/vertical-slider" },
-      { name: "Waste Management Showcase", path: "/waste-management-showcase" },
+    path: "/project-showcase",
+    // dropdown: [
+    //   { name: "Completed Projects", path: "/projects?tab=completed" },
+    //   { name: "Project Showcase", path: "/project-showcase" },
+    //   { name: "Ongoing Projects", path: "/projects?tab=ongoing" },
+    //   { name: "Upcoming Projects", path: "/vertical-scroll-slider" },
+    //   { name: "Project Showcase", path: "/vertical-slider" },
+    //   { name: "Waste Management Showcase", path: "/waste-management-showcase" },
       
-    ],
+    // ],
   },
 
   /* FLOW FIX */
   // { name: "Careers", path: "/careers" },
   // { name: "Media", path: "/media" },
+
+  { name: "Media", path: "/media",
+    dropdown: [
+      { name: "Awards", path: "/Awards" },
+    ]
+   },
+
+
   { name: "People At Zigma", path: "/people" },
   { name: "Contact", path: "/contact" },
 ];
@@ -140,7 +149,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-background/95 backdrop-blur border-b border-border ">
+    <header className="fixed top-0 inset-x-0 z-[80] bg-background/95 backdrop-blur border-b border-border ">
      <div className="container-main">
 
         <div className="flex items-center justify-between h-20">
@@ -164,7 +173,7 @@ const Header = () => {
             onMouseLeave={resetIndicatorToActive}
           >
             <div
-              className="pointer-events-none absolute left-0 top-4 h-[3px]   bg-emerald-500 transition-[left,width,opacity] duration-300 ease-out"
+              className="pointer-events-none absolute left-0 top-3/4 h-[3px]   bg-emerald-600 transition-[left,width,opacity] duration-700 ease-out"
               style={{
                 left: indicatorStyle.left,
                 width: indicatorStyle.width,

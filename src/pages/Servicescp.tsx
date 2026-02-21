@@ -7,35 +7,32 @@ import image4 from "@/assets/completed_project.jpg";
 export default function Servicescp() {
   const [hoveredSection, setHoveredSection] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
- 
-
-  const sections = [
+     const sections = [
     {
-      id: 'farmer',
-      title: 'Farmer-first Approach',
-      description: 'Empowering farmers with sustainable practices and innovative solutions for better yields.',
+      id: 'legacy-waste',
+      title: 'Legacy Waste Reclamation',
+      description: 'Scientific bio-mining and landfill reclamation programs that reduce dumpsite burden and recover usable land.',
       image: image1
     },
     {
-      id: 'network',
-      title: 'Network',
-      description: 'Building strong connections between farmers, distributors, and agricultural experts.',
+      id: 'resource-recovery',
+      title: 'Resource Recovery',
+      description: 'Segregation and value extraction systems that convert waste streams into circular economy materials.',
       image: image2
     },
     {
-      id: 'technical',
-      title: 'Technical Assistance',
-      description: 'Retain consistency in performance by deploying technical teams and introducing new technology to systems.',
+      id: 'technical-control',
+      title: 'Technical Control',
+      description: 'Data-led operations, process monitoring, and engineering supervision to ensure predictable project performance.',
       image: image3
     },
     {
-      id: 'guidance',
-      title: 'Guidance',
-      description: 'Guide our farmers by educating them on best aquaculture practices and new developments in pond management and sustainable farming.',
+      id: 'compliance',
+      title: 'Compliance Assurance',
+      description: 'Policy-aligned execution, statutory documentation, and auditable reporting for municipalities and industrial partners.',
       image: image4
     }
   ];
-
   const handleSectionClick = (id) => {
     setSelectedSection(id);
   };
@@ -47,7 +44,8 @@ export default function Servicescp() {
 
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden ">
-      {/* Full Screen Background Image */}
+
+
       <div className="absolute inset-0 transition-opacity duration-500">
         <img
           src={currentImage}

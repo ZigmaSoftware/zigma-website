@@ -3,12 +3,11 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import erode from "@/assets/erd-pic.webp";
 import chennai from "@/assets/chennai-pic.webp";
-import { Download, FileText, Shield, Lock, Users, CheckCircle, ArrowUpRight, BadgeCheck, ClipboardCheck, Building2 } from 'lucide-react';
 import Herobg from '@/assets/website/Zigma Night.jpg';
 
 
@@ -34,7 +33,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background ">
       <Header />
-      <main className="pt-20 ">
+      <main className="scroll-pt-24 lg:scroll-pt-28 pt-20">
 
         {/* Page Header */}
 
@@ -49,7 +48,7 @@ const Contact = () => {
           </div>
         </section> */}
 
-         <section className="relative  overflow-hidden  text-white h-[90vh] flex items-center">
+         <section className="relative overflow-hidden text-white min-h-[100svh] flex items-center scroll-mt-24 lg:scroll-mt-28">
           <div
             className=" absolute inset-0 bg-cover"
             style={{ backgroundImage: `url(${Herobg})` }}
@@ -59,7 +58,7 @@ const Contact = () => {
           <div className="absolute -top-24 -right-32 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-black/10 blur-3xl" />
 
-          <div className="relative max-w-7xl px-6 mx-auto text-center ">
+          <div className="relative container-main section-padding text-center">
             <div className="max-w-4xl">
 
               <h2 className="mt-1 text-3xl sm:text-2xl lg:text-5xl font-semibold leading-tight">
@@ -73,7 +72,7 @@ const Contact = () => {
 
         {/* Contact Section */}
         <section className="section-padding">
-          <div className="max-w-screen-xl mx-auto px-8">
+          <div className="container-main">
             <div className="grid lg:grid-cols-2 gap-16">
               {/* Contact Info */}
               <div>
@@ -81,13 +80,13 @@ const Contact = () => {
                   Get in Touch
                 </h2>
                 <div className="space-y-5">
-                  <div className="contact-card">
-                    <div className="contact-icon">
-                      <MapPin className="w-5 h-5 text-primary" />
+                  <div className="flex gap-4 p-[18px] bg-card border border-border shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(15,23,42,0.12)]">
+                    <div className="w-11 h-11 bg-gradient-to-br from-secondary to-card rounded-lg border border-border flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5 text-primary " />
                     </div>
                     <div>
-                      <p className="contact-label">Office</p>
-                      <h3 className="contact-title">Office Address</h3>
+                      <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Office</p>
+                      <h3 className="text-base font-bold text-foreground mb-1.5">Office Address</h3>
                       <p className="text-muted-foreground">
                         HO : 178, Indu Nagar, Palayapalayam, <br />
                         Perundurai Road, Erode, Tamilnadu - 638 011.
@@ -95,50 +94,37 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="contact-card">
-                    <div className="contact-icon">
+                  <div className="flex gap-4 p-[18px] bg-card border border-border shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(15,23,42,0.12)]">
+                    <div className="w-11 h-11 bg-gradient-to-br from-secondary to-card  rounded-lg border border-border flex items-center justify-center shrink-0">
+                      {/* <Mail className="w-5 h-5 text-primary border-rounded-2xl" /> */}
                       <Mail className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="contact-label">Email</p>
-                      <h3 className="contact-title">Email Us</h3>
+                      <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Email</p>
+                      <h3 className="text-base font-bold text-foreground mb-1.5">Email Us</h3>
                       <a href="mailto:careers@zigma.in" className="text-primary hover:underline">
                         careers@zigma.in
                       </a>
                     </div>
                   </div>
 
-                  <div className="contact-card">
-                    <div className="contact-icon">
+                  <div className="flex gap-4 p-[18px] bg-card border border-border shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(15,23,42,0.12)]">
+                    <div className="w-11 h-11 bg-gradient-to-br from-secondary to-card rounded-lg border border-border flex items-center justify-center shrink-0">
                       <Phone className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="contact-label">Phone</p>
-                      <h3 className="contact-title">Call Us</h3>
+                      <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Phone</p>
+                      <h3 className="text-base font-bold text-foreground mb-1.5">Call Us</h3>
                       <a href="tel:+911234567890" className="text-primary hover:underline">
                         (91) 98943 26007
                       </a>
                     </div>
                   </div>
-
-                  {/* <div className="contact-card">
-                    <div className="contact-icon">
-                      <Clock className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="contact-label">Hours</p>
-                      <h3 className="contact-title">Working Hours</h3>
-                      <p className="text-muted-foreground">
-                        Monday - Saturday: 9:00 AM - 6:00 PM<br />
-                        Sunday: Closed
-                      </p>
-                    </div>
-                  </div> */}
                 </div>
               </div>
 
               {/* Contact Form */}
-              <div className="bg-card p-8 rounded-2xl border border-border shadow-xl shadow-black/10">
+              <div className="bg-card p-8 border border-border shadow-xl shadow-black/10">
                 <h2 className="text-2xl font-bold text-foreground mb-6">
                   Send Us a Message
                 </h2>
@@ -222,13 +208,13 @@ const Contact = () => {
         </section>
 
         {/* Address Cards Section */}
-        <section className="section-padding ">
+        <section className="section-padding">
           {/* <div className=" container-main"> */}
-          <div className="container-main max-w-[1300px]">
+          <div className="container-main">
 
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Erode Card */}
-              <div className="relative rounded-2xl overflow-hidden shadow-lg">
+              <div className="relative overflow-hidden shadow-lg">
                 <img src={erode} alt="Erode Head Office" className="w-full h-96 object-cover" />
                 <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-6">
                   <h3 className="text-2xl font-bold text-white mb-2">
@@ -243,7 +229,7 @@ const Contact = () => {
               </div>
 
               {/* Chennai Card */}
-              <div className="relative rounded-2xl overflow-hidden shadow-lg">
+              <div className="relative overflow-hidden shadow-lg">
                 <img src={chennai} alt="Chennai Office" className="w-full h-96 object-cover" />
                 <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-6">
                   <h3 className="text-2xl font-bold text-white mb-2">
@@ -275,50 +261,6 @@ const Contact = () => {
         </section> */}
       </main>
       <Footer />
-
-
-
-      <style>{`
-        .contact-card {
-          display: flex;
-          gap: 16px;
-          padding: 18px;
-          border-radius: 16px;
-          background: hsl(var(--card));
-          border: 1px solid hsl(var(--border));
-          box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .contact-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 20px 42px rgba(15, 23, 42, 0.12);
-        }
-        .contact-icon {
-          width: 44px;
-          height: 44px;
-          border-radius: 12px;
-          background: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--card)) 100%);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 1px solid hsl(var(--border));
-          flex-shrink: 0;
-        }
-        .contact-label {
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          color: hsl(var(--muted-foreground));
-          margin-bottom: 4px;
-        }
-        .contact-title {
-          font-size: 16px;
-          font-weight: 700;
-          color: hsl(var(--foreground));
-          margin-bottom: 6px;
-        }
-      `}</style>
     </div>
   );
 };

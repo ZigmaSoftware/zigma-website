@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+﻿import { useEffect, useState, useRef } from "react";
 import { MapPin, Trash2, Factory, Weight, Leaf, Play,Pause } from "lucide-react";
-import video from "../../assets/website/AVPN_SUMMIT 2024.mp4";
+// import video from "../../assets/website/AVPN_SUMMIT 2024.mp4";
 
 const stats = [
   { icon: MapPin, value: 3230, suffix: "+", label: "Land Cleared", description: "Acres restored" },
@@ -152,7 +152,8 @@ const StatsSection = () => {
             onPlay={() => setIsVideoPlaying(true)}
             onPause={() => setIsVideoPlaying(false)}
           >
-            <source src={video}  type="video/mp4" />
+            {/* <source src={video}  type="video/mp4" /> */}
+            <source  type="video/mp4" />
           </video>
           <button
             type="button"
