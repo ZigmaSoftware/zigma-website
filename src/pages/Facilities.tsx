@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import ScrollToTop from "@/components/ScrollToTop"
@@ -90,10 +90,10 @@ const peopleEnvironment = [
 ===================== */
 
 function Facilities() {
-  const [selectedCard, setSelectedCard] = React.useState(null)
+  const [selectedCard, setSelectedCard] = useState<number | null>(null)
 
-  React.useEffect(() => {
-    const handleKeyDown = (event) => {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && selectedCard !== null) {
         setSelectedCard(null)
       }
@@ -103,11 +103,29 @@ function Facilities() {
   }, [selectedCard])
 
   return (
-    <section className="w-full bg-slate-50 text-slate-900">
+    <section className="min-h-screen bg-background overflow-x-hidden">
       <ScrollToTop />
       <Header />
 
-      <main className="flex flex-col gap-20 px-6 py-16">
+      <main className="scroll-pt-24 pt-24 pb-8">
+        <section className="relative min-h-[100svh] box-border flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
+          <div className="absolute inset-0 h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${faci1})` }} aria-hidden="true" />
+          <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
+          <div className="container-main relative grid items-center">
+            <div className="text-sm tracking-[0.35em] uppercase text-white/85 font-medium">
+              Facilities & Environment
+            </div>
+            <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">
+              Infrastructure Built For Performance
+            </h1>
+            <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-justify">
+              Explore our operational assets, workplace culture, and support systems designed to deliver safe, compliant,
+              and sustainable outcomes at scale.
+            </p>
+          </div>
+        </section>
+
 
         {/* INTRO
         <section className=" w-full max-w-6xl space-y-8">
@@ -128,54 +146,57 @@ function Facilities() {
 
         {/* FACILITIES GRID */}
         {/* <section className="mx-auto w-full max-w-6xl space-y-6"> */}
-        <section className="container-main bg-white">
+        <section className="section-padding bg-white">
 
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          <div className="container-main">
+            <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
               Our Facilities
             </p>
-            <h2 className="text-3xl font-semibold text-slate-900 lg:text-4xl">
+            <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
               A snapshot of our operational assets
             </h2>
-          </div>
+            <p className="mt-4 max-w-3xl text-base lg:text-lg text-slate-600 leading-relaxed text-justify">
+              Our facilities are designed for high-throughput, compliant, and safe operations while maintaining long-term sustainability outcomes.
+            </p>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {facilities.map((facility, index) => (
-              <article
-                key={index}
-                className="relative border border-slate-200 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group"
-                onClick={() => setSelectedCard(index)}
-              >
-                <img
-                  src={facility.img}
-                  alt={`Facility ${index + 1}`}
-                  className="w-full h-56 object-cover rounded-t-lg"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 rounded-lg"></div>
-                <div className="p-4">
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    {facility.caption}
-                  </p>
-                </div>
-              </article>
-            ))}
+            <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {facilities.map((facility, index) => (
+                <article
+                  key={index}
+                  className="relative overflow-hidden border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg cursor-pointer group"
+                  onClick={() => setSelectedCard(index)}
+                >
+                  <img
+                    src={facility.img}
+                    alt={`Facility ${index + 1}`}
+                    className="w-full h-56 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/15" />
+                  <div className="p-4">
+                    <p className="text-base text-slate-600 leading-relaxed text-justify">
+                      {facility.caption}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
             
         {/* PEOPLE & WORK ENVIRONMENT */}
         {/* <section className="mx-auto w-full max-w-6xl space-y-8"> */}
-        <section className="container-main bg-slate-100 py-12">
-          <div className=" space-y-10">
+        <section className="section-padding bg-slate-100">
+          <div className="container-main space-y-10">
 
             {/* TEXT BLOCK */}
-            <div className="space-y-4">
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
                 People & Workplace
               </p>
-              <h2 className="text-3xl font-semibold text-slate-900 lg:text-4xl">
+              <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
                 Built by people, operated with care
               </h2>
-              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600">
+              <p className="mt-4 max-w-3xl text-base lg:text-lg leading-relaxed text-slate-600 text-justify">
                 Beyond infrastructure, our facilities reflect a strong culture of
                 safety, accountability, and respect for people and communities.
                 We invest continuously in training, workplace standards, and
@@ -196,7 +217,7 @@ function Facilities() {
                     className="h-56 w-full object-cover"
                   />
                   <div className="p-4">
-                    <p className="text-sm text-slate-600">{item.caption}</p>
+                    <p className="text-base text-slate-600 leading-relaxed text-justify">{item.caption}</p>
                   </div>
                 </article>
               ))}
@@ -206,17 +227,18 @@ function Facilities() {
         </section>
 
         {/* SERVICES & SUPPORT */}
-        <section className=" w-full max-w-4xl">
-          <div className=" bg-white/80 p-8 shadow-sm backdrop-blur">
+        {/* <section className="section-padding">
+          <div className="container-main max-w-4xl">
+            <div className="bg-white/80 p-6 md:p-8 shadow-sm backdrop-blur">
             <div className="flex flex-col gap-4 text-slate-700">
-              <p className="text-sm font-semibold uppercase tracking-widest text-slate-500">
+              <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
                 Services & Support
               </p>
-              <h2 className="text-2xl font-semibold text-slate-900">
+              <h2 className="mt-1 text-3xl md:text-4xl font-bold text-foreground leading-tight">
                 End-to-end operational support
               </h2>
 
-              <ul className="mt-4 space-y-3 text-sm leading-relaxed">
+              <ul className="mt-4 space-y-3 text-base leading-relaxed">
                 {services.map((service) => (
                   <li
                     key={service}
@@ -228,16 +250,17 @@ function Facilities() {
                 ))}
               </ul>
 
-              <p className="mt-6 text-xs uppercase tracking-widest text-slate-500">
+              <p className="mt-6 text-sm uppercase tracking-[0.3em] text-muted-foreground">
                 Continuous improvement and transparent reporting are integral to
                 every engagement.
               </p>
             </div>
           </div>
-        </section>
+          </div>
+        </section> */}
 
         {/* GOVERNANCE */}
-        <section className="w-full max-w-8xl">
+        {/* <section className="w-full max-w-8xl">
           <div className="rounded-2xl border border-slate-200 bg-slate-900 p-8 text-white shadow-sm">
             <div className="space-y-3">
               <p className="text-sm font-semibold uppercase tracking-widest text-slate-300">
@@ -267,13 +290,13 @@ function Facilities() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
       </main>
 
       {selectedCard !== null && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300"
+          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-[120] transition-opacity duration-300"
           onClick={() => setSelectedCard(null)}
           role="dialog"
           aria-modal="true"
@@ -292,13 +315,13 @@ function Facilities() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <h2 id="modal-title" className="text-xl font-semibold text-slate-900 mb-4">Facility Details</h2>
+            <h2 id="modal-title" className="text-2xl font-bold text-foreground mb-4">Facility Details</h2>
             <img
               src={facilities[selectedCard].img}
               alt={`Facility ${selectedCard + 1}`}
               className="w-full h-64 object-cover rounded-lg mb-4"
             />
-            <p className="text-base text-slate-700 leading-relaxed">
+            <p className="text-base lg:text-lg text-slate-700 leading-relaxed text-justify">
               {facilities[selectedCard].caption}
             </p>
           </div>
@@ -311,6 +334,4 @@ function Facilities() {
 }
 
 export default Facilities
-
-
 

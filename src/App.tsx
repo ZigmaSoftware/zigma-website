@@ -26,6 +26,7 @@ import WasteManagementShowcase from "./pages/WasteManagementShowcase";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollAnimator from "@/components/ScrollAnimator";
 import Servicescp from "./pages/Servicescp";
+import SmoothScrollProvider from "@/components/animation/SmoothScrollProvider";
 
 
 const queryClient = new QueryClient();
@@ -35,35 +36,37 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <ScrollAnimator />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/facilities" element={<Facilities />} />
-          <Route path="/awards" element={<Awards/>} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:id" element={<ProjectDetail />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/media" element={<Media />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/people" element={<People />} />
-          <Route path="/project-showcase" element={<ProjectShowcase />} />
-          <Route path="/stacked-cards" element={<StackedCards />} />
+      <SmoothScrollProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <ScrollAnimator />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/facilities" element={<Facilities />} />
+            <Route path="/awards" element={<Awards />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/media" element={<Media />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/people" element={<People />} />
+            <Route path="/project-showcase" element={<ProjectShowcase />} />
+            <Route path="/stacked-cards" element={<StackedCards />} />
 
-          <Route path="/vertical-slider" element={<VerticalSlider />} />
-          <Route path="/waste-management-showcase" element={<WasteManagementShowcase />} />
-          <Route path="/governance-policies" element={<GovernancePolicies />} />
-          <Route path="/policies" element={<Policies />} />
-          <Route path="/servicescp" element={<Servicescp />} />
+            <Route path="/vertical-slider" element={<VerticalSlider />} />
+            <Route path="/waste-management-showcase" element={<WasteManagementShowcase />} />
+            <Route path="/governance-policies" element={<GovernancePolicies />} />
+            <Route path="/policies" element={<Policies />} />
+            <Route path="/servicescp" element={<Servicescp />} />
 
-          <Route path="/vertical-scroll-slider" element={<VerticalScrollSlider />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/vertical-scroll-slider" element={<VerticalScrollSlider />} />
+          </Routes>
+        </BrowserRouter>
+      </SmoothScrollProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

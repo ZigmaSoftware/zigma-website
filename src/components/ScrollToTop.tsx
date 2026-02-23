@@ -17,6 +17,11 @@ const ScrollToTop = () => {
   }, []);
 
   useEffect(() => {
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { immediate: true });
+      return;
+    }
+
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [pathname]);
 

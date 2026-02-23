@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ChevronUp } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronRight, X } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import P1b from "@/assets/Before - After/1 kumbakonam b.jpg";
@@ -34,16 +34,8 @@ import P15b from "@/assets/Before - After/Tambaram_B.jpg";
 import P15a from "@/assets/Before - After/Tambaram_A.jpg";
 
 const ProjectShowcase = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [expandedSlideId, setExpandedSlideId] = useState<number | null>(null);
-  const [splitPct, setSplitPct] = useState(50);
-  const containerRef = useRef(null);
-  const splitPanelRef = useRef<HTMLDivElement | null>(null);
-  const touchStartY = useRef(0);
-  const isScrollingRef = useRef(false);
-  const scrollLockTimeout = useRef(null);
-  const isDraggingSplitRef = useRef(false);
-  
+
   const slides = [
     { id: 1, title: "Kumbakonam", subtitle: "Dumpsite Reclamation Project", highlight: "", description: "Kumbakonam dumpsite reclamation project.", details: { project: "Quantity: 2,31,782 cubic meter. Area reclaimed: 12 acres.", focus: "Project period: December 2015 - March 2018. Quantity of RDF disposed (MT): 22,586.", outcome: "CO2 mitigated by processing the legacy waste (MT): 1,16,280." }, metrics: ["CO2 mitigated per square meter (MT): 2.39", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 3,794", "Carbon sequestered by 1.43 lakh acres of US forests in one year", "GHG emissions avoided by 33 wind turbines running for a year", "Carbon emissions from 26,720 gasoline powered-passenger vehicles driven for one year"], beforeImage: P1b, afterImage: P1a },
     { id: 2, title: "Sembakkam Lake", subtitle: "Dumpsite Reclamation Project", highlight: "", description: "Sembakkam Lake dumpsite reclamation project.", details: { project: "Quantity: 38,026 cubic meter. Area reclaimed: 4 acres.", focus: "Project period: August 2017 - August 2018. Quantity of RDF disposed (MT): 7,316.", outcome: "CO2 mitigated by processing the legacy waste (MT): 15,823." }, metrics: ["CO2 mitigated per square meter (MT): 0.98", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 1,229", "Carbon sequestered by 20,335 acres of US forests in one year", "GHO emissions avoided by 5 wind turbines running for a year", "Carbon emissions from 3,795 gasoline powered-passenger vehicles driven for one year"], beforeImage: P2b, afterImage: P2a },
@@ -62,66 +54,6 @@ const ProjectShowcase = () => {
     { id: 15, title: "Tambaram- Kannadapalayam", subtitle: "Dumpsite Reclamation Project", highlight: "", description: "Tambaram- Kannadapalayam dumpsite reclamation project.", details: { project: "Quantity : 1,50,494 cubic meter. Area reclaimed : 5 acres.", focus: "Project period : August 2019 - June 2022. Quantity of RDF disposed (MT) : 24,841.", outcome: "CO2 mitigated by processing the legacy waste (MT): 1,18,362." }, metrics: ["CO2 mitigated per square meter (MT): 5.85", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 4,173", "Carbon sequestered by 1.46 lakh acres of US forests in one year", "GHG emissions avoided by 34 wind turbines running for a year", "Carbon emissions from 27,268 gasoline powered-passenger vehicles driven for one year"], beforeImage: P15b, afterImage: P15a },
   ];
 
-  const releaseScrollLock = () => {
-    isScrollingRef.current = false;
-  };
-
-  const lockScroll = () => {
-    isScrollingRef.current = true;
-    if (scrollLockTimeout.current) {
-      clearTimeout(scrollLockTimeout.current);
-    }
-    scrollLockTimeout.current = setTimeout(releaseScrollLock, 1800);
-  };
-
-  const handleWheel = (e) => {
-    e.preventDefault();
-    if (isScrollingRef.current) return;
-
-    const delta = e.deltaY;
-    if (delta > 0 && currentSlide < slides.length - 1) {
-      lockScroll();
-      setCurrentSlide(prev => prev + 1);
-    } else if (delta < 0 && currentSlide > 0) {
-      lockScroll();
-      setCurrentSlide(prev => prev - 1);
-    }
-  };
-
-  const handleTouchStart = (e) => {
-    touchStartY.current = e.touches[0].clientY;
-  };
-
-  const handleTouchEnd = (e) => {
-    if (isScrollingRef.current) return;
-    
-    const touchEndY = e.changedTouches[0].clientY;
-    const diff = touchStartY.current - touchEndY;
-
-    if (Math.abs(diff) > 50) {
-      if (diff > 0 && currentSlide < slides.length - 1) {
-        // Swipe up
-        lockScroll();
-        setCurrentSlide(prev => prev + 1);
-      } else if (diff < 0 && currentSlide > 0) {
-        // Swipe down
-        lockScroll();
-        setCurrentSlide(prev => prev - 1);
-      }
-    }
-  };
-
-  const scrollToSlide = (index) => {
-    if (!isScrollingRef.current && index !== currentSlide) {
-      lockScroll();
-      setCurrentSlide(index);
-    }
-  };
-
-  const scrollToTop = () => {
-    setCurrentSlide(0);
-  };
-
   const toggleDetails = (slideId: number) => {
     setExpandedSlideId(prev => (prev === slideId ? null : slideId));
   };
@@ -130,273 +62,155 @@ const ProjectShowcase = () => {
     setExpandedSlideId(null);
   };
 
-  const updateSplitFromClientX = (clientX: number) => {
-    if (!splitPanelRef.current) return;
-    const rect = splitPanelRef.current.getBoundingClientRect();
-    const clamped = Math.min(Math.max(clientX - rect.left, 0), rect.width);
-    setSplitPct((clamped / rect.width) * 100);
-  };
-
-  const handleSplitPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    isDraggingSplitRef.current = true;
-    (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
-    updateSplitFromClientX(e.clientX);
-  };
-
   useEffect(() => {
-    const handlePointerMove = (e: PointerEvent) => {
-      if (!isDraggingSplitRef.current) return;
-      updateSplitFromClientX(e.clientX);
-    };
-    const handlePointerUp = () => {
-      isDraggingSplitRef.current = false;
-    };
-    window.addEventListener('pointermove', handlePointerMove);
-    window.addEventListener('pointerup', handlePointerUp);
-    return () => {
-      window.removeEventListener('pointermove', handlePointerMove);
-      window.removeEventListener('pointerup', handlePointerUp);
-    };
-  }, []);
-  useEffect(() => {
-    return () => {
-      if (scrollLockTimeout.current) {
-        clearTimeout(scrollLockTimeout.current);
+    if (expandedSlideId === null) return;
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeDetails();
       }
     };
-  }, []);
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [expandedSlideId]);
 
-  const goNext = () => {
-    if (currentSlide < slides.length - 1) {
-      lockScroll();
-      setCurrentSlide(prev => prev + 1);
-    }
-  };
-
-  const goPrev = () => {
-    if (currentSlide > 0) {
-      lockScroll();
-      setCurrentSlide(prev => prev - 1);
-    }
-  };
+  useEffect(() => {
+    document.body.style.overflow = expandedSlideId !== null ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [expandedSlideId]);
 
   return (
-    <div className="corporate-page relative w-full h-screen overflow-hidden bg-slate-50 pt-20">
+    <div className="corporate-page relative min-h-screen bg-slate-50">
       <Header />
-
-      <div
-        ref={containerRef}
-        className="relative w-full h-full overflow-hidden"
-        onWheel={handleWheel}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        {/* Slides Container */}
-        <div
-          className="relative w-full h-full transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-          style={{ transform: `translateY(-${currentSlide * 100}%)` }}
-        >
-        {slides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className="absolute top-0 left-0 w-full h-full flex items-center"
-            style={{
-              top: `${index * 100}%`,
-              opacity: Math.abs(currentSlide - index) <= 1 ? 1 : 0,
-              transition: 'opacity 0.5s ease-in-out'
-            }}
-          >
-            <div className="w-full h-full flex items-center justify-center px-5 lg:px-12 py-6 bg-white">
-              <div className="showcase-frame w-full max-w-7xl h-full">
-                <div
-                  className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center h-full"
-                  style={{ animation: currentSlide === index ? 'fadeInUp 0.8s ease-out' : 'none' }}
-                >
-                  {/* Split Before/After Panel */}
-                  <div
-                    ref={currentSlide === index ? splitPanelRef : null}
-                    className="relative h-[48vh] lg:h-[70vh] rounded-2xl overflow-hidden split-panel border border-slate-200"
-                    onPointerDown={handleSplitPointerDown}
-                  >
-                    <div className="absolute inset-0 flex">
-                      <div className="relative h-full" style={{ width: `${splitPct}%` }}>
-                        <img src={slide.beforeImage} alt="Before" className="absolute inset-0 w-full h-full object-cover" />
-                        <span className="badge before-badge">BEFORE</span>
-                      </div>
-                      <div className="relative h-full" style={{ width: `${100 - splitPct}%` }}>
-                        <img src={slide.afterImage} alt="After" className="absolute inset-0 w-full h-full object-cover" />
-                        <span className="badge after-badge">AFTER</span>
-                      </div>
-                    </div>
-                    <div className="split-divider" style={{ left: `${splitPct}%` }} />
-                    <div
-                      className="split-handle"
-                      style={{ left: `${splitPct}%` }}
-                      aria-hidden="true"
-                    >
-                      <span className="split-chevron">&lt; &gt;</span>
-                    </div>
-                    <div className="absolute bottom-4 left-4 text-xs font-semibold tracking-widest text-slate-600 bg-white/80 backdrop-blur px-3 py-1 rounded-full">
-                      {String(index + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
-                    </div>
-                  </div>  
-
-                  {/* Content Panel */}
-                  <div className="lg:pr-6" style={{ animation: currentSlide === index ? 'fadeInUp 1s ease-out 0.2s both' : 'none' }}>
-                    <div className="flex items-center gap-3 text-emerald-700 mb-4">
-                  
-                      <p className="text-xs tracking-[0.2em] font-semibold uppercase">{slide.subtitle}</p>
-                    </div>
-
-                    <h2 className="title-serif text-3xl sm:text-4xl lg:text-5xl text-slate-900 mb-3">
-                      {slide.title}
-                    </h2>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                      <div className="info-card">
-                        <p className="info-label">Scope</p>
-                        <p className="info-value">{slide.details.project}</p>
-                      </div>
-                      <div className="info-card">
-                        <p className="info-label">Outcome</p>
-                        <p className="info-value">{slide.details.outcome}</p>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => toggleDetails(slide.id)}
-                      className="cta-button"
-                    >
-                      {expandedSlideId === slide.id ? "Close" : "View Full Details"}
-                      <span className="ml-2">-&gt;</span>
-                    </button>
+      <main className="pt-24 pb-8">
+        <section className="container-main space-y-6">
+          {slides.map((slide, index) => (
+            <article key={slide.id} className="bg-white border border-slate-200 shadow-sm p-4 md:p-5 space-y-2 md:space-y-3 flex flex-col overflow-hidden">
+              <div className="relative h-[34vh] sm:h-[36vh] lg:h-[40vh] overflow-hidden border border-slate-200">
+                <div className="absolute inset-0 grid grid-cols-2">
+                  <div className="relative h-full">
+                    <img src={slide.beforeImage} alt={`${slide.title} before`} className="absolute inset-0 w-full h-full object-cover" />
+                    <span className="badge before-badge">BEFORE</span>
+                  </div>
+                  <div className="relative h-full">
+                    <img src={slide.afterImage} alt={`${slide.title} after`} className="absolute inset-0 w-full h-full object-cover" />
+                    <span className="badge after-badge">AFTER</span>
                   </div>
                 </div>
+                <div className="absolute bottom-4 left-4 text-xs font-semibold tracking-widest text-slate-600 bg-white/80 backdrop-blur px-3 py-1 rounded-full">
+                  {String(index + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
-        </div>
-      </div>
 
-      {/* Slide Indicators */}
-      {/* <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
-        {slides.map((slide, index) => (
-          <button
-            key={slide.id}
-            onClick={() => scrollToSlide(index)}
-            className={`w-2.5 h-2.5 rounded-full border transition-all duration-300 ${
-              currentSlide === index 
-                ? 'bg-emerald-600 border-emerald-600 shadow-[0_0_0_4px_rgba(16,185,129,0.12)]' 
-                : 'bg-slate-200 border-slate-300 hover:border-slate-400'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div> */}
+              <div className="lg:pr-6 flex flex-col">
+                <div className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
+                  {slide.subtitle}
+                </div>
+                <h2 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground">
+                  {slide.title}
+                </h2>
 
-      {/* Floating Action Buttons */}
-      <div className="fixed   right-6 top-1 translate-y-28 flex flex-col gap-3 z-50">
-        <button
-          onClick={goPrev}
-          className="nav-square"
-          aria-label="Previous slide"
-        >
-          <ChevronUp className="w-5 h-5" />
-        </button>
-        <button
-          onClick={goNext}
-          className="nav-square"
-          aria-label="Next slide"
-        >
-          <ChevronUp className="w-5 h-5 rotate-180" />
-        </button>
-      </div>
+                <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                  <div className="info-card">
+                    <p className="info-label">Scope</p>
+                    <p className="info-value">{slide.details.project}</p>
+                  </div>
+                  <div className="info-card">
+                    <p className="info-label">Outcome</p>
+                    <p className="info-value">{slide.details.outcome}</p>
+                  </div>
+                </div>
 
-      <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
-        {/* Call Button */}
-        {/* <button
-          className="bg-emerald-600 hover:bg-emerald-700 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 group"
-          aria-label="Call us"
-        >
-          <Phone className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
-        </button> */}
-
-        {/* Scroll to Top Button */}
-        <button
-          onClick={scrollToTop}
-          className={`bg-slate-900 hover:bg-slate-800 text-white p-4 rounded-full shadow-xl transition-all duration-300 hover:scale-105 ${
-            currentSlide > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
-          }`}
-          aria-label="Scroll to top"
-        >
-          <ChevronUp className="w-6 h-6" />
-        </button>
-      </div>
+                <button
+                  type="button"
+                  onClick={() => toggleDetails(slide.id)}
+                  className="mt-1 text-right w-fit self-start group inline-flex items-center gap-2 rounded-md bg-primary px-4 py-3 text-[0.95rem] font-bold leading-none text-primary-foreground shadow-[0_12px_30px_hsl(var(--primary)/0.25)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_hsl(var(--primary)/0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  aria-expanded={expandedSlideId === slide.id}
+                >
+                  <span>{expandedSlideId === slide.id ? "Close Details" : "View Details"}</span>
+                  {expandedSlideId === slide.id ? (
+                    <X className="w-4 h-4" />
+                  ) : (
+                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  )}
+                </button>
+              </div>
+            </article>
+          ))}
+        </section>
+      </main>
 
       {/* Details Modal */}
       {expandedSlideId !== null && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center px-4">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center px-4 py-6 sm:py-8">
           <div
             className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
             onClick={closeDetails}
           />
-          <div className="relative w-full max-w-4xl bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden">
+          <div
+            role="dialog"
+            aria-modal="true"
+            className="relative w-full max-w-5xl max-h-[90vh] rounded-2xl border border-slate-200 bg-white shadow-2xl overflow-hidden"
+          >
             {(() => {
               const active = slides.find(s => s.id === expandedSlideId);
               if (!active) return null;
               return (
-                <div className="p-6 lg:p-8 bg-white">
-                  <div className="flex items-start justify-between gap-4 mb-4">
+                <div className="bg-white">
+                  <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-slate-200 bg-white/95 px-6 pt-6 pb-4 backdrop-blur lg:px-8">
                     <div>
-                      <h3 className="text-2xl font-bold text-slate-900">{active.title}</h3>
-                      <p className="text-emerald-600 font-semibold">{active.subtitle}</p>
+                      <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">{active.subtitle}</p>
+                      <h3 className="mt-3 text-2xl md:text-3xl font-bold leading-tight text-foreground">{active.title}</h3>
                     </div>
                     <button
+                      type="button"
                       onClick={closeDetails}
-                      className="text-slate-500 hover:text-slate-800 transition-colors"
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-800"
                       aria-label="Close details"
                     >
-                      ✕
+                      <X className="w-5 h-5" />
                     </button>
                   </div>
 
-                  <p className="text-slate-700 mb-6">{active.description}</p>
+                  <div className="max-h-[calc(90vh-96px)] overflow-y-auto px-6 py-5 lg:px-8">
+                    <p className="mb-6 text-slate-700 leading-relaxed">{active.description}</p>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-700">
-                    <div>
-                      <p className="text-slate-500 mb-1">Project</p>
-                      <p className="font-medium text-slate-800">{active.details.project}</p>
+                    <div className="grid grid-cols-1 gap-4 text-sm text-slate-700 md:grid-cols-3">
+                      <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                        <p className="mb-1 text-slate-500">Project</p>
+                        <p className="font-medium text-slate-800">{active.details.project}</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                        <p className="mb-1 text-slate-500">Focus</p>
+                        <p className="font-medium text-slate-800">{active.details.focus}</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                        <p className="mb-1 text-slate-500">Outcome</p>
+                        <p className="font-medium text-slate-800">{active.details.outcome}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-slate-500 mb-1">Focus</p>
-                      <p className="font-medium text-slate-800">{active.details.focus}</p>
-                    </div>
-                    <div>
-                      <p className="text-slate-500 mb-1">Outcome</p>
-                      <p className="font-medium text-slate-800">{active.details.outcome}</p>
-                    </div>
+
+                    {active.metrics && active.metrics.length > 0 && (
+                      <div className="mt-6 border-t border-slate-200 pt-5">
+                        <p className="mb-3 text-sm text-slate-500">Key Metrics</p>
+                        <ul className="grid grid-cols-1 gap-2 text-sm text-slate-700 md:grid-cols-2">
+                          {active.metrics.map((item, idx) => (
+                            <li key={idx} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2">
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
-
-                  {active.metrics && active.metrics.length > 0 && (
-                    <div className="mt-5 pt-5 border-t border-slate-200">
-                      <p className="text-slate-500 text-sm mb-3">Key Metrics</p>
-                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-700">
-                        {active.metrics.map((item, idx) => (
-                          <li key={idx} className="bg-slate-50 border border-slate-200 rounded-md px-3 py-2">
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                 </div>
               );
             })()}
           </div>
         </div>
       )}
-
+        <Footer/>
       {/* Shared showcase styles are in style.css */}
     </div>
   );

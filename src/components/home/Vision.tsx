@@ -131,19 +131,6 @@ const Vision = () => {
             </div>
           </div>
 
-          {/* Right Column: Image */}
-          {/* <div className="order-1 lg:order-2 relative">
-            <div className="relative  overflow-hidden aspect-[4/5] lg:aspect-square">
-              <img
-                src={leaderImg}
-                alt="image error"
-                className="w-full h-full object-cover"
-              />
-
-              <div className="absolute inset-0  pointer-events-none" />
-            </div>
-          </div> */}
-
         </div>
       </div>
     </section>

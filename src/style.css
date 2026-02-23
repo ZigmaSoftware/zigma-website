@@ -594,27 +594,6 @@
   line-height: 1.4;
 }
 
-.cta-button {
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  font-weight: 700;
-  padding: 14px 24px;
-  border-radius: var(--radius-md);
-  display: inline-flex;
-  align-items: center;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 12px 30px hsl(var(--primary) / 0.25);
-  transition: transform var(--motion-duration-fast) var(--motion-ease-standard),
-    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
-    background var(--motion-duration-fast) var(--motion-ease-standard);
-}
-
-.cta-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 14px 34px hsl(var(--primary) / 0.3);
-}
-
 .nav-square {
   width: 52px;
   height: 52px;

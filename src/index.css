@@ -140,7 +140,7 @@
 
   html {
     font-family: var(--font-ui);
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
 
   * {
@@ -186,6 +186,15 @@
   body::-webkit-scrollbar {
     display: none;
   }
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 @layer components {

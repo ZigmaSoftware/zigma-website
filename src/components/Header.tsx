@@ -69,6 +69,7 @@ const navItems = [
 
   { name: "Media", path: "/media",
     dropdown: [
+      { name: "News", path: "/Media" },
       { name: "Awards", path: "/Awards" },
     ]
    },

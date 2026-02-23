@@ -9,6 +9,7 @@ import product2 from "@/assets/website/stone.jpg";
 import product3 from "@/assets/website/soil.jpg";
 import product4 from "@/assets/website/glass.jpg";
 import product5 from "@/assets/website/Ferrous.jpg";
+import bg1 from "@/assets/background-1.png"; 
 
 const products = [
   {
@@ -97,45 +98,53 @@ const Products = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-20">
+      <main className="">
         {/* Page Header */}
-        <section className="py-16 relative overflow-hidden bg-white">
-          <div className="container-main relative grid lg:grid-cols-2 gap-10 items-center">
-            <div className="text-left">
-              <span className="inline-block px-3 py-1.5 bg-slate-100 text-slate-700 rounded-full text-xs font-semibold mb-5">
+        <section className="relative min-h-[100vh] flex items-center overflow-hidden">
+          <div
+            className="absolute inset-0 h-full w-full bg-cover bg-center"
+            style={{ backgroundImage: `url(${product1})` }}
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/35" aria-hidden="true" />
+
+          <div className="container-main relative grid lg:grid-cols-2 gap-10 items-center pt-28">
+            <div className="text-left ">
+              <span className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium  block">
                 Our Products
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4">
+              <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">
                 Recovered Resources
               </h1>
-              <p className="text-slate-600 max-w-2xl text-lg">
+              <p className="mt-6 text-lg text-white/90 leading-relaxed ">
                 Transforming waste into valuable products. Our recovered materials support sustainable construction and agriculture.
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-3 gap-6">
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 text-center">
+            {/* <div className="grid sm:grid-cols-3 gap-6">
+              <div className="rounded-2xl border border-white/30 bg-white/95 p-5 text-center backdrop-blur-sm">
                 <div className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
                   <Recycle className="w-7 h-7 text-slate-700" />
                 </div>
                 <h3 className="text-base font-bold text-slate-900 mb-2">100% Recycled</h3>
                 <p className="text-slate-600 text-sm">All products recovered from landfill waste</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 text-center">
+              <div className="rounded-2xl border border-white/30 bg-white/95 p-5 text-center backdrop-blur-sm">
                 <div className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-7 h-7 text-slate-700" />
                 </div>
                 <h3 className="text-base font-bold text-slate-900 mb-2">Quality Certified</h3>
                 <p className="text-slate-600 text-sm">Meets industry standards and specifications</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 text-center">
+              <div className="rounded-2xl border border-white/30 bg-white/95 p-5 text-center backdrop-blur-sm">
                 <div className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
                   <Leaf className="w-7 h-7 text-slate-700" />
                 </div>
                 <h3 className="text-base font-bold text-slate-900 mb-2">Eco-Friendly</h3>
                 <p className="text-slate-600 text-sm">Supporting circular economy principles</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
 
@@ -152,7 +161,7 @@ const Products = () => {
                 >
                   {/* Image */}
                   <div className={`relative group ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                    <div className={`absolute inset-0 bg-gradient-to-br ${product.color} rounded-3xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500`} />
+                    {/* <div className={`absolute inset-0 bg-gradient-to-br ${product.color} rounded-3xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500`} /> */}
                     <div className="relative overflow-hidden rounded-3xl">
                       <img 
                         src={product.image} 
@@ -164,14 +173,13 @@ const Products = () => {
 
                   {/* Content */}
                   <div className={index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}>
-                    <span className="text-sm font-semibold text-primary uppercase tracking-wider">
-                      Product {String(product.id).padStart(2, '0')}
+                    <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
+                      {product.tagline}
                     </span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-2">
+                    <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
                       {product.name}
                     </h2>
-                    <p className="text-lg text-primary font-medium mb-4">{product.tagline}</p>
-                    <p className="text-muted-foreground leading-relaxed mb-6">
+                    <p className="mt-4 text-base lg:text-lg text-muted-foreground leading-relaxed mb-6">
                       {product.description}
                     </p>
 
@@ -214,12 +222,21 @@ const Products = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="section-dark-bg py-20">
-          <div className="container-main text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
+        {/* <section
+          className="section-padding py-20 relative overflow-hidden bg-cover bg-center"
+          style={{ backgroundImage: `url(${bg1})` }}
+        >
+          <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
+
+          <div className="container-main relative z-10 text-center">
+            <span className="text-sm uppercase tracking-[0.3em] text-primary-foreground/85">
+              Let Us Deliver Impact
+            </span>
+            <h2 className="mt-3 text-3xl md:text-4xl font-bold leading-tight text-primary-foreground">
               Need Bulk Orders?
             </h2>
-            <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8">
+            <p className="mt-6 text-base lg:text-lg text-primary-foreground/90 leading-relaxed max-w-xl mx-auto mb-8">
               We supply recovered materials in bulk quantities for construction and industrial projects. Get competitive pricing for your requirements.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -231,7 +248,7 @@ const Products = () => {
               </Button>
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
       <Footer />
     </div>
@@ -239,5 +256,3 @@ const Products = () => {
 };
 
 export default Products;
-
-

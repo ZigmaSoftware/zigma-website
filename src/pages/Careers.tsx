@@ -666,7 +666,7 @@ const Careers = () => {
                 </div>
 
 
-            <div className="mt-6 space-y-6">
+            <div className="mt-6 space-y-6 cont">
               <div className="border-b border-border/80">
                 <div className="flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {departments.map((dept) => {
@@ -713,7 +713,7 @@ const Careers = () => {
                       <p className="text-muted-foreground text-sm leading-relaxed">{job.description}</p>
                       <Button
                         variant="outline"
-                        className="mt-auto w-full h-9 rounded-md border-primary/40 bg-transparent text-primary hover:bg-primary/10"
+                        className="mt-auto w-full h-9 rounded-md border-primary/40 bg-transparent text-primary hover:bg-primary/100"
                         onClick={() => openApplicationForm(job.id)}
                       >
                         <Send className="mr-2 h-4 w-4" /> View Openings
@@ -745,49 +745,49 @@ const Careers = () => {
                   <h3 className="text-lg font-bold text-foreground leading-tight">
                     {selectedJob.title}
                   </h3>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-primary">
+                  <p className="mt-1 text-sm font-semibold uppercase tracking-wider text-primary">
                     {selectedJob.department}
                   </p>
 
                   <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-background rounded-full text-[11px] font-medium text-muted-foreground border border-border">
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-background rounded-full text-sm font-medium text-muted-foreground border border-border">
                       <MapPin className="w-3.5 h-3.5" /> {selectedJob.location}
                     </span>
-                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-background rounded-full text-[11px] font-medium text-muted-foreground border border-border">
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-background rounded-full text-sm font-medium text-muted-foreground border border-border">
                       <Clock className="w-3.5 h-3.5" /> {selectedJob.type}
                     </span>
-                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary/10 rounded-full text-[11px] font-medium text-primary border border-primary/20">
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary/10 rounded-full text-sm font-medium text-primary border border-primary/20">
                       <Briefcase className="w-3.5 h-3.5" /> {selectedJob.experience}
                     </span>
                   </div>
 
                   {selectedJob.Qualifications && (
                     <div className="mt-5">
-                      <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+                      <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-2">
                         Qualifications
                       </p>
                       {Array.isArray(selectedJob.Qualifications) ? (
                         <ul className="space-y-1.5">
                           {selectedJob.Qualifications.map((item, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                            <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
                               <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary/70" />
                               <span>{item}</span>
                             </li>
                           ))}
                         </ul>
                       ) : (
-                        <p className="text-xs text-muted-foreground">{selectedJob.Qualifications}</p>
+                        <p className="text-sm text-muted-foreground">{selectedJob.Qualifications}</p>
                       )}
                     </div>
                   )}
 
                   <div className="mt-5">
-                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+                    <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-2">
                       Responsibilities
                     </p>
                     <ul className="space-y-1.5">
                       {selectedJob.responsibilities.slice(0, 4).map((resp, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                        <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
                           <span className="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-primary/10 text-primary">
                             <Check className="h-3 w-3" />
                           </span>
@@ -828,7 +828,7 @@ const Careers = () => {
                         name="phone"
                         value={applicationForm.phone}
                         onChange={handleApplicationFormChange}
-                        placeholder="+91 98765 43210"
+                        placeholder="Enter your phone number"
                         required
                       />
                     </div>
@@ -842,7 +842,7 @@ const Careers = () => {
                       name="email"
                       value={applicationForm.email}
                       onChange={handleApplicationFormChange}
-                      placeholder="name@example.com"
+                      placeholder="Enter your email"
                       required
                     />
                   </div>
@@ -866,14 +866,14 @@ const Careers = () => {
                         className="absolute inset-0 cursor-pointer opacity-0"
                         onChange={handleResumeUpload}
                       />
-                      <span className="inline-flex items-center gap-1 text-primary text-xs font-medium">
+                      <span className="inline-flex items-center gap-1 text-primary text-sm font-medium">
                         <Upload className="h-4 w-4" />
                         Drag & Drop Resume
                       </span>
-                      <span className="mt-1.5 px-2 text-[11px] text-muted-foreground">
+                      <span className="mt-1.5 px-2 text-sm text-muted-foreground">
                         {resumeFile ? resumeFile.name : "or click to browse file"}
                       </span>
-                      <span className="mt-1 text-[10px] text-muted-foreground/80">
+                      <span className="mt-1 text-sm text-muted-foreground/80">
                         PDF, DOC, DOCX
                       </span>
                     </div>
@@ -910,7 +910,7 @@ const Careers = () => {
 
 
         {/* CTA Section */}
-        <section className="section-padding section-dark-bg relative overflow-hidden">
+        {/* <section className="section-padding section-dark-bg relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.2),transparent_60%)]" />
           <div className="container-main text-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
@@ -924,7 +924,7 @@ const Careers = () => {
               <Send className="mr-2 h-5 w-5" /> Submit Your Resume
             </Button>
           </div>
-        </section>
+        </section> */}
       </main>
       <Footer />
     </div>

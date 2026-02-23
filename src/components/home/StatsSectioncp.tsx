@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState, useRef } from "react";
 import { MapPin, Trash2, Factory, Weight, Leaf, Play,Pause } from "lucide-react";
 // import video from "../../assets/website/AVPN_SUMMIT 2024.mp4";
+import bgstat from "../../assets/background-1.png";
 
 const stats = [
   { icon: MapPin, value: 3230, suffix: "+", label: "Land Cleared", description: "Acres restored" },
@@ -52,17 +53,23 @@ const StatsSection = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden">
+    <section ref={sectionRef} className="relative isolate overflow-hidden">
       
-      {/*  Light Gray Background Top ? 60% */}
-  <div className="absolute inset-0 -z-10 h-[70%] bg-[url('https://xpeedstudio.com/wp/medizco/assets/images/backgrounds/background-1.png')] bg-cover bg-center bg-no-repeat" />
+      {/* Top background image (70% section height) */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none bg-cover bg-top bg-no-repeat"
+        style={{
+          backgroundImage: `url(${bgstat})`,
+          clipPath: "inset(0 0 30% 0)",
+        }}
+      />
 
       {/* Subtle Theme Glow */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/60  blur-3xl" />
       </div>
 
-      <div className="container-main relative z-10 py-16 md:py-10 px-4">
+      <div className="container-main relative z-10 py-16 md:py-10">
 
         {/* Header */}
        
@@ -96,7 +103,7 @@ const StatsSection = () => {
        
 
         {/* Stats Grid */}
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-3 mb-2 max-w-">
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-3 mb-2">
           {stats.map((stat, index) => (
             <div
               key={stat.label}
@@ -113,8 +120,8 @@ const StatsSection = () => {
                 }`}
                 style={{ transitionDelay: isIntroFlipping ? `${index * 120}ms` : "0ms" }}
               >
-                <div className="absolute inset-0  p-6 [backface-visibility:hidden]">
-                  <div className="text-center">
+                <div className="absolute inset-0 rounded-lg [backface-visibility:hidden] bg-primary/5 border border-primary/20">
+                  <div className="h-full flex flex-col items-center justify-center text-center">
                     <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-1">
                       {isVisible ? <CountUp end={stat.value} /> : "0"}
                       <span className="text-xl md:text-2xl text-primary">
@@ -127,11 +134,12 @@ const StatsSection = () => {
                   </div>
                 </div>
 
-                <div className="absolute inset-0 rounded-lg p-6 [transform:rotateY(180deg)] [backface-visibility:hidden] bg-primary/5 border border-primary/20">
-                  <div className="h-full flex flex-col items-center justify-center text-center gap-3">
+                <div className="absolute inset-0 rounded-lg  [transform:rotateY(180deg)] [backface-visibility:hidden] bg-primary/5 border border-primary/20">
+                  <div className="h-full flex flex-col items-center justify-center text-center gap-2">
                     <stat.icon className="w-10 h-10 text-primary" />
                     <p className="text-sm font-semibold text-foreground">{stat.label}</p>
-                    <p className="text-xs text-muted-foreground">{stat.description}</p>
+                    <p className="text-xs font-medium text-primary">{stat.value.toLocaleString()}{stat.suffix}</p>
+                    <p className="text-[11px] leading-tight text-muted-foreground/90">{stat.description}</p>
                   </div>
                 </div>
               </div>
@@ -140,7 +148,7 @@ const StatsSection = () => {
         </div>
 
         {/* Video Section */}
-        <div className="group relative overflow-hidden shadow-xl border border-border md:w-[1000px] md:h-[400px] mx-auto">
+        <div className="group relative overflow-hidden shadow-xl border border-border h-[400px] mx-auto">
           <video
             ref={videoRef}
             autoPlay
@@ -166,15 +174,15 @@ const StatsSection = () => {
             }`}
           >
             <span className="relative inline-flex h-36 w-36 items-center justify-center">
-              <span className="absolute inset-0 rounded-full bg-white/28 backdrop-blur-[1px]" />
-              <span className="absolute inset-4 rounded-full bg-white/16 transition-transform duration-300 group-hover/control:scale-105" />
+              <span className="absolute inset-0 rounded-full  backdrop-blur-[1px]" />
+              <span className="absolute inset-4 rounded-full  transition-transform duration-300 group-hover/control:scale-105" />
               <span className="relative inline-flex h-20 w-20 items-center justify-center rounded-full bg-white text-primary shadow-[0_10px_24px_rgba(15,23,42,0.25)] transition-transform duration-300 group-hover/control:scale-105">
                 {isVideoPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8 fill-current" />}
               </span>
             </span>
           </button>
 
-          <div className="relative z-10 min-h-[400px] md:min-h-[500px]" />
+          {/* <div className="relative z-10 min-h-[400px] md:min-h-[500px]" /> */}
         </div>
 
       </div>

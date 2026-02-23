@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ScrollAnimator from "../ScrollAnimator";
 import svg1 from "@/assets/Cement Svgs/Vector.53dee65f3b0d9da04365c863143abecf.svg";
 import svg2 from "@/assets/Cement Svgs/image 10.7346932e76235806e74c2ce978ac18ba.svg";
@@ -71,14 +71,7 @@ const PartnersSection = () => {
           }
         `}</style>
 
-        {/* <div className="text-center mb-10 md:mb-14">
-          <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
-            Trusted Partners
-          </p>
-          <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">
-            Partnerships with <span className="text-primary">Cement Plants</span>
-          </h2>
-        </div> */}
+      
         <div className="text-center">
           <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
             Trusted Partners
@@ -87,12 +80,15 @@ const PartnersSection = () => {
           <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
             Partnerships with <span className="text-primary">Cement Plants</span>
           </h2>
+          <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-center text-sm md:text-lg  ">
+                We convert legacy waste into high-calorific RDF for co-processing in cement kilns, reducing landfill burden and fossil fuel dependency while advancing measurable decarbonization outcomes.
+              </p>
           
         </div>
 
 
-        <div className="mt-6 relative space-y-6 bg-card ">
-          <div className="flex flex-nowrap justify-center gap-6 md:gap-8 ">
+        <div className="mt-6 relative space-y-6 bg-card">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
             {rowOne.map((partner, index) => {
               const isVisible = index < visibleCount;
               const shouldShow = isVisible && !isResetting;
@@ -103,7 +99,7 @@ const PartnersSection = () => {
                     }`}
                   style={{ willChange: "transform, opacity" }}
                 >
-                  <div className="relative group w-[clamp(7.5rem,11vw,13rem)] h-16 md:h-20 bg-card shadow-sm flex items-center justify-center px-6 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md shrink-0 border border-border rounded-lg">
+                  <div className="relative group w-full h-16 md:h-20 bg-card shadow-sm flex items-center justify-center overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md border border-border rounded-lg">
                     <img
                       src={partner.logo}
                       alt={partner.name}
@@ -115,7 +111,7 @@ const PartnersSection = () => {
               );
             })}
           </div>
-          <div className="flex flex-nowrap justify-center gap-4 md:gap-8 ">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
             {rowTwo.map((partner, index) => {
               const isVisible = index < visibleCount;
               const shouldShow = isVisible && !isResetting;
@@ -126,7 +122,7 @@ const PartnersSection = () => {
                     }`}
                   style={{ willChange: "transform, opacity" }}
                 >
-                  <div className="relative group w-[clamp(7.5rem,11vw,13rem)] h-16 md:h-20 bg-card shadow-sm flex items-center justify-center px-6 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md shrink-0 border border-border rounded-lg">
+                  <div className="relative group w-full h-16 md:h-20 bg-card shadow-sm flex items-center justify-center overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md border border-border rounded-lg">
                     <img
                       src={partner.logo}
                       alt={partner.name}
@@ -145,5 +141,4 @@ const PartnersSection = () => {
 };
 
 export default PartnersSection;
-
 

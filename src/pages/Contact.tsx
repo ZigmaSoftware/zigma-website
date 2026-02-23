@@ -35,18 +35,6 @@ const Contact = () => {
       <Header />
       <main className="scroll-pt-24 lg:scroll-pt-28 pt-20">
 
-        {/* Page Header */}
-
-        {/* <section className="section-dark-bg py-4">
-          <div className="container-main text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
-              Contact Us
-            </h1>
-            <p className="text-primary-foreground/80 max-w-2xl mx-auto">
-              Get in touch with us for inquiries, partnerships, or to learn more about our services.
-            </p>
-          </div>
-        </section> */}
 
          <section className="relative overflow-hidden text-white min-h-[100svh] flex items-center scroll-mt-24 lg:scroll-mt-28">
           <div
@@ -221,7 +209,7 @@ const Contact = () => {
                     Erode Head Office
                   </h3>
                   <p className="text-white/90">
-                    [178, Indhu Nagar, palayapalayam,Perundurai Road,]<br />
+                    178, Indhu Nagar, palayapalayam,Perundurai Road,<br />
                     Erode-638 012, Tamil Nadu, India
                   </p>
                   <a href="#" className="text-white/80 hover:text-white underline mt-2 inline-block">View on Map</a>
@@ -236,7 +224,7 @@ const Contact = () => {
                     Chennai Office
                   </h3>
                   <p className="text-white/90">
-                    [1st Floor, 'Greenways Towers',No.119, St.Mary's Rd, RA Puram, TrustPakkam, Abhiramapuram,]<br />
+                    1st Floor, 'Greenways Towers',No.119, St.Mary's Rd, RA Puram, TrustPakkam, Abhiramapuram,<br />
                     Chennai-600 018, Tamil Nadu, India
                   </p>
                   <a href="#" className="text-white/80 hover:text-white underline mt-2 inline-block">View on Map</a>

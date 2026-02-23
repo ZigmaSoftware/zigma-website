@@ -5,8 +5,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import ScrollToTop from "@/components/ScrollToTop";
 // import Container from "./Container";
 
-import img1 from "@/assets/website/noida present.png";
-import img2 from "@/assets/website/landfill mining.png";
+import img1 from "@/assets/website/hero/noida-present-hero.jpg";
+import img2 from "@/assets/website/hero/landfill-mining-hero.jpg";
 import img3 from "@/assets/home4.jpg";
 import img4 from "@/assets/home5.jpg";
 import img5 from "@/assets/home6.jpg";
@@ -66,42 +66,31 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, [isPaused]);
 
+  // Keep navigation snappy by preloading the upcoming slide only.
+  useEffect(() => {
+    const nextIndex = (current + 1) % slides.length;
+    const nextImage = new Image();
+    nextImage.src = slides[nextIndex].image;
+  }, [current]);
+
   return (
     <section
       className=" relative h-[100vh] flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28 "
     >
       <ScrollToTop />
 
-      {/* Background Images (Fade Only) */}
-   <div className="absolute inset-0 pointer-events-none">
-  {slides.map((slide, index) => {
-    const isActive = index === current;
-
-    return (
-      <div 
-        key={slide.image}
-        className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-          isActive ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {/* Zooming Background */}
-        <div
-          className={`absolute inset-0 bg-cover bg-center ${
-            isActive ? "animate-heroZoom" : ""
-          }`}
-          style={{ backgroundImage: `url(${slide.image})` }}
+      {/* Background image */}
+      <div className="absolute inset-0 pointer-events-none">
+        <img
+          key={slides[current].image}
+          src={slides[current].image}
+          alt=""
+          aria-hidden="true"
+          fetchPriority={current === 0 ? "high" : "auto"}
+          className="absolute inset-0 h-full w-full object-cover animate-heroZoom"
         />
-
-        {/* Soft Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-foreground/30 via-foreground/20 to-transparent" />
-
-
-
-        
       </div>
-    );
-  })}
-</div>
    
 
       {/* Content */}

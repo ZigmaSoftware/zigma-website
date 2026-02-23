@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
-  base: command === "build" ? "/alpha/" : "/",
+  base: command === "build" ? "/alpha" : "/",
 
   server: {
     host: "::",

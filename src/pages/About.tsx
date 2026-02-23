@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play, Linkedin } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import bg1 from "@/assets/background-1.png";
 
 import img1 from "@/assets/website/Kumbakonam.png";
 import img2 from "@/assets/website/Forcebel.png";
@@ -16,7 +17,7 @@ import img10 from "@/assets/website/image ewd.png";
 import img11 from "@/assets/website/image site.png";
 
 import company from "@/assets/zigma.jpg";
-import hero from "@/assets/website/The Landfill Mining.jpg";
+import hero from "@/assets/website/hero/about-hero.jpg";
 
 
 import picture1 from "@/assets/website/Mr. Boopathy Dharmaraj.png";
@@ -78,7 +79,7 @@ const milestones: Milestone[] = [
   },
   {
     year: 2019,
-    title: 'Product Launch 2.0',
+    title: 'Project Wins & Land Reclamation Impact',
     description: [
       "January: Awarded biomining projects in Trichy & Erode.",
       "February: Hands over 4 acres of reclaimed land to Sembakkam Municipality.",
@@ -88,7 +89,7 @@ const milestones: Milestone[] = [
   },
   {
     year: 2020,
-    title: 'Pandemic Adaptation',
+    title: 'Accelerated Growth & Project Delivery Momentum',
     description: [
       "January: Awarded biomining project in Visakhapatnam.",
       "June: Awarded biomining projects in Karaikudi & Karur.",
@@ -117,7 +118,7 @@ const milestones: Milestone[] = [
   },
   {
     year: 2022,
-    title: 'IPO Success',
+    title: 'Strategic Expansion Milestones',
     description: [
       "First ever private contract from ITC for Landfill Mining",
       "Awarded Project in Guwahati and opened gates in North East India"
@@ -138,7 +139,7 @@ const milestones: Milestone[] = [
   },
   {
     year: 2024,
-    title: 'AI Integration',
+    title: 'Global Partnerships & Expansion',
     description: [
       "December: Blue Planet was an Anchor Partner of the AVPN South Asia Summit 2024, which took place in Chennai, India, on December 9, 2024.",
       "Zigma moved in to their New State of Art Facility in Erode. a world class facility, also a CCC Control Command Centre. "
@@ -196,7 +197,6 @@ const leaders = [
 const About = () => {
   const [currentIndex, setCurrentIndex] = useState(3);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
-  const [showFullCompany, setShowFullCompany] = useState(false);
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
@@ -226,26 +226,32 @@ const About = () => {
     <div className="min-h-screen bg-background overflow-x-hidden">
       <Header />
       {/* tw-line animation classes are in index.css */}
-      <main className="scroll-pt-24 lg:scroll-pt-28">
+      <main className="scroll-pt-24 ">
         {/* Hero Section */}
         <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
-          <div className="absolute inset-0 h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${hero})` }} aria-hidden="true" />
+          <img
+            src={hero}
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
           <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
-          <div className="relative container-main w-full pt-28 pb-20 text-white">
-            <div className="max-w-2xl">
-              <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium mb-4">
+          <div className="container-main relative grid items-center ">
+         
+              <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
                 Our Journey
               </div>
-              <h1 className="text-5xl md:text-5xl font-bold leading-tight text-white">
+              <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">
                 Milestones That Shaped Us
               </h1>
 
-              <p className="mt-6 text-lg text-white/90 leading-relaxed">
+              <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-justify">
                 Explore the defining moments that transformed our vision into a global footprint.
                 Each year marks a new chapter in growth, innovation, and impact.
               </p>
-            </div>
+      
           </div>
         </section>
 
@@ -256,43 +262,34 @@ const About = () => {
               <img
                 src={company}
                 alt="Our Company"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
             </div>
 
             <div className="mt-8 h-full flex flex-col justify-start">
-              <div className="text-sm tracking-[0.35em] uppercase text-slate-500 font-medium">
+              <div className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
                 Our Company
               </div>
-              <h2 className="mt-3 text-3xl lg:text-2xl  font-bold  leading-tight">
+              <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
                 Zigma Global Environ Solutions Pvt. Ltd.
               </h2>
-              <p className="mt-3 text-base lg:text-lg text-slate-600 leading-relaxed text-justify">
+              <p className="mt-4 text-base lg:text-lg text-slate-600 leading-relaxed text-justify">
                 Zigma was founded by a group of serial enterpreneurs from South India, experienced in
                 manufacuring Steel, TMT Bars, Billets, UPVC Door and Window profiles,
                 hospitality and IT infrastructure projects. On the quest for a worthy challenge came
                 across the rising menace of waste mismanagement and realised that this was the
                 opportunity to so something phenomenal that would benefit not only the community but the country at large.
               </p>
-              {showFullCompany && (
-                <p className="mt-3 text-base lg:text-lg text-slate-600 leading-relaxed text-justify">
-                  After extensive research and travel to countries like Germany, South Africa, Thailand,
-                  China and South Korea to understand how these countries manage their
-                  Municipal Solid Waste (MSW), Zigma was founded, to solve the problem of legacy
-                  waste management. At the core of our operations is a low carbon emission model for
-                  segregation of legacy MSW dumped indiscriminately in the open dump yards in India today.
-                </p>
-              )}
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setShowFullCompany((prev) => !prev)}
-                  className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:border-green-700 hover:text-green-700 transition-colors"
-                >
-                  {showFullCompany ? "Read Less" : "Read More"}
-                </button>
-              </div>
+              <p className="mt-4 text-base lg:text-lg text-slate-600 leading-relaxed text-justify">
+                After extensive research and travel to countries like Germany, South Africa, Thailand,
+                China and South Korea to understand how these countries manage their
+                Municipal Solid Waste (MSW), Zigma was founded, to solve the problem of legacy
+                waste management. At the core of our operations is a low carbon emission model for
+                segregation of legacy MSW dumped indiscriminately in the open dump yards in India today.
+              </p>
             </div>
           </div>
         </section>
@@ -335,9 +332,9 @@ const About = () => {
 
         {/* Milestones Content */}
         <section className="section-padding min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 ">
-          <div className="container-main w-full flex flex-col">
+          <div className="container-main flex flex-col">
             {/* Header */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               {/* <div className="text-sm tracking-[0.35em] uppercase text-slate-500 font-medium">
               Our Journey So Far
             </div>
@@ -353,7 +350,7 @@ const About = () => {
                   Measurable Sustainability <span className="text-primary"> Progress</span>
                 </h2>
               </div>
-              <div className="mt-8 flex items-center gap-6">
+              <div className="flex flex-wrap items-center gap-4 lg:gap-6">
                 <button
                   onClick={() => setIsAutoPlay((prev) => !prev)}
                   className="flex items-center gap-2 text-green-700 hover:text-green-700 transition-colors text-sm lg:text-base"
@@ -384,6 +381,8 @@ const About = () => {
                   <img
                     src={currentMilestone.image}
                     alt={currentMilestone.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
@@ -444,8 +443,8 @@ const About = () => {
             </div>
 
             {/* Timeline */}
-            <div >
-              <div className="flex items-center justify-between relative">
+            <div className="mt-8 overflow-x-auto overflow-y-visible py-3">
+              <div className="relative flex min-w-[760px] items-center justify-between">
                 {/* Progress Line */}
                 <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-200 -translate-y-1/2" />
                 <div
@@ -485,7 +484,7 @@ const About = () => {
 
         {/* Meet Our Leaders */}
         <section className="section-padding min-h-screen bg-white scroll-mt-24 lg:scroll-mt-28">
-          <div className="container-main w-full h-full flex flex-col">
+          <div className="container-main flex flex-col">
             {/* <div className="mb-12 text-center">
             <h3 className="text-base tracking-[0.35em] uppercase text-slate-500 font-medium">
               Meet Our Leaders
@@ -506,7 +505,7 @@ const About = () => {
             </div>
 
             <div className="mt-6 flex-1 min-h-0 ">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 place-items-center">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 place-items-center">
                 {leaders.map((leader) => (
                   <div
                     key={leader.name + leader.title}
@@ -517,6 +516,8 @@ const About = () => {
                         <img
                           src={leader.image}
                           alt={leader.name}
+                          loading="lazy"
+                          decoding="async"
                           className="h-full w-full object-cover"
                         />
                       ) : (
@@ -552,7 +553,7 @@ const About = () => {
         <section className="container-main section-padding">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="text-center lg:text-left">
-              <div className="text-sm tracking-[0.35em] uppercase text-slate-500 font-medium">
+              <div className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
                 Let Us Deliver Impact
               </div>
                <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">
@@ -561,12 +562,12 @@ const About = () => {
               {/* <h3 className="mt-3 text-2xl lg:text-4xl font-bold text-slate-900">
                 Let us deliver impact for your organization
               </h3> */}
-              <p className="mt-6 text-sm text-slate-600 max-w-2xl lg:max-w-xl">
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground  max-w-2xl text-justify">
                 Partner with Zigma to accelerate sustainable outcomes with proven expertise across large-scale projects.
               </p>
             </div>
 
-            <form className="w-full max-w-md ml-auto border-slate-200 bg-white p-5 shadow-sm">
+            <form className="w-full max-w-md mx-auto lg:ml-auto lg:mr-0 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="grid grid-cols-1 gap-3">
                 <input
                   type="text"
@@ -590,7 +591,7 @@ const About = () => {
                 />
                 <button
                   type="button"
-                  className="mt-1 w-full rounded-lg bg-green-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-green-700 transition"
+                  className="mt-1 w-full rounded-lg bg-green-600 py-2.5 text-sm font-semibold text-white hover:bg-green-700 transition"
                 >
                   Send Message
                 </button>

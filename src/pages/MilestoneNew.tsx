@@ -230,7 +230,7 @@ const MilestonNew = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
         <div className="relative max-w-6xl mx-auto w-full px-6 lg:px-10 pt-28 pb-20 text-white">
           <div className="max-w-2xl">
-            <div className="text-xs tracking-[0.35em] uppercase text-white/85 font-medium mb-4">
+            <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium mb-4">
               Our Journey
             </div>
             <h1 className="text-5xl md:text-6xl font-bold leading-tight text-white">

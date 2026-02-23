@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle, Clock, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import indiaMap from "@/assets/indiamap.jpg";
 
 const MAP_BOUNDS = {
@@ -14,7 +14,6 @@ type PresenceLocation = {
   name: string;
   lat: number;
   lng: number;
-  icon: string;
   ongoing: number;
   completed: number;
   description: string;
@@ -30,9 +29,8 @@ function latLngToPercent(lat: number, lng: number) {
 const presenceLocations: PresenceLocation[] = [
   {
     name: "Tamil Nadu",
-    lat: 10.1,
-    lng: 78,
-    icon: "🌿",
+    lat: 11,
+    lng: 77.8,
     ongoing: 3,
     completed: 5,
     description: "Leading biomining initiatives in southern India.",
@@ -42,7 +40,6 @@ const presenceLocations: PresenceLocation[] = [
     name: "Kerala",
     lat: 10,
     lng: 75.6,
-    icon: "🌴",
     ongoing: 2,
     completed: 4,
     description: "Sustainable waste management projects.",
@@ -52,7 +49,6 @@ const presenceLocations: PresenceLocation[] = [
     name: "Andhra Pradesh",
     lat: 15.6,
     lng: 78,
-    icon: "♻️",
     ongoing: 4,
     completed: 3,
     description: "Advanced landfill reclamation efforts.",
@@ -60,9 +56,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Gujarat",
-    lat: 21.5,
+    lat: 22,
     lng: 71,
-    icon: "🏭",
     ongoing: 3,
     completed: 6,
     description: "Pioneering environmental restoration.",
@@ -70,9 +65,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Maharashtra",
-    lat: 17.3,
+    lat: 18,
     lng: 75,
-    icon: "🌱",
     ongoing: 5,
     completed: 7,
     description: "Major urban waste transformation projects.",
@@ -80,9 +74,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Assam",
-    lat: 25,
+    lat: 26,
     lng: 90.5,
-    icon: "🍃",
     ongoing: 2,
     completed: 3,
     description: "Northeast India's green initiatives.",
@@ -108,27 +101,27 @@ const PresenceSectioncp = () => {
 
   return (
     <motion.section
-    //   className="section-padding"
+      
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
+      <div className="container-main">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">Pan-India Presence</p>
 
-        
-      <div className="container-main ">
+            <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+              Transforming Landfills <span className="text-primary">Across India</span>
+            </h2>
 
-                  <div className="text-left  ">
-            <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
-             Pan-India Presence
+            <p className="mt-6 text-sm md:text-lg text-muted-foreground leading-relaxed">
+              Driving large-scale landfill reclamation through advanced biomining, reclaiming land, reducing
+              environmental risk and carbon impact, and enabling circular urban transformation.
             </p>
+          </div>
 
-          <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-           Transforming Landfills  <span className="text-primary">Across India</span>
-          </h2>
-          
-         </div>
-        <div className="grid items-center lg:grid-cols-2 ">
-          <div className="relative order-2 flex justify-center lg:order-1">
+          <div className="relative flex justify-center lg:justify-end">
             <div
               ref={mapRef}
               onClick={handleDevClick}
@@ -143,14 +136,9 @@ const PresenceSectioncp = () => {
 
               {presenceLocations.map((location, index) => {
                 const { top, left } = latLngToPercent(location.lat, location.lng);
-                const tooltipSideClass =
-                  location.labelSide === "left"
-                    ? "right-full mr-2 sm:mr-3"
-                    : "left-full ml-2 sm:ml-3";
+                const tooltipSideClass = location.labelSide === "left" ? "right-full mr-2 sm:mr-3" : "left-full ml-2 sm:ml-3";
 
                 return (
-
-                    
                   <div
                     key={location.name}
                     className="absolute -translate-x-1/2 -translate-y-1/2"
@@ -164,14 +152,21 @@ const PresenceSectioncp = () => {
                     >
                       <span className="sr-only">{location.name}</span>
                       <div className="relative">
-                        {/* <span className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/20 animate-pulse" /> */}
                         <motion.span
-                          className="relative z-10 inline-block text-base leading-none"
-                          animate={{ y: hoveredPinIndex === index ? 6 : 0 }}
+                          className="absolute left-1/2 top-1/2 
+                           -translate-x-1/2 -translate-y-1/2 border border-primary/35 "
+                          animate={{ scale: [1, 1.28, 1], opacity: [0.6, 0.2, 0.6] }}
+                          transition={{ duration: 2.1, repeat: Infinity, delay: index * 0.12 }}
+                        />
+                        <motion.span
+                          className="relative z-10 inline-flex h-3 w-3 items-center justify-center rounded-full border-2 border-white bg-primary"
+                          animate={{
+                            y: hoveredPinIndex === index ? -2 : 0,
+                            scale: hoveredPinIndex === index ? 1.15 : 1,
+                          }}
                           transition={{ duration: 0.22, ease: "easeOut" }}
-                        >
-                          📍
-                        </motion.span>
+                        />
+                        <span className="absolute left-1/2 top-[70%] h-3 w-[2px] -translate-x-1/2 rounded-full bg-primary/70" />
                       </div>
 
                       <div
@@ -187,51 +182,7 @@ const PresenceSectioncp = () => {
                   </div>
                 );
               })}
-
-              {/* {DEV_MODE && (
-                <div className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/80 px-3 py-1 text-[11px] text-white">
-                  DEV MODE - Click map to log percentage coordinates
-                </div>
-              )} */}
             </div>
-          </div>
-
-          
-
-          <div >       
-            {/* <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
-              <span className="text-primary">Pan-India</span> Presence
-            </h2> */}
-            
-            <p className="text-left mb-5  text-justify  leading-relaxed text-muted-foreground text-lg">
-            Driving large-scale landfill reclamation across India through advanced biomining solutions that convert legacy waste into reusable resources. We reclaim land, mitigate environmental risks, reduce carbon impact, and support circular economy outcomes — enabling sustainable urban transformation and long-term ecological balance.
-            </p>
-
-            <motion.div
-              className="grid grid-cols-1  sm:grid-cols-2 sm:gap-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <motion.div
-                className="border border-border bg-card p-6 text-center transition-shadow hover:shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <CheckCircle className="mx-auto mb-2 h-8 w-8 text-green-500" />
-                <p className="mb-2 text-sm text-muted-foreground">Completed Projects</p>
-                <span className="text-3xl font-bold text-foreground">12</span>
-              </motion.div>
-              <motion.div
-                className="border border-border bg-card p-6 text-center transition-shadow hover:shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Clock className="mx-auto h-8 w-8 text-primary" />
-                <p className="mb-2 text-sm text-muted-foreground">Ongoing Projects</p>
-                <span className="text-3xl font-bold text-primary">8</span>
-              </motion.div>
-            </motion.div>
           </div>
         </div>
       </div>
