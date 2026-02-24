@@ -199,10 +199,10 @@ export default function Awards(): JSX.Element {
           <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
 
-          <div className="container-main relative grid items-center">
+          <div className="container-main relative grid items-center justify-items-center text-center">
             <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium">Industry Recognition</div>
             <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">Awards And Honors</h1>
-            <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-justify">
+            <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-center">
               Proven excellence across sustainability, operations, and large-scale environmental projects delivered across India.
             </p>
           </div>

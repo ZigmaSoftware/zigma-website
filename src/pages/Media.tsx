@@ -8,7 +8,7 @@ import news1 from "@/assets/News/sm1.jpg";
 import news2 from "@/assets/News/sm2.jpg";
 import news3 from "@/assets/News/sm4.jpg";
 import news4 from "@/assets/News/sm5.jpg";
-import Herobg from "@/assets/website/globe_bg.jpg";
+import Herobg from "@/assets/website/globe_bg.png";
 
 type NewsArticle = {
   id: number;
@@ -99,10 +99,10 @@ const Media = () => {
           <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
 
-          <div className="container-main relative grid items-center">
+          <div className="container-main relative grid items-center justify-items-center text-center">
             <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium">Media Center</div>
             <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">News And Media</h1>
-            <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-justify">
+            <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-center">
               Stay updated with announcements, project highlights, and verified press coverage from Zigma Global Environ Solutions.
             </p>
           </div>

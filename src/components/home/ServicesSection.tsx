@@ -46,7 +46,7 @@ const ServicesSection = () => {
 
         {/* <Reveal className="mb-8 flex items-center justify-between" variant="fade-left" /> */}
 
-        <div className="overflow-hidden">
+        <div className="mt-6 overflow-hidden">
           <StaggerReveal className="mx-auto flex w-full flex-col gap-2 md:flex-row md:gap-4" itemClassName="contents">
             {services.map((service, index) => (
               <div

@@ -350,7 +350,7 @@ const Careers = () => {
                 aria-hidden="true"
               />
               <div
-                className="relative z-10 grid min-h-screen items-center gap-10 px-6 py-16 md:px-12 lg:grid-cols-[1.1fr_1fr] reveal hero-block"
+                className="relative z-10 grid min-h-screen items-center gap-8 py-16 lg:grid-cols-2 lg:gap-12 reveal hero-block"
                 data-reveal
               >
                 {/* <div className="space-y-4 hero-text">
@@ -363,7 +363,7 @@ const Careers = () => {
                   </p>
                 </div> */}
 
-                <div className="text-center">
+                <div className="mx-auto w-full max-w-2xl text-center lg:mx-0 lg:text-left">
                   <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
                      Shape the Future
                   </p>
@@ -372,14 +372,14 @@ const Careers = () => {
                     Build Careers that Drive  <span className="text-primary">Sustainability</span>
                   </h2>
 
-                   <p className="mt-6  text-center  leading-relaxed text-muted-foreground text-lg">
+                   <p className="mt-6 leading-relaxed text-muted-foreground text-lg">
                     Join Zigma to build sustainable infrastructure, solve real-world challenges, and grow with a team
                     that values craft, safety, and impact.
                   </p>
 
                 </div>
 
-                <div className="relative h-72 md:h-96 lg:h-[28rem] reveal hero-visual" data-reveal>
+                <div className="relative h-72 w-full max-w-[36rem] mx-auto md:h-96 lg:h-[28rem] reveal hero-visual" data-reveal>
                   <div className="relative h-full overflow-hidden shadow-2xl ring-1 ring-black/10 [clip-path:polygon(8%_0%,100%_0%,92%_100%,0%_100%)]">
                     <img src={picture1} alt="Office environment" className="w-full h-full object-cover" />
                   </div>
@@ -541,101 +541,7 @@ const Careers = () => {
           </div>
         </section> */}
 
-        {/* Team Spotlight */}
-        <section className="section-padding" id="culture">
-           <div className="text-center">
-                  <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
-                  Join a team of builders.
-                  </p>
-
-                  <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                   Explore Your <span className="text-primary"> Career Path </span>
-                  </h2>
-
-                </div>
-          
-          <div className="container-main text-center">
-            
-            {/* <h2
-              className="text-2xl md:text-3xl font-bold text-foreground mb-2 reveal"
-              data-reveal
-            >
-              Join a team of builders.
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto reveal" data-reveal>
-              We're looking for highly ambitious and talented people to help us drive real change.
-            </p> */}
-
-            <div className="relative mt-6 flex justify-center reveal" data-reveal>
-              <div
-                className="w-full max-w-5xl h-48 md:h-56 rounded-full"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(circle, hsl(var(--muted-foreground) / 0.25) 1px, transparent 1px)",
-                  backgroundSize: "12px 12px",
-                }}
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex flex-col items-center gap-2 max-w-5xl">
-                  {spotlightRowCounts.map((count, rowIndex) => {
-                    const startIndex = spotlightRowCounts
-                      .slice(0, rowIndex)
-                      .reduce((sum, value) => sum + value, 0);
-                    const placeholderCount = spotlightPlaceholderCounts[rowIndex] ?? 2;
-                    return (
-                      <div key={`row-${rowIndex}`} className="flex justify-center gap-1.5">
-                        {Array.from({ length: placeholderCount }).map((_, index) => (
-                          <div
-                            key={`ph-left-${rowIndex}-${index}`}
-                            className="w-8 h-8 md:w-7 md:h-7 rounded-full avatar-placeholder"
-                            aria-hidden="true"
-                          />
-                        ))}
-                        {Array.from({ length: count }).map((_, index) => {
-                          const avatarIndex = startIndex + index;
-                          const person = teamAvatars[avatarIndex % teamAvatars.length];
-                          const isActive = avatarIndex === activeAvatarIndex;
-                          return (
-                            <div
-                              key={`${person.name}-${startIndex + index}`}
-                              className={`group avatar-item w-8 h-8 md:w-7 md:h-7 rounded-full overflow-hidden shadow-sm ring-1 ring-transparent hover:scale-110 hover:ring-primary/40 hover:shadow-md ${isActive ? "avatar-active" : ""}`}
-                              aria-label={`${person.name} from ${person.role}`}
-                              title={`${person.name} - ${person.role}`}
-                            >
-                              <img
-                                src={person.src}
-                                alt={`${person.name} portrait`}
-                                className={`avatar-img w-full h-full object-cover opacity-70 group-hover:opacity-100 ${isActive ? "opacity-100" : ""}`}
-                                loading="lazy"
-                              />
-                            </div>
-                          );
-                        })}
-                        {Array.from({ length: placeholderCount }).map((_, index) => (
-                          <div
-                            key={`ph-right-${rowIndex}-${index}`}
-                            className="w-8 h-8 md:w-7 md:h-7 rounded-full avatar-placeholder"
-                            aria-hidden="true"
-                          />
-                        ))}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            <p className="mt-3 text-lg text-muted-foreground  max-w-2xl mx-auto">
-              "I'm proud to be part of a team creating such a thoughtfully crafted product, centered on our customer
-              experiences."
-            </p>
-            <div className="mt-2 flex items-center justify-center gap-2 text-xs text-foreground">
-              <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-accent" />
-              <span className="font-semibold">Zigma</span>
-              <span className="text-muted-foreground">- Our Organization</span>
-            </div>
-          </div>
-        </section>
+    
 
 
         {/* Job Openings */}
@@ -906,6 +812,105 @@ const Careers = () => {
             </div>
           </DialogContent>
         </Dialog>
+
+
+        {/* Team Spotlight */}
+        <section className="section-padding" id="culture">
+          <div className="container-main text-center">
+           <div className="text-center">
+                  <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
+                  Join a team of builders.
+                  </p>
+
+                  <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                   Explore Your <span className="text-primary"> Career Path </span>
+                  </h2>
+
+                </div>
+          
+          <div className="text-center">
+            
+            {/* <h2
+              className="text-2xl md:text-3xl font-bold text-foreground mb-2 reveal"
+              data-reveal
+            >
+              Join a team of builders.
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto reveal" data-reveal>
+              We're looking for highly ambitious and talented people to help us drive real change.
+            </p> */}
+
+            <div className="relative mt-6 flex justify-center overflow-hidden reveal" data-reveal>
+              <div
+                className="h-48 w-full max-w-5xl rounded-full md:h-56"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle, hsl(var(--muted-foreground) / 0.25) 1px, transparent 1px)",
+                  backgroundSize: "12px 12px",
+                }}
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="flex max-w-5xl origin-center scale-[0.58] flex-col items-center gap-1.5 sm:scale-75 sm:gap-2 md:scale-90 lg:scale-100">
+                  {spotlightRowCounts.map((count, rowIndex) => {
+                    const startIndex = spotlightRowCounts
+                      .slice(0, rowIndex)
+                      .reduce((sum, value) => sum + value, 0);
+                    const placeholderCount = spotlightPlaceholderCounts[rowIndex] ?? 2;
+                    return (
+                      <div key={`row-${rowIndex}`} className="flex justify-center gap-1">
+                        {Array.from({ length: placeholderCount }).map((_, index) => (
+                          <div
+                            key={`ph-left-${rowIndex}-${index}`}
+                            className="h-7 w-7 rounded-full avatar-placeholder"
+                            aria-hidden="true"
+                          />
+                        ))}
+                        {Array.from({ length: count }).map((_, index) => {
+                          const avatarIndex = startIndex + index;
+                          const person = teamAvatars[avatarIndex % teamAvatars.length];
+                          const isActive = avatarIndex === activeAvatarIndex;
+                          return (
+                            <div
+                              key={`${person.name}-${startIndex + index}`}
+                              className={`group avatar-item h-7 w-7 rounded-full overflow-hidden shadow-sm ring-1 ring-transparent hover:scale-110 hover:ring-primary/40 hover:shadow-md ${isActive ? "avatar-active" : ""}`}
+                              aria-label={`${person.name} from ${person.role}`}
+                              title={`${person.name} - ${person.role}`}
+                            >
+                              <img
+                                src={person.src}
+                                alt={`${person.name} portrait`}
+                                className={`avatar-img w-full h-full object-cover opacity-70 group-hover:opacity-100 ${isActive ? "opacity-100" : ""}`}
+                                loading="lazy"
+                              />
+                            </div>
+                          );
+                        })}
+                        {Array.from({ length: placeholderCount }).map((_, index) => (
+                          <div
+                            key={`ph-right-${rowIndex}-${index}`}
+                            className="h-7 w-7 rounded-full avatar-placeholder"
+                            aria-hidden="true"
+                          />
+                        ))}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            <p className="mt-3 text-lg text-muted-foreground  max-w-2xl mx-auto">
+              "I'm proud to be part of a team creating such a thoughtfully crafted product, centered on our customer
+              experiences."
+            </p>
+            <div className="mt-2 flex items-center justify-center gap-2 text-xs text-foreground">
+              <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-accent" />
+              <span className="font-semibold">Zigma</span>
+              <span className="text-muted-foreground">- Our Organization</span>
+            </div>
+          </div>
+          </div>
+        </section>
 
 
 

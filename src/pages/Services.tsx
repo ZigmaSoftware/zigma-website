@@ -3,11 +3,13 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
-import landfillMining from "@/assets/website/The Landfill Mining.jpg";
-import landfillManagement from "@/assets/website/noida present.png";
+import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
+import landfillManagement from "@/assets/website/hero/noida-present-hero.jpg";
 import wetWaste from "@/assets/Wet Waste Management.jpeg";
-import herobg from "@/assets/website/noida present.png";
+import herobg from "@/assets/website/hero/noida-present-hero.jpg";
 import Servicescp from "./Servicescp";
+import bg from "@/assets/background-1.png";
+
 
 const services = [
   {
@@ -62,23 +64,25 @@ const Services = () => {
       <main>
         {/* Page Header */}
         <section className="relative min-h-[100vh] flex items-center overflow-hidden">
-          <div
-            className="absolute inset-0 h-full w-full bg-cover bg-center bg-fixed"
-            style={{ backgroundImage: `url(${herobg})` }}
+          <img
+            src={herobg}
+            alt=""
             aria-hidden="true"
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
           <div className="absolute inset-0 from-black/35 via-black/45 to-black/30" aria-hidden="true" />
 
-          <div className="container-main relative grid lg:grid-cols-2 gap-10 items-center pt-28">
-            <div>
+          <div className="container-main relative grid items-center justify-items-center pt-28 text-center">
+            <div className="max-w-3xl mx-auto">
               <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
                 What We Do
               </div>
               <h1 className="text-5xl md:text-5xl font-bold leading-tight text-white mt-3">
                 Our Services
               </h1>
-              <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl ">
+              <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
                 Transforming waste into valuable products. Our recovered materials support sustainable construction and agriculture.
               </p>
             </div>
@@ -101,6 +105,8 @@ const Services = () => {
                     <img 
                       src={service.image} 
                       alt={service.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-80 object-cover rounded-2xl shadow-xl"
                     />
                   </div>

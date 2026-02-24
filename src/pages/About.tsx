@@ -238,7 +238,7 @@ const About = () => {
           />
           <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
-          <div className="container-main relative grid items-center ">
+          <div className="container-main relative grid items-center justify-items-center text-center">
          
               <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
                 Our Journey
@@ -247,7 +247,7 @@ const About = () => {
                 Milestones That Shaped Us
               </h1>
 
-              <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-justify">
+              <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-center">
                 Explore the defining moments that transformed our vision into a global footprint.
                 Each year marks a new chapter in growth, innovation, and impact.
               </p>
@@ -331,10 +331,13 @@ const About = () => {
       </section> */}
 
         {/* Milestones Content */}
-        <section className="section-padding min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 ">
-          <div className="container-main flex flex-col">
+        <section className=" min-h-[100svh]  py-6 lg:py-8 "   style={{
+          backgroundImage: `url(${bg1})`,
+         
+        }}>
+          <div className="container-main  section-padding flex flex-col h-full">
             {/* Header */}
-            <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="mb-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               {/* <div className="text-sm tracking-[0.35em] uppercase text-slate-500 font-medium">
               Our Journey So Far
             </div>
@@ -374,7 +377,7 @@ const About = () => {
             </div>
 
             {/* Main Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch flex-1 justify-center">
+          <div className="mt-3 grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch flex-1 justify-center min-h-0">
               {/* Image Section */}
               <div className="relative">
                 <div className="relative  overflow-hidden shadow-2xl aspect-[16/10]">
@@ -397,8 +400,8 @@ const About = () => {
               </div>
 
               {/* Content Section */}
-            <div className="space-y-6 min-h-[360px] lg:min-h-[420px]">
-              <div className="min-h-[250px] lg:min-h-[300px]">
+            <div className="flex min-h-0 flex-col">
+              <div className="min-h-[260px] lg:min-h-[320px]">
                 <div className="text-green-700 font-bold text-sm tracking-wider mb-2">
                   YEAR {currentMilestone.year}
                 </div>
@@ -406,20 +409,20 @@ const About = () => {
                   {currentMilestone.title}
                 </h3>
                 {Array.isArray(currentMilestone.description) ? (
-                  <ul className="text-sm lg:text-base text-slate-600 leading-relaxed list-disc pl-5 space-y-2 max-h-[170px] lg:max-h-[220px] overflow-y-auto pr-2">
+                  <ul className="text-sm lg:text-base text-slate-600 leading-relaxed list-disc pl-5 space-y-2 h-[170px] lg:h-[220px] overflow-y-auto pr-2">
                     {currentMilestone.description.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-sm lg:text-base text-slate-600 leading-relaxed max-h-[170px] lg:max-h-[220px] overflow-y-auto ">
+                  <p className="text-sm lg:text-base text-slate-600 leading-relaxed h-[170px] lg:h-[220px] overflow-y-auto pr-2">
                     {currentMilestone.description}
                   </p>
                 )}
               </div>
 
                 {/* Navigation */}
-                <div className="flex items-center gap-3">
+                <div className="mt-auto flex items-center gap-3">
                   <button
                     onClick={handlePrevious}
                     disabled={currentIndex === 0}
@@ -443,7 +446,7 @@ const About = () => {
             </div>
 
             {/* Timeline */}
-            <div className="mt-8 overflow-x-auto overflow-y-visible py-3">
+            <div className="mt-4 overflow-x-auto overflow-y-visible py-2">
               <div className="relative flex min-w-[760px] items-center justify-between">
                 {/* Progress Line */}
                 <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-200 -translate-y-1/2" />

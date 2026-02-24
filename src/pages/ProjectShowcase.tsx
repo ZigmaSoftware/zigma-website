@@ -86,28 +86,28 @@ const ProjectShowcase = () => {
       <main className="pt-24 pb-8">
         <section className="container-main space-y-6">
           {slides.map((slide, index) => (
-            <article key={slide.id} className="bg-white border border-slate-200 shadow-sm p-4 md:p-5 space-y-2 md:space-y-3 flex flex-col overflow-hidden">
+            <article key={slide.id} className="bg-white border border-slate-200 shadow-sm p-4 md:p-5  md:space-y-3 flex flex-col overflow-hidden">
               <div className="relative h-[34vh] sm:h-[36vh] lg:h-[40vh] overflow-hidden border border-slate-200">
                 <div className="absolute inset-0 grid grid-cols-2">
                   <div className="relative h-full">
                     <img src={slide.beforeImage} alt={`${slide.title} before`} className="absolute inset-0 w-full h-full object-cover" />
-                    <span className="badge before-badge">BEFORE</span>
+                    <span className="absolute left-3 top-3 z-10 inline-flex items-center rounded-sm bg-slate-900 px-3 py-1 text-xs font-bold tracking-[0.08em] text-white">
+                      BEFORE
+                    </span>
                   </div>
                   <div className="relative h-full">
                     <img src={slide.afterImage} alt={`${slide.title} after`} className="absolute inset-0 w-full h-full object-cover" />
-                    <span className="badge after-badge">AFTER</span>
+                    <span className="absolute right-3 top-3 z-10 inline-flex items-center rounded-sm bg-primary px-3 py-1 text-xs font-bold tracking-[0.08em] text-white">
+                      AFTER
+                    </span>
                   </div>
                 </div>
-                <div className="absolute bottom-4 left-4 text-xs font-semibold tracking-widest text-slate-600 bg-white/80 backdrop-blur px-3 py-1 rounded-full">
-                  {String(index + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
-                </div>
               </div>
-
               <div className="lg:pr-6 flex flex-col">
                 <div className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
                   {slide.subtitle}
                 </div>
-                <h2 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground">
+                <h2 className="mt-2 text-3xl md:text-4xl lg:text-4xl font-bold leading-tight text-foreground">
                   {slide.title}
                 </h2>
 
@@ -135,6 +135,9 @@ const ProjectShowcase = () => {
                     <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                   )}
                 </button>
+                <div className="mt-3 text-xs font-semibold tracking-widest text-slate-600 bg-slate-100 px-3 py-1 rounded-full w-fit self-end">
+                  {String(index + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+                </div>
               </div>
             </article>
           ))}

@@ -109,15 +109,15 @@ const Products = () => {
           <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/35" aria-hidden="true" />
 
-          <div className="container-main relative grid lg:grid-cols-2 gap-10 items-center pt-28">
-            <div className="text-left ">
+          <div className="container-main relative grid items-center justify-items-center pt-28 text-center">
+            <div className="max-w-3xl mx-auto">
               <span className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium  block">
                 Our Products
               </span>
               <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">
                 Recovered Resources
               </h1>
-              <p className="mt-6 text-lg text-white/90 leading-relaxed ">
+              <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
                 Transforming waste into valuable products. Our recovered materials support sustainable construction and agriculture.
               </p>
             </div>

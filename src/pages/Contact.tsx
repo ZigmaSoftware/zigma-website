@@ -47,13 +47,16 @@ const Contact = () => {
           <div className="absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-black/10 blur-3xl" />
 
           <div className="relative container-main section-padding text-center">
-            <div className="max-w-4xl">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
+            Let’s Connect
+              </div>
 
-              <h2 className="mt-1 text-3xl sm:text-2xl lg:text-5xl font-semibold leading-tight">
-                Get in Touch With Us
-              </h2>
-              <p className="mt-6 text-lg text-white/80 leading-relaxed">
-                Inquiries, partnerships, or to learn more about our sustainable solutions.</p>
+              <h1 className="mt-1 text-3xl sm:text-2xl lg:text-5xl font-semibold leading-tight">
+               Talk to Our Experts
+              </h1>
+              <p className="mt-6 text-lg max-w-2xl mx-auto text-white/80 leading-relaxed">
+              For business queries, collaboration opportunities, or to understand our sustainable solutions, get in touch with us.</p>
             </div>
           </div>
         </section>
@@ -64,16 +67,16 @@ const Contact = () => {
             <div className="grid lg:grid-cols-2 gap-16">
               {/* Contact Info */}
               <div>
-                <h2 className="text-2xl font-bold text-foreground mb-8">
+                <h2 className="text-3xl font-bold text-foreground mb-8">
                   Get in Touch
                 </h2>
-                <div className="space-y-5">
-                  <div className="flex gap-4 p-[18px] bg-card border border-border shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(15,23,42,0.12)]">
+                <div className="space-y-5 ">
+                  <div className="flex gap-4 p-[18px] bg-card border rounded-lg border-border shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(15,23,42,0.12)]">
                     <div className="w-11 h-11 bg-gradient-to-br from-secondary to-card rounded-lg border border-border flex items-center justify-center shrink-0">
                       <MapPin className="w-5 h-5 text-primary " />
                     </div>
                     <div>
-                      <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Office</p>
+                      {/* <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Office</p> */}
                       <h3 className="text-base font-bold text-foreground mb-1.5">Office Address</h3>
                       <p className="text-muted-foreground">
                         HO : 178, Indu Nagar, Palayapalayam, <br />
@@ -82,13 +85,13 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 p-[18px] bg-card border border-border shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(15,23,42,0.12)]">
+                  <div className="flex gap-4 p-[18px] bg-card border rounded-lg border-border shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(15,23,42,0.12)]">
                     <div className="w-11 h-11 bg-gradient-to-br from-secondary to-card  rounded-lg border border-border flex items-center justify-center shrink-0">
                       {/* <Mail className="w-5 h-5 text-primary border-rounded-2xl" /> */}
                       <Mail className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Email</p>
+                      {/* <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Email</p> */}
                       <h3 className="text-base font-bold text-foreground mb-1.5">Email Us</h3>
                       <a href="mailto:careers@zigma.in" className="text-primary hover:underline">
                         careers@zigma.in
@@ -96,12 +99,12 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 p-[18px] bg-card border border-border shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(15,23,42,0.12)]">
+                  <div className="flex gap-4 p-[18px] bg-card border rounded-lg border-border shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(15,23,42,0.12)]">
                     <div className="w-11 h-11 bg-gradient-to-br from-secondary to-card rounded-lg border border-border flex items-center justify-center shrink-0">
                       <Phone className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Phone</p>
+                      {/* <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Phone</p> */}
                       <h3 className="text-base font-bold text-foreground mb-1.5">Call Us</h3>
                       <a href="tel:+911234567890" className="text-primary hover:underline">
                         (91) 98943 26007
@@ -112,8 +115,8 @@ const Contact = () => {
               </div>
 
               {/* Contact Form */}
-              <div className="bg-card p-8 border border-border shadow-xl shadow-black/10">
-                <h2 className="text-2xl font-bold text-foreground mb-6">
+              <div className="bg-card p-8 border border-border shadow-xl shadow-black/10 rounded-lg">
+                <h2 className="text-3xl font-bold text-foreground mb-6">
                   Send Us a Message
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-5">
@@ -126,7 +129,7 @@ const Contact = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="John Doe"
+                        placeholder="Enter your name"
                         required
                       />
                     </div>
@@ -139,7 +142,7 @@ const Contact = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="john@example.com"
+                        placeholder="Enter your email"
                         required
                       />
                     </div>
@@ -155,7 +158,7 @@ const Contact = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="+91 98765 43210"
+                        placeholder="Enter your phone number"
                       />
                     </div>
                     <div>
@@ -202,13 +205,13 @@ const Contact = () => {
 
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Erode Card */}
-              <div className="relative overflow-hidden shadow-lg">
+              <div className="relative overflow-hidden shadow-lg rounded-lg">
                 <img src={erode} alt="Erode Head Office" className="w-full h-96 object-cover" />
                 <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">
+                  <h3 className="text-3xl font-bold text-white mb-2">
                     Erode Head Office
                   </h3>
-                  <p className="text-white/90">
+                  <p className="text-lg text-white/90 ">
                     178, Indhu Nagar, palayapalayam,Perundurai Road,<br />
                     Erode-638 012, Tamil Nadu, India
                   </p>
@@ -217,13 +220,13 @@ const Contact = () => {
               </div>
 
               {/* Chennai Card */}
-              <div className="relative overflow-hidden shadow-lg">
+              <div className="relative overflow-hidden shadow-lg rounded-lg">
                 <img src={chennai} alt="Chennai Office" className="w-full h-96 object-cover" />
                 <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">
+                  <h3 className="text-3xl font-bold text-white mb-2">
                     Chennai Office
                   </h3>
-                  <p className="text-white/90">
+                  <p className=" text-lg text-white/90">
                     1st Floor, 'Greenways Towers',No.119, St.Mary's Rd, RA Puram, TrustPakkam, Abhiramapuram,<br />
                     Chennai-600 018, Tamil Nadu, India
                   </p>

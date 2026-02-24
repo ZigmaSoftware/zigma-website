@@ -75,7 +75,7 @@ const GovernancePolicies = () => {
             </div>
           </div> */}
 
-            <div className="container-main relative grid items-center ">
+            <div className="container-main relative grid items-center text-center">
          
               <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
                Governance & Policies
@@ -84,7 +84,7 @@ const GovernancePolicies = () => {
               Transparent & Responsible
               </h1>
 
-              <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-justify">
+              <p className="mt-6 text-lg max-w-2xl mx-auto text-white/80 leading-relaxed ">
                We uphold transparent processes, regulatory compliance, and accountable decision-making across all operations.
 
               </p>
@@ -95,7 +95,7 @@ const GovernancePolicies = () => {
 
         {/* Policies Grid */}
         <section className=" container-main section-padding">
-          <div className="flex flex-col gap-3 mb-10">
+          <div className="flex flex-col gap-3 mb-10 ">
            
 
                <div className="text-center">

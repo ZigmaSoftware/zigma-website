@@ -112,14 +112,14 @@ function Facilities() {
           <div className="absolute inset-0 h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${faci1})` }} aria-hidden="true" />
           <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
-          <div className="container-main relative grid items-center">
+          <div className="container-main relative grid items-center text-center">
             <div className="text-sm tracking-[0.35em] uppercase text-white/85 font-medium">
               Facilities & Environment
             </div>
             <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">
               Infrastructure Built For Performance
             </h1>
-            <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-justify">
+            <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
               Explore our operational assets, workplace culture, and support systems designed to deliver safe, compliant,
               and sustainable outcomes at scale.
             </p>
@@ -149,15 +149,17 @@ function Facilities() {
         <section className="section-padding bg-white">
 
           <div className="container-main">
+            <div className="text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
               Our Facilities
             </p>
-            <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+            <h2 className="mt-2 text-3xl md:text-4xl font-bold text-foreground">
               A snapshot of our operational assets
             </h2>
-            <p className="mt-4 max-w-3xl text-base lg:text-lg text-slate-600 leading-relaxed text-justify">
+            <p className="mt-4 max-w-3xl mx-auto text-sm md:text-lg text-muted-foreground leading-relaxed">
               Our facilities are designed for high-throughput, compliant, and safe operations while maintaining long-term sustainability outcomes.
             </p>
+            </div>
 
             <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {facilities.map((facility, index) => (
@@ -173,7 +175,7 @@ function Facilities() {
                   />
                   <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/15" />
                   <div className="p-4">
-                    <p className="text-base text-slate-600 leading-relaxed text-justify">
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                       {facility.caption}
                     </p>
                   </div>
@@ -189,14 +191,14 @@ function Facilities() {
           <div className="container-main space-y-10">
 
             {/* TEXT BLOCK */}
-            <div>
+            <div className="text-center">
               <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
                 People & Workplace
               </p>
-              <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+              <h2 className="mt-2 text-3xl md:text-4xl font-bold text-foreground">
                 Built by people, operated with care
               </h2>
-              <p className="mt-4 max-w-3xl text-base lg:text-lg leading-relaxed text-slate-600 text-justify">
+              <p className="mt-4 max-w-3xl mx-auto text-sm md:text-lg leading-relaxed text-muted-foreground">
                 Beyond infrastructure, our facilities reflect a strong culture of
                 safety, accountability, and respect for people and communities.
                 We invest continuously in training, workplace standards, and
@@ -217,7 +219,7 @@ function Facilities() {
                     className="h-56 w-full object-cover"
                   />
                   <div className="p-4">
-                    <p className="text-base text-slate-600 leading-relaxed text-justify">{item.caption}</p>
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{item.caption}</p>
                   </div>
                 </article>
               ))}
@@ -315,13 +317,13 @@ function Facilities() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <h2 id="modal-title" className="text-2xl font-bold text-foreground mb-4">Facility Details</h2>
+            <h2 id="modal-title" className="text-3xl md:text-4xl font-bold text-foreground mb-4">Facility Details</h2>
             <img
               src={facilities[selectedCard].img}
               alt={`Facility ${selectedCard + 1}`}
               className="w-full h-64 object-cover rounded-lg mb-4"
             />
-            <p className="text-base lg:text-lg text-slate-700 leading-relaxed text-justify">
+            <p className="text-sm md:text-lg text-muted-foreground leading-relaxed">
               {facilities[selectedCard].caption}
             </p>
           </div>
@@ -334,4 +336,3 @@ function Facilities() {
 }
 
 export default Facilities
-
