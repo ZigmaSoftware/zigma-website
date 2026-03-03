@@ -27,6 +27,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import ScrollAnimator from "@/components/ScrollAnimator";
 import Servicescp from "./pages/Servicescp";
 import SmoothScrollProvider from "@/components/animation/SmoothScrollProvider";
+import Mediacp from "./pages/Mediacp";
 
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ const App = () => (
             <Route path="/servicescp" element={<Servicescp />} />
 
             <Route path="/vertical-scroll-slider" element={<VerticalScrollSlider />} />
+            <Route path="/mediacp" element={<Mediacp />} />
           </Routes>
         </BrowserRouter>
       </SmoothScrollProvider>

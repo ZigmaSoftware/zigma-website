@@ -75,20 +75,20 @@ const GovernancePolicies = () => {
             </div>
           </div> */}
 
-            <div className="container-main relative grid items-center text-center">
-         
-              <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
-               Governance & Policies
-              </div>
-              <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">
+          <div className="container-main relative grid items-center text-center">
+
+            <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
+              Governance & Policies
+            </div>
+            <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">
               Transparent & Responsible
-              </h1>
+            </h1>
 
-              <p className="mt-6 text-lg max-w-2xl mx-auto text-white/80 leading-relaxed ">
-               We uphold transparent processes, regulatory compliance, and accountable decision-making across all operations.
+            <p className="mt-6 text-lg max-w-2xl mx-auto text-white/80 leading-relaxed ">
+              We uphold transparent processes, regulatory compliance, and accountable decision-making across all operations.
 
-              </p>
-      
+            </p>
+
           </div>
 
         </section>
@@ -96,20 +96,20 @@ const GovernancePolicies = () => {
         {/* Policies Grid */}
         <section className=" container-main section-padding">
           <div className="flex flex-col gap-3 mb-10 ">
-           
 
-               <div className="text-center">
-             
-                <p className="text-xs md:text-sm uppercase tracking-[0.35em]  text-muted-foreground">
-               Governance Policy Library
-          </p>
+
+            <div className="text-center">
+
+              <p className="text-xs md:text-sm uppercase tracking-[0.35em]  text-muted-foreground">
+                Governance Policy Library
+              </p>
 
               <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
                 Compliance & Ethical <span className="text-primary">Framework</span>
-               
+
               </h2>
-               <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-center text-sm md:text-lg  ">
-                                Each document is reviewed on a defined cycle and versioned for audit traceability.
+              <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-center text-sm md:text-lg  ">
+                Each document is reviewed on a defined cycle and versioned for audit traceability.
 
               </p>
             </div>
@@ -124,12 +124,11 @@ const GovernancePolicies = () => {
                   className="group flex h-full flex-col rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div className={`h-1.5 w-full rounded-t-2xl bg-gradient-to-r ${policy.accent}`} />
-                  <div className="p-6 flex h-full flex-col">
-                    <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[hsl(145_63%_32%)/0.08]">
-                        <Icon className="w-6 h-6 text-[hsl(145_63%_32%)]" />
+                  <div className=" p-6  flex h-full flex-col">
+                    <div className="flex justify-center">
+                      <div className="flex h-12 w-12 items-center justify-center">
+                        <Icon className="w-8 h-8 text-[hsl(145_63%_32%)]" />
                       </div>
-                    
                     </div>
                     <h3 className="mt-4 text-lg font-semibold text-foreground text-center">
                       {policy.title}
@@ -137,17 +136,17 @@ const GovernancePolicies = () => {
                     <p className="mt-3 text-md text-muted-foreground text-center">
                       {policy.description}
                     </p>
-                   
+
 
                     <div className="mt-auto pt-6 flex flex-col gap-3">
-                     
+
                       <a
                         href={policy.file}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-[hsl(145_63%_32%)] hover:text-[hsl(145_63%_32%)]"
                       >
-                        View 
+                        View
                         <ArrowUpRight className="w-4 h-4" />
                       </a>
                     </div>
@@ -158,7 +157,7 @@ const GovernancePolicies = () => {
           </div>
         </section>
 
-      
+
       </main>
       <Footer />
     </div>

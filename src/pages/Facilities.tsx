@@ -154,7 +154,7 @@ function Facilities() {
               Our Facilities
             </p>
             <h2 className="mt-2 text-3xl md:text-4xl font-bold text-foreground">
-              A snapshot of our operational assets
+              A snapshot of our <span className="text-primary"> operational assets</span>
             </h2>
             <p className="mt-4 max-w-3xl mx-auto text-sm md:text-lg text-muted-foreground leading-relaxed">
               Our facilities are designed for high-throughput, compliant, and safe operations while maintaining long-term sustainability outcomes.
@@ -196,7 +196,7 @@ function Facilities() {
                 People & Workplace
               </p>
               <h2 className="mt-2 text-3xl md:text-4xl font-bold text-foreground">
-                Built by people, operated with care
+                Built by people, operated <span className="text-primary"> with care</span> 
               </h2>
               <p className="mt-4 max-w-3xl mx-auto text-sm md:text-lg leading-relaxed text-muted-foreground">
                 Beyond infrastructure, our facilities reflect a strong culture of

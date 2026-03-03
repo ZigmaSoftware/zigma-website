@@ -8,7 +8,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import erode from "@/assets/erd-pic.webp";
 import chennai from "@/assets/chennai-pic.webp";
-import Herobg from '@/assets/website/Zigma Night.jpg';
+import Herobg from '@/assets/website/Office Night.jpeg';
 
 
 const Contact = () => {

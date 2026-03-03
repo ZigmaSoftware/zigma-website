@@ -107,7 +107,7 @@ const Products = () => {
             aria-hidden="true"
           />
           <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/35" aria-hidden="true" />
+          {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/35" aria-hidden="true" /> */}
 
           <div className="container-main relative grid items-center justify-items-center pt-28 text-center">
             <div className="max-w-3xl mx-auto">
@@ -162,7 +162,7 @@ const Products = () => {
                   {/* Image */}
                   <div className={`relative group ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
                     {/* <div className={`absolute inset-0 bg-gradient-to-br ${product.color} rounded-3xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500`} /> */}
-                    <div className="relative overflow-hidden rounded-3xl">
+                    <div className="relative overflow-hidden rounded-xl">
                       <img 
                         src={product.image} 
                         alt={product.name}

@@ -102,13 +102,15 @@ const Services = () => {
                   }`}
                 >
                   <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                    <img 
-                      src={service.image} 
-                      alt={service.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-80 object-cover rounded-2xl shadow-xl"
-                    />
+                    <div className="overflow-hidden rounded-2xl shadow-xl">
+                      <img 
+                        src={service.image} 
+                        alt={service.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-80 object-cover transition-transform duration-300 hover:scale-105"
+                      />
+                    </div>
                   </div>
                   <div className={index % 2 === 1 ? "lg:order-1" : ""}>
                     <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
@@ -139,7 +141,7 @@ const Services = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="section-alt-bg section-padding">
+        <section className=" section-padding">
           <div className="container-main text-center">
             <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
               Let Us Deliver Impact

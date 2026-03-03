@@ -3,10 +3,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 
-// import Pic1 from "@/assets/people at zigma/Picture1.png";
+import Pic1 from "@/assets/people at zigma/womens day.jpg";
 import Pic2 from "@/assets/people at zigma/6P6A2357.JPG.jpeg";
-import Pic3 from "@/assets/people at zigma/Picture2.png";
-// import Pic4 from "@/assets/people at zigma/Picture3.png";
+import Pic3 from "@/assets/people at zigma/ind 1.jpeg";
+import Pic4 from "@/assets/people at zigma/ind 2.jpeg";
 import Pic5 from "@/assets/people at zigma/image jbrhe.jpg";
 import Pic6 from "@/assets/people at zigma/image cdb.jpg";
 import Pic7 from "@/assets/people at zigma/image cej.jpg";
@@ -16,8 +16,8 @@ import Pic10 from "@/assets/people at zigma/image frhb.jpg";
 import Pic11 from "@/assets/people at zigma/image hbj.jpg";
 import Pic12 from "@/assets/people at zigma/image hfjr.jpg";
 // import Pic13 from "@/assets/people at zigma/image kfr.jpg";
-import Pic14 from "@/assets/people at zigma/images edwq.jpg";
-// import Pic15 from "@/assets/people at zigma/office front.png";
+import Pic14 from "@/assets/people at zigma/image dew.jpeg";
+import Pic15 from "@/assets/people at zigma/get.mp4";
 import Pic16 from "@/assets/people at zigma/Picture 4.jpg";
 import Pic17 from "@/assets/people at zigma/bday p1.jpg";
 import Pic18 from "@/assets/people at zigma/crismas p1.jpg";
@@ -29,16 +29,17 @@ import Pic23 from "@/assets/people at zigma/newyear p1.jpg";
 import Pic24 from "@/assets/people at zigma/newyear p2.jpg";
 import Pic25 from "@/assets/people at zigma/newyear p3.jpg";
 
+import bg from "@/assets/background-1.png";
 
 // import Pic17 from "@/assets/people at zigma/WhatsApp Image 2025-09-23 at 15.08.43_d4bbc581.jpg.jpeg";
 
 import { TrendingUp, BarChart3, Users } from "lucide-react";
 
 const collageImages = [
-  // { title: "Erode Head Office", image: Pic1 },
+  { title: "Erode Head Office", image: Pic1 },
   { title: "Chennai Office", image: Pic2 },
   { title: "Annual Team Meet", image: Pic3 },
-  // { title: "Employee Engagement", image: Pic4 },
+  { title: "Employee Engagement", image: Pic4 },
   { title: "Team Culture", image: Pic5 },
   { title: "Field Operations", image: Pic6 },
   { title: "CSR Activities", image: Pic7 },
@@ -81,15 +82,16 @@ const People = () => {
               Life at Zigma
             </h2> */}
 
-            <div className="columns-2 sm:columns-3 lg:columns-4 gap-1 px-4">
+            <div className="columns-2 sm:columns-3 lg:columns-5 gap-1 px-1 sm:px-2 lg:px-1">
               {collageImages.map((item, i) => (
-                <div key={i} className="mb-1 break-inside-avoid">
+                <div key={i} className="group relative mb-1 break-inside-avoid overflow-hidden bg-white">
                   <img
                     src={item.image}
                     alt={item.title}
                     loading="lazy"
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto object-cover transition duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-95"
                   />
+                  <div className="pointer-events-none absolute inset-0 ring-0 ring-white/70 transition duration-300 group-hover:ring-2" />
                 </div>
               ))}
             </div>
@@ -97,7 +99,10 @@ const People = () => {
         </section>
 
         {/*        WORKING @ ZIGMA – REFINED DESIGN */}
-        <section className="bg-slate-50 py-20 ">
+        <section className=" min-h-[100svh]  py-6 lg:py-8 "   style={{
+                  backgroundImage: `url(${bg})`,
+                 
+                }}>
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center">
               {/* <h2 className="text-3xl md:text-4xl font-bold text-slate-900">

@@ -9,7 +9,7 @@ import img1 from "@/assets/website/hero/noida-present-hero.jpg";
 import img2 from "@/assets/website/hero/landfill-mining-hero.jpg";
 import img3 from "@/assets/home4.jpg";
 import img4 from "@/assets/home5.jpg";
-import img5 from "@/assets/home6.jpg";
+// import img5 from "@/assets/home6.jpg";
 
 
 const slides = [
@@ -23,16 +23,16 @@ const slides = [
   },
   {
     image: img3,
-    title: "Restoring Land Through Advanced Waste Recovery",
+    title: "Advanced Waste Recovery for Land Restoration",
   },
-  {
-    image: img4,
-    title: "Uncontrolled landfill methane poses 23 times the climate impact of CO2.",
-  },
-  {
-    image: img5,
-    title: "Only 75 % of the urban waste produced in India each year is collected",
-  },
+  // {
+  //   image: img4,
+  //   title: "Uncontrolled landfill methane has 23× the climate impact of CO₂.",
+  // },
+  // {
+  //   image: img5,
+  //   title: "Only 75 % of the urban waste produced in India each year is collected",
+  // },
 ];
 
 const HeroSection = () => {
@@ -95,7 +95,7 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="container-main relative z-10 w-full">
-        <div className="max-w-xl text-background transition-all duration-700 ease-out">
+        <div className="max-w-2xl text-background transition-all duration-700 ease-out">
           <div className="relative pl-6 overflow-hidden">
             {/* Accent Line */}
             <div className="absolute left-0 top-0 h-full w-1 bg-primary animate-lineGrow" />
@@ -113,12 +113,12 @@ const HeroSection = () => {
             </p> */}
           </div>
 
-          <div className="flex flex-wrap  gap-4 mt-4  bg-transparent shadow-md">
+          <div className="flex flex-wrap gap-4 mt-4  bg-transparent shadow-md">
             {/* <Button variant="heroOutline"  size="lg" asChild className="border " >
               <Link to="/services">Our Services</Link>
             </Button> */}
 
-            <Button variant="heroOutline" size="lg" asChild className="border ml-6 ">
+            <Button variant="heroOutline" size="lg" asChild className="border ">
               <Link to="/contact">Contact Us</Link>
             </Button>
           </div>

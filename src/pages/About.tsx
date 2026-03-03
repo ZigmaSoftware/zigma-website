@@ -23,7 +23,6 @@ import hero from "@/assets/website/hero/about-hero.jpg";
 import picture1 from "@/assets/website/Mr. Boopathy Dharmaraj.png";
 import picture2 from "@/assets/website/Mr. K.P Mutharasu.jpg";
 import picture3 from "@/assets/website/Mr. ANAND THANGARAJ.png";
-import picture4 from "@/assets/website/Mr. Boopathy Dharmaraj.png";
 import picture5 from "@/assets/website/Mr. NAGESH PRABHU.jpg";
 
 
@@ -161,18 +160,25 @@ const milestones: Milestone[] = [
   }
 ];
 
-const leaders = [
+type Leader = {
+  name: string;
+  title: string;
+  image?: string;
+  linkedin: string;
+};
+
+const leaders: Leader[] = [
   {
     name: "Mr. Boopathy Dharmaraj",
     title: "Managing Director",
     image: picture1,
-    linkedin: "#"
+    linkedin: "https://www.linkedin.com/in/boopathy-dharmaraj-6b64b0ba/"
   },
   {
     name: "Mr. K.P Mutharasu",
     title: "Director",
     image: picture2,
-    linkedin: "#"
+    linkedin: "https://www.linkedin.com/in/mutharasu-k-p-125b2546/"
   },
   {
     name: "Mr. Anand Thangaraj",
@@ -183,18 +189,66 @@ const leaders = [
   {
     name: "Mr. KU THA  ILANGOVAN",
     title: "Director",
-    // image: picture4,
     linkedin: "#"
   },
   {
     name: "Mr. Nagesh Prabhu",
     title: "Director",
     image: picture5,
-    linkedin: "#"
+    linkedin: "https://www.linkedin.com/in/nageshprabhu/"
   }
 ];
 
-const About = () => {
+const getLeaderInitials = (name: string): string =>
+  name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join('');
+
+const LeaderCard = ({ leader }: { leader: Leader }): JSX.Element => {
+  return (
+    <div className="group w-full max-w-[240px] text-center">
+      <div className="relative mx-auto h-32 w-32">
+        <div className="h-32 w-32 overflow-hidden rounded-full bg-slate-100">
+          {leader.image ? (
+            <img
+              src={leader.image}
+              alt={leader.name}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-xl font-semibold text-slate-400">
+              {getLeaderInitials(leader.name)}
+            </div>
+          )}
+        </div>
+        <a
+          href={leader.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${leader.name} on LinkedIn`}
+          className="absolute bottom-0 right-0 translate-x-2 translate-y-2 inline-flex h-9 w-9 items-center justify-center rounded-full border-1 border-white bg-white text-slate-600 shadow-sm transition-colors hover:bg-slate-200 hover:text-slate-800"
+        >
+          <Linkedin className="h-4 w-4" />
+        </a>
+      </div>
+
+      <div className="mt-6 ">
+        <div className="text-sm font-semibold text-slate-900 transition-colors group-hover:text-green-700">
+          {leader.name}
+        </div>
+        <div className="text-sm  text-slate-500">{leader.title}</div>
+      </div>
+
+    </div>
+  );
+};
+
+const About = (): JSX.Element => {
   const [currentIndex, setCurrentIndex] = useState(3);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
 
@@ -486,7 +540,7 @@ const About = () => {
         </section>
 
         {/* Meet Our Leaders */}
-        <section className="section-padding min-h-screen bg-white scroll-mt-24 lg:scroll-mt-28">
+        <section className="section-padding bg-white scroll-mt-24 lg:scroll-mt-28">
           <div className="container-main flex flex-col">
             {/* <div className="mb-12 text-center">
             <h3 className="text-base tracking-[0.35em] uppercase text-slate-500 font-medium">
@@ -499,7 +553,7 @@ const About = () => {
           </div> */}
 
             <div>
-              <span className="text-sm  uppercase tracking-[0.3em] text-muted-foreground">
+              <span className=" text-sm  uppercase tracking-[0.3em] text-muted-foreground">
                 Meet Our Leaders
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">
@@ -507,44 +561,10 @@ const About = () => {
               </h2>
             </div>
 
-            <div className="mt-6 flex-1 min-h-0 ">
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 place-items-center">
+            <div className="mt-8 flex-1 min-h-0 ">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-6 gap-y-14 place-items-center">
                 {leaders.map((leader) => (
-                  <div
-                    key={leader.name + leader.title}
-                    className="overflow-hidden  border-slate-200 bg-white shadow-[0_6px_14px_rgba(15,23,42,0.08)] w-full max-w-[200px]"
-                  >
-                    <div className="relative aspect-[4/5] min-h-[110px] bg-white p-1">
-                      {leader.image ? (
-                        <img
-                          src={leader.image}
-                          alt={leader.name}
-                          loading="lazy"
-                          decoding="async"
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className="h-full w-full flex items-center justify-center text-3xl font-semibold text-slate-400">
-                          {leader.name
-                            .split(' ')
-                            .slice(0, 2)
-                            .map((word) => word[0])
-                            .join('')}
-                        </div>
-                      )}
-                      <a
-                        href={leader.linkedin}
-                        aria-label={`${leader.name} on LinkedIn`}
-                        className="absolute top-2 right-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-transparent text-[#0A66C2] border-2 border-[#0A66C2] hover:bg-white/80 transition"
-                      >
-                        <Linkedin className="h-3.5 w-3.5" />
-                      </a>
-                    </div>
-                    <div className="px-3 py-2 text-center">
-                      <div className="text-[12px] font-semibold text-slate-900">{leader.name}</div>
-                      <div className="text-[11px] text-slate-600">{leader.title}</div>
-                    </div>
-                  </div>
+                  <LeaderCard key={leader.name + leader.title} leader={leader} />
                 ))}
               </div>
             </div>
@@ -594,7 +614,7 @@ const About = () => {
                 />
                 <button
                   type="button"
-                  className="mt-1 w-full rounded-lg bg-green-600 py-2.5 text-sm font-semibold text-white hover:bg-green-700 transition"
+                  className="mt-1 w-full rounded-lg bg-green-700 py-2.5 text-sm font-semibold text-white hover:bg-green-600 transition"
                 >
                   Send Message
                 </button>
@@ -610,3 +630,5 @@ const About = () => {
 };
 
 export default About;
+
+

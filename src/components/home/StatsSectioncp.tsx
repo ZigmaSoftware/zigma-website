@@ -1,5 +1,5 @@
 ﻿import { useEffect, useState, useRef } from "react";
-import { MapPin, Trash2, Factory, Weight, Leaf, Play,Pause } from "lucide-react";
+import { MapPin, Trash2, Factory, Weight, Leaf, Play, Pause } from "lucide-react";
 // import video from "../../assets/website/AVPN_SUMMIT 2024.mp4";
 import bgstat from "../../assets/background-1.png";
 
@@ -38,7 +38,7 @@ const StatsSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  
+
   const toggleVideoPlayback = () => {
     if (!videoRef.current) return;
 
@@ -54,7 +54,7 @@ const StatsSection = () => {
 
   return (
     <section ref={sectionRef} className="relative isolate overflow-hidden">
-      
+
       {/* Top background image (70% section height) */}
       <div
         className="absolute inset-0 z-0 pointer-events-none bg-cover bg-top bg-no-repeat"
@@ -72,35 +72,35 @@ const StatsSection = () => {
       <div className="container-main relative z-10 py-16 md:py-10">
 
         {/* Header */}
-       
-          <div className="">
 
-            {/* center */}
-            <div className="text-center">
-              {/* <p className="text-primary text-sm md:text-base font-semibold mb-3 tracking-wide uppercase">
+        <div className="">
+
+          {/* center */}
+          <div className="text-center">
+            {/* <p className="text-primary text-sm md:text-base font-semibold mb-3 tracking-wide uppercase">
                 Why Choose Us
               </p> */}
-                <p className="text-xs md:text-sm uppercase tracking-[0.35em]  text-muted-foreground">
-             Why Choose Us
-          </p>
+            <p className="text-xs md:text-sm uppercase tracking-[0.35em]  text-muted-foreground">
+              Why Zigma
+            </p>
 
-              <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                Proven Ecological <span className="text-primary">Outcomes</span>
-               
-              </h2>
-            </div>
+            <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+              Proven Ecological <span className="text-primary">Outcomes</span>
 
-            {/* center */}
-            <div >
-              <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-center text-sm md:text-lg  ">
-                The waste management company specializes in providing innovative,
-                eco-friendly solutions that reduce carbon footprint and optimize
-                sustainable impact for clients worldwide.
-              </p>
-            </div>
-
+            </h2>
           </div>
-       
+
+          {/* center */}
+          <div >
+            <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-center text-sm md:text-lg  ">
+              The waste management company specializes in providing innovative,
+              eco-friendly solutions that reduce carbon footprint and optimize
+              sustainable impact for clients worldwide.
+            </p>
+          </div>
+
+        </div>
+
 
         {/* Stats Grid */}
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-3 mb-2">
@@ -115,15 +115,21 @@ const StatsSection = () => {
               }}
             >
               <div
-                className={`relative h-[172px] w-full  transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] ${
-                  isIntroFlipping ? "[transform:rotateY(180deg)]" : ""
-                }`}
+                className={`relative h-[172px] w-full  transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] ${isIntroFlipping ? "[transform:rotateY(180deg)]" : ""
+                  }`}
                 style={{ transitionDelay: isIntroFlipping ? `${index * 120}ms` : "0ms" }}
               >
                 <div className="absolute inset-0 rounded-lg [backface-visibility:hidden] bg-primary/5 border border-primary/20">
                   <div className="h-full flex flex-col items-center justify-center text-center">
                     <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-1">
-                      {isVisible ? <CountUp end={stat.value} /> : "0"}
+                      {/* {isVisible ? <CountUp end={stat.value} /> : "0"} */}
+                      {isVisible ? (
+                        <CountUp
+                          end={stat.value}
+                          duration={stat.value > 1000 ? 5200 : 4200}
+                          separator=","
+                        />
+                      ) : "0"}
                       <span className="text-xl md:text-2xl text-primary">
                         {stat.suffix}
                       </span>
@@ -161,17 +167,16 @@ const StatsSection = () => {
             onPause={() => setIsVideoPlaying(false)}
           >
             {/* <source src={video}  type="video/mp4" /> */}
-            <source  type="video/mp4" />
+            <source type="video/mp4" />
           </video>
           <button
             type="button"
             aria-label={isVideoPlaying ? "Pause video" : "Play video"}
             onClick={toggleVideoPlayback}
-            className={`group/control absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-300 ${
-              isVideoPlaying
+            className={`group/control absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-300 ${isVideoPlaying
                 ? "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
                 : "opacity-100"
-            }`}
+              }`}
           >
             <span className="relative inline-flex h-36 w-36 items-center justify-center">
               <span className="absolute inset-0 rounded-full  backdrop-blur-[1px]" />
@@ -190,12 +195,11 @@ const StatsSection = () => {
   );
 };
 
-const CountUp = ({ end }: { end: number }) => {
+const CountUp = ({ end, duration = 4200, separator = "," }: { end: number; duration?: number; separator?: string }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     let startTime: number;
-    const duration = 2500;
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -207,9 +211,9 @@ const CountUp = ({ end }: { end: number }) => {
     };
 
     requestAnimationFrame(animate);
-  }, [end]);
+  }, [end, duration]);
 
-  return <>{count.toLocaleString()}</>;
+  return <>{count.toLocaleString(undefined, { useGrouping: separator.length > 0 })}</>;
 };
 
 export default StatsSection;

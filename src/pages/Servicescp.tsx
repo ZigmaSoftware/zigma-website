@@ -46,14 +46,14 @@ export default function Servicescp() {
     <div className="relative w-full h-screen bg-black overflow-hidden ">
 
 
-      <div className="absolute inset-0 transition-opacity duration-500">
+      <div className="absolute inset-0 transition-opacity duration-500 overflow-hidden">
         <img
           src={currentImage}
           alt="Background"
-          className="absolute inset-0 w-full h-full object-cover"
+          className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 ${hoveredSection ? 'scale-105' : ''}`}
         />
         {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20" />
+        {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20" /> */}
       </div>
 
       {/* Sections Container (Overlay) */}

@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 
-import Awardbanner from "@/assets/people at zigma/Picture1.png";
 import Award1 from "@/assets/Awards/award1.jpg";
 import Award2 from "@/assets/Awards/award2.jpg";
 import Award3 from "@/assets/Awards/award3.jpg";
@@ -17,6 +16,7 @@ import Award10 from "@/assets/Awards/award10.jpg";
 import Award11 from "@/assets/Awards/award11.png";
 import Award12 from "@/assets/Awards/award12_Swachha Andhra.png";
 
+import  Awardvd from "@/assets/Awards/Swachh Andhra Award 2025.mp4";
 type Award = {
   id: string;
   title: string;
@@ -191,21 +191,25 @@ export default function Awards(): JSX.Element {
 
       <main className="scroll-pt-24">
         <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
-          <div
-            className="absolute inset-0 h-full w-full bg-cover bg-center"
-            style={{ backgroundImage: `url(${Awardbanner})` }}
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            src={Awardvd}
+            autoPlay
+            muted
+            loop
+            playsInline
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
+          {/* <div className="absolute inset-0 bg-black/45" aria-hidden="true" /> */}
+          {/* <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" /> */}
 
-          <div className="container-main relative grid items-center justify-items-center text-center">
+          {/* <div className="container-main relative grid items-center justify-items-center text-center">
             <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium">Industry Recognition</div>
             <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">Awards And Honors</h1>
             <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl text-center">
               Proven excellence across sustainability, operations, and large-scale environmental projects delivered across India.
             </p>
-          </div>
+          </div> */}
         </section>
 
         {/* <section className="section-padding bg-white scroll-mt-24 lg:scroll-mt-28">
@@ -238,33 +242,44 @@ export default function Awards(): JSX.Element {
               </h2>
             </div>
 
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
               {awards.map((award) => (
-                <article key={award.id} className="rounded-2xl border border-slate-200 bg-white shadow-sm">
-                  <div className="flex items-center justify-between px-4 pt-4">
-                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{award.category}</span>
-                    <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">{award.year}</span>
-                  </div>
-                  <div className="px-4 pt-3">
-                    <div className="flex items-center justify-center rounded-xl border border-slate-200 bg-white p-3">
+                <article
+                  key={award.id}
+                  className="group flex h-full flex-col border border-slate-200 bg-white shadow-sm"
+                >
+                  <div className="px-4 pt-4">
+                    <div className="overflow-hidden bg-white p-3">
                       <img
                         src={award.img}
                         alt={`${award.title} certificate`}
-                        className="h-44 w-full object-contain"
+                        className="h-44 w-full object-contain transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
                       />
                     </div>
                   </div>
-                  <div className="p-4">
-                    <p className="text-sm font-semibold text-slate-900">{award.title}</p>
-                    <p className="mt-1 text-xs text-slate-500">{award.org}</p>
-                    <button
+                  <div className="flex flex-1 flex-col p-4">
+                    <p className="text-md font-semibold text-slate-900">{award.title}</p>
+                    <div className="mt-auto pt-3">
+                      <p className="text-md text-slate-500">{award.org}</p>
+                      <button
+                        type="button"
+                        onClick={() => setActiveAward(award)}
+                        className="mt-3 text-md font-semibold text-primary transition hover:text-primary/80"
+                      >
+                        Read more
+                      </button>
+                    </div>
+
+                    {/* <button
                       type="button"
-                      className="mt-4 inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:border-slate-400 hover:text-slate-900"
+                      className="mt-4  py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:border-slate-400 hover:text-slate-900"
                       onClick={() => setActiveAward(award)}
                     >
                       View Details
-                    </button>
+                    </button> */}
+                    
+                  
                   </div>
                 </article>
               ))}
@@ -310,8 +325,8 @@ export default function Awards(): JSX.Element {
                 />
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-900">Description</p>
-                <p className="mt-2 text-sm text-slate-600">{activeAward.desc}</p>
+                <p className="text-md font-semibold text-slate-900">Description</p>
+                <p className="mt-2 text-md text-slate-600">{activeAward.desc}</p>
               </div>
             </div>
           </div>

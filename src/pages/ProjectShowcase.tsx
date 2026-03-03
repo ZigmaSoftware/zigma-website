@@ -104,6 +104,7 @@ const ProjectShowcase = () => {
                 </div>
               </div>
               <div className="lg:pr-6 flex flex-col">
+                {/* <div>
                 <div className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
                   {slide.subtitle}
                 </div>
@@ -111,32 +112,71 @@ const ProjectShowcase = () => {
                   {slide.title}
                 </h2>
 
-                <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
-                  <div className="info-card">
-                    <p className="info-label">Scope</p>
-                    <p className="info-value">{slide.details.project}</p>
-                  </div>
-                  <div className="info-card">
-                    <p className="info-label">Outcome</p>
-                    <p className="info-value">{slide.details.outcome}</p>
+                  <div className="mt-2 mb-2 max-w-3xl">
+                  <div className="space-y-3">
+                    <div className="info-card">
+                      <p className="info-label">Scope</p>
+                      <p className="info-value">{slide.details.project}</p>
+                    </div>
+                    <div className="info-card">
+                      <p className="info-label">Outcome</p>
+                      <p className="info-value">{slide.details.outcome}</p>
+                    </div>
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => toggleDetails(slide.id)}
-                  className="mt-1 text-right w-fit self-start group inline-flex items-center gap-2 rounded-md bg-primary px-4 py-3 text-[0.95rem] font-bold leading-none text-primary-foreground shadow-[0_12px_30px_hsl(var(--primary)/0.25)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_hsl(var(--primary)/0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                  aria-expanded={expandedSlideId === slide.id}
-                >
-                  <span>{expandedSlideId === slide.id ? "Close Details" : "View Details"}</span>
-                  {expandedSlideId === slide.id ? (
-                    <X className="w-4 h-4" />
-                  ) : (
-                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                  )}
-                </button>
-                <div className="mt-3 text-xs font-semibold tracking-widest text-slate-600 bg-slate-100 px-3 py-1 rounded-full w-fit self-end">
-                  {String(index + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+                </div> */}
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+
+                  {/* LEFT SIDE */}
+                  <div className="lg:w-1/2 gap-4 flex flex-col">
+                    <div className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
+                      {slide.subtitle}
+                    </div>
+
+                    <h2 className=" text-3xl md:text-4xl lg:text-4xl font-bold leading-tight text-foreground">
+                      {slide.title}
+                    </h2>
+
+                      <button
+                    type="button"
+                    onClick={() => toggleDetails(slide.id)}
+                    className="mt-1 text-right  self-start group inline-flex items-center gap-2 rounded-md bg-primary px-4 py-3 text-[0.95rem] font-bold leading-none text-primary-foreground shadow-[0_12px_30px_hsl(var(--primary)/0.25)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_hsl(var(--primary)/0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    aria-expanded={expandedSlideId === slide.id}
+                  >
+                    <span>{expandedSlideId === slide.id ? "Close Details" : "View Details"}</span>
+                    {expandedSlideId === slide.id ? (
+                      <X className="w-4 h-4" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                    )}
+                  </button>
+                  </div>
+
+                  {/* RIGHT SIDE */}
+                  <div className="lg:w-1/2 lg:flex lg:justify-end">
+                    <div className="mt-2 mb-2 max-w-md w-full">
+                      <div className="space-y-3 text-right lg:text-left">
+                        <div className="info-card">
+                          <p className="info-label">Scope</p>
+                          <p className="info-value">{slide.details.project}</p>
+                        </div>
+
+                        <div className="info-card">
+                          <p className="info-label">Outcome</p>
+                          <p className="info-value">{slide.details.outcome}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="flex items-center justify-between mt-4">
+                
+                  <div className="mt-3 text-xs font-semibold tracking-widest text-slate-600 bg-slate-100 px-3 py-1 rounded-full w-fit self-end">
+                    {String(index + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+                  </div>
                 </div>
               </div>
             </article>
@@ -213,7 +253,7 @@ const ProjectShowcase = () => {
           </div>
         </div>
       )}
-        <Footer/>
+      <Footer />
       {/* Shared showcase styles are in style.css */}
     </div>
   );

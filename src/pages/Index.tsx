@@ -6,18 +6,19 @@ import StatsSection from "@/components/home/StatsSection";
 import PresenceSection from "@/components/home/PresenceSection";
 import ServicesSection from "@/components/home/ServicesSection";
 import PartnersSection from "@/components/home/PartnersSection";
+import PartnersSectioncp from "@/components/home/PartnersSectioncp";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main className="pt-20">
-        <HeroSection />
-        <AboutSection />
+        <HeroSection />   
         <StatsSection />
+        <AboutSection />
         <PresenceSection />
         <ServicesSection />
-        <PartnersSection />
+        <PartnersSectioncp/>
       </main>
       <Footer />
     </div>
