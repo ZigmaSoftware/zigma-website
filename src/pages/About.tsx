@@ -653,7 +653,7 @@ const About = (): JSX.Element => {
               <StaggerReveal
                 className="grid grid-cols-1 place-items-center gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-5"
                 data-anim-start="top 88%"
-                data-anim-duration="1.9"
+                data-anim-duration="3"
                 data-anim-ease={SLOW_EASE}
               >
                 {leaders.map((leader) => (

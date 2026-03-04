@@ -51,9 +51,9 @@ const navItems = [
 
   {
     name: "Projects",
-    path: "/project-showcase",
-    dropdown: [
-      { name: "All Projects", path: "/projects" },
+    path: "/projects",
+    // dropdown: [
+      // { name: "All Projects", path: "/projects" },
     //   { name: "Completed Projects", path: "/projects?tab=completed" },
     //   { name: "Project Showcase", path: "/project-showcase" },
     //   { name: "Ongoing Projects", path: "/projects?tab=ongoing" },
@@ -61,7 +61,7 @@ const navItems = [
     //   { name: "Project Showcase", path: "/vertical-slider" },
     //   { name: "Waste Management Showcase", path: "/waste-management-showcase" },
       
-    ],
+    // ],
   },
 
   /* FLOW FIX */
