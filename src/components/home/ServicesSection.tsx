@@ -30,12 +30,19 @@ const services = [
 const ServicesSection = () => { 
   return (
     <section
+      data-anim-start="top 90%"
+      data-anim-duration="1.1"
       className="section-padding bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${bg})` }}
     >
       
       <div className="container-main">
-        <Reveal className="text-center" variant="fade-up">
+        <Reveal
+          className="text-center"
+          variant="fade-up"
+          data-anim-start="top 90%"
+          data-anim-duration="1.1"
+        >
             <span className="text-sm  uppercase tracking-[0.3em] text-muted-foreground">
               Services
             </span>
@@ -47,7 +54,12 @@ const ServicesSection = () => {
         {/* <Reveal className="mb-8 flex items-center justify-between" variant="fade-left" /> */}
 
         <div className="mt-6 overflow-hidden">
-          <StaggerReveal className="mx-auto flex w-full flex-col gap-2 md:flex-row md:gap-4" itemClassName="contents">
+          <StaggerReveal
+            className="mx-auto flex w-full flex-col gap-2 md:flex-row md:gap-4"
+            itemClassName="contents"
+            data-anim-start="top 90%"
+            data-anim-duration="1.05"
+          >
             {services.map((service, index) => (
               <div
                 key={service.title}

@@ -43,7 +43,11 @@ const Vision = () => {
   }, []);
 
   return (
-    <section className="section-padding bg-muted/30">
+    <section
+      className="section-padding bg-muted/30"
+      data-anim-start="top 90%"
+      data-anim-duration="1.1"
+    >
       <div className="container-main">
         {/* <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"> */}
         <div>

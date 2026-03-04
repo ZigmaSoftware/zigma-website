@@ -29,8 +29,8 @@ function latLngToPercent(lat: number, lng: number) {
 const presenceLocations: PresenceLocation[] = [
   {
     name: "Tamil Nadu",
-    lat: 11,
-    lng: 77.8,
+    lat: 8,
+    lng: 75.8,
     ongoing: 3,
     completed: 5,
     description: "Leading biomining initiatives in southern India.",
@@ -38,8 +38,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Kerala",
-    lat: 10,
-    lng: 75.6,
+    lat: 7,
+    lng: 72.8,
     ongoing: 2,
     completed: 4,
     description: "Sustainable waste management projects.",
@@ -47,8 +47,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Andhra Pradesh",
-    lat: 15.6,
-    lng: 78,
+    lat: 14.6,
+    lng: 77,
     ongoing: 4,
     completed: 3,
     description: "Advanced landfill reclamation efforts.",
@@ -56,8 +56,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Gujarat",
-    lat: 22,
-    lng: 71,
+    lat: 20.4,
+    lng: 67,
     ongoing: 3,
     completed: 6,
     description: "Pioneering environmental restoration.",
@@ -65,8 +65,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Maharashtra",
-    lat: 18,
-    lng: 75,
+    lat: 16,
+    lng: 72,
     ongoing: 5,
     completed: 7,
     description: "Major urban waste transformation projects.",
@@ -74,8 +74,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Assam",
-    lat: 26,
-    lng: 90.5,
+    lat: 25,
+    lng: 93,
     ongoing: 2,
     completed: 3,
     description: "Northeast India's green initiatives.",
@@ -101,13 +101,14 @@ const PresenceSectioncp = () => {
 
   return (
     <motion.section
-      
+      data-anim-start="top 90%"
+      data-anim-duration="1.1"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
       <div className="container-main">
-        <div className="grid items-center gap-10 lg:grid-cols-2">
+        <div className="grid items-center gap-8 lg:grid-cols-2">
           <div>
             <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">Pan-India Presence</p>
 

@@ -60,7 +60,11 @@ const PartnersSection = () => {
   }, [visibleCount, isResetting]);
 
   return (
-    <section className="section-padding relative overflow-hidden bg-background">
+    <section
+      className="section-padding relative overflow-hidden bg-background"
+      data-anim-start="top 90%"
+      data-anim-duration="1.1"
+    >
       <ScrollAnimator />
       <div className="container-main relative">
         <style>{`
@@ -141,4 +145,3 @@ const PartnersSection = () => {
 };
 
 export default PartnersSection;
-

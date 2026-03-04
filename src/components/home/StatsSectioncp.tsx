@@ -53,7 +53,12 @@ const StatsSection = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative isolate overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative isolate overflow-hidden"
+      data-anim-start="top 90%"
+      data-anim-duration="1.1"
+    >
 
       {/* Top background image (70% section height) */}
       <div
