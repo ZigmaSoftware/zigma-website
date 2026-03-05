@@ -12,14 +12,14 @@ import globeSvg from '@/assets/contact_globe.svg';
 
 import img1 from '@/assets/website/Kumbakonam.png';
 import img2 from '@/assets/website/Forcebel.png';
-import img3 from '@/assets/hero-bg.jpg';
-import img4 from '@/assets/completed_project.jpg';
-import img5 from '@/assets/website/Erode,Vairapalayam.png';
-import img6 from '@/assets/website/Kumbakonam.png';
-import img7 from '@/assets/website/Picture2.png';
+import img3 from '@/assets/Before - After/5 poonamallee_A.jpg';
+import img4 from '@/assets/Before - After/11 chidambaram_a.jpg';
+import img5 from '@/assets/Before - After/2 sembakam_A.jpg';
+import img6 from '@/assets/Before - After/14 karur_A.jpg';
+import img7 from '@/assets/Before - After/6 vijawada_A.jpg';
 import img8 from '@/assets/website/Noida.png';
 import img9 from '@/assets/website/image ewd.png';
-import img10 from '@/assets/website/image ewd.png';
+import img10 from '@/assets/Before - After/perungudi_2.png';
 import img11 from '@/assets/website/image site.png';
 
 import picture1 from '@/assets/website/Mr. Boopathy Dharmaraj.png';
@@ -279,8 +279,6 @@ const About = (): JSX.Element => {
   const milestoneImagePanelRef = useRef<HTMLDivElement | null>(null);
   const milestoneTextPanelRef = useRef<HTMLDivElement | null>(null);
   const currentIndexRef = useRef(currentIndex);
-  const isMilestoneAnimatingRef = useRef(false);
-  const queuedMilestoneIndexRef = useRef<number | null>(null);
 
   useEffect(() => {
     currentIndexRef.current = currentIndex;
@@ -306,60 +304,10 @@ const About = (): JSX.Element => {
       const clampedIndex = clampMilestoneIndex(nextIndex);
 
       if (clampedIndex === currentIndexRef.current) return;
-      if (prefersReducedMotion) {
-        setCurrentIndex(clampedIndex);
-        return;
-      }
-
-      if (isMilestoneAnimatingRef.current) {
-        queuedMilestoneIndexRef.current = clampedIndex;
-        return;
-      }
-
-      const panels = [milestoneImagePanelRef.current, milestoneTextPanelRef.current].filter(
-        Boolean,
-      ) as HTMLElement[];
-
-      if (panels.length === 0) {
-        setCurrentIndex(clampedIndex);
-        return;
-      }
-
-      isMilestoneAnimatingRef.current = true;
-      gsap.killTweensOf(panels);
-
-      gsap
-        .timeline({
-          onComplete: () => {
-            isMilestoneAnimatingRef.current = false;
-            const queuedIndex = queuedMilestoneIndexRef.current;
-            queuedMilestoneIndexRef.current = null;
-
-            if (queuedIndex !== null && queuedIndex !== currentIndexRef.current) {
-              transitionToMilestone(queuedIndex);
-            }
-          },
-        })
-        .to(panels, {
-          opacity: 0,
-          y: 8,
-          duration: 0.22,
-          ease: 'power2.out',
-        })
-        .add(() => {
-          currentIndexRef.current = clampedIndex;
-          setCurrentIndex(clampedIndex);
-        })
-        .set(panels, { y: 12 })
-        .to(panels, {
-          opacity: 1,
-          y: 0,
-          duration: 0.35,
-          ease: 'power2.out',
-          clearProps: 'opacity,transform',
-        });
+      currentIndexRef.current = clampedIndex;
+      setCurrentIndex(clampedIndex);
     },
-    [prefersReducedMotion],
+    [],
   );
 
   useEffect(() => {
@@ -477,7 +425,7 @@ const About = (): JSX.Element => {
                 Our Company
               </div>
               <h2 className="mt-3 text-3xl font-bold leading-tight text-foreground md:text-4xl">
-                Zigma Global Environ Solutions Pvt Ltd.
+                Zigma Global Environ <span className="text-primary">Solutions Pvt Ltd.</span>
               </h2>
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
                 Zigma was founded by a group of serial enterpreneurs from South India, experienced in
@@ -548,11 +496,9 @@ const About = (): JSX.Element => {
               </div>
             </Reveal>
 
-            <StaggerReveal
+            <div
               className="mt-3 grid min-h-0 flex-1 grid-cols-1 items-stretch justify-center gap-5 lg:grid-cols-2"
-              data-anim-start="top 88%"
-              data-anim-duration="1.55"
-              data-anim-ease={SLOW_EASE}
+              
             >
               <div ref={milestoneImagePanelRef} className="relative">
                 <div className="relative aspect-[16/10] overflow-hidden shadow-2xl">
@@ -604,7 +550,7 @@ const About = (): JSX.Element => {
                   </span>
                 </div>
               </div>
-            </StaggerReveal>
+            </div>
 
             <Reveal
               className="mt-4 overflow-x-auto overflow-y-visible py-2"

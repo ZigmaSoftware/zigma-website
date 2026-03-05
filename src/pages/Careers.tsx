@@ -313,11 +313,11 @@ const Careers = () => {
 
   const handleApplicationSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!selectedJob) return;
     if (!resumeFile) {
       toast.error("Please upload your resume.");
       return;
     }
+    if (!selectedJob) return;
     toast.success(`Application submitted for ${selectedJob.title}.`);
     closeApplicationForm();
   };
@@ -944,11 +944,11 @@ const Careers = () => {
               We're always looking for talented individuals. Send us your resume and
               we'll reach out when a suitable position opens up.            </p>
 
-            <Button size="lg" asChild className=" items-center justify-center ">
-              <span className="flex items-center">
+            <Button size="lg" asChild className="items-center justify-center">
+              <a href="/careers/apply" target="_blank" rel="noopener noreferrer" className="flex items-center">
                 Send Your Profile
-                <Send className="ml-2 h-5 w-5" /> {/* Send icon with left margin */}
-              </span>
+                <Send className="ml-2 h-5 w-5" />
+              </a>
             </Button>
           </div>
         </section>

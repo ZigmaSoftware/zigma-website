@@ -11,6 +11,7 @@ import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Products from "./pages/Products";
 import Careers from "./pages/Careers";
+import CareersApply from "./pages/CareersApply";
 import Media from "./pages/Media";
 import NotFound from "./pages/NotFound";
 import Awards from "./pages/Awards";
@@ -53,6 +54,7 @@ const App = () => (
             <Route path="/projects/:id" element={<ProjectDetail />} />
             <Route path="/products" element={<Products />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/careers/apply" element={<CareersApply />} />
             <Route path="/media" element={<Media />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/people" element={<People />} />
