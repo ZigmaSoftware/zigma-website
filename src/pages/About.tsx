@@ -22,9 +22,9 @@ import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/website/image ewd.png';
 import img11 from '@/assets/website/image site.png';
 
-import picture1 from '@/assets/website/Mr. BDR.png';
-import picture2 from '@/assets/website/Mr.KPM.png';
-import picture3 from '@/assets/website/Mr. AT.png';
+import picture1 from '@/assets/website/Mr. Boopathy Dharmaraj.png';
+import picture2 from '@/assets/website/Mr. K P Mutharasu.png';
+import picture3 from '@/assets/website/Mr. ANAND THANGARAJ.png';
 import picture4 from '@/assets/website/Mr. KTI.png';
 import picture5 from '@/assets/website/Mr. NAGESH PRABHU.jpg';
 
