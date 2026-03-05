@@ -31,8 +31,8 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.05fr_1.1fr_1fr_1.2fr] gap-5 lg:gap-x-4 lg:gap-y-6">
             {/* Company Info */}
             <div>
-              <a  href="/"
-              className="flex items-center gap-3 mb-4">
+              <a href="/"
+                className="flex items-center gap-3 mb-4">
                 <img
                   src="/zigma_blueplanet_logo.png"
                   alt="Zigma Blue Planet"
@@ -142,22 +142,22 @@ const Footer = () => {
               <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
               <ul className="space-y-3 mb-4">
                 <li className="flex items-start gap-3">
-                  
-                  <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                  
-                  <span className="text-foreground/70 text-md text-justify">
-                    Head Office : 178, Indu Nagar, Palayapalayam,Perundurai Road, Erode, Tamilnadu - 638 011.
+
+                  <MapPin className="w-4 h-4 mt-1.5 flex-shrink-0" />
+
+                  <span className="text-foreground/70 text-md">
+                    Head Office : 178, Indu Nagar, Palayapalayam, Perundurai Road, Erode, Tamilnadu - 638 011.
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-                 
+                  <Mail className="w-4 h-4  flex-shrink-0" />
+
                   <a href="mailto:connect@zigma.in" className="text-foreground/70 hover:text-primary text-md transition-colors">
                     connect@zigma.in
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-primary flex-shrink-0" />
+                  <Phone className="w-4 h-4 flex-shrink-0" />
                   <a href="tel:+911234567890" className="text-foreground/70 hover:text-primary text-md transition-colors">
                     +91 98943 26007
                   </a>

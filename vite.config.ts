@@ -4,16 +4,16 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
-  // base: command === "build" ? "/alpha" : "/",
-  assetsInclude: ["**/*.JPG", "**/*.JPEG", "**/*.PNG", "**/*.WEBP", "**/*.AVIF"],
-
+  // base: command === "build" ? "/alpha" : "/", // Uncomment if deploying to a sub-path like `/alpha`
+   assetsInclude: ["**/*.JPG", "**/*.JPEG", "**/*.PNG", "**/*.WEBP", "**/*.AVIF"],
+  
   server: {
-    host: "::",
+    host: "0.0.0.0", // Allow access on the local network
     port: 8080,
   },
 
   plugins: [react()],
-  
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
