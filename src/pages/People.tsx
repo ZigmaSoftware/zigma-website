@@ -1,72 +1,91 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 
-import Pic1 from "@/assets/people at zigma/womens day.jpg";
-import Pic2 from "@/assets/people at zigma/6P6A2357.JPG.jpeg";
-import Pic3 from "@/assets/people at zigma/ind 1.jpeg";
-import Pic4 from "@/assets/people at zigma/ind 2.jpeg";
-import Pic5 from "@/assets/people at zigma/image jbrhe.jpg";
-import Pic6 from "@/assets/people at zigma/image cdb.jpg";
-import Pic7 from "@/assets/people at zigma/image cej.jpg";
-import Pic8 from "@/assets/people at zigma/image dcd.jpg";
-import Pic9 from "@/assets/people at zigma/image ef.jpg";
-import Pic10 from "@/assets/people at zigma/image frhb.jpg";
-import Pic11 from "@/assets/people at zigma/image hbj.jpg";
-import Pic12 from "@/assets/people at zigma/image hfjr.jpg";
-// import Pic13 from "@/assets/people at zigma/image kfr.jpg";
-import Pic14 from "@/assets/people at zigma/image dew.jpeg";
-import Pic15 from "@/assets/people at zigma/get.mp4";
-import Pic16 from "@/assets/people at zigma/Picture 4.jpg";
-import Pic17 from "@/assets/people at zigma/bday p1.jpg";
-import Pic18 from "@/assets/people at zigma/crismas p1.jpg";
-import Pic19 from "@/assets/people at zigma/crtm p2.jpg";
-import Pic20 from "@/assets/people at zigma/crstm p3.jpg";
-import Pic21 from "@/assets/people at zigma/mdc p1.jpg";
-import Pic22 from "@/assets/people at zigma/mdc p2.jpg";
-import Pic23 from "@/assets/people at zigma/newyear p1.jpg";
-import Pic24 from "@/assets/people at zigma/newyear p2.jpg";
-import Pic25 from "@/assets/people at zigma/newyear p3.jpg";
-
 import bg from "@/assets/background-1.png";
-
-// import Pic17 from "@/assets/people at zigma/WhatsApp Image 2025-09-23 at 15.08.43_d4bbc581.jpg.jpeg";
 
 import { TrendingUp, BarChart3, Users } from "lucide-react";
 
-const collageImages = [
-  { title: "Erode Head Office", image: Pic1 },
-  { title: "Chennai Office", image: Pic2 },
-  { title: "Annual Team Meet", image: Pic3 },
-  { title: "Employee Engagement", image: Pic4 },
-  { title: "Team Culture", image: Pic5 },
-  { title: "Field Operations", image: Pic6 },
-  { title: "CSR Activities", image: Pic7 },
-  { title: "Leadership Meet", image: Pic8 },
-  { title: "Plant Operations", image: Pic9 },
-  { title: "On-site Review", image: Pic10 },
-  { title: "People at Work", image: Pic11 },
-  { title: "Team Moments", image: Pic12 },
-  // { title: "Office Moments", image: Pic13 },
-  { title: "World Earth Day", image: Pic14 },
-  // { title: "Office Front", image: Pic15 },
-  { title: "Team Photo", image: Pic16 },
-  { title: "Birthday Celebration", image: Pic17 },
-  { title: "Christmas Celebration 1", image: Pic18 },
-  { title: "Christmas Celebration 2", image: Pic19 },
-  { title: "Christmas Celebration 3", image: Pic20 },
-  { title: "MDC Event 1", image: Pic21 },
-  { title: "MDC Event 2", image: Pic22 },
-  { title: "New Year Celebration 1", image: Pic23 },
-  { title: "New Year Celebration 2", image: Pic24 },
-  { title: "New Year Celebration 3", image: Pic25 },
-];
+const peopleImageModules = import.meta.glob<{ default: string }>(
+  "../assets/people at zigma/*.{jpg,jpeg,JPG,png,webp,avif,JPEG,PNG,WEBP,AVIF}",
+  { eager: true }
+);
+
+const collageImages = Object.entries(peopleImageModules)
+  .map(([path, module]) => {
+    const fileName = path.split("/").pop()?.replace(/\.[^/.]+$/, "") ?? "People at Zigma";
+    const title = fileName.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
+    return { title, image: module.default };
+  })
+  .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: "base" }));
+
+const getColumnCount = (width: number) => {
+  if (width >= 1024) return 5;
+  if (width >= 640) return 3;
+  return 2;
+};
 
 /*  
    COMPONENT
 ===================================================== */
 const People = () => {
+  const [columnCount, setColumnCount] = useState(() =>
+    typeof window !== "undefined" ? getColumnCount(window.innerWidth) : 5
+  );
+  const [imageRatios, setImageRatios] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    const handleResize = () => setColumnCount(getColumnCount(window.innerWidth));
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    Promise.all(
+      collageImages.map(
+        (item) =>
+          new Promise<[string, number]>((resolve) => {
+            const img = new Image();
+            img.onload = () => {
+              const ratio = img.naturalWidth > 0 ? img.naturalHeight / img.naturalWidth : 1;
+              resolve([item.image, ratio]);
+            };
+            img.onerror = () => resolve([item.image, 1]);
+            img.src = item.image;
+          })
+      )
+    ).then((entries) => {
+      if (cancelled) return;
+      setImageRatios(Object.fromEntries(entries));
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const balancedColumns = useMemo(() => {
+    const columns = Array.from({ length: columnCount }, () => [] as typeof collageImages);
+    const heights = Array.from({ length: columnCount }, () => 0);
+
+    for (const item of collageImages) {
+      const ratio = imageRatios[item.image] ?? 1;
+      let shortestColumn = 0;
+
+      for (let i = 1; i < columnCount; i += 1) {
+        if (heights[i] < heights[shortestColumn]) shortestColumn = i;
+      }
+
+      columns[shortestColumn].push(item);
+      heights[shortestColumn] += ratio;
+    }
+
+    return columns;
+  }, [columnCount, imageRatios]);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <ScrollToTop />
@@ -82,16 +101,20 @@ const People = () => {
               Life at Zigma
             </h2> */}
 
-            <div className="columns-2 sm:columns-3 lg:columns-5 gap-1 px-1 sm:px-2 lg:px-1">
-              {collageImages.map((item, i) => (
-                <div key={i} className="group relative mb-1 break-inside-avoid overflow-hidden bg-white">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                    className="w-full h-auto object-cover transition duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-95"
-                  />
-                  <div className="pointer-events-none absolute inset-0 ring-0 ring-white/70 transition duration-300 group-hover:ring-2" />
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1 px-1 sm:px-2 lg:px-1">
+              {balancedColumns.map((column, columnIndex) => (
+                <div key={columnIndex} className="flex flex-col gap-1">
+                  {column.map((item, imageIndex) => (
+                    <div key={`${item.title}-${imageIndex}`} className="group relative overflow-hidden bg-white">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        loading="lazy"
+                        className="block w-full h-auto object-cover transition duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-95"
+                      />
+                      <div className="pointer-events-none absolute inset-0 ring-0 ring-white/70 transition duration-300 group-hover:ring-2" />
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>

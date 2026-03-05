@@ -5,6 +5,7 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
   // base: command === "build" ? "/alpha" : "/",
+  assetsInclude: ["**/*.JPG", "**/*.JPEG", "**/*.PNG", "**/*.WEBP", "**/*.AVIF"],
 
   server: {
     host: "::",

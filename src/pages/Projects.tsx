@@ -520,7 +520,7 @@ const Projects = () => {
               <div className="grid grid-cols-1 gap-4 text-sm text-slate-700 md:grid-cols-3">
                 <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
                   <p className="mb-1 text-slate-500">Project</p>
-                  <p className="font-medium text-slate-800">
+                  <p className="text-md text-slate-800">
                     {PROJECT_SHOWCASE_DETAILS[expandedProjectId].details.project}
                   </p>
                 </div>
@@ -532,7 +532,7 @@ const Projects = () => {
                 </div>
                 <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
                   <p className="mb-1 text-slate-500">Outcome</p>
-                  <p className="font-medium text-slate-800">
+                  <p className="text-md ">
                     {PROJECT_SHOWCASE_DETAILS[expandedProjectId].details.outcome}
                   </p>
                 </div>
@@ -541,7 +541,7 @@ const Projects = () => {
               {PROJECT_SHOWCASE_DETAILS[expandedProjectId].metrics && (
                 <div className="mt-6 border-t border-slate-200 pt-5">
                   <p className="mb-3 text-sm text-slate-500">Key Metrics</p>
-                  <ul className="grid grid-cols-1 gap-2 text-sm text-slate-700 md:grid-cols-2">
+                  <ul className="grid grid-cols-1 gap-2 text-md  md:grid-cols-2">
                     {PROJECT_SHOWCASE_DETAILS[expandedProjectId].metrics?.map((item, idx) => (
                       <li key={idx} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2">
                         {item}

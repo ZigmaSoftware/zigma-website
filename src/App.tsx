@@ -28,6 +28,7 @@ import ScrollAnimator from "@/components/ScrollAnimator";
 import Servicescp from "./pages/Servicescp";
 import SmoothScrollProvider from "@/components/animation/SmoothScrollProvider";
 import Mediacp from "./pages/Mediacp";
+import Awardsection from "./pages/Awardsection";
 
 
 const queryClient = new QueryClient();
@@ -66,6 +67,7 @@ const App = () => (
 
             <Route path="/vertical-scroll-slider" element={<VerticalScrollSlider />} />
             <Route path="/mediacp" element={<Mediacp />} />
+            <Route path="/awardsection" element={<Awardsection />} />
           </Routes>
         </BrowserRouter>
       </SmoothScrollProvider>

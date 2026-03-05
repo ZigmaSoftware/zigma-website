@@ -72,6 +72,7 @@ const navItems = [
     dropdown: [
      
       { name: "Awards", path: "/Awards" },
+      { name: "Awards1", path: "/Awardsection" },
       { name: "News", path: "/Mediacp" },
        { name: "News2", path: "/Media" },
     ]
@@ -198,9 +199,9 @@ const Header = () => {
                 {item.dropdown ? (
                   <button
                     onClick={() => toggleDropdown(item.name)}
-                    className={`group relative flex items-center gap-1 py-4 text-sm font-medium transition-colors whitespace-nowrap ${
+                    className={`group relative flex items-center gap-1 py-4 text-md transition-colors whitespace-nowrap ${
                       isActive(item.path)
-                        ? "text-primary font-semibold"
+                        ? "text-primary font-bold"
                         : "text-foreground hover:text-primary"
                     }`}
                   >
@@ -214,7 +215,7 @@ const Header = () => {
                 ) : (
                   <Link
                     to={item.path}
-                    className={`group relative flex items-center py-4 text-sm font-medium transition-colors whitespace-nowrap ${
+                    className={`group relative flex items-center py-4 text-md font-medium transition-colors whitespace-nowrap ${
                       isActive(item.path)
                         ? "text-primary font-semibold"
                         : "text-foreground hover:text-primary"
@@ -244,11 +245,11 @@ const Header = () => {
           </nav>
 
           {/* CTA */}
-          <div className="hidden lg:block shrink-0">
+          {/* <div className="hidden lg:block shrink-0">
             <Button asChild>
               <Link to="/contact">Get in Touch</Link>
             </Button>
-          </div>
+          </div> */}
 
           {/* MOBILE TOGGLE */}
           <button

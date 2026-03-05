@@ -138,8 +138,9 @@ const StatsSection = () => {
               </div>
             </div>
           ))}
-        </div>
-
+        </div>      
+      </div>
+          
         {/* Video Section with YouTube Embed */}
         <div className="group  relative aspect-video w-full overflow-hidden shadow-xl border border-border mx-auto">
           <iframe
@@ -163,7 +164,7 @@ const StatsSection = () => {
             </span>
           </button> */}
         </div>
-      </div>
+
     </section>
   );
 };

@@ -8,6 +8,7 @@ import Reveal from '@/components/animation/Reveal';
 import StaggerReveal from '@/components/animation/StaggerReveal';
 import bg1 from '@/assets/background-1.png';
 import hero from '@/assets/website/hero/about-hero.jpg';
+import globeSvg from '@/assets/contact_globe.svg';
 
 import img1 from '@/assets/website/Kumbakonam.png';
 import img2 from '@/assets/website/Forcebel.png';
@@ -21,9 +22,10 @@ import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/website/image ewd.png';
 import img11 from '@/assets/website/image site.png';
 
-import picture1 from '@/assets/website/Mr. Boopathy Dharmaraj.png';
-import picture2 from '@/assets/website/Mr. K.P Mutharasu.jpg';
-import picture3 from '@/assets/website/Mr. ANAND THANGARAJ.png';
+import picture1 from '@/assets/website/Mr. BDR.png';
+import picture2 from '@/assets/website/Mr.KPM.png';
+import picture3 from '@/assets/website/Mr. AT.png';
+import picture4 from '@/assets/website/Mr. KTI.png';
 import picture5 from '@/assets/website/Mr. NAGESH PRABHU.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -186,12 +188,13 @@ const leaders: Leader[] = [
     name: 'Mr. Anand Thangaraj',
     title: 'Director',
     image: picture3,
-    linkedin: '#',
+    linkedin: 'https://www.linkedin.com/in/anand-thangaraj-9b1a8614a/',
   },
   {
     name: 'Mr. KU THA ILANGOVAN',
     title: 'Director',
-    linkedin: '#',
+    image: picture4,
+    linkedin: 'https://www.linkedin.com/in/ku-tha-ilangovan-9b1a8614a/',
   },
   {
     name: 'Mr. Nagesh Prabhu',
@@ -448,9 +451,22 @@ const About = (): JSX.Element => {
 
         <section
           data-no-animate
-          className="section-padding bg-white scroll-mt-24 lg:scroll-mt-28 lg:snap-start"
+          className="section-padding relative overflow-hidden scroll-mt-24 lg:scroll-mt-28 lg:snap-start"
+          style={{ background: 'linear-gradient(135deg, hsl(145 40% 97%) 0%, hsl(0 0% 100%) 50%, hsl(145 30% 96%) 100%)' }}
         >
-          <div className="container-main w-full max-w-5xl">
+          {/* Globe SVG background */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 select-none lg:h-[560px] lg:w-[560px]"
+          >
+            <img
+              src={globeSvg}
+              alt=""
+              className="h-full w-full opacity-[.25] drop-shadow-[0_0_20px_rgba(22,101,52,0.2)] motion-safe:animate-[spin_40s_linear_infinite] motion-reduce:animate-none"
+            />
+          </div>
+
+          <div className="container-main relative w-full max-w-5xl section-padding">
             <Reveal
               className="mt-4 flex flex-col justify-start"
               data-anim-start="top 92%"
@@ -461,18 +477,22 @@ const About = (): JSX.Element => {
                 Our Company
               </div>
               <h2 className="mt-3 text-3xl font-bold leading-tight text-foreground md:text-4xl">
-                Zigma Global Environ Solutions Pvt. Ltd.
+                Zigma Global Environ Solutions Pvt Ltd.
               </h2>
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-                Zigma was founded by a group of serial entrepreneurs from South India, experienced
-                in manufacturing steel, TMT bars, billets, UPVC door and window profiles, hospitality,
-                and IT infrastructure projects. The team recognized the growing challenge of waste
-                mismanagement and built a company focused on solving it at scale.
+                Zigma was founded by a group of serial enterpreneurs from South India, experienced in
+                manufacuring Steel, TMT Bars, Billets, UPVC Door and Window profiles, hospitality and IT
+                infrastructure projects. On the quest for a worthy challenge came across the rising
+                menace of waste mismanagement and realised that this was the opportunity to so
+                something phenomenal that would benefit not only the community but the country at large.
               </p>
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-                After studying municipal solid waste systems in Germany, South Africa, Thailand,
-                China, and South Korea, Zigma was founded to address legacy waste management in
-                India with a lower-carbon segregation model.
+                After extensive research and travel to countries like Germany, South Africa,
+                Thailand, China and South Korea to understand how these countries manage their
+                Municipal Solid Waste (MSW), Zigma was founded, to solve the problem of legacy
+                waste management. At the core of our operations is a low carbon emission model
+                for segregation of legacy MSW dumped indiscriminately in the open dump yards
+                in India today.
               </p>
             </Reveal>
           </div>
@@ -610,18 +630,16 @@ const About = (): JSX.Element => {
                       className="group relative z-10 flex flex-col items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2"
                     >
                       <div
-                        className={`h-4 w-4 rounded-full transition-all duration-300 ${
-                          isActive
-                            ? 'scale-150 bg-green-700 shadow-lg shadow-green-700/50'
-                            : isPast
-                              ? 'bg-green-700'
-                              : 'bg-slate-300'
-                        } group-hover:scale-125`}
+                        className={`h-4 w-4 rounded-full transition-all duration-300 ${isActive
+                          ? 'scale-150 bg-green-700 shadow-lg shadow-green-700/50'
+                          : isPast
+                            ? 'bg-green-700'
+                            : 'bg-slate-300'
+                          } group-hover:scale-125`}
                       />
                       <span
-                        className={`text-sm font-medium transition-colors ${
-                          isActive ? 'text-green-700' : 'text-slate-500 group-hover:text-slate-700'
-                        }`}
+                        className={`text-sm font-medium transition-colors ${isActive ? 'text-green-700' : 'text-slate-500 group-hover:text-slate-700'
+                          }`}
                       >
                         {milestone.year}
                       </span>
