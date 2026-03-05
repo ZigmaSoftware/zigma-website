@@ -1,5 +1,4 @@
 import { useMemo, useRef, useState } from "react";
-import { Calendar } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Herobg from "@/assets/website/globe_bg.png";
@@ -18,7 +17,6 @@ type NewsArticle = {
 type NewsImage = {
   name: string;
   src: string;
-  fullPath: string;
 };
 
 const newsImages: NewsImage[] = Object.entries(
@@ -30,7 +28,6 @@ const newsImages: NewsImage[] = Object.entries(
   .map(([path, src]) => ({
     src: src as string,
     name: path.split("/").pop() ?? "",
-    fullPath: path,
   }))
   .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 
@@ -251,11 +248,6 @@ type NewsCard = {
   articleId: number;
 };
 
-const toReadableTitle = (imageName: string) => {
-  const base = imageName.replace(/\.[^.]+$/, "");
-  return `Press Release ${base.toUpperCase()}`;
-};
-
 const Mediacp = () => {
   const CARDS_PER_LEVEL = 6;
   const MAX_EXPAND_LEVELS = 3;
@@ -273,36 +265,15 @@ const Mediacp = () => {
     [imageByName],
   );
 
-  const allNewsDetails = useMemo<NewsArticleWithImage[]>(() => {
-    const articleByImage = new Map(detailedArticles.map((article) => [article.imageName, article]));
+  const allNewsDetails = detailedArticles;
 
-    return newsImages.map((img, index) => {
-      const matched = articleByImage.get(img.name);
-      if (matched) return matched;
-
-      const title = toReadableTitle(img.name);
-      return {
-        id: 2000 + index,
-        title,
-        date: "Press Release",
-        source: "Zigma Press Desk",
-        excerpt: title,
-        fullText:
-          "This press release captures a documented project moment from Zigma's field operations and execution timeline. Additional editorial details can be updated as formal publication references are finalized.",
-        imageName: img.name,
-        image: img.src,
-        link: "#",
-      };
-    });
-  }, [detailedArticles]);
-
-  const [activeArticleId, setActiveArticleId] = useState<number>(allNewsDetails[0]?.id ?? 1);
+  const [activeArticleId, setActiveArticleId] = useState<number | null>(null);
   const [expandLevel, setExpandLevel] = useState(1);
   const storyRef = useRef<HTMLElement | null>(null);
   const storyImageRef = useRef<HTMLDivElement | null>(null);
 
   const activeArticle = useMemo(
-    () => allNewsDetails.find((article) => article.id === activeArticleId) ?? allNewsDetails[0],
+    () => allNewsDetails.find((article) => article.id === activeArticleId) ?? null,
     [activeArticleId, allNewsDetails],
   );
 
@@ -366,32 +337,38 @@ const Mediacp = () => {
         </section>
 
         {activeArticle && (
-          <section ref={storyRef} className="section-padding bg-white scroll-mt-24 lg:scroll-mt-28">
+          <section
+            ref={storyRef}
+            className="section-padding pt-4 pb-8 md:pt-6 md:pb-10 bg-white scroll-mt-24 lg:scroll-mt-28"
+          >
             <div className="container-main">
-              <div className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">Top Story</div>
-              <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">
+              <div className="text-xs uppercase tracking-[0.26em] text-muted-foreground font-medium">Top Story</div>
+              <h2 className="mt-1 text-xl md:text-2xl font-bold text-foreground">
                 News <span className="text-primary">Details</span>
               </h2>
 
-              <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6 border border-slate-200 bg-card overflow-hidden">
-                <div ref={storyImageRef} className="relative min-h-[280px] lg:min-h-[420px] overflow-hidden">
-                  <img src={activeArticle.image} alt={activeArticle.title} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
-                </div>
+              <div className="mt-3 border border-slate-200 bg-card overflow-hidden">
+                <div className="grid grid-cols-1 lg:grid-cols-2">
+                  <div className="flex h-full flex-col justify-center p-4 space-y-4 lg:p-5">
+                    <div className="flex items-center gap-3 text-md text-muted-foreground">
+                      <span className="text-primary font-medium">{activeArticle.source}</span>
+                    </div>
 
-                <div className="p-6 lg:p-8">
-                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      {activeArticle.date}
-                    </span>
-                    <span className="text-primary font-medium">{activeArticle.source}</span>
+                    <h3 className="mt-2 text-xl lg:text-2xl font-bold text-foreground leading-snug">
+                      {activeArticle.title}
+                    </h3>
+                    <p className="mt-3 text-base lg:text-lg text-slate-600 leading-relaxed text-justify line-clamp-3">
+                      {activeArticle.excerpt}
+                    </p>
                   </div>
 
-                  <h3 className="mt-4 text-2xl lg:text-3xl font-bold text-foreground leading-snug">{activeArticle.title}</h3>
-                  <p className="mt-4 text-base lg:text-lg text-slate-600 leading-relaxed text-justify">{activeArticle.fullText}</p>
-
-
+                  <div ref={storyImageRef} className="relative h-[340px] md:h-[420px] overflow-hidden bg-white p-2">
+                    <img
+                      src={activeArticle.image}
+                      alt={activeArticle.title}
+                      className="w-full h-full object-contain bg-white"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -433,8 +410,8 @@ const Mediacp = () => {
                   className="inline-flex items-center rounded-md border border-primary/30 px-5 py-2 text-sm font-semibold text-primary transition hover:bg-primary/10"
                 >
                   {expandLevel < totalLevels
-                    ? `Explore More Press Release (${expandLevel + 1}/${totalLevels})`
-                    : "Show Less Press Release"}
+                    ? `Explore More News (${expandLevel + 1}/${totalLevels})`
+                    : "Show Less News"}
                 </button>
               </div>
             ) : null}

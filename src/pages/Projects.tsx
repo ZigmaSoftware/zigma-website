@@ -357,8 +357,8 @@ const Projects = () => {
         />
 
         <div className="relative z-10 mx-auto max-w-4xl">
-          <p className="text-sm font-medium uppercase tracking-[0.32em] text-white/85">Impact in Action</p>
-          <h1 className="mt-4 text-4xl font-bold leading-tight text-white md:text-5xl">
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-white/85 md:text-sm">Impact in Action</p>
+          <h1 className="mt-4 text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
             Projects That Reclaimed Land at Scale
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-white/90 md:text-lg">
@@ -410,7 +410,7 @@ const Projects = () => {
               <div className="mb-6">
                 <header className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(260px,320px)_1fr_auto] lg:items-center">
                   <div className="flex flex-col items-start gap-3">
-                    <h2 className="text-3xl font-bold text-slate-900 lg:text-4xl">{project.name}</h2>
+                    <h2 className="text-2xl font-bold text-slate-900 md:text-3xl lg:text-4xl">{project.name}</h2>
                     <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-primary">
                       {project.type}
                     </span>
@@ -513,26 +513,26 @@ const Projects = () => {
             </div>
 
             <div className="max-h-[calc(90vh-96px)] overflow-y-auto px-6 py-5 lg:px-8">
-              <p className="mb-6 leading-relaxed text-slate-700">
+              <p className="mb-6 text-sm leading-relaxed text-slate-700 md:text-base">
                 {PROJECT_SHOWCASE_DETAILS[expandedProjectId].description}
               </p>
 
               <div className="grid grid-cols-1 gap-4 text-sm text-slate-700 md:grid-cols-3">
                 <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="mb-1 text-slate-500">Project</p>
-                  <p className="text-md text-slate-800">
+                  <p className="mb-1 text-xs text-slate-500 md:text-sm">Project</p>
+                  <p className="text-sm text-slate-800 md:text-base">
                     {PROJECT_SHOWCASE_DETAILS[expandedProjectId].details.project}
                   </p>
                 </div>
                 <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="mb-1 text-slate-500">Focus</p>
-                  <p className="font-medium text-slate-800">
+                  <p className="mb-1 text-xs text-slate-500 md:text-sm">Focus</p>
+                  <p className="text-sm text-slate-800 md:text-base">
                     {PROJECT_SHOWCASE_DETAILS[expandedProjectId].details.focus}
                   </p>
                 </div>
                 <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="mb-1 text-slate-500">Outcome</p>
-                  <p className="text-md ">
+                  <p className="mb-1 text-xs text-slate-500 md:text-sm">Outcome</p>
+                  <p className="text-sm text-slate-800 md:text-base">
                     {PROJECT_SHOWCASE_DETAILS[expandedProjectId].details.outcome}
                   </p>
                 </div>
@@ -541,7 +541,7 @@ const Projects = () => {
               {PROJECT_SHOWCASE_DETAILS[expandedProjectId].metrics && (
                 <div className="mt-6 border-t border-slate-200 pt-5">
                   <p className="mb-3 text-sm text-slate-500">Key Metrics</p>
-                  <ul className="grid grid-cols-1 gap-2 text-md  md:grid-cols-2">
+                  <ul className="grid grid-cols-1 gap-2 text-sm md:grid-cols-2 md:text-base">
                     {PROJECT_SHOWCASE_DETAILS[expandedProjectId].metrics?.map((item, idx) => (
                       <li key={idx} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2">
                         {item}

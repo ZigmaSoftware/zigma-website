@@ -17,8 +17,8 @@ import picture1 from "@/assets/Office Img/IT department  floor.jpeg";
 import picture2 from "@/assets/Office Img/Admin & Finance department floor.jpeg";
 import picture3 from "@/assets/Office Img/HR, Tender Department floor.jpeg";
 
-import people1 from "@/assets/people at zigma/Picture1.png";
-import people2 from "@/assets/people at zigma/Picture2.png";
+import people1 from "@/assets/people at zigma/Picture 4.jpg";
+import people2 from "@/assets/people at zigma/image deb.png";
 import people3 from "@/assets/people at zigma/Picture3.png";
 import people4 from "@/assets/people at zigma/image  rm.jpg";
 import people5 from "@/assets/people at zigma/image cdb.jpg";

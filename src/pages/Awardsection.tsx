@@ -184,7 +184,7 @@ const metrics: Metric[] = [
 ];
 
 export default function Awardsection(): JSX.Element {
-  const [activeAward, setActiveAward] = useState<Award | null>(awards[0] ?? null);
+  const [activeAward, setActiveAward] = useState<Award | null>(null);
   const detailsRef = useRef<HTMLElement | null>(null);
   const detailsImageRef = useRef<HTMLDivElement | null>(null);
 
