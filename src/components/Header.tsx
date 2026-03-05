@@ -75,12 +75,14 @@ const navItems = [
       { name: "Awards1", path: "/Awardsection" },
       { name: "News", path: "/Mediacp" },
        { name: "News2", path: "/Media" },
+      
+
     ]
    },
 
 
   { name: "People At Zigma", path: "/people" },
-  { name: "Contact", path: "/contact" },
+  { name: "Careers", path: "/careers" },
 ];
 
 /* COMPONENT */
@@ -245,11 +247,11 @@ const Header = () => {
           </nav>
 
           {/* CTA */}
-          {/* <div className="hidden lg:block shrink-0">
+          <div className="hidden lg:block shrink-0">
             <Button asChild>
-              <Link to="/contact">Get in Touch</Link>
+              <Link to="/contact">Contact Us</Link>
             </Button>
-          </div> */}
+          </div>
 
           {/* MOBILE TOGGLE */}
           <button

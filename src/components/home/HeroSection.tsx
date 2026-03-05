@@ -94,9 +94,9 @@ const HeroSection = () => {
    
 
       {/* Content */}
-      <div className="container-main relative z-10 w-full">
-        <div className="max-w-2xl text-background transition-all duration-700 ease-out">
-          <div className="relative pl-6 overflow-hidden">
+      <div className="container-main relative z-10 ">
+        <div className="max-w-2xl text-background transition-all duration-700 ease-out ">
+          <div className=" relative pl-6 overflow-hidden">
             {/* Accent Line */}
             <div className="absolute left-0 top-0 h-full w-1 bg-primary animate-lineGrow" />
 

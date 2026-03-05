@@ -1,10 +1,5 @@
 /* ─── Container override (wider max for large screens) ─── */
-.container-main {
-  width: 95%;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 64rem;
-}
+
 
 /* ─── Hero Slider 3D helpers ─── */
 .perspective-1000 {

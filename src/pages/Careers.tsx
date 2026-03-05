@@ -40,7 +40,8 @@ import {
   ChevronRight,
   Building2,
   Check,
-  Upload
+  Upload,
+  Link
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -365,14 +366,14 @@ const Careers = () => {
 
                 <div className="mx-auto w-full max-w-2xl text-center lg:mx-0 lg:text-left">
                   <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
-                     Shape the Future
+                    Shape the Future
                   </p>
 
                   <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
                     Build Careers that Drive  <span className="text-primary">Sustainability</span>
                   </h2>
 
-                   <p className="mt-6 leading-relaxed text-muted-foreground text-lg">
+                  <p className="mt-6 leading-relaxed text-muted-foreground text-lg">
                     Join Zigma to build sustainable infrastructure, solve real-world challenges, and grow with a team
                     that values craft, safety, and impact.
                   </p>
@@ -541,7 +542,7 @@ const Careers = () => {
           </div>
         </section> */}
 
-    
+
 
 
         {/* Job Openings */}
@@ -560,16 +561,16 @@ const Careers = () => {
             </div> */}
 
 
-             <div className="text-center">
-                  <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
-                   Explore Our Roles
-                  </p>
+            <div className="text-center">
+              <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
+                Explore Our Roles
+              </p>
 
-                  <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                   Explore Your <span className="text-primary"> Career Path </span>
-                  </h2>
+              <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                Explore Your <span className="text-primary"> Career Path </span>
+              </h2>
 
-                </div>
+            </div>
 
 
             <div className="mt-6 space-y-6 cont">
@@ -584,15 +585,13 @@ const Careers = () => {
                           setSelectedDepartment(dept);
                           setSelectedLocation("all");
                         }}
-                        className={`relative shrink-0 px-3 py-3 text-sm md:text-base font-semibold transition-colors ${
-                          isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                        }`}
+                        className={`relative shrink-0 px-3 py-3 text-sm md:text-base font-semibold transition-colors ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                          }`}
                       >
                         {dept === "all" ? "All Openings" : dept}
                         <span
-                          className={`absolute left-0 right-0 -bottom-[1px] h-[3px] transition-opacity ${
-                            isActive ? "bg-primary opacity-100" : "bg-transparent opacity-0"
-                          }`}
+                          className={`absolute left-0 right-0 -bottom-[1px] h-[3px] transition-opacity ${isActive ? "bg-primary opacity-100" : "bg-transparent opacity-0"
+                            }`}
                         />
                       </button>
                     );
@@ -616,14 +615,16 @@ const Careers = () => {
                       <h3 className="text-lg font-bold text-foreground leading-snug">
                         {job.title}
                       </h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{job.description}</p>
-                      <Button
-                        variant="outline"
-                        className="mt-auto w-full h-9 rounded-md border-primary/40 bg-transparent text-primary hover:bg-primary/100"
-                        onClick={() => openApplicationForm(job.id)}
-                      >
-                        <Send className="mr-2 h-4 w-4" /> View Openings
-                      </Button>
+                      <p className=" text-md leading-relaxed">{job.description}</p>
+                      <div className="flex justify-center mt-auto">
+                        <Button
+                          variant="outline"
+                          className="mt-auto  h-9 rounded-md border-primary/70 bg-transparent text-primary hover:bg-primary/100"
+                          onClick={() => openApplicationForm(job.id)}
+                        >
+                          <Send className="mr-2 h-4 w-4" /> View Openings
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -759,11 +760,10 @@ const Careers = () => {
                       onDragOver={handleResumeDragOver}
                       onDragLeave={handleResumeDragLeave}
                       onDrop={handleResumeDrop}
-                      className={`relative flex min-h-[120px] w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-3 text-center transition-colors ${
-                        isDragOverResume
-                          ? "border-primary bg-primary/10"
-                          : "border-border bg-muted/20 hover:border-primary/60"
-                      }`}
+                      className={`relative flex min-h-[120px] w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-3 text-center transition-colors ${isDragOverResume
+                        ? "border-primary bg-primary/10"
+                        : "border-border bg-muted/20 hover:border-primary/60"
+                        }`}
                     >
                       <input
                         id="resumeUpload"
@@ -817,20 +817,20 @@ const Careers = () => {
         {/* Team Spotlight */}
         <section className="section-padding" id="culture">
           <div className="container-main text-center">
-           <div className="text-center">
-                  <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
-                  Join a team of builders.
-                  </p>
+            <div className="text-center">
+              <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
+                Join a team of builders.
+              </p>
 
-                  <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                   Explore Your <span className="text-primary"> Career Path </span>
-                  </h2>
+              <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                Explore Your <span className="text-primary"> Career Path </span>
+              </h2>
 
-                </div>
-          
-          <div className="text-center">
-            
-            {/* <h2
+            </div>
+
+            <div className="text-center">
+
+              {/* <h2
               className="text-2xl md:text-3xl font-bold text-foreground mb-2 reveal"
               data-reveal
             >
@@ -840,75 +840,75 @@ const Careers = () => {
               We're looking for highly ambitious and talented people to help us drive real change.
             </p> */}
 
-            <div className="relative mt-6 flex justify-center overflow-hidden reveal" data-reveal>
-              <div
-                className="h-48 w-full max-w-5xl rounded-full md:h-56"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(circle, hsl(var(--muted-foreground) / 0.25) 1px, transparent 1px)",
-                  backgroundSize: "12px 12px",
-                }}
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex max-w-5xl origin-center scale-[0.58] flex-col items-center gap-1.5 sm:scale-75 sm:gap-2 md:scale-90 lg:scale-100">
-                  {spotlightRowCounts.map((count, rowIndex) => {
-                    const startIndex = spotlightRowCounts
-                      .slice(0, rowIndex)
-                      .reduce((sum, value) => sum + value, 0);
-                    const placeholderCount = spotlightPlaceholderCounts[rowIndex] ?? 2;
-                    return (
-                      <div key={`row-${rowIndex}`} className="flex justify-center gap-1">
-                        {Array.from({ length: placeholderCount }).map((_, index) => (
-                          <div
-                            key={`ph-left-${rowIndex}-${index}`}
-                            className="h-7 w-7 rounded-full avatar-placeholder"
-                            aria-hidden="true"
-                          />
-                        ))}
-                        {Array.from({ length: count }).map((_, index) => {
-                          const avatarIndex = startIndex + index;
-                          const person = teamAvatars[avatarIndex % teamAvatars.length];
-                          const isActive = avatarIndex === activeAvatarIndex;
-                          return (
+              <div className="relative mt-6 flex justify-center overflow-hidden reveal" data-reveal>
+                <div
+                  className="h-48 w-full max-w-5xl rounded-full md:h-56"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle, hsl(var(--muted-foreground) / 0.25) 1px, transparent 1px)",
+                    backgroundSize: "12px 12px",
+                  }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="flex max-w-5xl origin-center scale-[0.58] flex-col items-center gap-1.5 sm:scale-75 sm:gap-2 md:scale-90 lg:scale-100">
+                    {spotlightRowCounts.map((count, rowIndex) => {
+                      const startIndex = spotlightRowCounts
+                        .slice(0, rowIndex)
+                        .reduce((sum, value) => sum + value, 0);
+                      const placeholderCount = spotlightPlaceholderCounts[rowIndex] ?? 2;
+                      return (
+                        <div key={`row-${rowIndex}`} className="flex justify-center gap-1">
+                          {Array.from({ length: placeholderCount }).map((_, index) => (
                             <div
-                              key={`${person.name}-${startIndex + index}`}
-                              className={`group avatar-item h-7 w-7 rounded-full overflow-hidden shadow-sm ring-1 ring-transparent hover:scale-110 hover:ring-primary/40 hover:shadow-md ${isActive ? "avatar-active" : ""}`}
-                              aria-label={`${person.name} from ${person.role}`}
-                              title={`${person.name} - ${person.role}`}
-                            >
-                              <img
-                                src={person.src}
-                                alt={`${person.name} portrait`}
-                                className={`avatar-img w-full h-full object-cover opacity-70 group-hover:opacity-100 ${isActive ? "opacity-100" : ""}`}
-                                loading="lazy"
-                              />
-                            </div>
-                          );
-                        })}
-                        {Array.from({ length: placeholderCount }).map((_, index) => (
-                          <div
-                            key={`ph-right-${rowIndex}-${index}`}
-                            className="h-7 w-7 rounded-full avatar-placeholder"
-                            aria-hidden="true"
-                          />
-                        ))}
-                      </div>
-                    );
-                  })}
+                              key={`ph-left-${rowIndex}-${index}`}
+                              className="h-7 w-7 rounded-full avatar-placeholder"
+                              aria-hidden="true"
+                            />
+                          ))}
+                          {Array.from({ length: count }).map((_, index) => {
+                            const avatarIndex = startIndex + index;
+                            const person = teamAvatars[avatarIndex % teamAvatars.length];
+                            const isActive = avatarIndex === activeAvatarIndex;
+                            return (
+                              <div
+                                key={`${person.name}-${startIndex + index}`}
+                                className={`group avatar-item h-7 w-7 rounded-full overflow-hidden shadow-sm ring-1 ring-transparent hover:scale-110 hover:ring-primary/40 hover:shadow-md ${isActive ? "avatar-active" : ""}`}
+                                aria-label={`${person.name} from ${person.role}`}
+                                title={`${person.name} - ${person.role}`}
+                              >
+                                <img
+                                  src={person.src}
+                                  alt={`${person.name} portrait`}
+                                  className={`avatar-img w-full h-full object-cover opacity-70 group-hover:opacity-100 ${isActive ? "opacity-100" : ""}`}
+                                  loading="lazy"
+                                />
+                              </div>
+                            );
+                          })}
+                          {Array.from({ length: placeholderCount }).map((_, index) => (
+                            <div
+                              key={`ph-right-${rowIndex}-${index}`}
+                              className="h-7 w-7 rounded-full avatar-placeholder"
+                              aria-hidden="true"
+                            />
+                          ))}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <p className="mt-3 text-lg text-muted-foreground  max-w-2xl mx-auto">
-              "I'm proud to be part of a team creating such a thoughtfully crafted product, centered on our customer
-              experiences."
-            </p>
-            <div className="mt-2 flex items-center justify-center gap-2 text-xs text-foreground">
-              <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-accent" />
-              <span className="font-semibold">Zigma</span>
-              <span className="text-muted-foreground">- Our Organization</span>
+              <p className="mt-3 text-lg text-muted-foreground  max-w-2xl mx-auto">
+                "I'm proud to be part of a team creating such a thoughtfully crafted product, centered on our customer
+                experiences."
+              </p>
+              <div className="mt-2 flex items-center justify-center gap-2 text-xs text-foreground">
+                <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-accent" />
+                <span className="font-semibold">Zigma</span>
+                <span className="text-muted-foreground">- Our Organization</span>
+              </div>
             </div>
-          </div>
           </div>
         </section>
 
@@ -926,10 +926,34 @@ const Careers = () => {
               we'll reach out when a suitable position opens up.
             </p>
             <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Send className="mr-2 h-5 w-5" /> Submit Your Resume
+
             </Button>
           </div>
         </section> */}
+
+        {/* CTA Section */}
+        <section className=" section-padding">
+          <div className="container-main text-center">
+            <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
+              Join Our Team
+            </span>
+            <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+              Ready to Build Your Career With Us?
+            </h2>
+            <p className="mt-6 text-base lg:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
+              We're always looking for talented individuals. Send us your resume and
+              we'll reach out when a suitable position opens up.            </p>
+
+            <Button size="lg" asChild className=" items-center justify-center ">
+              <span className="flex items-center">
+                Send Your Profile
+                <Send className="ml-2 h-5 w-5" /> {/* Send icon with left margin */}
+              </span>
+            </Button>
+          </div>
+        </section>
+
+
       </main>
       <Footer />
     </div>

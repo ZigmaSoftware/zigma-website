@@ -199,7 +199,14 @@ html.lenis body {
 
 @layer components {
   .container-main {
-    @apply w-[95%] max-w-5xl mx-auto;
+    width: min(90% - 2rem, 1200px);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .container-main {
+      width: min(90% - 3rem, 1280px);
+    }
   }
 
   .section-padding {

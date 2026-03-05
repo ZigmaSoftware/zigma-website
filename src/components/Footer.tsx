@@ -51,7 +51,7 @@ const Footer = () => {
                   href="https://www.facebook.com/zigmaglobal/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 hover:bg-[#1877F2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-8 h-8 hover:bg-[#1877F2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on Facebook"
                 >
                   <Facebook className="w-4 h-4" />
@@ -60,7 +60,7 @@ const Footer = () => {
                   href="https://x.com/zigmaglobal1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10  hover:bg-[#000000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-8 h-8  hover:bg-[#000000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on Twitter"
                 >
                   {/* <Twitter className="w-4 h-4" /> */}
@@ -77,7 +77,7 @@ const Footer = () => {
                   href="https://in.linkedin.com/company/zigma-global-environ-solutions-plc"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10  hover:bg-[#0A66C2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-8 h-8  hover:bg-[#0A66C2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on LinkedIn"
                 >
                   <Linkedin className="w-4 h-4" />
@@ -86,7 +86,7 @@ const Footer = () => {
                   href="https://www.instagram.com/zigma_2015/?hl=en"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 hover:bg-[#E1306C] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-8 h-8 hover:bg-[#E1306C] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on Instagram"
                 >
                   <Instagram className="w-4 h-4" />
@@ -95,7 +95,7 @@ const Footer = () => {
                   href="https://www.youtube.com/channel/UCoSAp-9wtY6m58IknjmweHg/null"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10  hover:bg-[#FF0000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-8 h-8  hover:bg-[#FF0000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on YouTube"
                 >
                   <Youtube className="w-5 h-5" />
@@ -142,19 +142,22 @@ const Footer = () => {
               <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
               <ul className="space-y-3 mb-4">
                 <li className="flex items-start gap-3">
-                  {/* <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" /> */}
+                  
+                  <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  
                   <span className="text-foreground/70 text-md text-justify">
                     Head Office : 178, Indu Nagar, Palayapalayam,Perundurai Road, Erode, Tamilnadu - 638 011.
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  {/* <Mail className="w-4 h-4 text-primary flex-shrink-0" /> */}
+                  <Mail className="w-4 h-4 text-primary flex-shrink-0" />
+                 
                   <a href="mailto:connect@zigma.in" className="text-foreground/70 hover:text-primary text-md transition-colors">
                     connect@zigma.in
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
-                  {/* <Phone className="w-4 h-4 text-primary flex-shrink-0" /> */}
+                  <Phone className="w-4 h-4 text-primary flex-shrink-0" />
                   <a href="tel:+911234567890" className="text-foreground/70 hover:text-primary text-md transition-colors">
                     +91 98943 26007
                   </a>
