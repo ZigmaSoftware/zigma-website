@@ -390,7 +390,7 @@ const MilestoneSection = () => {
           </div>
 
           <div className="relative h-[480px] border border-border p-6 bg-gradient-to-br from-muted/40 via-background to-muted/30 overflow-y-auto">
-            {/* <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.04] pointer-events-none" /> */}
+          
 
             <div className="relative z-10">
               <AnimatePresence mode="wait" initial={false}>
