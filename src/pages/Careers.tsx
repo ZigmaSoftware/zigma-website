@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ import picture3 from "@/assets/Office Img/HR, Tender Department floor.jpeg";
 
 import people1 from "@/assets/people at zigma/Picture 4.jpg";
 import people2 from "@/assets/people at zigma/image deb.png";
-import people3 from "@/assets/people at zigma/DSC07027.jpg";
+import people3 from "@/assets/people at zigma/DSC07027.JPG";
 import people4 from "@/assets/people at zigma/image  rm.jpg";
 import people5 from "@/assets/people at zigma/image cskf.jpg";
 import people6 from "@/assets/people at zigma/image cej.jpg";
