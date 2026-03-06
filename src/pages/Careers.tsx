@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -19,9 +19,9 @@ import picture3 from "@/assets/Office Img/HR, Tender Department floor.jpeg";
 
 import people1 from "@/assets/people at zigma/Picture 4.jpg";
 import people2 from "@/assets/people at zigma/image deb.png";
-import people3 from "@/assets/people at zigma/Picture3.png";
+import people3 from "@/assets/people at zigma/DSC07027.jpg";
 import people4 from "@/assets/people at zigma/image  rm.jpg";
-import people5 from "@/assets/people at zigma/image cdb.jpg";
+import people5 from "@/assets/people at zigma/image cskf.jpg";
 import people6 from "@/assets/people at zigma/image cej.jpg";
 import people7 from "@/assets/people at zigma/image dcd.jpg";
 import people8 from "@/assets/people at zigma/image frhb.jpg";
@@ -815,8 +815,8 @@ const Careers = () => {
 
 
         {/* Team Spotlight */}
-        <section className="section-padding" id="culture">
-          <div className="container-main text-center">
+        <section className="section-padding bg-cover bg-center bg-no-repeat" id="culture" style={{ backgroundImage: `url(${bg})` }}>
+          <div className="container-main text-center " >
             <div className="text-center">
               <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
                 Join a team of builders.
@@ -961,6 +961,8 @@ const Careers = () => {
 };
 
 export default Careers;
+
+
 
 
 

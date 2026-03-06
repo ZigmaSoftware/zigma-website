@@ -1,4 +1,5 @@
-﻿import Header from "@/components/Header";
+import Reveal from "@/components/animation/Reveal";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 import { CheckCircle, ArrowRight, Leaf, Recycle, Building2, Sparkles } from "lucide-react";
@@ -10,6 +11,8 @@ import product3 from "@/assets/website/soil.jpg";
 import product4 from "@/assets/website/glass.jpg";
 import product5 from "@/assets/website/Ferrous.jpg";
 import bg1 from "@/assets/background-1.png"; 
+
+const SLOW_EASE = "power2.out";
 
 const products = [
   {
@@ -110,7 +113,13 @@ const Products = () => {
           {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/35" aria-hidden="true" /> */}
 
           <div className="container-main relative grid items-center justify-items-center pt-28 text-center">
-            <div className="max-w-3xl mx-auto">
+            <Reveal
+              className="max-w-3xl mx-auto"
+              variant="fade-up"
+              data-anim-start="top 94%"
+              data-anim-duration="1.6"
+              data-anim-ease={SLOW_EASE}
+            >
               <span className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium  block">
                 Our Products
               </span>
@@ -120,7 +129,7 @@ const Products = () => {
               <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
                 Transforming waste into valuable products. Our recovered materials support sustainable construction and agriculture.
               </p>
-            </div>
+            </Reveal>
 
             {/* <div className="grid sm:grid-cols-3 gap-6">
               <div className="rounded-2xl border border-white/30 bg-white/95 p-5 text-center backdrop-blur-sm">
@@ -153,8 +162,11 @@ const Products = () => {
           <div className="container-main">
             <div className="space-y-24">
               {products.map((product, index) => (
-                <div 
+                <Reveal
                   key={product.id}
+                  data-anim-start="top 90%"
+                  data-anim-duration="1.45"
+                  data-anim-ease={SLOW_EASE}
                   className={`grid lg:grid-cols-2 gap-12 items-center ${
                     index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                   }`}
@@ -215,7 +227,7 @@ const Products = () => {
                       </Link>
                     </Button>
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -230,23 +242,25 @@ const Products = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
 
           <div className="container-main relative z-10 text-center">
-            <span className="text-sm uppercase tracking-[0.3em] text-primary-foreground/85">
-              Let Us Deliver Impact
-            </span>
-            <h2 className="mt-3 text-3xl md:text-4xl font-bold leading-tight text-primary-foreground">
-              Need Bulk Orders?
-            </h2>
-            <p className="mt-6 text-base lg:text-lg text-primary-foreground/90 leading-relaxed max-w-xl mx-auto mb-8">
-              We supply recovered materials in bulk quantities for construction and industrial projects. Get competitive pricing for your requirements.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" variant="hero">
-                <Link to="/contact">Request Quote</Link>
-              </Button>
-              <Button asChild size="lg" variant="heroOutline">
-                <Link to="/projects">View Projects</Link>
-              </Button>
-            </div>
+            <Reveal data-anim-start="top 92%" data-anim-duration="1.45" data-anim-ease={SLOW_EASE}>
+              <span className="text-sm uppercase tracking-[0.3em] text-primary-foreground/85">
+                Let Us Deliver Impact
+              </span>
+              <h2 className="mt-3 text-3xl md:text-4xl font-bold leading-tight text-primary-foreground">
+                Need Bulk Orders?
+              </h2>
+              <p className="mt-6 text-base lg:text-lg text-primary-foreground/90 leading-relaxed max-w-xl mx-auto mb-8">
+                We supply recovered materials in bulk quantities for construction and industrial projects. Get competitive pricing for your requirements.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" variant="hero">
+                  <Link to="/contact">Request Quote</Link>
+                </Button>
+                <Button asChild size="lg" variant="heroOutline">
+                  <Link to="/projects">View Projects</Link>
+                </Button>
+              </div>
+            </Reveal>
           </div>
         </section> */}
       </main>

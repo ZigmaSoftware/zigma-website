@@ -3,11 +3,11 @@ import { MapPin, Trash2, Factory, Weight, Leaf, Play, Pause } from "lucide-react
 import bgstat from "../../assets/background-1.png";
 
 const stats = [
-  { icon: MapPin, value: 3230, suffix: "+", label: "Land Cleared", description: "Acres restored" },
-  { icon: Trash2, value: 600, suffix: "+", label: "Dumpsites Reclaimed", description: "Sites remediated" },
-  { icon: Factory, value: 250, suffix: "+", label: "RDF Disposed", description: "Co-processing facilities" },
-  { icon: Weight, value: 180, suffix: "K+", label: "Tons Processed", description: "Monthly capacity" },
-  { icon: Leaf, value: 5330, suffix: "+", label: "CO2 Emissions Saved", description: "Metric tons offset" },
+  { icon: MapPin, value: 750, suffix: "+", label: "Acres Land Cleared", description: "Acres restored" },
+  { icon: Trash2, value: 55, suffix: "+", label: "Landfills Projects completed", description: "Sites remediated" },
+  { icon: Factory, value:2.5, suffix: "+", label: "Milliontonnes RDF", description: "milliontonnes Fossil fuels replaced with RDF" },
+  { icon: Weight, value: 170, suffix: "K+", label: " Projects 15 countries globally", description: "Projects completed" },
+  { icon: Leaf, value: 8, suffix: "+", label: "Reduction of CO 2 emissions", description: "Million tons offset" },
 ];
 
 const StatsSection = () => {
@@ -142,7 +142,7 @@ const StatsSection = () => {
       </div>
           
         {/* Video Section with YouTube Embed */}
-        <div className="group  relative aspect-video w-full overflow-hidden shadow-xl border border-border mx-auto">
+        <div className="group  relative aspect-video h-[500px] w-full overflow-hidden shadow-xl border border-border mx-auto">
           <iframe
             ref={videoRef}
             src="https://www.youtube.com/embed/hdu_hZGvom4?enablejsapi=1&autoplay=0&loop=1&playlist=hdu_hZGvom4&rel=0&modestbranding=1&playsinline=1&vq=hd1080"

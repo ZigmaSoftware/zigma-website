@@ -1,4 +1,5 @@
-﻿import Header from "@/components/Header";
+import Reveal from "@/components/animation/Reveal";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,9 +8,8 @@ import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
 import landfillManagement from "@/assets/website/hero/noida-present-hero.jpg";
 import wetWaste from "@/assets/Wet Waste Management.jpeg";
 import herobg from "@/assets/website/hero/noida-present-hero.jpg";
-import Servicescp from "./Servicescp";
-import bg from "@/assets/background-1.png";
 
+const SLOW_EASE = "power2.out";
 
 const services = [
   {
@@ -60,7 +60,7 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-        
+
       <main>
         {/* Page Header */}
         <section className="relative min-h-[100vh] flex items-center overflow-hidden">
@@ -75,7 +75,13 @@ const Services = () => {
           <div className="absolute inset-0 from-black/35 via-black/45 to-black/30" aria-hidden="true" />
 
           <div className="container-main relative grid items-center justify-items-center pt-28 text-center">
-            <div className="max-w-3xl mx-auto">
+            <Reveal
+              className="max-w-3xl mx-auto"
+              variant="fade-up"
+              data-anim-start="top 94%"
+              data-anim-duration="1.6"
+              data-anim-ease={SLOW_EASE}
+            >
               <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
                 What We Do
               </div>
@@ -85,7 +91,7 @@ const Services = () => {
               <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
                 Transforming waste into valuable products. Our recovered materials support sustainable construction and agriculture.
               </p>
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -94,17 +100,20 @@ const Services = () => {
           <div className="container-main">
             <div className="space-y-24">
               {services.map((service, index) => (
-                <div 
+                <Reveal
                   key={service.id}
                   id={service.id}
+                  data-anim-start="top 90%"
+                  data-anim-duration="1.45"
+                  data-anim-ease={SLOW_EASE}
                   className={`grid lg:grid-cols-2 gap-12 items-center ${
                     index % 2 === 1 ? "lg:flex-row-reverse" : ""
                   }`}
                 >
                   <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                     <div className="overflow-hidden rounded-2xl shadow-xl">
-                      <img 
-                        src={service.image} 
+                      <img
+                        src={service.image}
                         alt={service.title}
                         loading="lazy"
                         decoding="async"
@@ -134,7 +143,7 @@ const Services = () => {
                       <Link to="/contact">Get Quote</Link>
                     </Button>
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -143,28 +152,27 @@ const Services = () => {
         {/* CTA Section */}
         <section className=" section-padding">
           <div className="container-main text-center">
-            <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
-              Let Us Deliver Impact
-            </span>
-            <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
-              Ready to Transform Your Waste Management?
-            </h2>
-            <p className="mt-6 text-base lg:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
-              Contact us today to discuss how we can help you achieve your sustainability goals.
-            </p>
-            <Button size="lg" asChild>
-              <Link to="/contact">Contact Us Today</Link>
-            </Button>
+            <Reveal data-anim-start="top 92%" data-anim-duration="1.45" data-anim-ease={SLOW_EASE}>
+              <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
+                Let Us Deliver Impact
+              </span>
+              <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                Ready to Transform Your Waste Management?
+              </h2>
+              <p className="mt-6 text-base lg:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
+                Contact us today to discuss how we can help you achieve your sustainability goals.
+              </p>
+              <Button size="lg" asChild>
+                <Link to="/contact">Contact Us Today</Link>
+              </Button>
+            </Reveal>
           </div>
         </section>
       </main>
-      {/* <Servicescp /> */}
       <Footer />
     </div>
   );
 };
 
 export default Services;
-
-
 

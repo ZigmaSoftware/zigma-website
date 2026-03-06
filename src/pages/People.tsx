@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 
 import bg from "@/assets/background-1.png";
 
-import { TrendingUp, BarChart3, Users, ChevronLeft, ChevronRight } from "lucide-react";
+import { TrendingUp, BarChart3, Users } from "lucide-react";
 
 const peopleImageModules = import.meta.glob<{ default: string }>(
   "../assets/people at zigma/*.{jpg,jpeg,JPG,png,webp,avif,JPEG,PNG,WEBP,AVIF}",
@@ -35,117 +34,31 @@ const collageImages = Object.entries(peopleImageModules)
   })
   .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: "base" }));
 
-const getColumnCount = (width: number) => {
-  if (width >= 1024) return 5;
-  if (width >= 640) return 3;
-  return 2;
-};
-
-const getCircularOffset = (index: number, activeIndex: number, total: number) => {
-  if (total <= 1) return 0;
-  let offset = index - activeIndex;
-  if (offset > total / 2) offset -= total;
-  if (offset < -total / 2) offset += total;
-  return offset;
-};
+const collagePattern = [
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-2",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-2",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-2",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-2",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-2",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+];
 
 /*  
    COMPONENT
 ===================================================== */
 const People = () => {
-  const [columnCount, setColumnCount] = useState(() =>
-    typeof window !== "undefined" ? getColumnCount(window.innerWidth) : 5
-  );
-  const [imageRatios, setImageRatios] = useState<Record<string, number>>({});
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const handleResize = () => setColumnCount(getColumnCount(window.innerWidth));
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    Promise.all(
-      collageImages.map(
-        (item) =>
-          new Promise<[string, number]>((resolve) => {
-            const img = new Image();
-            img.onload = () => {
-              const ratio = img.naturalWidth > 0 ? img.naturalHeight / img.naturalWidth : 1;
-              resolve([item.image, ratio]);
-            };
-            img.onerror = () => resolve([item.image, 1]);
-            img.src = item.image;
-          })
-      )
-    ).then((entries) => {
-      if (cancelled) return;
-      setImageRatios(Object.fromEntries(entries));
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const balancedColumns = useMemo(() => {
-    const columns = Array.from({ length: columnCount }, () => [] as typeof collageImages);
-    const heights = Array.from({ length: columnCount }, () => 0);
-
-    for (const item of collageImages) {
-      const ratio = imageRatios[item.image] ?? 1;
-      let shortestColumn = 0;
-
-      for (let i = 1; i < columnCount; i += 1) {
-        if (heights[i] < heights[shortestColumn]) shortestColumn = i;
-      }
-
-      columns[shortestColumn].push(item);
-      heights[shortestColumn] += ratio;
-    }
-
-    return columns;
-  }, [columnCount, imageRatios]);
-
-  const carouselImages = useMemo(() => {
-    const recommended = collageImages.filter((item) => {
-      const ratio = imageRatios[item.image] ?? 1;
-      const widthOverHeight = ratio > 0 ? 1 / ratio : 1;
-      return widthOverHeight >= 1.18 && widthOverHeight <= 2.1;
-    });
-
-    return recommended.length >= 5 ? recommended : collageImages;
-  }, [imageRatios]);
-
-  const totalSlides = carouselImages.length;
-
-  useEffect(() => {
-    if (totalSlides === 0) return;
-    if (activeIndex >= totalSlides) {
-      setActiveIndex(0);
-    }
-  }, [activeIndex, totalSlides]);
-
-  const visibleSlides = useMemo(
-    () =>
-      carouselImages
-        .map((slide, index) => ({
-          ...slide,
-          index,
-          offset: getCircularOffset(index, activeIndex, totalSlides),
-        }))
-        .filter((slide) => Math.abs(slide.offset) <= 3),
-    [activeIndex, carouselImages, totalSlides]
-  );
-
-  const goToSlide = (direction: -1 | 1) => {
-    if (totalSlides <= 1) return;
-    setActiveIndex((prev) => (prev + direction + totalSlides) % totalSlides);
-  };
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <ScrollToTop />
@@ -153,22 +66,21 @@ const People = () => {
 
       <div className="pt-20">
         {/* MASONRY GALLERY */}
-        <section className="bg-white py-1 w-full">
-          <div className="mx-auto">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1 px-1 sm:px-2 lg:px-1">
-              {balancedColumns.map((column, columnIndex) => (
-                <div key={columnIndex} className="flex flex-col gap-1">
-                  {column.map((item, imageIndex) => (
-                    <div key={`${item.title}-${imageIndex}`} className="group relative overflow-hidden bg-white">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        loading="lazy"
-                        className="block w-full h-auto object-cover transition duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-95"
-                      />
-                      <div className="pointer-events-none absolute inset-0 ring-0 ring-white/70 transition duration-300 group-hover:ring-2" />
-                    </div>
-                  ))}
+        <section className="w-full bg-[#efefef] py-4 sm:py-6">
+          <div className="mx-auto w-[min(96%,1280px)] border border-slate-300 bg-[#f6f6f6] p-2 sm:p-3">
+            <div className="grid grid-cols-2 auto-rows-[72px] gap-1 sm:grid-cols-4 sm:auto-rows-[88px] lg:grid-cols-6 lg:auto-rows-[100px]">
+              {collageImages.map((item, index) => (
+                <div
+                  key={`${item.title}-${index}`}
+                  className={`group relative overflow-hidden bg-white ${collagePattern[index % collagePattern.length]}`}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-95"
+                  />
+                  <div className="pointer-events-none absolute inset-0 ring-0 ring-white/70 transition duration-300 group-hover:ring-2" />
                 </div>
               ))}
             </div>
