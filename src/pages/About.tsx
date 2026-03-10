@@ -24,14 +24,14 @@ import img11 from '@/assets/website/image site.png';
 import picture1 from '@/assets/website/Mr. Boopathy Dharmaraj.png';
 import picture2 from '@/assets/website/Mr. K P Mutharasu.png';
 import picture3 from '@/assets/website/Mr. ANAND THANGARAJ.png';
-import picture4 from '@/assets/website/Mr. KTI.png';
+import picture4 from '@/assets/website/Mr. KTI.jpeg';
 import picture5 from '@/assets/website/Mr. NAGESH PRABHU.jpg';
 import picture6 from '@/assets/website/Mr. Aghoramoorthy Rajasekaran.jpg';
-import picture7 from '@/assets/website/Mr. SRIDHAR JAGANNATHAN.png';
+import picture7 from '@/assets/website/Mr. SRIDHAR JAGANNATHAN.jpeg';
 import picture8 from '@/assets/website/Mr. VIJAYAN S.png';
 import picture9 from '@/assets/website/Mr. Senthil Annamalai.png';
 import picture10 from '@/assets/website/Mr. Prashant Singh.png';
-import picture11 from '@/assets/website/Mr. Shankar Raman.jpg';
+import picture11 from '@/assets/website/Mr. Shankar Raman.jpeg';
 import picture12 from '@/assets/website/Mr. Maaran.png';
 import picture13 from '@/assets/website/Mr. Varun Boralkar.jpg';
 
@@ -211,6 +211,7 @@ const leaders: Leader[] = [
   {
     name: 'Mr. Sridhar Jagannathan',
     title: 'Vice President - Operations',
+    image: picture7,
     linkedin: 'https://www.linkedin.com/in/sridhar-jagannathan-00a52444/',
   },
   {
@@ -232,7 +233,7 @@ const leaders: Leader[] = [
   },
   {
     name: 'Mr. Shankar Raman C V',
-    title: 'Director',
+    title: 'Vice President - Business Development',
     image: picture11,
     linkedin: 'https://www.linkedin.com/in/shankar-raman-c-v-64528611/',
 
@@ -603,11 +604,11 @@ const About = (): JSX.Element => {
               />
             </Reveal>
 
-            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-6 flex flex-wrap justify-center gap-4">
               {leaders.map((leader) => (
                 <article
                   key={`${leader.name}-${leader.title}`}
-                  className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+                  className="w-full sm:w-[240px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
                 >
                   <div className="relative aspect-[4/4.1] bg-slate-100">
                     {leader.image ? (
