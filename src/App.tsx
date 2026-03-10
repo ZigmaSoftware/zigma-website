@@ -21,8 +21,6 @@ import GovernancePolicies from "./pages/GovernancePolicies";
 import Policies from "./pages/Policies";
 import ProjectShowcase from "./pages/ProjectShowcase";
 import StackedCards from "./components/ui/StackedCards";
-import VerticalSlider from "./pages/VerticalSlider";
-import VerticalScrollSlider from "./pages/VerticalScrollSlider";
 import WasteManagementShowcase from "./pages/WasteManagementShowcase";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollAnimator from "@/components/ScrollAnimator";
@@ -30,6 +28,10 @@ import Servicescp from "./pages/Servicescp";
 import SmoothScrollProvider from "@/components/animation/SmoothScrollProvider";
 import Mediacp from "./pages/Mediacp";
 import Awardsection from "./pages/Awardsection";
+import Peopledemo1 from "./pages/Peopledemo1";
+import Peopledemo2 from "./pages/Peopledemo2";
+import Peopledemo3 from "./pages/Peopledemo3";
+import Projectsdemo1 from "./pages/Projectsdemo1";
 
 
 const queryClient = new QueryClient();
@@ -61,15 +63,17 @@ const App = () => (
             <Route path="/project-showcase" element={<ProjectShowcase />} />
             <Route path="/stacked-cards" element={<StackedCards />} />
 
-            <Route path="/vertical-slider" element={<VerticalSlider />} />
             <Route path="/waste-management-showcase" element={<WasteManagementShowcase />} />
             <Route path="/governance-policies" element={<GovernancePolicies />} />
             <Route path="/policies" element={<Policies />} />
             <Route path="/servicescp" element={<Servicescp />} />
 
-            <Route path="/vertical-scroll-slider" element={<VerticalScrollSlider />} />
             <Route path="/mediacp" element={<Mediacp />} />
             <Route path="/awardsection" element={<Awardsection />} />
+            <Route path="/peopledemo1" element={<Peopledemo1 />} />
+            <Route path="/peopledemo2" element={<Peopledemo2 />} />
+            <Route path="/peopledemo3" element={<Peopledemo3 />} />
+            <Route path="/projectsdemo1" element={<Projectsdemo1 />} />
           </Routes>
         </BrowserRouter>
       </SmoothScrollProvider>

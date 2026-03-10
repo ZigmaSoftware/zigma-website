@@ -166,13 +166,7 @@ const People = () => {
                 }}>
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center">
-              {/* <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
-                Working @ Zigma
-              </h2>
-              <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
-                A performance-driven workplace where people, purpose, and
-                progress move together.
-              </p> */}
+             
 
                           <span className="text-sm  uppercase tracking-[0.3em] text-muted-foreground">
              Working @ Zigma

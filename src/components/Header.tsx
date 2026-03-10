@@ -52,7 +52,10 @@ const navItems = [
   {
     name: "Projects",
     path: "/projects",
-    // dropdown: [
+    dropdown: [
+      { name: "projects(demo1)", path: "/projectsdemo1" },
+      { name: "Projects(demo2)", path: "/project-showcase" },
+      { name: "projects(demo3)", path: "/projects" },
       // { name: "All Projects", path: "/projects" },
     //   { name: "Completed Projects", path: "/projects?tab=completed" },
     //   { name: "Project Showcase", path: "/project-showcase" },
@@ -61,7 +64,7 @@ const navItems = [
     //   { name: "Project Showcase", path: "/vertical-slider" },
     //   { name: "Waste Management Showcase", path: "/waste-management-showcase" },
       
-    // ],
+    ],
   },
 
   /* FLOW FIX */
@@ -82,8 +85,18 @@ const navItems = [
    },
 
 
-  { name: "People At Zigma", path: "/people" },
+  { name: "People At Zigma", path: "/people",
+    dropdown: [
+      { name: "people", path: "/people" },
+      { name: "people(Demo1)", path: "/peopledemo1" },
+      { name: "people(Demo2)", path: "/peopledemo2" },
+      { name: "people(Demo2)", path: "/peopledemo3" }
+      
+    ]
+  },
+
   { name: "Careers", path: "/careers" },
+  
 ];
 
 /* COMPONENT */

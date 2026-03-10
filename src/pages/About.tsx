@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Linkedin, Pause, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/animation/Reveal';
-import StaggerReveal from '@/components/animation/StaggerReveal';
 import bg1 from '@/assets/background-1.png';
 import hero from '@/assets/website/hero/about-hero.jpg';
 import globeSvg from '@/assets/contact_globe.svg';
@@ -27,6 +26,14 @@ import picture2 from '@/assets/website/Mr. K P Mutharasu.png';
 import picture3 from '@/assets/website/Mr. ANAND THANGARAJ.png';
 import picture4 from '@/assets/website/Mr. KTI.png';
 import picture5 from '@/assets/website/Mr. NAGESH PRABHU.jpg';
+import picture6 from '@/assets/website/Mr. Aghoramoorthy Rajasekaran.jpg';
+import picture7 from '@/assets/website/Mr. SRIDHAR JAGANNATHAN.png';
+import picture8 from '@/assets/website/Mr. VIJAYAN S.png';
+import picture9 from '@/assets/website/Mr. Senthil Annamalai.png';
+import picture10 from '@/assets/website/Mr. Prashant Singh.png';
+import picture11 from '@/assets/website/Mr. Shankar Raman.jpg';
+import picture12 from '@/assets/website/Mr. Maaran.png';
+import picture13 from '@/assets/website/Mr. Varun Boralkar.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,72 +56,66 @@ type Leader = {
   name: string;
   title: string;
   image?: string;
-  linkedin: string;
+  linkedin?: string;
 };
 
 const milestones: Milestone[] = [
   {
     year: 2015,
-    title: 'Company Founded',
+    title: 'Founding Year',
     description: [
-      'May: Awarded the Kumbakonam biomining project for 1.3 lakh m3.',
-      'July: Invited by the Government of India, Ministry of Urban Development, to present in workshops for Swachh Survekshan 2017.',
+      "Founded to tackle India's legacy waste crisis.",
+      'Developed indigenous machines with near-zero human intervention.',
     ],
     image: img1,
   },
   {
     year: 2016,
-    title: 'First Major Client',
+    title: 'National Recognition Begins',
     description: [
-      'April: Reclaimed more than 4 acres in Kumbakonam.',
-      'June: Won orders in 20 municipalities of Tamil Nadu for supply of MSW plants and machinery.',
-      'July: Awarded Frost and Sullivan 2016 Award.',
-      'December: Reclaimed more than 6 acres in Kumbakonam.',
+      'Instrumental in the Gazette notification of the SWM Rules 2016 mandating landfill mining.',
+      "Invited to Swachh Survekshan 2016 by MoUD to showcase India's first biomining project.",
+      'Marked as a best practice across 500 cities.',
     ],
     image: img2,
   },
   {
     year: 2017,
-    title: 'International Expansion',
+    title: 'Tech Collaboration and First Project',
     description: [
-      "May: Signed a joint venture with Forcebel, becoming Asia's largest landfill mining company.",
-      'July: Awarded biomining projects in Chennai - Sembakkam and Pammal.',
-      'August: Awarded biomining project in Vijayawada.',
-      'October: Awarded biomining project in Vadodara.',
+      'Partnership with Forcebel (Korea) - access to technology.',
+      "Awarded India's first DBFOO model biomining project in Kumbakonam.",
+      'Reclaimed 12 acres; began receiving central funding approvals.',
     ],
     image: img3,
   },
   {
     year: 2018,
-    title: 'Industry Recognition',
+    title: 'Infrastructure and Pipeline Expansion',
     description: [
-      'April: Awarded biomining project in Chidambaram.',
-      'May: Awarded biomining project in Chennai - Poonamallee.',
-      'June: Awarded biomining project in NOIDA.',
-      'July: Awarded biomining project in Nagpur.',
+      '15 acres reclaimed by March, 30 acres by December.',
+      'Commissioned a 25 TPH line in Kumbakonam.',
+      'Collaboration with IIT Bombay on aggregate disposal.',
+      'Strong pipeline of 45 projects, 25+ million tonnes waste, INR 1,400+ Cr revenue potential.',
     ],
     image: img4,
   },
   {
     year: 2019,
-    title: 'Project Wins and Land Reclamation Impact',
+    title: 'Capacity and Reputation Scaling',
     description: [
-      'January: Awarded biomining projects in Trichy and Erode.',
-      'February: Handed over 4 acres of reclaimed land to Sembakkam Municipality.',
-      'March: Awarded biomining project in Tirupati; reclaimed 10.5 acres in Vadodara and 32.5 acres in Vijayawada.',
+      'Commissioned 40 TPH line in Vijayawada.',
+      'Participated in Swachh Sarvekshan workshops with 500+ officials.',
+      'Cemented national model status with MoUD and MoEF&CC backing.',
     ],
     image: img5,
   },
   {
     year: 2020,
-    title: 'Accelerated Growth and Delivery Momentum',
+    title: 'Awards and Partnerships',
     description: [
-      'January: Awarded biomining project in Visakhapatnam.',
-      'June: Awarded biomining projects in Karaikudi and Karur.',
-      'July: Handed over 4 acres of reclaimed land to NOIDA Authority.',
-      'August: Awarded biomining project in NOIDA; reclaimed 5 acres in Pammal.',
-      'March: Blue Planet Environmental Solutions made a significant investment in Zigma Global Environ Solutions.',
-      'October: Awarded biomining projects in Cuddalore and Dindigul; handed over 2 acres of reclaimed land to Poonamallee Municipality.',
+      'CII 3R Awards for Excellence in Municipal Solid Waste Management.',
+      'Expanded urban partnerships and state-level adoption.',
     ],
     image: img6,
   },
@@ -132,40 +133,39 @@ const milestones: Milestone[] = [
   },
   {
     year: 2022,
-    title: 'Strategic Expansion Milestones',
+    title: 'Enhanced Credentials',
     description: [
-      'Secured first private contract from ITC for landfill mining.',
-      'Awarded project in Guwahati and expanded into North East India.',
+      'Platinum Leadership Award for CSR & ESG at the 14th Annual Global CSR & ESG Summit, Hanoi, Vietnam.',
+      'Reinforced focus on ESG, sustainability and global standards.',
     ],
     image: img8,
   },
   {
     year: 2023,
-    title: 'Sustainability Initiative',
+    title: 'Strategic Positioning',
     description: [
-      'IFU invested 35 million USD in Blue Planet Environmental Solutions for Zigma.',
-      'Awarded Kodungaiyur project in Chennai.',
-      'Milestone of 400 acres achieved.',
+      'Won Best ESG Initiative for GHG Emission Reduction at the 4th Annual ESG Summit & Awards.',
+      'Positioned as an industrial decarbonisation enabler.',
     ],
     image: img9,
   },
   {
     year: 2024,
-    title: 'Global Partnerships and Expansion',
+    title: 'Key Partnerships',
     description: [
-      'December: Blue Planet was an anchor partner of the AVPN South Asia Summit 2024 in Chennai on December 9, 2024.',
-      'Zigma moved into its new state-of-the-art facility in Erode, including a CCC control command center.',
+      'Blue Planet was an Anchor Partner of the AVPN South Asia Summit 2024, held in Chennai, India, on December 9, 2024.',
+      'Moved to their new state of art facility in Erode, a world class facility, also a CCC Control Command Centre.',
     ],
     image: img10,
   },
   {
     year: 2025,
-    title: 'Global Leadership',
+    title: 'Capacity Scale-up',
     description: [
-      'The Andhra Pradesh cluster project was awarded.',
-      'Processing capacity increased to 30,000 tons per day.',
-      '25 lakh tons of RDF coprocessed with cement plants and waste-to-energy by October 2025.',
-      'Zigma completed a decade of serving people and planet.',
+      'The legendary Andhra Pradesh Cluster project was awarded.',
+      'Processing capacity increased to 30 thousand tons per day.',
+      '25 lakh tons of RDF coprocessed with cement plants & Waste to Energy by October 2025.',
+      'Completed a decade of working for the people and the Planet.',
     ],
     image: img11,
   },
@@ -180,7 +180,7 @@ const leaders: Leader[] = [
   },
   {
     name: 'Mr. K.P Mutharasu',
-    title: 'Director',
+    title: ' Director',
     image: picture2,
     linkedin: 'https://www.linkedin.com/in/mutharasu-k-p-125b2546/',
   },
@@ -198,9 +198,56 @@ const leaders: Leader[] = [
   },
   {
     name: 'Mr. Nagesh Prabhu',
-    title: 'Director',
+    title: 'Co-Founder ',
     image: picture5,
     linkedin: 'https://www.linkedin.com/in/nageshprabhu/',
+  },
+  {
+    name: 'Mr. A Rajasekaran ',
+    title: 'Director-Technical',
+    image: picture6,
+    linkedin: 'https://www.linkedin.com/in/aghoramoorthy-rajasekaran-54479521/',
+  },
+  {
+    name: 'Mr. Sridhar Jagannathan',
+    title: 'Vice President - Operations',
+    linkedin: 'https://www.linkedin.com/in/sridhar-jagannathan-00a52444/',
+  },
+  {
+    name: 'Mr. Vijayan S',
+    title: 'Director',
+    linkedin: 'https://www.linkedin.com/in/vijayans/',
+  },
+  {
+    name: 'Mr. Senthil Annamalai',
+    title: 'COO',
+    image: picture9,
+    linkedin: 'https://www.linkedin.com/in/senthil-annamalai-9b1a8614a/',
+  },
+  {
+    name: 'Mr.Prashant Singh',
+    title: 'Co-Founder & CEO',
+    image: picture10,
+    linkedin: 'https://www.linkedin.com/in/prashantsingh4/',
+  },
+  {
+    name: 'Mr. Shankar Raman C V',
+    title: 'Director',
+    image: picture11,
+    linkedin: 'https://www.linkedin.com/in/shankar-raman-c-v-64528611/',
+
+  },
+  {
+    name: 'Mr. Maaran',
+    title: 'Vice President - Product Development & R&D',
+    
+    linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
+  },
+  {
+    name: 'Mr. Varun Boralkar',
+    title: 'Vice President - Strategic Business Group',
+    image: picture13,
+    linkedin: 'https://www.linkedin.com/in/varun-boralkar-aa085a15/',
   },
 ];
 
@@ -210,64 +257,12 @@ const isReducedMotionPreferred = (): boolean =>
 const clampMilestoneIndex = (index: number): number =>
   Math.max(0, Math.min(milestones.length - 1, index));
 
-const getLeaderInitials = (name: string): string =>
-  name
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join('');
-
 const SectionTitle = ({ label, title }: { label: string; title: JSX.Element | string }) => (
   <div>
     <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">{label}</span>
     <h2 className="mt-3 text-3xl font-bold text-foreground md:text-4xl">{title}</h2>
   </div>
 );
-
-const LeaderCard = ({ leader }: { leader: Leader }): JSX.Element => {
-  const hasLinkedIn = leader.linkedin !== '#';
-
-  return (
-    <div className="group w-full max-w-[240px] text-center">
-      <div className="relative mx-auto h-32 w-32">
-        <div className="h-32 w-32 overflow-hidden rounded-full bg-slate-100">
-          {leader.image ? (
-            <img
-              src={leader.image}
-              alt={leader.name}
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center text-xl font-semibold text-slate-400">
-              {getLeaderInitials(leader.name)}
-            </div>
-          )}
-        </div>
-        {hasLinkedIn && (
-          <a
-            href={leader.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${leader.name} on LinkedIn`}
-            className="absolute bottom-0 right-0 inline-flex h-9 w-9 translate-x-2 translate-y-2 items-center justify-center rounded-full border border-white bg-white text-slate-600 shadow-sm transition-colors hover:bg-slate-200 hover:text-slate-800"
-          >
-            <Linkedin className="h-4 w-4" />
-          </a>
-        )}
-      </div>
-
-      <div className="mt-6">
-        <div className="text-sm font-semibold text-slate-900 transition-colors group-hover:text-green-700">
-          {leader.name}
-        </div>
-        <div className="text-sm text-slate-500">{leader.title}</div>
-      </div>
-    </div>
-  );
-};
 
 const About = (): JSX.Element => {
   const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
@@ -460,10 +455,10 @@ const About = (): JSX.Element => {
             >
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <SectionTitle
-                  label="Our Journey So Far"
+                  label="Path to Recognition"
                   title={
                     <>
-                      Measurable Sustainability <span className="text-primary">Progress</span>
+                      Building India’s First <span className="text-primary">Landfill Mining Powerhouse</span>
                     </>
                   }
                 />
@@ -498,60 +493,54 @@ const About = (): JSX.Element => {
 
             <div
               className="mt-3 grid min-h-0 flex-1 grid-cols-1 items-stretch justify-center gap-5 lg:grid-cols-2"
-              
+
             >
               <div ref={milestoneImagePanelRef} className="relative">
-                <div className="relative aspect-[16/10] overflow-hidden shadow-2xl">
+                <div className="group relative aspect-[18/10] overflow-hidden shadow-2xl">
                   <img
                     src={currentMilestone.image}
                     alt={currentMilestone.title}
                     loading="lazy"
                     decoding="async"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover "
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+                  <button
+                    onClick={() => transitionToMilestone(currentIndexRef.current - 1)}
+                    disabled={currentIndex === 0}
+                    className="absolute left-3 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-white/70 bg-transparent text-white opacity-0 transition-all duration-200 group-hover:opacity-100 focus-visible:opacity-100 hover:border-white hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
+                    aria-label="Previous milestone"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button
+                    onClick={() => transitionToMilestone(currentIndexRef.current + 1)}
+                    disabled={currentIndex === milestones.length - 1}
+                    className="absolute right-3 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-white/70 bg-transparent text-white opacity-0 transition-all duration-200 group-hover:opacity-100 focus-visible:opacity-100 hover:border-white hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
+                    aria-label="Next milestone"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
                 </div>
               </div>
 
               <div ref={milestoneTextPanelRef} className="flex min-h-0 flex-col">
-                <div className="min-h-[260px] lg:min-h-[320px]">
+                <div className="min-h-[200px] lg:min-h-[260px]">
                   <div className="mb-2 text-sm font-bold tracking-wider text-green-700">
                     YEAR {currentMilestone.year}
                   </div>
                   <h3 className="mb-2 text-2xl font-bold leading-tight text-slate-900 lg:text-3xl">
                     {currentMilestone.title}
                   </h3>
-                  <ul className="h-[170px] list-disc space-y-2 overflow-y-auto pl-5 pr-2 text-sm leading-relaxed text-slate-600 lg:h-[220px] lg:text-base">
+                  <ul className="h-[170px] list-disc space-y-2 overflow-y-auto pl-5 pr-2 text-sm leading-relaxed text-slate-600 lg:h-[220px] lg:text-lg">
                     {currentMilestone.description.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
                 </div>
-
-                <div className="mt-auto flex items-center gap-3">
-                  <button
-                    onClick={() => transitionToMilestone(currentIndexRef.current - 1)}
-                    disabled={currentIndex === 0}
-                    className={NAV_BUTTON_CLASS}
-                    aria-label="Previous milestone"
-                  >
-                    <ChevronLeft className="h-4 w-4" />
-                  </button>
-                  <button
-                    onClick={() => transitionToMilestone(currentIndexRef.current + 1)}
-                    disabled={currentIndex === milestones.length - 1}
-                    className={NAV_BUTTON_CLASS}
-                    aria-label="Next milestone"
-                  >
-                    <ChevronRight className="h-4 w-4" />
-                  </button>
-                  <span className="text-sm font-medium text-slate-600">
-                    {currentIndex + 1} / {milestones.length}
-                  </span>
-                </div>
               </div>
             </div>
-
             <Reveal
               className="mt-4 overflow-x-auto overflow-y-visible py-2"
               data-anim-start="top 84%"
@@ -599,7 +588,8 @@ const About = (): JSX.Element => {
 
         <section
           data-no-animate
-          className="section-padding bg-white scroll-mt-24 lg:scroll-mt-28 lg:snap-start"
+          className="section-padding scroll-mt-24 lg:scroll-mt-28 "
+         
         >
           <div className="container-main flex flex-col">
             <Reveal data-anim-start="top 92%" data-anim-duration="1.45" data-anim-ease={SLOW_EASE}>
@@ -613,17 +603,42 @@ const About = (): JSX.Element => {
               />
             </Reveal>
 
-            <div className="mt-8 min-h-0 flex-1">
-              <StaggerReveal
-                className="grid grid-cols-1 place-items-center gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-5"
-                data-anim-start="top 88%"
-                data-anim-duration="3"
-                data-anim-ease={SLOW_EASE}
-              >
-                {leaders.map((leader) => (
-                  <LeaderCard key={`${leader.name}-${leader.title}`} leader={leader} />
-                ))}
-              </StaggerReveal>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {leaders.map((leader) => (
+                <article
+                  key={`${leader.name}-${leader.title}`}
+                  className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+                >
+                  <div className="relative aspect-[4/4.1] bg-slate-100">
+                    {leader.image ? (
+                      <img
+                        src={leader.image}
+                        alt={leader.name}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover object-top"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-slate-100" />
+                    )}
+                    {leader.linkedin && (
+                      <a
+                        href={leader.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${leader.name} on LinkedIn`}
+                        className="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#0A66C2] bg-white/95 text-[#0A66C2] transition-colors hover:bg-[#0A66C2] hover:text-white"
+                      >
+                        <span className="text-sm font-extrabold leading-none">in</span>
+                      </a>
+                    )}
+                  </div>
+                  <div className="p-3 text-center">
+                    <h3 className="text-lg font-semibold text-slate-900">{leader.name}</h3>
+                    <p className="mt-1 text-md text-slate-600">{leader.title}</p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -681,3 +696,13 @@ const About = (): JSX.Element => {
 };
 
 export default About;
+
+
+
+
+
+
+
+
+
+

@@ -5,7 +5,7 @@ import bgstat from "../../assets/background-1.png";
 const stats = [
   { icon: MapPin, value: 750, suffix: "+", label: "Acres Land Cleared", description: "Acres restored" },
   { icon: Trash2, value: 55, suffix: "+", label: "Landfills Projects completed", description: "Sites remediated" },
-  { icon: Factory, value:2.5, suffix: "+", label: "Milliontonnes RDF", description: "milliontonnes Fossil fuels replaced with RDF" },
+  { icon: Factory, value: 2.5, suffix: "+", label: "Milliontonnes RDF", description: "milliontonnes Fossil fuels replaced with RDF" },
   { icon: Weight, value: 170, suffix: "K+", label: " Projects 15 countries globally", description: "Projects completed" },
   { icon: Leaf, value: 8, suffix: "+", label: "Reduction of CO 2 emissions", description: "Million tons offset" },
 ];
@@ -95,10 +95,10 @@ const StatsSection = () => {
             Proven Ecological <span className="text-primary">Outcomes</span>
           </h2>
           <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-center text-sm md:text-lg  ">
-                The waste management company specializes in providing innovative,
-                eco-friendly solutions that reduce carbon footprint and optimize
-                sustainable impact for clients worldwide.
-              </p>
+            The waste management company specializes in providing innovative,
+            eco-friendly solutions that reduce carbon footprint and optimize
+            sustainable impact for clients worldwide.
+          </p>
         </div>
 
         {/* Stats Grid */}
@@ -138,22 +138,36 @@ const StatsSection = () => {
               </div>
             </div>
           ))}
-        </div>      
+        </div>
       </div>
-          
-        {/* Video Section with YouTube Embed */}
-        <div className="group  relative aspect-video h-[500px] w-full overflow-hidden shadow-xl border border-border mx-auto">
-          <iframe
+      {/* Video Section with YouTube Embed */}
+      <div className="group relative mx-auto w-full   overflow-hidden border border-border shadow-xl">
+        {/* <iframe
             ref={videoRef}
-            src="https://www.youtube.com/embed/hdu_hZGvom4?enablejsapi=1&autoplay=0&loop=1&playlist=hdu_hZGvom4&rel=0&modestbranding=1&playsinline=1&vq=hd1080"
+            src="https://www.youtube.com/embed/hdu_hZGvom4?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=hdu_hZGvom4&rel=0&modestbranding=1&playsinline=1&vq=hd1080"
             frameBorder="0"
             allow="autoplay; encrypted-media"
             allowFullScreen
             className="absolute inset-0 h-full w-full"
             title="Zigma Video"
+            
+            onLoad={() => setIsPlayerReady(true)}
+            
+          /> */}
+        <div className="relative w-full pt-[56.25%]">
+          <iframe
+            ref={videoRef}
+            src="https://www.youtube.com/embed/hdu_hZGvom4?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=hdu_hZGvom4&rel=0&modestbranding=1&playsinline=1&vq=hd1080"
+            title="Zigma avpn summit Video"
+            className="absolute inset-0 h-full w-full "
+            frameBorder={0}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
             onLoad={() => setIsPlayerReady(true)}
           />
-          {/* <button
+        </div>
+        {/* <button
             type="button"
             aria-label={isVideoPlaying ? "Pause video" : "Play video"}
             onClick={toggleVideoPlayback}
@@ -163,7 +177,7 @@ const StatsSection = () => {
               {isVideoPlaying ? <Pause className="h-7 w-7" /> : <Play className="h-7 w-7 fill-current" />}
             </span>
           </button> */}
-        </div>
+      </div>
 
     </section>
   );
@@ -191,3 +205,6 @@ const CountUp = ({ end, duration = 4200, separator = "," }: { end: number; durat
 };
 
 export default StatsSection;
+
+
+
