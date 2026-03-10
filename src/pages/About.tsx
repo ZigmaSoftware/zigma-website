@@ -27,7 +27,7 @@ import picture3 from '@/assets/website/Mr. ANAND THANGARAJ.png';
 import picture4 from '@/assets/website/Mr. KTI.jpeg';
 import picture5 from '@/assets/website/Mr. NAGESH PRABHU.jpg';
 import picture6 from '@/assets/website/Mr. Aghoramoorthy Rajasekaran.jpg';
-import picture7 from '@/assets/website/Mr. SRIDHAR JAGANNATHAN.jpeg';
+import picture7 from '@/assets/website/Mr. Sridhar Jagannathan.png';
 import picture8 from '@/assets/website/Mr. VIJAYAN S.png';
 import picture9 from '@/assets/website/Mr. Senthil Annamalai.png';
 import picture10 from '@/assets/website/Mr. Prashant Singh.png';
