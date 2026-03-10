@@ -19,7 +19,7 @@ import picture3 from "@/assets/Office Img/HR, Tender Department floor.jpeg";
 
 import people1 from "@/assets/people at zigma/Picture 4.jpg";
 import people2 from "@/assets/people at zigma/image deb.png";
-import people3 from "@/assets/people at zigma/DSC07060.jpg";
+import people3 from "@/assets/people at zigma/mngrsummit.jpg";
 import people4 from "@/assets/people at zigma/image  rm.jpg";
 import people5 from "@/assets/people at zigma/image cskf.jpg";
 import people6 from "@/assets/people at zigma/image cej.jpg";
