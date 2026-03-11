@@ -185,6 +185,7 @@ const StatsSection = () => {
 
 const CountUp = ({ end, duration = 4200, separator = "," }: { end: number; duration?: number; separator?: string }) => {
   const [count, setCount] = useState(0);
+  const decimalPlaces = Number.isInteger(end) ? 0 : Math.min(2, (end.toString().split(".")[1] || "").length);
 
   useEffect(() => {
     let startTime: number;
@@ -193,7 +194,9 @@ const CountUp = ({ end, duration = 4200, separator = "," }: { end: number; durat
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      setCount(Math.floor(easeOutQuart * end));
+      const nextValue = easeOutQuart * end;
+      const factor = 10 ** decimalPlaces;
+      setCount(Math.round(nextValue * factor) / factor);
 
       if (progress < 1) requestAnimationFrame(animate);
     };
@@ -201,7 +204,15 @@ const CountUp = ({ end, duration = 4200, separator = "," }: { end: number; durat
     requestAnimationFrame(animate);
   }, [end, duration]);
 
-  return <>{count.toLocaleString(undefined, { useGrouping: separator.length > 0 })}</>;
+  return (
+    <>
+      {count.toLocaleString(undefined, {
+        useGrouping: separator.length > 0,
+        minimumFractionDigits: decimalPlaces,
+        maximumFractionDigits: decimalPlaces,
+      })}
+    </>
+  );
 };
 
 export default StatsSection;

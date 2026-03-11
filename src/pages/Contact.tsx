@@ -2,12 +2,26 @@
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import erode from "@/assets/erd-pic.webp";
-import chennai from "@/assets/chennai-pic.webp";
+import chennai from "@/assets/Chennai.jpg";
+import Delhi from "@/assets/New Delhi.webp";
+import Mumbai from "@/assets/Mumbai.jpg";
+import Pune from "@/assets/pune.jpg";
+import Uk from "@/assets/UK.jpg";
+import Singapore from "@/assets/Singapore.jpg";
+import Malaysia from "@/assets/Malaysia.jpg";
+
 import Herobg from '@/assets/website/Office Night.jpeg';
 
 
@@ -22,13 +36,85 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.subject) {
+      toast.error("Please select an inquiry.");
+      return;
+    }
     toast.success("Thank you for your message! We'll get back to you soon.");
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const officeLocations = [
+    {
+      title: "Erode, India (Head Office)",
+      image: erode,
+      address:
+        "178, Indhu Nagar, Palayapalayam, Perundurai Road, Erode - 638012, Tamil Nadu, India",
+      mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=178+Indhu+Nagar+Palayapalayam+Perundurai+Road+Erode+638012",
+    },
+    {
+      title: "New Delhi, India (Corporate Office)",
+      image: Delhi,
+      address:
+        "3rd Floor, Unit No. 306, Worldmark 1, Asset Area No. 11, Delhi Aerocity, New Delhi - 110037",
+      mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=Worldmark+1+Asset+Area+11+Delhi+Aerocity+New+Delhi+110037",
+    },
+    {
+      title: "Mumbai, India",
+      image: Mumbai,
+      address:
+        "12th Floor, 1201-1203, Meridian Business Centre, Plot No. 27, Sector 30A, Vashi, Navi Mumbai, Maharashtra - 400705",
+      mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=Meridian+Business+Centre+Sector+30A+Vashi+Navi+Mumbai+400705",
+    },
+    {
+      title: "Pune, India",
+      image: Pune,
+      address:
+        "Unit No. 306, T3, Kohinoor World Towers, Opp. Empire Estate, Old Mumbai - Pune Highway, Pimpri Colony, District Pune - 411018",
+      mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=Kohinoor+World+Towers+Pimpri+Pune+411018",
+    },
+    {
+      title: "Chennai, India",
+      image: chennai,
+      address:
+        "No 119, Greenways Towers, 1st Floor, St Mary's Road, Abiramapuram, Chennai - 600018",
+      mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=Greenways+Towers+St+Marys+Road+Abiramapuram+Chennai+600018",
+    },
+    {
+      title: "UK",
+      image: Uk,
+      address:
+        "Crown House, Gretton Brook Road, Earlstrees Industrial Estate, Corby, England NN17 4BA",
+      mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=Crown+House+Gretton+Brook+Road+Earlstrees+Industrial+Estate+Corby+NN17+4BA",
+    },
+    {
+      title: "Malaysia",
+      image: Malaysia,
+      address:
+        "No 4, Jalan Pala 14, Imperial Industrial Park, Permatang Tinggi, 14000 Bukit Mertajam, Malaysia",
+      mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=No+4+Jalan+Pala+14+Imperial+Industrial+Park+Permatang+Tinggi+14000+Bukit+Mertajam+Malaysia",
+    },
+    {
+      title: "Singapore",
+      image: Singapore,
+      address: "103 Penang Road, #05-06, Visioncrest, Singapore 238467",
+      mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=103+Penang+Road+05-06+Visioncrest+Singapore+238467",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-background ">
@@ -115,82 +201,88 @@ const Contact = () => {
               </div>
 
               {/* Contact Form */}
-              <div className="bg-card p-8 border border-border shadow-xl shadow-black/10 rounded-lg">
-                <h2 className="text-3xl font-bold text-foreground mb-6">
-                  Send Us a Message
-                </h2>
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid md:grid-cols-2 gap-5">
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Full Name *
-                      </label>
-                      <Input
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Enter your name"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Email Address *
-                      </label>
-                      <Input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="Enter your email"
-                        required
-                      />
-                    </div>
-                  </div>
+              <div className="bg-card p-8 border border-border shadow-xl shadow-black/10 rounded-xl">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <Select
+                    value={formData.subject}
+                    onValueChange={(value) => setFormData({ ...formData, subject: value })}
+                  >
+                    <SelectTrigger className="h-12 w-full rounded-lg border border-border bg-transparent px-4 text-foreground [&>span]:text-foreground hover:text-green-700 hover:[&>span]:text-green-700 focus:ring-0 focus:ring-offset-0">
+                      <SelectValue placeholder="Select Inquiry" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-lg border border-border bg-card p-1">
+                      <SelectItem
+                        value="General Inquiry"
+                        className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
+                      >
+                        General Inquiry
+                      </SelectItem>
+                      <SelectItem
+                        value="Sales"
+                        className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
+                      >
+                        Sales
+                      </SelectItem>
+                      <SelectItem
+                        value="Support"
+                        className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
+                      >
+                        Support
+                      </SelectItem>
+                      <SelectItem
+                        value="Partnership"
+                        className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
+                      >
+                        Partnership
+                      </SelectItem>
+                      <SelectItem
+                        value="Careers"
+                        className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
+                      >
+                        Careers
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
 
-                  <div className="grid md:grid-cols-2 gap-5">
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Phone Number
-                      </label>
-                      <Input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="Enter your phone number"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Subject *
-                      </label>
-                      <Input
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        placeholder="How can we help?"
-                        required
-                      />
-                    </div>
-                  </div>
+                  <Input
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Name"
+                    className="h-12 rounded-none border-0 border-b border-border bg-transparent px-0  shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  />
 
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Message *
-                    </label>
-                    <Textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Tell us about your project or inquiry..."
-                      rows={5}
-                      required
-                    />
-                  </div>
+                  <Input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Email*"
+                    required
+                    className="h-12  rounded-none border-0 border-b border-border bg-transparent px-0  shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  />
 
-                  <Button type="submit" className="w-full" size="lg">
-                    Send Message
+                  <Input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Contact"
+                    className="h-12 rounded-none border-0 border-b border-border bg-transparent px-0 text-foreground shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  />
+
+                  <Textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Message"
+                    rows={4}
+                    required
+                    className=" resize-y rounded-none border-0 border-b border-border bg-transparent px-0 text-foreground shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  />
+
+                  <Button type="submit" className="rounded-lg px-10" size="lg">
+                    Submit
                   </Button>
                 </form>
               </div>
@@ -200,39 +292,35 @@ const Contact = () => {
 
         {/* Address Cards Section */}
         <section className="section-padding">
-          {/* <div className=" container-main"> */}
           <div className="container-main">
-
-            <div className="grid lg:grid-cols-2 gap-12">
-              {/* Erode Card */}
-              <div className="relative overflow-hidden shadow-lg rounded-lg">
-                <img src={erode} alt="Erode Head Office" className="w-full h-96 object-cover" />
-                <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-6">
-                  <h3 className="text-3xl font-bold text-white mb-2">
-                    Erode Head Office
-                  </h3>
-                  <p className="text-lg text-white/90 ">
-                    178, Indhu Nagar, palayapalayam,Perundurai Road,<br />
-                    Erode-638 012, Tamil Nadu, India
-                  </p>
-                  <a href="#" className="text-white/80 hover:text-white underline mt-2 inline-block">View on Map</a>
-                </div>
-              </div>
-
-              {/* Chennai Card */}
-              <div className="relative overflow-hidden shadow-lg rounded-lg">
-                <img src={chennai} alt="Chennai Office" className="w-full h-96 object-cover" />
-                <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-6">
-                  <h3 className="text-3xl font-bold text-white mb-2">
-                    Chennai Office
-                  </h3>
-                  <p className=" text-lg text-white/90">
-                    1st Floor, 'Greenways Towers',No.119, St.Mary's Rd, RA Puram, TrustPakkam, Abhiramapuram,<br />
-                    Chennai-600 018, Tamil Nadu, India
-                  </p>
-                  <a href="#" className="text-white/80 hover:text-white underline mt-2 inline-block">View on Map</a>
-                </div>
-              </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              {officeLocations.map((office) => (
+                <article key={office.title} className="relative overflow-hidden rounded-2xl shadow-lg">
+                  <img
+                    src={office.image}
+                    alt={office.title}
+                    className="h-80 w-full object-cover md:h-96"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-black/45" />
+                  {/* <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" /> */}
+                  <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
+                    <h3 className="text-2xl font-bold text-white md:text-[26px]">{office.title}</h3>
+                    <p className="mt-3 text-base leading-relaxed text-white/90 md:text-lg">
+                      {office.address}
+                    </p>
+                    <a
+                      href={office.mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-block text-base font-medium text-white/85 underline underline-offset-4 transition-colors hover:text-white"
+                    >
+                      View on Map
+                    </a>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>

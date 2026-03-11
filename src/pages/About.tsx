@@ -180,7 +180,7 @@ const leaders: Leader[] = [
   },
   {
     name: 'Mr. K.P Mutharasu',
-    title: ' Director',
+    title: 'Director',
     image: picture2,
     linkedin: 'https://www.linkedin.com/in/mutharasu-k-p-125b2546/',
   },
@@ -191,33 +191,33 @@ const leaders: Leader[] = [
     linkedin: 'https://www.linkedin.com/in/anand-thangaraj-9b1a8614a/',
   },
   {
-    name: 'Mr. KU THA ILANGOVAN',
+    name: 'Mr. KU Tha Ilangovan',
     title: 'Director',
     image: picture4,
     linkedin: 'https://www.linkedin.com/in/ku-tha-ilangovan-9b1a8614a/',
   },
   {
-    name: 'Mr. Nagesh Prabhu',
-    title: 'Co-Founder ',
-    image: picture5,
-    linkedin: 'https://www.linkedin.com/in/nageshprabhu/',
+    name: 'Mr. Vijayan S',
+    title: 'Director',
+    linkedin: 'https://www.linkedin.com/in/vijayans/',
   },
   {
-    name: 'Mr. A Rajasekaran ',
-    title: 'Director-Technical',
+    name: 'Mr. A Rajasekaran',
+    title: 'Director - Technical',
     image: picture6,
     linkedin: 'https://www.linkedin.com/in/aghoramoorthy-rajasekaran-54479521/',
   },
   {
-    name: 'Mr. Sridhar Jagannathan',
-    title: 'Vice President - Operations',
-    image: picture7,
-    linkedin: 'https://www.linkedin.com/in/sridhar-jagannathan-00a52444/',
+    name: 'Mr. Nagesh Prabhu',
+    title: 'Co-Founder',
+    image: picture5,
+    linkedin: 'https://www.linkedin.com/in/nageshprabhu/',
   },
   {
-    name: 'Mr. Vijayan S',
-    title: 'Director',
-    linkedin: 'https://www.linkedin.com/in/vijayans/',
+    name: 'Mr. Prashant Singh',
+    title: 'Co-Founder & CEO',
+    image: picture10,
+    linkedin: 'https://www.linkedin.com/in/prashantsingh4/',
   },
   {
     name: 'Mr. Senthil Annamalai',
@@ -226,27 +226,27 @@ const leaders: Leader[] = [
     linkedin: 'https://www.linkedin.com/in/senthil-annamalai-9b1a8614a/',
   },
   {
-    name: 'Mr.Prashant Singh',
-    title: 'Co-Founder & CEO',
-    image: picture10,
-    linkedin: 'https://www.linkedin.com/in/prashantsingh4/',
+    name: 'Mr. Sridhar Jagannathan',
+    title: 'VP - Operations',
+    image: picture7,
+    linkedin: 'https://www.linkedin.com/in/sridhar-jagannathan-00a52444/',
   },
   {
     name: 'Mr. Shankar Raman C V',
-    title: 'Vice President - Business Development',
+    title: 'VP - Business Development',
     image: picture11,
     linkedin: 'https://www.linkedin.com/in/shankar-raman-c-v-64528611/',
 
   },
   {
     name: 'Mr. Maaran',
-    title: 'Vice President - Product Development & R&D',
+    title: 'VP - Product Development & R&D',
     
     linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
   },
   {
     name: 'Mr. Varun Boralkar',
-    title: 'Vice President - Strategic Business Group',
+    title: 'VP - Strategic Business Group',
     image: picture13,
     linkedin: 'https://www.linkedin.com/in/varun-boralkar-aa085a15/',
   },
@@ -574,7 +574,7 @@ const About = (): JSX.Element => {
                           } group-hover:scale-125`}
                       />
                       <span
-                        className={`text-sm font-medium transition-colors ${isActive ? 'text-green-700' : 'text-slate-500 group-hover:text-slate-700'
+                        className={`text-lg transition-colors ${isActive ? 'text-green-700' : 'text-slate-500 group-hover:text-slate-700'
                           }`}
                       >
                         {milestone.year}
@@ -604,13 +604,13 @@ const About = (): JSX.Element => {
               />
             </Reveal>
 
-            <div className="mt-6 flex flex-wrap justify-center gap-4">
+            <div className="mt-6 grid grid-cols-1 gap-y-14 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8 xl:grid-cols-4 xl:gap-x-10">
               {leaders.map((leader) => (
                 <article
                   key={`${leader.name}-${leader.title}`}
-                  className="w-full sm:w-[240px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+                  className="group w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
                 >
-                  <div className="relative aspect-[4/4.1] bg-slate-100">
+                  <div className="relative aspect-[3.5/4] bg-slate-100">
                     {leader.image ? (
                       <img
                         src={leader.image}
@@ -628,15 +628,15 @@ const About = (): JSX.Element => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${leader.name} on LinkedIn`}
-                        className="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#0A66C2] bg-white/95 text-[#0A66C2] transition-colors hover:bg-[#0A66C2] hover:text-white"
+                        className="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#0A66C2] bg-white/95 text-[#0A66C2] opacity-0 pointer-events-none scale-95 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:scale-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 group-focus-within:scale-100 hover:bg-[#0A66C2] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0A66C2] focus-visible:ring-offset-2"
                       >
                         <span className="text-sm font-extrabold leading-none">in</span>
                       </a>
                     )}
                   </div>
-                  <div className="p-3 text-center">
-                    <h3 className="text-lg font-semibold text-slate-900">{leader.name}</h3>
-                    <p className="mt-1 text-md text-slate-600">{leader.title}</p>
+                  <div className=" text-center">
+                    <h3 className=" mt-1 text-lg font-semibold text-slate-900">{leader.name}</h3>
+                    <p className=" mb-2 text-sm text-slate-600 lg:text-base">{leader.title}</p>
                   </div>
                 </article>
               ))}
