@@ -7,32 +7,42 @@ import ScrollToTop from "@/components/ScrollToTop";
 
 import img1 from "@/assets/website/hero/noida-present-hero.jpg";
 import img2 from "@/assets/website/hero/landfill-mining-hero.jpg";
-import img3 from "@/assets/home4.jpg";
-import img4 from "@/assets/home5.jpg";
-// import img5 from "@/assets/home6.jpg";
+import img3 from "@/assets/website/hero/Pdgclose.jpg";
+import img4 from "@/assets/website/hero/Furnitures.png";
+// import img5 from "@/assets/website/hero/vairapalayam.jpg";
+import img6 from "@/assets/website/hero/vairapalayam.jpg";
+import img7 from "@/assets/website/hero/kdg.png";
 
 
 const slides = [
   {
     image: img1,
-    title: "Transforming Legacy Waste Into Green Urban Assets",
+    title: "Transforming Landfills into Living Landscapes.",
   },
   {
     image: img2,
-    title: "Engineering Large-Scale Landfill Remediation",
+    title: "Clearing Legacy Waste, Creating Sustainable Futures.",
   },
   {
     image: img3,
-    title: "Advanced Waste Recovery for Land Restoration",
+    title: "Science-Driven Solutions for a Cleaner Tomorrow.",
+  },
+  {
+    image: img4,
+    title: "From Waste to Wealth, Responsibly.",
   },
   // {
-  //   image: img4,
-  //   title: "Uncontrolled landfill methane has 23× the climate impact of CO₂.",
-  // },
-  // {
   //   image: img5,
-  //   title: "Only 75 % of the urban waste produced in India each year is collected",
+  //   title: "Pioneering Bio-Mining, Protecting Generations.",
   // },
+  {
+    image: img6,
+    title: "Restoring Land, Reviving Communities.",
+  },
+  {
+    image: img7,
+    title: "Reclaiming Landfills, Redefining Possibilities.",
+  },
 ];
 
 const HeroSection = () => {
@@ -75,7 +85,7 @@ const HeroSection = () => {
 
   return (
     <section
-      className=" relative h-[100vh] flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28 "
+      className=" relative h-[calc(100vh-5rem)] flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28 "
     >
       <ScrollToTop />
 
@@ -113,7 +123,7 @@ const HeroSection = () => {
             </p> */}
           </div>
 
-          <div className="flex flex-wrap gap-4 mt-4  bg-transparent shadow-md">
+          <div className="flex  gap-4 mt-4  bg-transparent ">
             {/* <Button variant="heroOutline"  size="lg" asChild className="border " >
               <Link to="/services">Our Services</Link>
             </Button> */}

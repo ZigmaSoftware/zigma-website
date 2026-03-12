@@ -131,8 +131,8 @@ const StatsSection = () => {
                   <div className="h-full flex flex-col items-center justify-center text-center gap-2">
                     <stat.icon className="w-10 h-10 text-primary" />
                     <p className="text-sm font-semibold text-foreground">{stat.label}</p>
-                    <p className="text-xs font-medium text-primary">{stat.value.toLocaleString()}{stat.suffix}</p>
-                    <p className="text-[11px] leading-tight text-muted-foreground/90">{stat.description}</p>
+                    <p className="text-lg font-medium text-primary">{stat.value.toLocaleString()}{stat.suffix}</p>
+                    <p className="text-sm leading-tight text-muted-foreground/90">{stat.description}</p>
                   </div>
                 </div>
               </div>

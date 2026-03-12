@@ -1,6 +1,7 @@
 import Reveal from "@/components/animation/Reveal";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
@@ -8,6 +9,9 @@ import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
 import landfillManagement from "@/assets/website/hero/noida-present-hero.jpg";
 import wetWaste from "@/assets/Wet Waste Management.jpeg";
 import herobg from "@/assets/website/hero/noida-present-hero.jpg";
+import Wpe from "@/assets/website/Wpe product.png";
+import machine from "@/assets/website/machineries.jpg";
+
 
 const SLOW_EASE = "power2.out";
 
@@ -54,9 +58,39 @@ const services = [
       "Community engagement programs",
     ],
   },
+  {
+    id: "waste-processing-equipment",
+    title: "Waste Processing Equipment",
+    eyebrow: "From Waste to Wealth, Responsibly",
+    image: Wpe,
+    description: "A value-added product vertical that transforms recovered waste streams into practical, market-ready applications for urban and commercial use.",
+    features: [
+      "Recycled-material based product development",
+      "Modular structures and utility kiosks",
+      "Durable weather-resistant panel applications",
+      "Designs suited for public and commercial spaces",
+      "Circular economy focused manufacturing",
+    ],
+  },
+  {
+    id: "waste-management-process-machinery",
+    title: "Waste Management Process Machinery",
+    eyebrow: "Industrial Processing Systems",
+    image: machine,
+    description: "Specialized machinery solutions for municipal and industrial waste processing, built to improve throughput, segregation quality, and operational safety.",
+    features: [
+      "Segregation and screening machine lines",
+      "Conveyor-based process flow integration",
+      "Shredding, sizing, and material handling units",
+      "Process automation and control interfaces",
+      "Installation, commissioning, and O&M support",
+    ],
+  },
 ];
 
 const Services = () => {
+  const [expandedService, setExpandedService] = useState<string | null>(null);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -110,6 +144,15 @@ const Services = () => {
                     index % 2 === 1 ? "lg:flex-row-reverse" : ""
                   }`}
                 >
+                  {(() => {
+                    const isExpanded = expandedService === service.id;
+                    const shortDescription =
+                      service.description.length > 140
+                        ? `${service.description.slice(0, 140)}...`
+                        : service.description;
+
+                    return (
+                      <>
                   <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                     <div className="overflow-hidden rounded-2xl shadow-xl">
                       <img
@@ -121,7 +164,7 @@ const Services = () => {
                       />
                     </div>
                   </div>
-                  <div className={index % 2 === 1 ? "lg:order-1" : ""}>
+                  <div className={`${index % 2 === 1 ? "lg:order-1" : ""} flex flex-col`}>
                     <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
                       {service.eyebrow}
                     </span>
@@ -129,20 +172,34 @@ const Services = () => {
                       {service.title}
                     </h2>
                     <p className="mt-4 text-base lg:text-lg text-muted-foreground leading-relaxed mb-6">
-                      {service.description}
+                      {isExpanded ? service.description : shortDescription}{" "}
+                      <button
+                        type="button"
+                        className="text-sm text-primary font-semibold hover:underline"
+                        onClick={() =>
+                          setExpandedService(isExpanded ? null : service.id)
+                        }
+                      >
+                        {isExpanded ? "Show Less" : "Read More"}
+                      </button>
                     </p>
-                    <ul className="space-y-3 mb-8">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-3">
-                          <Check className="w-5 h-5 text-primary flex-shrink-0" />
-                          <span className="text-foreground">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Button asChild>
+                    {isExpanded ? (
+                      <ul className="space-y-3 mb-8">
+                        {service.features.map((feature) => (
+                          <li key={feature} className="flex items-center gap-3">
+                            <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                            <span className="text-foreground">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    <Button asChild   className="w-28">
                       <Link to="/contact">Get Quote</Link>
                     </Button>
                   </div>
+                      </>
+                    );
+                  })()}
                 </Reveal>
               ))}
             </div>
@@ -175,4 +232,3 @@ const Services = () => {
 };
 
 export default Services;
-

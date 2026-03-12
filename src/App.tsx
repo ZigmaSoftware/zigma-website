@@ -20,7 +20,7 @@ import Facilities from "./pages/Facilities";
 import GovernancePolicies from "./pages/GovernancePolicies";
 import Policies from "./pages/Policies";
 import ProjectShowcase from "./pages/ProjectShowcase";
-import StackedCards from "./components/ui/StackedCards";
+// import StackedCards from "./components/ui/StackedCards";
 import WasteManagementShowcase from "./pages/WasteManagementShowcase";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollAnimator from "@/components/ScrollAnimator";
@@ -61,7 +61,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
             <Route path="/people" element={<People />} />
             <Route path="/project-showcase" element={<ProjectShowcase />} />
-            <Route path="/stacked-cards" element={<StackedCards />} />
+            {/* <Route path="/stacked-cards" element={<StackedCards />} /> */}
 
             <Route path="/waste-management-showcase" element={<WasteManagementShowcase />} />
             <Route path="/governance-policies" element={<GovernancePolicies />} />
