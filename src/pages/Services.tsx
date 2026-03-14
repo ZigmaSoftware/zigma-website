@@ -11,6 +11,7 @@ import wetWaste from "@/assets/Wet Waste Management.jpeg";
 import herobg from "@/assets/website/hero/noida-present-hero.jpg";
 import Wpe from "@/assets/website/Wpe product.png";
 import machine from "@/assets/website/machineries.jpg";
+import Servicescp from "./Servicescp";
 
 
 const SLOW_EASE = "power2.out";
@@ -18,7 +19,7 @@ const SLOW_EASE = "power2.out";
 const services = [
   {
     id: "landfill-mining",
-    title: "Landfill Mining",
+    title: "Landfill Mining and Remediation",
     eyebrow: "Legacy Waste Reclamation",
     image: landfillMining,
     description: "Landfill mining involves the excavation, processing, treatment, and/or recovery of deposited materials from active or closed landfill sites.",
@@ -46,7 +47,7 @@ const services = [
   },
   {
     id: "wet-waste",
-    title: "Wet Waste Management",
+    title: "Fresh waste Management and Processing ",
     eyebrow: "Organic Waste Processing",
     image: wetWaste,
     description: "Sustainable processing of organic waste through composting and bio-methanation, converting waste into valuable resources.",
@@ -225,6 +226,7 @@ const Services = () => {
             </Reveal>
           </div>
         </section>
+        {/* <Servicescp/>  */}
       </main>
       <Footer />
     </div>

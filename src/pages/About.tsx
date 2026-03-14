@@ -11,15 +11,15 @@ import globeSvg from '@/assets/contact_globe.svg';
 
 import img1 from '@/assets/website/Kumbakonam.png';
 import img2 from '@/assets/website/Forcebel.png';
-import img3 from '@/assets/Before - After/5 poonamallee_A.jpg';
+import img3 from '@/assets/Forcebel awd.jpg';
 import img4 from '@/assets/Before - After/11 chidambaram_a.jpg';
 import img5 from '@/assets/Before - After/2 sembakam_A.jpg';
 import img6 from '@/assets/Before - After/14 karur_A.jpg';
 import img7 from '@/assets/Before - After/6 vijawada_A.jpg';
 import img8 from '@/assets/website/Noida.png';
 import img9 from '@/assets/website/image ewd.png';
-import img10 from '@/assets/Before - After/perungudi_2.png';
-import img11 from '@/assets/website/image site.png';
+import img10 from '@/assets/controll room.png';
+import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
 
 import picture1 from '@/assets/website/Mr. Boopathy Dharmaraj.png';
 import picture2 from '@/assets/website/Mr. K P Mutharasu.png';
@@ -27,13 +27,13 @@ import picture3 from '@/assets/website/Mr. ANAND THANGARAJ.png';
 import picture4 from '@/assets/website/Mr. KTI.jpeg';
 import picture5 from '@/assets/website/Mr. NAGESH PRABHU.jpg';
 import picture6 from '@/assets/website/Mr. Aghoramoorthy Rajasekaran.jpg';
-import picture7 from '@/assets/website/Mr. Sridhar Jagannathan.png';
-import picture8 from '@/assets/website/Mr. VIJAYAN S.png';
-import picture9 from '@/assets/website/Mr. Senthil Annamalai.png';
+import picture7 from '@/assets/website/Mr. Sridhar Jagannathan.jpeg';
 import picture10 from '@/assets/website/Mr. Prashant Singh.png';
-import picture11 from '@/assets/website/Mr. Shankar Raman.jpeg';
-import picture12 from '@/assets/website/Mr. Maaran.png';
+import picture11 from '@/assets/website/Mr. Shankar Raman.png';
+import picture12 from '@/assets/website/Mr. Mohan Kumar.png';
 import picture13 from '@/assets/website/Mr. Varun Boralkar.jpg';
+import picture14 from '@/assets/website/Mr. Maran.png';
+import picture15 from '@/assets/website/Mr. Senthil Annamalai.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -53,8 +53,9 @@ interface Milestone {
 }
 
 type Leader = {
+  group: 'Promoters and CoFounders' | 'Leaders';
   name: string;
-  title: string;
+  designation?: string;
   image?: string;
   linkedin?: string;
 };
@@ -173,82 +174,101 @@ const milestones: Milestone[] = [
 
 const leaders: Leader[] = [
   {
-    name: 'Mr. Boopathy Dharmaraj',
-    title: 'Managing Director',
+    group: 'Promoters and CoFounders',
+    name: 'Boopathy Dharmaraj',
     image: picture1,
+    designation: 'Managing Director',
     linkedin: 'https://www.linkedin.com/in/boopathy-dharmaraj-6b64b0ba/',
   },
   {
-    name: 'Mr. K.P Mutharasu',
-    title: 'Director',
-    image: picture2,
-    linkedin: 'https://www.linkedin.com/in/mutharasu-k-p-125b2546/',
-  },
-  {
-    name: 'Mr. Anand Thangaraj',
-    title: 'Director',
-    image: picture3,
-    linkedin: 'https://www.linkedin.com/in/anand-thangaraj-9b1a8614a/',
-  },
-  {
-    name: 'Mr. KU Tha Ilangovan',
-    title: 'Director',
+    group: 'Promoters and CoFounders',
+    name: 'Ku Tha Ilangovan',
     image: picture4,
+    designation: 'Director',
     linkedin: 'https://www.linkedin.com/in/ku-tha-ilangovan-9b1a8614a/',
   },
   {
-    name: 'Mr. Vijayan S',
-    title: 'Director',
+    group: 'Promoters and CoFounders',
+    name: 'Anand Thangaraj',
+    image: picture3,
+    designation: 'Director',
+    linkedin: 'https://www.linkedin.com/in/anand-thangaraj-9b1a8614a/',
+  },
+  {
+    group: 'Promoters and CoFounders',
+    name: 'K.P Mutharasu',
+    image: picture2,
+    designation: 'Director',
+    linkedin: 'https://www.linkedin.com/in/mutharasu-k-p-125b2546/',
+  },
+  {
+    group: 'Promoters and CoFounders',
+    name: 'Vijayan K.',
+    designation: 'Director',
     linkedin: 'https://www.linkedin.com/in/vijayans/',
   },
   {
-    name: 'Mr. A Rajasekaran',
-    title: 'Director - Technical',
-    image: picture6,
-    linkedin: 'https://www.linkedin.com/in/aghoramoorthy-rajasekaran-54479521/',
-  },
-  {
-    name: 'Mr. Nagesh Prabhu',
-    title: 'Co-Founder',
+    group: 'Promoters and CoFounders',
+    name: 'Nagesh Prabhu Chinivartha',
     image: picture5,
+    designation: 'Co-Founder',
     linkedin: 'https://www.linkedin.com/in/nageshprabhu/',
   },
   {
-    name: 'Mr. Prashant Singh',
-    title: 'Co-Founder & CEO',
+    group: 'Promoters and CoFounders',
+    name: 'Prashant Singh',
     image: picture10,
+    designation: 'Co-Founder & CEO',
     linkedin: 'https://www.linkedin.com/in/prashantsingh4/',
   },
   {
-    name: 'Mr. Senthil Annamalai',
-    title: 'COO',
-    image: picture9,
-    linkedin: 'https://www.linkedin.com/in/senthil-annamalai-9b1a8614a/',
+    group: 'Leaders',
+    name: 'A Rajasekaran',
+    image: picture6,
+    designation: 'Director - Technical',
+    linkedin: 'https://www.linkedin.com/in/aghoramoorthy-rajasekaran-54479521/',
   },
   {
-    name: 'Mr. Sridhar Jagannathan',
-    title: 'VP - Operations',
+    group: 'Leaders',
+    name: 'Maran',
+    designation: 'Vice President - Product Development & R&D',
+    linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
+  },
+    
+  {
+    group: 'Leaders',
+    name: 'Sridhar Jegannathan',
     image: picture7,
+    designation: 'Vice President - Operations',
     linkedin: 'https://www.linkedin.com/in/sridhar-jagannathan-00a52444/',
   },
   {
-    name: 'Mr. Shankar Raman C V',
-    title: 'VP - Business Development',
+    group: 'Leaders',
+    name: 'Shankar Raman CV',
     image: picture11,
+    designation: 'Vice President - Business Development',
     linkedin: 'https://www.linkedin.com/in/shankar-raman-c-v-64528611/',
-
   },
   {
-    name: 'Mr. Maaran',
-    title: 'VP - Product Development & R&D',
-    
-    linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
-  },
-  {
-    name: 'Mr. Varun Boralkar',
-    title: 'VP - Strategic Business Group',
+    group: 'Leaders',
+    name: 'Varun Boralkar',
     image: picture13,
+    designation: 'Vice President - Strategic Business Group',
     linkedin: 'https://www.linkedin.com/in/varun-boralkar-aa085a15/',
+  },
+  {
+    group: 'Leaders',
+    name: 'Senthil Annamalai',
+    image: picture15,
+    designation: 'COO',
+    linkedin: 'https://www.linkedin.com/in/senthil-annamalai-9b1a8614a/',
+  },
+  {
+    group: 'Leaders',
+    name: 'Mohan Kumar',
+    // image: picture12,
+    designation: 'Vice President - Operations',
+    linkedin: 'https://www.linkedin.com/in/mohan-kumar-9b1a8614a/',
   },
 ];
 
@@ -257,6 +277,7 @@ const isReducedMotionPreferred = (): boolean =>
 
 const clampMilestoneIndex = (index: number): number =>
   Math.max(0, Math.min(milestones.length - 1, index));
+const leaderGroups: Array<Leader['group']> = ['Promoters and CoFounders', 'Leaders'];
 
 const SectionTitle = ({ label, title }: { label: string; title: JSX.Element | string }) => (
   <div>
@@ -590,7 +611,7 @@ const About = (): JSX.Element => {
         <section
           data-no-animate
           className="section-padding scroll-mt-24 lg:scroll-mt-28 "
-         
+
         >
           <div className="container-main flex flex-col">
             <Reveal data-anim-start="top 92%" data-anim-duration="1.45" data-anim-ease={SLOW_EASE}>
@@ -604,92 +625,70 @@ const About = (): JSX.Element => {
               />
             </Reveal>
 
-            <div className="mt-6 grid grid-cols-1 gap-y-14 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8 xl:grid-cols-4 xl:gap-x-10">
-              {leaders.map((leader) => (
-                <article
-                  key={`${leader.name}-${leader.title}`}
-                  className="group w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
-                >
-                  <div className="relative aspect-[3.5/4] bg-slate-100">
-                    {leader.image ? (
-                      <img
-                        src={leader.image}
-                        alt={leader.name}
-                        loading="lazy"
-                        decoding="async"
-                        className="h-full w-full object-cover object-top"
-                      />
-                    ) : (
-                      <div className="h-full w-full bg-slate-100" />
-                    )}
-                    {leader.linkedin && (
-                      <a
-                        href={leader.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${leader.name} on LinkedIn`}
-                        className="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#0A66C2] bg-white/95 text-[#0A66C2] opacity-0 pointer-events-none scale-95 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:scale-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 group-focus-within:scale-100 hover:bg-[#0A66C2] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0A66C2] focus-visible:ring-offset-2"
+            {leaderGroups.map((group) => (
+              <div key={group} className="mt-8 first:mt-6">
+                <h3 className="mb-4 text-xl font-semibold text-slate-900">{group}</h3>
+                <div className="grid grid-cols-1 gap-y-14 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-3 xl:gap-x-10">
+                  {leaders
+                    .filter((leader) => leader.group === group && Boolean(leader.image))
+                    .map((leader) => (
+                      <article
+                        key={`${leader.group}-${leader.name}`}
+                        className="group relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
                       >
-                        <span className="text-sm font-extrabold leading-none">in</span>
-                      </a>
-                    )}
-                  </div>
-                  <div className=" text-center">
-                    <h3 className=" mt-1 text-lg font-semibold text-slate-900">{leader.name}</h3>
-                    <p className=" mb-2 text-sm text-slate-600 lg:text-base">{leader.title}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+                        <div className="relative aspect-[4/5] overflow-hidden bg-slate-100">
+                          <div className="relative h-full w-full">
+                            {leader.image ? (
+                              <img
+                                src={leader.image}
+                                alt={leader.name}
+                                loading="lazy"
+                                decoding="async"
+                                className="h-full w-full object-cover object-center"
+                              />
+                            ) : (
+                              <div className="h-full w-full bg-slate-100" />
+                            )}
 
-        <section
-          data-no-animate
-          className="container-main section-padding scroll-mt-24 lg:scroll-mt-28 lg:snap-start"
-        >
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <Reveal
-              className="text-center lg:text-left"
-              data-anim-start="top 92%"
-              data-anim-duration="1.45"
-              data-anim-ease={SLOW_EASE}
-            >
-              <div className="text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
-                Let Us Deliver Impact
-              </div>
-              <h2 className="mt-3 text-3xl font-bold text-foreground md:text-4xl">
-                Let us deliver impact for your <span className="text-primary">Organization</span>
-              </h2>
-              <p className="mt-6 max-w-2xl text-justify text-lg leading-relaxed text-muted-foreground">
-                Partner with Zigma to accelerate sustainable outcomes with proven expertise across
-                large-scale projects.
-              </p>
-            </Reveal>
+                            {/* LinkedIn icon */}
+                            {leader.linkedin ? (
+                              <a
+                                href={leader.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`${leader.name} on LinkedIn`}
+                                className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#0A66C2] bg-white/95 text-[#0A66C2] shadow-sm transition-colors duration-200 hover:bg-[#0A66C2] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0A66C2] focus-visible:ring-offset-2"
+                              >
+                                <span className="text-sm font-extrabold leading-none">in</span>
+                              </a>
+                            ) : null}
 
-            <Reveal
-              className="mx-auto w-full max-w-md lg:ml-auto lg:mr-0"
-              data-anim-start="top 86%"
-              data-anim-duration="1.5"
-              data-anim-ease={SLOW_EASE}
-            >
-              <form className="w-full rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                <div className="grid grid-cols-1 gap-3">
-                  <input type="text" placeholder="Name" className={INPUT_CLASS} />
-                  <input type="email" placeholder="Email" className={INPUT_CLASS} />
-                  <input type="tel" placeholder="Contact" className={INPUT_CLASS} />
-                  <textarea placeholder="Message" rows={3} className={INPUT_CLASS} />
-                  <button
-                    type="button"
-                    className="mt-1 w-full rounded-lg bg-green-700 py-2.5 text-sm font-semibold text-white transition hover:bg-green-600"
-                  >
-                    Send Message
-                  </button>
+                            {/* Name pill */}
+                            <div className="absolute bottom-6 left-0">
+                              <div className="bg-white rounded-r-full px-6 py-4 shadow-md min-w-[260px]">
+                                <h3 className="text-lg font-bold text-slate-900 leading-tight">
+                                  {leader.name}
+                                </h3>
+
+                                {leader.designation && (
+                                  <p className="text-sm text-slate-700 mt-1 leading-tight">
+                                    {leader.designation}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </article>
+                    ))}
                 </div>
-              </form>
-            </Reveal>
+              </div>
+            ))}
           </div>
         </section>
+
+      
       </main>
       <Footer />
     </div>

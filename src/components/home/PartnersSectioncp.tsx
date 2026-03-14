@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import ScrollAnimator from "../ScrollAnimator";
+import adaniCementLogo from "@/assets/Cement Svgs/adani-cement_logo.jpg";
+import adaniLogo from "@/assets/Cement Svgs/adani-logo.svg";
 import svg1 from "@/assets/Cement Svgs/Vector.53dee65f3b0d9da04365c863143abecf.svg";
 import svg2 from "@/assets/Cement Svgs/image 10.7346932e76235806e74c2ce978ac18ba.svg";
 import svg3 from "@/assets/Cement Svgs/image 11.f3351996401bebfa9d851fe3470552d5.svg";
@@ -12,52 +12,44 @@ import svg9 from "@/assets/Cement Svgs/image 17.eb96e28633daedc876b07c457fbf4685
 import svg10 from "@/assets/Cement Svgs/image 18.cd14aefdaa68b56c376f6464db205e17.svg";
 import svg11 from "@/assets/Cement Svgs/image 19.be1ca566e42e32cab74459351df5f8f7.svg";
 import svg12 from "@/assets/Cement Svgs/image 20.f3476c05dd7bbb13053e5f128739b993.svg";
+import birlaLogo from "@/assets/Cement Svgs/birla-logo.jpg";
+import chettinadLogo from "@/assets/Cement Svgs/Chettinad Cement.png";
+import jswLogo from "@/assets/Cement Svgs/jsw-cement.jpeg";
+import mycemLogo from "@/assets/Cement Svgs/HC logo.png";
+import ramcoLogo from "@/assets/Cement Svgs/Ramco.jpg";
+import shreeLogo from "@/assets/Cement Svgs/shree-cement-logo.jpg";
+import starLogo from "@/assets/Cement Svgs/star-cement-logo.svg";
+import tnCementsLogo from "@/assets/Cement Svgs/Tamil Nadu Cements.svg";
 
 const partners = [
-  { name: "VICAT", logo: svg1 },
-  { name: "The India Cements Ltd", logo: svg2 },
-  { name: "ACC", logo: svg3 },
-  { name: "Ambuja Cements", logo: svg4 },
-  { name: "Dalmia Cement", logo: svg5 },
-  { name: "Zuari Cement", logo: svg6 },
-  { name: "Shree Cement", logo: svg7 },
-  { name: "JK Cement", logo: svg8 },
-  { name: "UltraTech Cement", logo: svg9 },
-  { name: "Birla Corporation", logo: svg10 },
-  { name: "Ramco Cements", logo: svg11 },
-  { name: "Nuvoco Vistas", logo: svg12 },
+  // { name: "Adani Cement", logo: adaniCementLogo },
+  { name: "Adani Group", logo: adaniLogo },
+  { name: "Bharathi Cement Corporation Pvt Ltd", logo: svg1 },
+  { name: "The India Cements Limited", logo: svg2 },
+  { name: "ACC Limited", logo: svg3 },
+  { name: "Ambuja Cements Limited", logo: svg4 },
+  { name: "Birla Corporation Ltd", logo: birlaLogo },
+  { name: "Chettinad Cement Corporation Pvt Ltd", logo: chettinadLogo },
+  { name: "Dalmia Cement (B) Ltd", logo: svg5 },
+  // { name: "Zuari Cement Limited", logo: svg6 },
+  { name: "Kalburgi Cement Private Limited", logo: svg7 },
+  { name: "JK Cement Ltd", logo: svg8 },
+  { name: "Ultratech Cement Limited", logo: svg9 },
+  { name: "Dhandapani Cements Pvt Ltd", logo: svg10 },
+  { name: "Heidelberg Cement India Limited", logo: svg11 },
+  { name: "Nuvoco Vistas Corporation Ltd", logo: svg12 },
+  { name: "JSW Cement Limited", logo: jswLogo },
+  { name: "My Home Industries Private Limited", logo: mycemLogo },
+  { name: "Shree Cement Ltd", logo: shreeLogo },
+  { name: "Star Cement Limited", logo: starLogo },
+  { name: "Tamil Nadu Cements Corporation Ltd", logo: tnCementsLogo },
+  { name: "The Ramco Cements Limited", logo: ramcoLogo },
 ];
-const rowOne = partners.slice(0, 6);
-const rowTwo = partners.slice(6, 12);
+
 const PartnersSection = () => {
-  const [visibleCount, setVisibleCount] = useState(0);
-
-  const [isResetting, setIsResetting] = useState(false);
-
-  useEffect(() => {
-    const stepMs = visibleCount === 0 ? 250 : 420;
-    const pauseMs = 1200;
-    const resetMs = 300;
-
-    let timer: ReturnType<typeof setTimeout>;
-
-    if (visibleCount < 20) {
-      timer = setTimeout(() => {
-        setVisibleCount((prev) => prev + 1);
-      }, stepMs);
-    } else if (!isResetting) {
-      timer = setTimeout(() => {
-        setIsResetting(true);
-      }, pauseMs);
-    } else {
-      timer = setTimeout(() => {
-        setVisibleCount(0);
-        setIsResetting(false);
-      }, resetMs);
-    }
-
-    return () => clearTimeout(timer);
-  }, [visibleCount, isResetting]);
+  const rowOne = partners.filter((_, index) => index % 2 === 0);
+  const rowTwo = partners.filter((_, index) => index % 2 !== 0);
+  const getLogoScaleClass = (name: string) => (/ramco/i.test(name) ? "scale-125" : "");
 
   return (
     <section
@@ -65,17 +57,7 @@ const PartnersSection = () => {
       data-anim-start="top 90%"
       data-anim-duration="1.1"
     >
-      <ScrollAnimator />
       <div className="container-main relative">
-        <style>{`
-          .glass-sheen,
-          .glass-streak,
-          .glass-glow {
-            animation: none;
-          }
-        `}</style>
-
-      
         <div className="text-center">
           <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
             Trusted Partners
@@ -91,52 +73,77 @@ const PartnersSection = () => {
         </div>
 
 
-        <div className="mt-6 relative space-y-6 bg-card">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-            {rowOne.map((partner, index) => {
-              const isVisible = index < visibleCount;
-              const shouldShow = isVisible && !isResetting;
-              return (
+        <div className="mt-6 space-y-4">
+          <div className="relative overflow-hidden rounded-xl bg-card/40">
+            <div className="flex w-max items-center gap-4 py-3 px-3 animate-partners-marquee hover:[animation-play-state:paused]">
+              {rowOne.map((partner) => (
                 <div
-                  key={`row1-${partner.name}`}
-                  className={`transition-all duration-300 ease-out ${shouldShow ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"
-                    }`}
-                  style={{ willChange: "transform, opacity" }}
+                  key={`${partner.name}-row1-a`}
+                  className="group relative min-w-[150px] md:min-w-[180px] h-16 md:h-20 bg-card rounded-lg flex items-center justify-center px-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg hover:z-10"
                 >
-                  <div className="relative group w-full h-16 md:h-20 bg-card shadow-sm flex items-center justify-center overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md border border-border rounded-lg">
-                    <img
-                      src={partner.logo}
-                      alt={partner.name}
-                      className="relative max-h-9 md:max-h-10 w-auto object-cover opacity-95 transition duration-300 group-hover:scale-[1.02]"
-                      loading="lazy"
-                    />
-                  </div>
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className={`max-h-9 md:max-h-10 w-auto max-w-full object-contain opacity-95 transition-opacity transition-transform duration-300 ease-out group-hover:opacity-100 ${getLogoScaleClass(
+                      partner.name
+                    )}`}
+                    loading="lazy"
+                  />
                 </div>
-              );
-            })}
+              ))}
+              {rowOne.map((partner) => (
+                <div
+                  key={`${partner.name}-row1-b`}
+                  aria-hidden="true"
+                  className="group relative min-w-[150px] md:min-w-[180px] h-16 md:h-20 bg-card rounded-lg flex items-center justify-center px-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg hover:z-10"
+                >
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className={`max-h-9 md:max-h-10 w-auto max-w-full object-contain opacity-95 transition-opacity transition-transform duration-300 ease-out group-hover:opacity-100 ${getLogoScaleClass(
+                      partner.name
+                    )}`}
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-            {rowTwo.map((partner, index) => {
-              const isVisible = index < visibleCount;
-              const shouldShow = isVisible && !isResetting;
-              return (
+
+          <div className="relative overflow-hidden rounded-xl bg-card/40">
+            <div className="flex w-max items-center gap-4 py-3 px-3 animate-partners-marquee-reverse hover:[animation-play-state:paused]">
+              {rowTwo.map((partner) => (
                 <div
-                  key={`row2-${partner.name}`}
-                  className={`transition-all duration-300 ease-out ${shouldShow ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
-                    }`}
-                  style={{ willChange: "transform, opacity" }}
+                  key={`${partner.name}-row2-a`}
+                  className="group relative min-w-[150px] md:min-w-[180px] h-16 md:h-20 bg-card rounded-lg flex items-center justify-center px-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg hover:z-10"
                 >
-                  <div className="relative group w-full h-16 md:h-20 bg-card shadow-sm flex items-center justify-center overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md border border-border rounded-lg">
-                    <img
-                      src={partner.logo}
-                      alt={partner.name}
-                      className="relative max-h-9 md:max-h-10 w-auto object-cover opacity-95 transition duration-300 group-hover:scale-[1.02]"
-                      loading="lazy"
-                    />
-                  </div>
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className={`max-h-9 md:max-h-10 w-auto max-w-full object-contain opacity-95 transition-opacity transition-transform duration-300 ease-out group-hover:opacity-100 ${getLogoScaleClass(
+                      partner.name
+                    )}`}
+                    loading="lazy"
+                  />
                 </div>
-              );
-            })}
+              ))}
+              {rowTwo.map((partner) => (
+                <div
+                  key={`${partner.name}-row2-b`}
+                  aria-hidden="true"
+                  className="group relative min-w-[150px] md:min-w-[180px] h-16 md:h-20 bg-card rounded-lg flex items-center justify-center px-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg hover:z-10"
+                >
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className={`max-h-9 md:max-h-10 w-auto max-w-full object-contain opacity-95 transition-opacity transition-transform duration-300 ease-out group-hover:opacity-100 ${getLogoScaleClass(
+                      partner.name
+                    )}`}
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

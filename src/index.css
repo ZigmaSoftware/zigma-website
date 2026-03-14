@@ -633,6 +633,32 @@ html.lenis body {
   }
 }
 
+@keyframes partners-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes partners-marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-partners-marquee {
+  animation: partners-marquee 40s linear infinite;
+}
+
+.animate-partners-marquee-reverse {
+  animation: partners-marquee-reverse 44s linear infinite;
+}
+
 .hero-kenburns {
   animation: kenburns 18s ease-in-out infinite;
   will-change: transform;

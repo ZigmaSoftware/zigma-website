@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
-import indiaMap from "@/assets/indiamap.jpg";
+import indiaMap from "@/assets/map-india.png";
 
 const MAP_BOUNDS = {
   north: 36.3,
@@ -29,8 +29,8 @@ function latLngToPercent(lat: number, lng: number) {
 const presenceLocations: PresenceLocation[] = [
   {
     name: "Tamil Nadu",
-    lat: 8,
-    lng: 75.8,
+    lat: 7,
+    lng: 74.6,
     ongoing: 3,
     completed: 5,
     description: "Leading biomining initiatives in southern India.",
@@ -38,8 +38,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Kerala",
-    lat: 7,
-    lng: 72.8,
+    lat: 6.2,
+    lng: 71.2,
     ongoing: 2,
     completed: 4,
     description: "Sustainable waste management projects.",
@@ -47,8 +47,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Andhra Pradesh",
-    lat: 14.6,
-    lng: 77,
+    lat: 11.5,
+    lng: 74.5,
     ongoing: 4,
     completed: 3,
     description: "Advanced landfill reclamation efforts.",
@@ -56,8 +56,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Gujarat",
-    lat: 20.4,
-    lng: 67,
+    lat: 21,
+    lng: 66,
     ongoing: 3,
     completed: 6,
     description: "Pioneering environmental restoration.",
@@ -65,8 +65,8 @@ const presenceLocations: PresenceLocation[] = [
   },
   {
     name: "Maharashtra",
-    lat: 16,
-    lng: 72,
+    lat: 16.5,
+    lng: 70,
     ongoing: 5,
     completed: 7,
     description: "Major urban waste transformation projects.",
@@ -81,6 +81,42 @@ const presenceLocations: PresenceLocation[] = [
     description: "Northeast India's green initiatives.",
     labelSide: "left",
   },
+  {
+    name: "Uttar Pradesh",
+    lat: 24,
+    lng: 79,
+    ongoing: 2,
+    completed: 2,
+    description: "Scaling landfill reclamation across key urban centers.",
+    labelSide: "left",
+  },
+  {
+    name: "Telangana",
+    lat: 14.3,
+    lng: 75,
+    ongoing: 1,
+    completed: 1,
+    description: "New projects focused on sustainable waste recovery.",
+    labelSide: "left",
+  },
+  // {
+  //   name: "Visakhapatnam",
+  //   lat: 17.69,
+  //   lng: 83.22,
+  //   ongoing: 1,
+  //   completed: 1,
+  //   description: "Coastal operations supporting circular city initiatives.",
+  //   labelSide: "left",
+  // },
+  // {
+  //   name: "Guwahati",
+  //   lat: 26.14,
+  //   lng: 91.74,
+  //   ongoing: 1,
+  //   completed: 1,
+  //   description: "Expanding presence in the Northeast for greener outcomes.",
+  //   labelSide: "left",
+  // },
 ];
 
 const DEV_MODE = false;
@@ -107,7 +143,7 @@ const PresenceSectioncp = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="container-main">
+      <div className="container-main section-padding">
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div>
             <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">Pan-India Presence</p>
@@ -122,11 +158,11 @@ const PresenceSectioncp = () => {
             </p>
           </div>
 
-          <div className="relative flex justify-center lg:justify-end">
+          <div className="relative  justify-center ">
             <div
               ref={mapRef}
               onClick={handleDevClick}
-              className={`relative w-full max-w-[420px] ${DEV_MODE ? "cursor-crosshair" : "cursor-default"}`}
+              className={`relative w-full max-w-[480px] ${DEV_MODE ? "cursor-crosshair" : "cursor-default"}`}
             >
               <img
                 src={indiaMap}
@@ -137,7 +173,7 @@ const PresenceSectioncp = () => {
 
               {presenceLocations.map((location, index) => {
                 const { top, left } = latLngToPercent(location.lat, location.lng);
-                const tooltipSideClass = location.labelSide === "left" ? "right-full mr-2 sm:mr-3" : "left-full ml-2 sm:ml-3";
+                const tooltipSideClass = location.labelSide === "left" ? "right-full mr-2 sm:mr-3" : "left-full ml-2 ";
 
                 return (
                   <div
@@ -154,31 +190,36 @@ const PresenceSectioncp = () => {
                       <span className="sr-only">{location.name}</span>
                       <div className="relative">
                         <motion.span
-                          className="absolute left-1/2 top-1/2 
-                           -translate-x-1/2 -translate-y-1/2 border border-primary/35 "
-                          animate={{ scale: [1, 1.28, 1], opacity: [0.6, 0.2, 0.6] }}
-                          transition={{ duration: 2.1, repeat: Infinity, delay: index * 0.12 }}
+                          aria-hidden="true"
+                          className="absolute left-1 top-2.5 h-3 w-3 -translate-x-1/4 -translate-y-1/2 rounded-full bg-primary"
+                          animate={{ scale: [1, 1.55, 1], opacity: [0.55, 0.12, 0.55] }}
+                          transition={{ duration: 1.8, repeat: Infinity, delay: index * 0.12, ease: "easeInOut" }}
                         />
-                        <motion.span
-                          className="relative z-10 inline-flex h-3 w-3 items-center justify-center rounded-full border-2 border-white bg-primary"
-                          animate={{
-                            y: hoveredPinIndex === index ? -2 : 0,
-                            scale: hoveredPinIndex === index ? 1.15 : 1,
-                          }}
-                          transition={{ duration: 0.22, ease: "easeOut" }}
+
+                        <span
+                          aria-hidden="true"
+                          className="absolute left-1 top-1 h-3 w-3 rounded-full bg-white/25 blur-[0.5px]"
                         />
-                        <span className="absolute left-1/2 top-[70%] h-3 w-[2px] -translate-x-1/2 rounded-full bg-primary/70" />
+                        <span
+                          aria-hidden="true"
+                          className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
+                        />
+                        <MapPin
+                          className="h-5 w-5 fill-primary stroke-white drop-shadow-sm"
+                          strokeWidth={2.25}
+                        />
                       </div>
 
-                      <div
-                        className={`pointer-events-none absolute top-1/2 z-50 w-48 -translate-y-1/2 border border-border bg-gradient-to-br from-card to-card/95 px-3 py-2 text-left shadow-xl backdrop-blur-sm transition-all duration-300 sm:w-56 sm:px-4 sm:py-3 md:w-64 ${tooltipSideClass} opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100`}
-                      >
-                        <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                          <MapPin className="h-4 w-4 text-primary" />
-                          {location.name}
-                        </p>
-                        <p className="mt-2 text-xs text-muted-foreground">{location.description}</p>
-                      </div>
+                     <div
+                      className={`pointer-events-none absolute top-1/2 z-50 -translate-y-1/2
+                      bg-primary text-white text-xs font-semibold
+                      px-3 py-1.5 rounded-md shadow-lg
+                      min-w-[120px] text-center
+                      ${tooltipSideClass}
+                      opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition`}
+                    >
+                      {location.name}
+                    </div>
                     </button>
                   </div>
                 );

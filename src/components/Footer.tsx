@@ -146,7 +146,7 @@ const Footer = () => {
                   <MapPin className="w-4 h-4 mt-1.5 flex-shrink-0" />
 
                   <span className="text-foreground/70 text-md">
-                    Head Office : 178, Indu Nagar, Palayapalayam, Perundurai Road, Erode, Tamilnadu - 638 011.
+                    178, Indu Nagar, Palayapalayam, Perundurai Road, Erode, Tamilnadu - 638 011.
                   </span>
                 </li>
                 <li className="flex items-center gap-3">

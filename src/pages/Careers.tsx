@@ -13,7 +13,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import bg from "@/assets/background-1.png";
-import picture1 from "@/assets/Office Img/IT department  floor.jpeg";
+import picture1 from "@/assets/website/war room.jpeg";
 import picture2 from "@/assets/Office Img/Admin & Finance department floor.jpeg";
 import picture3 from "@/assets/Office Img/HR, Tender Department floor.jpeg";
 
@@ -815,7 +815,7 @@ const Careers = () => {
 
 
         {/* Team Spotlight */}
-        <section className="section-padding bg-cover bg-center bg-no-repeat" id="culture" style={{ backgroundImage: `url(${bg})` }}>
+        {/* <section className="section-padding bg-cover bg-center bg-no-repeat" id="culture" style={{ backgroundImage: `url(${bg})` }}>
           <div className="container-main text-center " >
             <div className="text-center">
               <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
@@ -828,7 +828,7 @@ const Careers = () => {
 
             </div>
 
-            <div className="text-center">
+            <div className="text-center"> */}
 
               {/* <h2
               className="text-2xl md:text-3xl font-bold text-foreground mb-2 reveal"
@@ -840,7 +840,7 @@ const Careers = () => {
               We're looking for highly ambitious and talented people to help us drive real change.
             </p> */}
 
-              <div className="relative mt-6 flex justify-center overflow-hidden reveal" data-reveal>
+              {/* <div className="relative mt-6 flex justify-center overflow-hidden reveal" data-reveal>
                 <div
                   className="h-48 w-full max-w-5xl rounded-full md:h-56"
                   style={{
@@ -910,7 +910,7 @@ const Careers = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
 
 

@@ -28,7 +28,7 @@ const navItems = [
     dropdown: [
       { name: "Landfill Mining", path: "/services" },
       { name: "Landfill Management", path: "/services#landfill-management" },
-      { name: "Wet Waste Management", path: "/services#wet-waste" },
+      { name: "Fresh Waste Management", path: "/services#wet-waste" },
       { name: "Machineries", path: "/Services#machineries" },
       
 

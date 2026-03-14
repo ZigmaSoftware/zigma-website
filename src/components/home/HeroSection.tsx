@@ -106,14 +106,14 @@ const HeroSection = () => {
       {/* Content */}
       <div className="container-main relative z-10 ">
         <div className="max-w-2xl text-background transition-all duration-700 ease-out ">
-          <div className=" relative pl-6 overflow-hidden">
+          <div className="relative pl-6 py-2 overflow-visible">
             {/* Accent Line */}
             <div className="absolute left-0 top-0 h-full w-1 bg-primary animate-lineGrow" />
 
             {/* Animated Text */}
             <h1
               key={current}
-              className="text-5xl md:text-5xl font-semibold text-white leading-tight tracking-tight opacity-0 translate-x-[-40px] animate-slideIn"
+              className="text-5xl md:text-5xl font-semibold text-white leading-[1.12] tracking-tight opacity-0 translate-x-[-40px] animate-slideIn"
             >
               {slides[current].title}
             </h1>
@@ -123,15 +123,15 @@ const HeroSection = () => {
             </p> */}
           </div>
 
-          <div className="flex  gap-4 mt-4  bg-transparent ">
-            {/* <Button variant="heroOutline"  size="lg" asChild className="border " >
+          {/* <div className="flex  gap-4 mt-4  bg-transparent ">
+            <Button variant="heroOutline"  size="lg" asChild className="border " >
               <Link to="/services">Our Services</Link>
-            </Button> */}
+            </Button>
 
             <Button variant="heroOutline" size="lg" asChild className="border ">
               <Link to="/contact">Contact Us</Link>
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
 

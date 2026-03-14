@@ -139,7 +139,7 @@ const Contact = () => {
               </div>
 
               <h1 className="mt-1 text-3xl sm:text-2xl lg:text-5xl font-semibold leading-tight">
-               Talk to Our Experts
+               Talk to Us
               </h1>
               <p className="mt-6 text-lg max-w-2xl mx-auto text-white/80 leading-relaxed">
               For business queries, collaboration opportunities, or to understand our sustainable solutions, get in touch with us.</p>
@@ -165,7 +165,7 @@ const Contact = () => {
                       {/* <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Office</p> */}
                       <h3 className="text-base font-bold text-foreground mb-1.5">Office Address</h3>
                       <p className="text-muted-foreground">
-                        HO : 178, Indu Nagar, Palayapalayam, <br />
+                        178, Indu Nagar, Palayapalayam, <br />
                         Perundurai Road, Erode, Tamilnadu - 638 011.
                       </p>
                     </div>
@@ -179,8 +179,8 @@ const Contact = () => {
                     <div>
                       {/* <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Email</p> */}
                       <h3 className="text-base font-bold text-foreground mb-1.5">Email Us</h3>
-                      <a href="mailto:careers@zigma.in" className="text-primary hover:underline">
-                        careers@zigma.in
+                      <a href="mailto:connect@zigma.in" className="text-primary hover:underline">
+                        connect@zigma.in
                       </a>
                     </div>
                   </div>
