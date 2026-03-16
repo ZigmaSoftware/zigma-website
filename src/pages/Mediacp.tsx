@@ -318,7 +318,7 @@ const Mediacp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen bg-background">
       <Header />
 
       <main className="scroll-pt-24">

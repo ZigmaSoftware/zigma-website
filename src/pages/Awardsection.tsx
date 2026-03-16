@@ -208,7 +208,7 @@ export default function Awardsection(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen bg-background">
       <ScrollToTop />
       <Header />
 

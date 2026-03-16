@@ -340,7 +340,7 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-slate-50">
+    <div className="min-h-screen bg-slate-50">
       <Header />
 
       <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6 pt-24 text-center lg:px-10">

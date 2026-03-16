@@ -119,7 +119,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background ">
       <Header />
-      <main className="scroll-pt-24 lg:scroll-pt-28 pt-20">
+      <main className="scroll-pt-24 lg:scroll-pt-28">
 
 
          <section className="relative overflow-hidden text-white min-h-[100svh] flex items-center scroll-mt-24 lg:scroll-mt-28">

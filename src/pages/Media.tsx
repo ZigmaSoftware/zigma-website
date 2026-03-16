@@ -175,7 +175,7 @@ const Media = () => {
   }, [selectedHeadline]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background">
+    <div className="min-h-screen bg-background">
       <Header />
 
       <main className="scroll-pt-24">

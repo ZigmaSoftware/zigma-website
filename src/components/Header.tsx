@@ -38,13 +38,13 @@ const navItems = [
 
   {
     name: "People At Zigma",
-    path: "/people",
-    dropdown: [
-      { name: "People", path: "/people" },
-      { name: "People Demo1", path: "/peopledemo1" },
-      { name: "People Demo2", path: "/peopledemo2" },
-      { name: "People Demo3", path: "/peopledemo3" },
-    ],
+    path: "/peopledemo1",
+    // dropdown: [
+    //   { name: "People", path: "/people" },
+    //   { name: "People Demo1", path: "/peopledemo1" },
+    //   { name: "People Demo2", path: "/peopledemo2" },
+    //   { name: "People Demo3", path: "/peopledemo3" },
+    // ],
   },
 
   { name: "Careers", path: "/careers" },

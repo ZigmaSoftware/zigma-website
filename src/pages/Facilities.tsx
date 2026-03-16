@@ -103,7 +103,7 @@ function Facilities() {
   }, [selectedCard])
 
   return (
-    <section className="min-h-screen bg-background overflow-x-hidden">
+    <section className="min-h-screen bg-background">
       <ScrollToTop />
       <Header />
 

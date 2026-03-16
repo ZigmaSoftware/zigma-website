@@ -185,7 +185,7 @@ export default function Awards(): JSX.Element {
   const [activeAward, setActiveAward] = useState<Award | null>(null);
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen bg-background">
       <ScrollToTop />
       <Header />
 

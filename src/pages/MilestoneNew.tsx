@@ -220,7 +220,7 @@ const MilestonNew = () => {
   const currentMilestone = milestones[currentIndex];
 
   return (
-    <div className="overflow-x-hidden">
+    <div>
       {/* tw-line animation classes are in index.css */}
       <div className="scroll-pt-24 lg:scroll-pt-28">
       {/* Hero Section */}

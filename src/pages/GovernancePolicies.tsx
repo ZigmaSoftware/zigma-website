@@ -49,7 +49,7 @@ const GovernancePolicies = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50">
       <Header />
       <main className="scroll-pt-24 lg:scroll-pt-28">
         {/* Hero */}
