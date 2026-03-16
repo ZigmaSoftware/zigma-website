@@ -26,11 +26,12 @@ const navItems = [
     name: "Services",
     path: "/services",
     dropdown: [
-      { name: "Landfill Mining", path: "/services" },
+      { name: "Landfill Mining and Remediation", path: "/services" },
       { name: "Landfill Management", path: "/services#landfill-management" },
-      { name: "Fresh Waste Management", path: "/services#wet-waste" },
-      { name: "Machineries", path: "/Services#machineries" },
-      
+      { name: "Fresh Waste Management and Processing", path: "/services#wet-waste" },
+      { name: "BSFL Based Organic Waste Management", path: "/Services#Bsfl" },
+      { name: "Machinery Sales & Rentals", path: "/services#machinery" },
+      { name: "IOT Systems for Waste Management", path: "/services#iot" },    
 
       
     ],
@@ -52,12 +53,12 @@ const navItems = [
 
   {
     name: "Projects",
-    path: "/projects",
-    dropdown: [
-      { name: "projects(demo1)", path: "/projectsdemo1" },
-      { name: "Projects(demo2)", path: "/project-showcase" },
-      { name: "projects(demo3)", path: "/projects" },
-      // { name: "All Projects", path: "/projects" },
+    path: "/project-showcase",
+    // dropdown: [
+    //   { name: "projects(demo1)", path: "/project-showcase" },
+    //   { name: "Projects(demo2)", path: "/projectsdemo1" },
+    //   { name: "projects(demo3)", path: "/projects" },
+    //   { name: "All Projects", path: "/projects" },
     //   { name: "Completed Projects", path: "/projects?tab=completed" },
     //   { name: "Project Showcase", path: "/project-showcase" },
     //   { name: "Ongoing Projects", path: "/projects?tab=ongoing" },
@@ -65,7 +66,7 @@ const navItems = [
     //   { name: "Project Showcase", path: "/vertical-slider" },
     //   { name: "Waste Management Showcase", path: "/waste-management-showcase" },
       
-    ],
+    // ],
   },
 
   /* FLOW FIX */
@@ -75,10 +76,10 @@ const navItems = [
   { name: "Media", path: "/media",
     dropdown: [
      
-      { name: "Awards(Demo1)", path: "/Awards" },
-      { name: "Awards(Demo2)", path: "/Awardsection" },
-      { name: "News(Demo1)", path: "/Media" },
-      { name: "News(Demo2)", path: "/Mediacp" },
+      // { name: "Awards(Demo1)", path: "/Awards" },
+      { name: "Awards", path: "/Awardsection" },
+      { name: "News", path: "/Media" },
+      // { name: "News(Demo2)", path: "/Mediacp" },
      
       
 
@@ -132,10 +133,6 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const toggleDropdown = (name: string) => {
-    setActiveDropdown(activeDropdown === name ? null : name);
-  };
-
   const updateIndicatorToItem = (name: string) => {
     const itemEl = itemRefs.current[name];
     const navEl = navRef.current;
@@ -171,10 +168,10 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-[80] bg-background/95 backdrop-blur border-b border-border ">
-     <div className="container-main">
+    <header className="sticky top-0 inset-x-0 z-[80] bg-background/95 backdrop-blur border-b border-border">
+     <div className="container-main flex items-center justify-center">
 
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between w-full h-20 px-4">
           {/* LOGO */}
           <Link to="/" className="flex items-center gap-3 shrink-0">
             <img
@@ -187,7 +184,7 @@ const Header = () => {
 
           {/* DESKTOP NAV */}
           <nav
-            className="relative hidden lg:flex items-center gap-6 flex-nowrap"
+            className="relative hidden lg:flex items-center justify-center gap-8 flex-wrap"
             ref={(el) => {
               dropdownRef.current = el;
               navRef.current = el;
@@ -211,12 +208,13 @@ const Header = () => {
                   itemRefs.current[item.name] = el;
                 }}
                 onMouseEnter={() => updateIndicatorToItem(item.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
                 onFocus={() => updateIndicatorToItem(item.name)}
               >
                 {item.dropdown ? (
                   <button
-                    onClick={() => toggleDropdown(item.name)}
-                    className={`group relative flex items-center gap-1 py-4 text-md transition-colors whitespace-nowrap ${
+                    onMouseEnter={() => setActiveDropdown(item.name)}
+                    className={`group relative flex items-center gap-1 py-4 text-sm font-medium transition-colors whitespace-nowrap ${
                       isActive(item.path)
                         ? "text-primary font-bold"
                         : "text-foreground hover:text-primary"
@@ -244,12 +242,12 @@ const Header = () => {
 
                 {/* DROPDOWN */}
                 {item.dropdown && activeDropdown === item.name && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-card rounded-xl shadow-xl border border-border py-3">
+                  <div className="absolute top-full left-0 z-50 w-max min-w-[100px] max-w-[20rem] bg-card border border-border rounded-md shadow-xl p-2">
                     {item.dropdown.map((sub) => (
                       <Link
                         key={sub.name}
                         to={sub.path}
-                        className="block px-5 py-3 text-sm hover:text-primary"
+                        className="block px-5 py-2 text-sm hover:text-primary"
                         onClick={() => setActiveDropdown(null)}
                       >
                         {sub.name}

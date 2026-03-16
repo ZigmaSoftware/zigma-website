@@ -21,19 +21,19 @@ import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/controll room.png';
 import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
 
-import picture1 from '@/assets/website/Mr. Boopathy Dharmaraj.png';
-import picture2 from '@/assets/website/Mr. K P Mutharasu.png';
-import picture3 from '@/assets/website/Mr. ANAND THANGARAJ.png';
-import picture4 from '@/assets/website/Mr. KTI.jpeg';
-import picture5 from '@/assets/website/Mr. NAGESH PRABHU.jpg';
-import picture6 from '@/assets/website/Mr. Aghoramoorthy Rajasekaran.jpg';
-import picture7 from '@/assets/website/Mr. Sridhar Jagannathan.jpeg';
-import picture10 from '@/assets/website/Mr. Prashant Singh.png';
-import picture11 from '@/assets/website/Mr. Shankar Raman.png';
-import picture12 from '@/assets/website/Mr. Mohan Kumar.png';
-import picture13 from '@/assets/website/Mr. Varun Boralkar.jpg';
+import picture1 from '@/assets/Leaders/Mr. Boopathy Dharmaraj.jpeg';
+import picture2 from '@/assets/Leaders/Mr. K P Mutharasu.jpeg';
+import picture3 from '@/assets/Leaders/Mr. ANAND THANGARAJ.jpeg';
+import picture4 from '@/assets/Leaders/Mr. KTI.jpeg';
+import picture5 from '@/assets/Leaders/Mr. NAGESH PRABHU.jpeg';
+import picture6 from '@/assets/Leaders/Mr. Aghoramoorthy Rajasekaran.jpeg';
+import picture7 from '@/assets/Leaders/Mr. Sridhar Jagannathan.jpeg';
+import picture10 from '@/assets/Leaders/Mr. Prashant Singh.jpeg';
+import picture11 from '@/assets/Leaders/Mr. Shankar Raman.jpeg';
+// import picture12 from '@/assets/Mr. Mohan Kumar.png';
+import picture13 from '@/assets/Leaders/Mr. Varun Boralkar.jpeg';
 import picture14 from '@/assets/website/Mr. Maran.png';
-import picture15 from '@/assets/website/Mr. Senthil Annamalai.png';
+import picture15 from '@/assets/Leaders/Mr. Senthil Annamalai.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -203,7 +203,7 @@ const leaders: Leader[] = [
   },
   {
     group: 'Promoters and CoFounders',
-    name: 'Vijayan K.',
+    name: 'Vijayan K',
     designation: 'Director',
     linkedin: 'https://www.linkedin.com/in/vijayans/',
   },
@@ -630,7 +630,7 @@ const About = (): JSX.Element => {
                 <h3 className="mb-4 text-xl font-semibold text-slate-900">{group}</h3>
                 <div className="grid grid-cols-1 gap-y-14 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-3 xl:gap-x-10">
                   {leaders
-                    .filter((leader) => leader.group === group && Boolean(leader.image))
+                    .filter((leader) => leader.group === group)
                     .map((leader) => (
                       <article
                         key={`${leader.group}-${leader.name}`}
@@ -647,7 +647,11 @@ const About = (): JSX.Element => {
                                 className="h-full w-full object-cover object-center"
                               />
                             ) : (
-                              <div className="h-full w-full bg-slate-100" />
+                              <div className="flex h-full w-full items-center justify-center bg-slate-100">
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-slate-200 text-2xl font-bold text-slate-600">
+                                  {leader.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+                                </div>
+                              </div>
                             )}
 
                             {/* LinkedIn icon */}

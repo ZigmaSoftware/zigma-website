@@ -1,314 +1,310 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { BarChart3, TrendingUp, Users } from "lucide-react";
+import { TrendingUp, BarChart3, Users } from "lucide-react";
 import bg from "@/assets/background-1.png";
 
+/* ───────── Media Import (Images + Videos) ───────── */
 
-const peopleImageModules = import.meta.glob<{ default: string }>(
-  "../assets/people at zigma/*.{jpg,jpeg,JPG,png,webp,avif,JPEG,PNG,WEBP,AVIF}",
+const mediaModules = import.meta.glob(
+  "../assets/people at zigma/**/*.{jpg,jpeg,png,webp,mp4,webm}",
   { eager: true }
 );
 
-const imageEntries = Object.entries(peopleImageModules).sort(([a], [b]) =>
-  a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })
-);
-
-const toLabel = (path: string) => {
-  const fileName = path.split("/").pop()?.split("\\").pop() ?? "Visual";
-  return fileName
-    .replace(/\.[^.]+$/, "")
-    .replace(/[-_]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+type MediaType = {
+  src: string;
+  label: string;
+  type: "image" | "video";
+  category: "office" | "plants" | "beyond" | "other";
 };
 
-const allImages = imageEntries.map(([path, mod]) => ({
-  path,
-  src: mod.default,
-  label: toLabel(path),
-}));
+const allMedia: MediaType[] = Object.entries(mediaModules).map(
+  ([path, mod]: any) => ({
+    src: mod.default,
+    label: path.split("/").pop()?.replace(/\.[^.]+$/, "") || "media",
+    type: path.match(/\.(mp4|webm)$/i) ? "video" : "image",
+    category: path.toLowerCase().includes("/office/")
+      ? "office"
+      : path.toLowerCase().includes("/plants/")
+      ? "plants"
+      : path.toLowerCase().includes("/zigma beyond work/")
+      ? "beyond"
+      : "other",
+  })
+);
 
-const usedImagePaths = new Set<string>();
+/* ───────── Media Allocation ───────── */
 
-const allocateImage = (keywords: string[], fallbackIndex: number) => {
-  if (!imageEntries.length) return "";
+const getMediaByCategory = (category: MediaType["category"]) =>
+  allMedia.filter((item) => item.category === category);
 
-  const loweredKeywords = keywords.map((item) => item.toLowerCase());
-  const matched = imageEntries.find(
-    ([path]) =>
-      !usedImagePaths.has(path) && loweredKeywords.some((keyword) => path.toLowerCase().includes(keyword))
+const allocateImages = (
+  category: MediaType["category"],
+  count: number,
+  startIndex = 0
+) => {
+  const items = getMediaByCategory(category);
+  return items.slice(startIndex, startIndex + count);
+};
+
+/* ───────── Column Media ───────── */
+
+const officeCol1Images = allocateImages("office", 8, 0);
+const officeCol2Images = allocateImages("office", 8, 8);
+const officeCol3Images = allocateImages("office", 8, 16);
+
+const plantsCol1Images = allocateImages("plants", 8, 0);
+const plantsCol2Images = allocateImages("plants", 8, 8);
+const plantsCol3Images = allocateImages("plants", 8, 16);
+
+/* ───────── Card Heights ───────── */
+
+const CARD_HEIGHTS = [
+  "tall",
+  "short",
+  "medium",
+  "tall",
+  "short",
+  "medium",
+  "tall",
+  "short",
+] as const;
+
+type CardHeight = (typeof CARD_HEIGHTS)[number];
+
+const heightMap: Record<CardHeight, string> = {
+  tall: "h-[340px] lg:h-[300px] md:h-[240px] sm:h-[200px]",
+  medium: "h-[230px] lg:h-[200px] md:h-[160px] sm:h-[140px]",
+  short: "h-[160px] lg:h-[140px] md:h-[120px] sm:h-[110px]",
+};
+
+/* ───────── Scroll Column ───────── */
+
+interface ScrollColumnProps {
+  images: MediaType[];
+  speed: number;
+}
+
+const ScrollColumn = ({ images, speed }: ScrollColumnProps) => {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const cloneRef = useRef<HTMLDivElement>(null);
+  const offset = useRef(0);
+  const pausedRef = useRef(false);
+  const rafRef = useRef<number>(0);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const clone = cloneRef.current;
+
+    if (!track || !clone) return;
+
+    const animate = () => {
+      if (!pausedRef.current) {
+        offset.current += speed;
+        const trackH = track.scrollHeight + 20;
+
+        if (offset.current >= trackH) offset.current -= trackH;
+
+        track.style.transform = `translateY(-${offset.current}px)`;
+        clone.style.transform = `translateY(-${offset.current}px)`;
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [speed]);
+
+  const cards = images.map((img, i) => ({
+    img,
+    height: CARD_HEIGHTS[i % CARD_HEIGHTS.length],
+  }));
+
+  const CardList = ({ refProp }: { refProp: React.RefObject<HTMLDivElement> }) => (
+    <div ref={refProp} className="flex flex-col gap-5 w-full">
+      {cards.map(({ img, height }, i) => (
+        <div
+          key={i}
+          className={`relative rounded-[18px] overflow-hidden flex-shrink-0 border border-white/70
+          shadow-[0_4px_16px_rgba(31,38,135,0.08),0_1px_3px_rgba(0,0,0,0.06)]
+          group cursor-pointer transition-all duration-300 hover:scale-[1.03]
+          hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(31,38,135,0.18)]
+          ${heightMap[height]}`}
+        >
+          {img.type === "video" ? (
+            <video
+              src={img.src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <img
+              src={img.src}
+              alt={img.label}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+            />
+          )}
+
+          <div className="absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-white/8" />
+        </div>
+      ))}
+    </div>
   );
 
-  if (matched) {
-    usedImagePaths.add(matched[0]);
-    return matched[1].default;
-  }
-
-  const preferredStart = fallbackIndex % imageEntries.length;
-  const fallback =
-    imageEntries.slice(preferredStart).find(([path]) => !usedImagePaths.has(path)) ??
-    imageEntries.find(([path]) => !usedImagePaths.has(path)) ??
-    imageEntries[preferredStart];
-
-  usedImagePaths.add(fallback[0]);
-  return fallback[1].default;
+  return (
+    <div
+      className="relative overflow-hidden h-full"
+      onMouseEnter={() => (pausedRef.current = true)}
+      onMouseLeave={() => (pausedRef.current = false)}
+    >
+      <CardList refProp={trackRef} />
+      <CardList refProp={cloneRef} />
+    </div>
+  );
 };
 
-const layoutImages = {
-  miniTote: allocateImage(["womens day", "picture 4", "pongal 1"], 0),
-  petShop: allocateImage(["ind 1", "ind 2", "site"], 2),
-  realEstate: allocateImage(["kozhikode", "republic 1", "newyear p1"], 4),
-  jacket: allocateImage(["mdc p1", "crismas p1", "image rm"], 6),
-  retroCar: allocateImage(["dsc070", "6p6a", "site"], 8),
-  skincare: allocateImage(["bday p1", "image cskf", "newyear p2"], 10),
-  topLeft: allocateImage(["crstm p3", "mdc p2", "newyear p3"], 12),
-  bottomAccent: allocateImage(["pongal 4", "republic 1", "newyear p3"], 14),
-};
+/* ───────── Values Section ───────── */
 
-const referenceTrends = allImages.slice(0, 8);
-const referenceFeed = (allImages.length > 8 ? allImages.slice(8) : allImages).slice(0, 12);
+const VALUES = [
+  {
+    Icon: TrendingUp,
+    title: "Supersonic Growth",
+    text: "Accelerate your career with real ownership and challenging projects.",
+  },
+  {
+    Icon: BarChart3,
+    title: "Continuous Opportunity",
+    text: "Work across domains and expand your skills.",
+  },
+  {
+    Icon: Users,
+    title: "People-First Culture",
+    text: "A collaborative and energetic work environment.",
+  },
+];
 
-const cardBaseClass =
-  "group relative overflow-hidden rounded-[18px] shadow-[0_10px_24px_rgba(15,23,42,0.16)]";
-const imageCardClass = "h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110";
-const defaultOverlayClass = "absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent";
+/* ───────── Tabs ───────── */
 
-type GalleryCardProps = {
-  src: string;
-  alt: string;
-  className?: string;
-  overlayClass?: string;
-};
+const TABS = [
+  { id: "our-office", label: "Our Office" },
+  { id: "our-plants", label: "Our Plants" },
+  { id: "beyond-work", label: "Zigma Beyond Work" },
+] as const;
 
-const GalleryCard = ({
-  src,
-  alt,
-  className = "",
-  overlayClass = defaultOverlayClass,
-}: GalleryCardProps) => (
-  <article className={`${cardBaseClass} ${className}`.trim()}>
-    <img src={src} alt={alt} className={imageCardClass} />
-    <div className={overlayClass} />
-  </article>
-);
+type TabId = (typeof TABS)[number]["id"];
 
-const Peopledemo1 = () => {
-  const [showReferenceUI, setShowReferenceUI] = useState(false);
+/* ───────── Main Page ───────── */
+
+const PeopleAtZigma = () => {
+  const [activeTab, setActiveTab] = useState<TabId>("our-office");
+  const [galleryExpanded, setGalleryExpanded] = useState(false);
+
+  const scrollToSection = (id: TabId) => {
+    setActiveTab(id);
+
+    setTimeout(() => {
+      const mainEl = document.querySelector("main");
+      if (mainEl)
+        window.scrollTo({ top: mainEl.offsetTop - 110, behavior: "smooth" });
+    }, 0);
+  };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <ScrollToTop />
       <Header />
 
-      <main className="pt-24 pb-6">
-        <section className="mx-auto w-[min(88%,1240px)]">
-          <div className="text-center">
-            <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">People at Zigma</span>
-            <h1 className="mt-2 text-3xl md:text-4xl font-bold text-foreground">
-              Life at Zigma in <span className="text-primary">People Moments</span>
-            </h1>
-            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-sm md:text-lg">
-              A visual collection of Zigma team moments, celebrations, and day-to-day culture captured across events and office life.
-            </p>
-          </div>
+      {/* Navigation */}
 
-          <div className="mt-4 grid gap-2 lg:h-[calc(100vh-290px)] lg:grid-cols-[1.05fr_2.1fr_1.4fr_2.5fr]">
-            <div className="grid min-h-[220px] gap-2 sm:min-h-[260px] lg:h-full lg:min-h-0 lg:grid-rows-[0.25fr_0.75fr]">
-              <GalleryCard
-                src={layoutImages.topLeft}
-                alt="Featured Moment"
-                className="lg:min-h-0"
-                overlayClass="absolute inset-0 bg-gradient-to-t from-black/55 via-black/8 to-transparent"
-              />
-              <GalleryCard src={layoutImages.miniTote} alt="Mini Tote" className="min-h-[92px] lg:min-h-0" />
-            </div>
-
-            <div className="grid min-h-[220px] gap-2 sm:min-h-[260px] lg:h-full lg:min-h-0 lg:grid-rows-2">
-              <GalleryCard
-                src={layoutImages.petShop}
-                alt="Pet Shop Labor Day Promo"
-                className="min-h-[100px] lg:min-h-0"
-                overlayClass="absolute inset-0 bg-gradient-to-t from-black/65 via-black/12 to-transparent"
-              />
-              <GalleryCard
-                src={layoutImages.realEstate}
-                alt="Real Estate Promo"
-                className="min-h-[100px] lg:min-h-0"
-                overlayClass="absolute inset-0 bg-gradient-to-t from-black/65 via-black/12 to-transparent"
-              />
-            </div>
-
-            <GalleryCard
-              src={layoutImages.jacket}
-              alt="The Perfect Jacket"
-              className="min-h-[220px] sm:min-h-[260px] lg:h-full lg:min-h-0"
-              overlayClass="absolute inset-0 bg-gradient-to-t from-black/70 via-black/12 to-transparent"
-            />
-
-            <div className="grid min-h-[220px] gap-2 sm:min-h-[260px] lg:h-full lg:min-h-0 lg:grid-rows-[1.25fr_1fr]">
-              <GalleryCard src={layoutImages.retroCar} alt="Retro Compact Car Ad" className="min-h-[110px] lg:min-h-0" />
-
-              <div className="grid gap-2 sm:grid-cols-2">
-                <GalleryCard
-                  src={layoutImages.bottomAccent}
-                  alt="Creative Concept"
-                  overlayClass="absolute inset-0 bg-gradient-to-t from-black/45 via-black/8 to-transparent"
-                />
-                <GalleryCard
-                  src={layoutImages.skincare}
-                  alt="Korean Skincare"
-                  className="min-h-[92px] lg:min-h-0"
-                  overlayClass="absolute inset-0 bg-gradient-to-t from-black/65 via-black/8 to-transparent"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 flex justify-center">
+      <div className="sticky z-[70] bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-center gap-2">
+          {TABS.map((tab) => (
             <button
-              type="button"
-              onClick={() => setShowReferenceUI((prev) => !prev)}
-              className="rounded-xl bg-primary px-6 py-2.5 text-lg md:text-xl font-semibold text-primary-foreground shadow-[0_10px_24px_rgba(15,23,42,0.18)] transition duration-300 hover:bg-primary/90"
+              key={tab.id}
+              onClick={() => scrollToSection(tab.id)}
+              className={`px-6 py-3 text-sm font-medium border-b-2 ${
+                activeTab === tab.id
+                  ? "text-green-600 border-green-600"
+                  : "text-slate-600 border-transparent"
+              }`}
             >
-              {showReferenceUI ? "Hide Moments" : "View More Moments"}
+              {tab.label}
             </button>
-          </div>
+          ))}
+        </div>
+      </div>
 
-          {showReferenceUI ? (
-            <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-4 text-center shadow-[0_24px_60px_rgba(15,23,42,0.1)] md:p-6">
-              <div className="mx-auto max-w-5xl">
-                <div>
-                  <h2 className="text-xl font-semibold text-slate-900 md:text-2xl">People at Zigma Gallery</h2>
-                  <p className="text-md text-slate-500">Browse more snapshots from Zigma team activities, special occasions, and memorable moments.</p>
-                </div>
-                {/* <button
-                  type="button"
-                  className="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-700"
-                >
-                  View All Moments
-                </button> */}
-                 <div className="mt-5">
-                {/* <h3 className="text-lg font-semibold text-slate-900">Featured Moments</h3> */}
-                <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
-                  {referenceTrends.map((item) => (
-                    <article key={item.path} className="w-28 shrink-0">
-                      <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
-                        <img
-                          src={item.src}
-                          alt={item.label}
-                          className="h-36 w-full object-cover transition-transform duration-300 hover:scale-105"
-                        />
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </div>
+      <main className="flex-1">
 
-              </div>
-
-             
-              <div className="mt-5 grid gap-3 md:grid-cols-2">
-                {referenceFeed.map((item, index) => (
-                  <article
-                    key={`${item.path}-${index}`}
-                    className={`overflow-hidden rounded-xl border border-slate-200 bg-slate-100 ${index % 5 === 0 ? "md:col-span-2" : ""
-                      }`}
-                  >
-                    <img
-                      src={item.src}
-                      alt={item.label}
-                      className={`w-full object-cover transition-transform duration-300 hover:scale-[1.03] ${index % 5 === 0 ? "h-64 md:h-72" : "h-52 md:h-60"
-                        }`}
-                    />
-                  </article>
-                ))}
+        {activeTab === "our-office" && (
+          <section className="container-main">
+            <div
+              className="mx-auto w-[95%] max-w-[1200px] overflow-hidden relative pb-20"
+              style={{ height: galleryExpanded ? "120vh" : "100vh" }}
+            >
+              <div
+                className="grid h-full gap-5 px-8"
+                style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
+              >
+                <ScrollColumn images={officeCol1Images} speed={0.4} />
+                <ScrollColumn images={officeCol2Images} speed={0.65} />
+                <ScrollColumn images={officeCol3Images} speed={0.5} />
               </div>
             </div>
-          ) : null}
-        </section>
+          </section>
+        )}
+
+        {activeTab === "our-plants" && (
+          <section>
+            <div
+              className="mx-auto w-[95%] max-w-[1200px] pb-20 overflow-hidden relative"
+              style={{ height: galleryExpanded ? "120vh" : "100vh" }}
+            >
+              <div
+                className="grid h-full gap-5 px-8"
+                style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
+              >
+                <ScrollColumn images={plantsCol1Images} speed={0.4} />
+                <ScrollColumn images={plantsCol2Images} speed={0.65} />
+                <ScrollColumn images={plantsCol3Images} speed={0.5} />
+              </div>
+            </div>
+          </section>
+        )}
       </main>
 
-        {/*        WORKING @ ZIGMA – REFINED DESIGN */}
-        <section className=" min-h-[100svh]  py-6 lg:py-8 "   style={{
-                  backgroundImage: `url(${bg})`,
-                 
-                }}>
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center">
-             
+      {/* Values Section */}
 
-                          <span className="text-sm  uppercase tracking-[0.3em] text-muted-foreground">
-             Working @ Zigma
-            </span>
-            <h2 className="mt-2 text-3xl md:text-4xl font-bold text-foreground">
-              Where Performance Meets<span className="text-primary"> Purpose</span>
-            </h2>
-
-            <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-center text-sm md:text-lg  ">
-                  A performance-driven workplace where people, purpose, and
-                progress move together.
-              </p>
-            </div>
-
-            <div className="grid text-center grid-cols-1 md:grid-cols-3 gap-8  container-main section-padding">
-              {/* Card 1 */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-                <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-green-50 mb-6 mx-auto">
-                  <TrendingUp className="h-6 w-6 text-green-700" />
+      <section
+        id="beyond-work"
+        className="py-20 bg-cover bg-center min-h-[60vh]"
+        style={{ backgroundImage: `url(${bg})` }}
+      >
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-7">
+            {VALUES.map(({ Icon, title, text }) => (
+              <div key={title} className="bg-white rounded-2xl p-8 border shadow-sm">
+                <div className="h-12 w-12 flex items-center justify-center rounded-lg bg-secondary mb-6 mx-auto">
+                  <Icon className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                  Supersonic Growth
-                </h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Accelerate your career with real ownership, challenging
-                  projects, and fast-tracked learning opportunities.
-                </p>
-              </div>
 
-              {/* Card 2 */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-                <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-green-50 mb-6 mx-auto">
-                  <BarChart3 className="h-6 w-6 text-green-700" />
-                </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                  Continuous Opportunity
-                </h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Work across domains, expand your skills, and unlock growth
-                  paths aligned with your ambition.
-                </p>
+                <h3 className="text-lg font-bold text-center">{title}</h3>
+                <p className="text-muted-foreground text-center">{text}</p>
               </div>
-
-              {/* Card 3 */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-                <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-green-50 mb-6 mx-auto">
-                  <Users className="h-6 w-6 text-green-700" />
-                </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-3">
-                  People-First Culture
-                </h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Thrive in a collaborative, respectful, and high-energy
-                  environment that values people as much as performance.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
       <Footer />
     </div>
   );
 };
 
-export default Peopledemo1;
-
-
-
-
-
-
-
-
+export default PeopleAtZigma;

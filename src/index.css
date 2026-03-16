@@ -700,6 +700,15 @@ html.lenis body {
   @apply w-[95%] max-w-5xl mx-auto;
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 
 /* Presence section css/style - homepage  */
 /* 
