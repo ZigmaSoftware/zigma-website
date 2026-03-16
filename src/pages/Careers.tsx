@@ -269,7 +269,7 @@ const Careers = () => {
               </p>
             </div>
 
-            <div className="relative h-[420px] overflow-hidden shadow-xl">
+            <div className="relative h-[420px] overflow-hidden shadow-xl [clip-path:polygon(8%_0%,100%_0%,92%_100%,0%_100%)]">
               <img
                 src={picture1}
                 alt="Zigma Office"
@@ -308,9 +308,8 @@ const Careers = () => {
                   <button
                     key={dept}
                     onClick={() => setSelectedDepartment(dept)}
-                    className={`pb-3 font-semibold ${
-                      active ? "text-primary border-b-2 border-primary" : ""
-                    }`}
+                    className={`pb-3 font-semibold ${active ? "text-primary border-b-2 border-primary" : ""
+                      }`}
                   >
                     {dept === "all" ? "All Openings" : dept}
                   </button>
@@ -420,11 +419,10 @@ const Careers = () => {
                   onDragOver={handleResumeDragOver}
                   onDragLeave={handleResumeDragLeave}
                   onDrop={handleResumeDrop}
-                  className={`border-dashed border-2 p-6 text-center rounded-lg ${
-                    isDragOverResume
+                  className={`border-dashed border-2 p-6 text-center rounded-lg ${isDragOverResume
                       ? "border-primary bg-primary/10"
                       : "border-border"
-                  }`}
+                    }`}
                 >
                   <input
                     type="file"
