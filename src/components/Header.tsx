@@ -20,12 +20,19 @@ const navItems = [
       { name: "BSFL Based Organic Waste Management", path: "/services#Bsfl" },
       { name: "Machinery Sales & Rentals", path: "/services#machinery" },
       { name: "IOT Systems for Waste Management", path: "/services#iot" },
+  
     ],
   },
 
   { name: "Products", path: "/products" },
 
-  { name: "Projects", path: "/project-showcase" },
+  { name: "Projects", path: "/project-showcase" ,
+  dropdown: [
+    { name: "Projects", path: "/project-showcase" },
+    { name: "Project Demo1", path: "/projectsdemo1" },
+  
+  ],
+  },
 
   {
     name: "Media",

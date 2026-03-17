@@ -195,7 +195,7 @@ const Services = () => {
                       </ul>
                     ) : null}
                     <Button asChild   className="w-28">
-                      <Link to="/contact">Get Quote</Link>
+                      <Link to="/contact">Enquire Now</Link>
                     </Button>
                   </div>
                       </>

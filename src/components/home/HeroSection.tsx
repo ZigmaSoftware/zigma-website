@@ -12,6 +12,10 @@ import img4 from "@/assets/website/hero/Furnitures.png";
 // import img5 from "@/assets/website/hero/vairapalayam.jpg";
 import img6 from "@/assets/website/hero/vairapalayam.jpg";
 import img7 from "@/assets/website/hero/kdg.png";
+import img8 from "@/assets/website/hero/controll room.png";
+import img9 from "@/assets/website/hero/controll room 2.png";
+
+
 
 
 const slides = [
@@ -42,6 +46,14 @@ const slides = [
   {
     image: img7,
     title: "Reclaiming Landfills, Redefining Possibilities.",
+  },
+  {
+    image: img8,
+    title: "Engineering Transparency, Delivering Sustainability.",
+  },
+  {
+    image: img9,
+    title: "Engineering Transparency, Delivering Sustainability.",
   },
 ];
 

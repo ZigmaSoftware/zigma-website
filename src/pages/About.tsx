@@ -18,7 +18,7 @@ import img6 from '@/assets/Before - After/14 karur_A.jpg';
 import img7 from '@/assets/Before - After/6 vijawada_A.jpg';
 import img8 from '@/assets/website/Noida.png';
 import img9 from '@/assets/website/image ewd.png';
-import img10 from '@/assets/controll room.png';
+import img10 from '@/assets/website/hero/controll room.png';
 import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
 
 import picture1 from '@/assets/Leaders/Mr. Boopathy Dharmaraj.jpeg';

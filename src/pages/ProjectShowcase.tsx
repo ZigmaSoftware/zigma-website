@@ -3,34 +3,34 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 // ── Image imports ──────────────────────────────────────────────
-import P1b  from "@/assets/Before - After/1 kumbakonam b.jpg";
-import P1a  from "@/assets/Before - After/1 kumbakonam_A.jpg";
-import P2b  from "@/assets/Before - After/2 sembakam_B.jpg";
-import P2a  from "@/assets/Before - After/2 sembakam_A.jpg";
-import P3b  from "@/assets/Before - After/3 noida_B.jpg";
-import P3a  from "@/assets/Before - After/3 noid_A.jpg";
-import P4b  from "@/assets/Before - After/4 atladara_B.jpg";
-import P4a  from "@/assets/Before - After/4 atladara_A.jpg";
-import P5b  from "@/assets/Before - After/5 poonamallee_B.jpg";
-import P5a  from "@/assets/Before - After/5 poonamallee_A.jpg";
-import P6b  from "@/assets/Before - After/6 vijawada_B.jpg";
-import P6a  from "@/assets/Before - After/6 vijawada_A.jpg";
-import P7b  from "@/assets/Before - After/7 vairapalayam_B.jpg";
-import P7a  from "@/assets/Before - After/7 vairapalayam_A.jpg";
-import P8b  from "@/assets/Before - After/8 pammal_B.jpg";
-import P8a  from "@/assets/Before - After/8 pammal_A.jpg";
-import P9b  from "@/assets/Before - After/9 noida_B.jpg";
-import P9a  from "@/assets/Before - After/9 noida_A.jpg";
-import P10b from "@/assets/Before - After/10 tirupathi_B.jpg";
-import P10a from "@/assets/Before - After/10 tirupathi_A.jpg";
-import P11b from "@/assets/Before - After/11 chidambaram_B.jpg";
-import P11a from "@/assets/Before - After/11 chidambaram_a.jpg";
-import P12b from "@/assets/Before - After/12 pallavaram_B.jpg";
-import P12a from "@/assets/Before - After/12 pallavaram_A.jpg";
-import P13b from "@/assets/Before - After/13 karaikudi_B.jpg";
-import P13a from "@/assets/Before - After/13 karaikudi_A.jpg";
-import P14b from "@/assets/Before - After/14 karur_B.jpg";
-import P14a from "@/assets/Before - After/14 karur_A.jpg";
+import P1b from "@/assets/before after projects/kumbakonam before.png";
+import P1a from "@/assets/before after projects/kumbakonam after.png";
+import P2b from "@/assets/before after projects/SEMBAKKAM LAKE  before.png";
+import P2a from "@/assets/before after projects/SEMBAKKAM LAKE  after.png";
+import P3b from "@/assets/before after projects/noida before.png";
+import P3a from "@/assets/before after projects/noida after.png";
+import P4b  from "@/assets/before after projects/VADODARA - ATLADAR  before.png";
+import P4a  from "@/assets/before after projects/VADODARA - ATLADAR  after.png";
+import P5b  from "@/assets/before after projects/poonamallee before.png";
+import P5a  from "@/assets/before after projects/poonamallee after.png";
+import P6b  from "@/assets/before after projects/VIJAYAWADA-AJITSINGH NAGAR before.png";
+import P6a  from "@/assets/before after projects/VIJAYAWADA-AJITSINGH NAGAR after.png";
+import P7b  from "@/assets/before after projects/Erode-Vairapalayam before.png";
+import P7a  from "@/assets/before after projects/Erode-Vairapalayam after.png";
+import P8b  from "@/assets/before after projects/pammal before.png";
+import P8a  from "@/assets/before after projects/pammal after.png";
+import P9b  from "@/assets/before after projects/noida sector 145- before (1).png";
+import P9a  from "@/assets/before after projects/noida sector 145 after.png";
+import P10b from "@/assets/before after projects/tirupathi before.png";
+import P10a from "@/assets/before after projects/tirupathi before after.png";
+import P11b from "@/assets/before after projects/chidambaram before.png";
+import P11a from "@/assets/before after projects/chidambaram after.png";
+import P12b from "@/assets/before after projects/pallavaram before.jpg";
+import P12a from "@/assets/before after projects/pallavaram after.png";
+import P13b from "@/assets/before after projects/karaikudi before.png";
+import P13a from "@/assets/before after projects/karaikudi after.png";
+import P14b from "@/assets/before after projects/karur before.png";
+import P14a from "@/assets/before after projects/karur after.png";
 import P15b from "@/assets/Before - After/Tambaram_B.jpg";
 import P15a from "@/assets/Before - After/Tambaram_A.jpg";
 
@@ -413,9 +413,8 @@ const ProjectShowcase: React.FC = () => {
       `}</style>
 
       <Header />
-
-     {/* State Filter */}
-<nav className="w-full overflow-hidden border-y border-slate-200 bg-white/95 backdrop-blur z-40" style={{ position: 'absolute', top: '64px', left: 0, right: 0 }}>
+{/* State Filter */}
+<nav className="sticky top-[64px] p-3 overflow-hidden border-y border-slate-200 bg-white/95 backdrop-blur z-40">
   <div className="max-w-[1400px] mx-auto px-[5%] py-4 flex justify-center">
     
     <div className="flex flex-wrap justify-center gap-2.5">
@@ -438,7 +437,7 @@ const ProjectShowcase: React.FC = () => {
 </nav>
 
       {/* Projects list */}
-      <main className="max-w-[1400px] mx-auto px-[5%] pt-40 pb-12 flex flex-col gap-20">
+      <main className="max-w-[1400px] mx-auto px-[5%]  flex flex-col gap-20">
         {filteredProjects.map((p, i) => (
           <ProjectCard
             key={p.id}

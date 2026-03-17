@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Factory, Recycle, Cog, Cpu, Layers, Sprout } from "lucide-react";
+import { Factory, Recycle, Cog, Cpu, Layers, Sprout, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import Reveal from "@/components/animation/Reveal";
 
 const services = [
@@ -128,6 +129,17 @@ const ServicesSection = () => {
                 <p className="mt-3 text-sm leading-relaxed text-gray-600 max-w-xs">
                   {service.description}
                 </p>
+
+                {/* Read More Button */}
+                <div className="mt-6 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                  <Link
+                    to="/services"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-3 transition-all duration-200"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Read More <ArrowRight size={15} />
+                  </Link>
+                </div>
 
                 {/* Bottom Accent */}
                 <div className="absolute bottom-0 left-1/2 h-[3px] w-0 bg-primary transition-all duration-500 group-hover:w-full group-hover:left-0 rounded-b-xl" />

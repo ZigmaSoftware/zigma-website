@@ -122,7 +122,7 @@ const Vision = () => {
                 </p>
               </article>
 
-              <article className="group  border border-border rounded-md  p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <article className="group  border border-border rounded-md bg-card p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full  text-primary">
                   <img src={missionIcon} alt="mission" className="h-10 w-10 object-contain group-hover:hidden" />
                   <img src={missionGif} alt="mission active" className="hidden h-10 w-10 object-contain group-hover:block" />

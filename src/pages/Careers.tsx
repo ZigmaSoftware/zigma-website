@@ -278,7 +278,7 @@ const Careers = () => {
             </div>
 
           </div>
-        </section>
+        </section>  
 
         {/* JOB OPENINGS */}
 
