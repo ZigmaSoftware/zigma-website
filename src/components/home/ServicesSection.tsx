@@ -9,7 +9,7 @@ const services = [
     title: "Landfill Mining and Remediation",
     description:
       "Scientific recovery of legacy waste to reclaim land and extract reusable resources.",
-    icon: Layers, // changed
+    icon: Layers,
   },
   {
     id: "landfill-management",
@@ -19,7 +19,7 @@ const services = [
     icon: Factory,
   },
   {
-    id: "wet-waste-management",
+    id: "fresh-waste",
     title: "Fresh Waste Management and Processing",
     description:
       "Organic waste processing systems converting biodegradable waste into compost.",
@@ -30,7 +30,7 @@ const services = [
     title: "BSFL Based Organic Waste Management",
     description:
       "High-efficiency organic waste treatment using Black Soldier Fly larvae technology.",
-    icon: Sprout, // changed
+    icon: Sprout,
   },
   {
     id: "machinery-sales-rentals",

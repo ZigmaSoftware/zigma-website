@@ -477,8 +477,31 @@ const Careers = () => {
 
             </form>
 
+
           </DialogContent>
         </Dialog>
+         {/* CTA Section */}
+        <section className=" section-padding">
+          <div className="container-main text-center">
+            <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
+              Join Our Team
+            </span>
+            <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+              Ready to Build Your Career With Us?
+            </h2>
+            <p className="mt-6 text-base lg:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
+              We're always looking for talented individuals. Send us your resume and
+              we'll reach out when a suitable position opens up.            </p>
+
+            <Button size="lg" asChild className="items-center justify-center">
+              <a href="/careers/apply" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                Send Your Profile
+                <Send className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
+          </div>
+        </section>
+
 
       </main>
 
