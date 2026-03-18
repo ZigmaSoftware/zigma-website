@@ -9,11 +9,11 @@ import img1 from "@/assets/website/hero/noida-present-hero.jpg";
 import img2 from "@/assets/website/hero/landfill-mining-hero.jpg";
 import img3 from "@/assets/website/hero/Pdgclose.jpg";
 import img4 from "@/assets/website/hero/Furnitures.png";
-// import img5 from "@/assets/website/hero/vairapalayam.jpg";
+import img5 from "@/assets/before after projects/kumbakonam after.png";
 import img6 from "@/assets/website/hero/vairapalayam.jpg";
 import img7 from "@/assets/website/hero/kdg.png";
 import img8 from "@/assets/website/hero/controll room.png";
-import img9 from "@/assets/website/hero/controll room 2.png";
+import img9 from "@/assets/website/hero/RDF1.jpeg";
 
 
 
@@ -35,10 +35,10 @@ const slides = [
     image: img4,
     title: "From Waste to Wealth, Responsibly.",
   },
-  // {
-  //   image: img5,
-  //   title: "Pioneering Bio-Mining, Protecting Generations.",
-  // },
+  {
+    image: img5,
+    title: "Pioneering Bio-Mining, Protecting Generations.",
+  },
   {
     image: img6,
     title: "Restoring Land, Reviving Communities.",
@@ -53,7 +53,7 @@ const slides = [
   },
   {
     image: img9,
-    title: "Engineering Transparency, Delivering Sustainability.",
+    title: "Innovating Waste Management, Inspiring Change.",
   },
 ];
 
@@ -117,7 +117,7 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="container-main relative z-10 ">
-        <div className="max-w-2xl text-background transition-all duration-700 ease-out ">
+        <div className="max-w-3xl text-background transition-all duration-700 ease-out ">
           <div className="relative pl-6 py-2 overflow-visible">
             {/* Accent Line */}
             <div className="absolute left-0 top-0 h-full w-1 bg-primary animate-lineGrow" />
@@ -125,7 +125,7 @@ const HeroSection = () => {
             {/* Animated Text */}
             <h1
               key={current}
-              className="text-5xl md:text-5xl font-semibold text-white leading-[1.12] tracking-tight opacity-0 translate-x-[-40px] animate-slideIn"
+              className="text-3xl md:text-5xl  font-semibold text-white leading-[1.12] tracking-tight opacity-0 translate-x-[-45px] animate-slideIn"
             >
               {slides[current].title}
             </h1>

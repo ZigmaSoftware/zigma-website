@@ -27,19 +27,21 @@ const navItems = [
   { name: "Products", path: "/products" },
 
   { name: "Projects", path: "/project-showcase" ,
-  dropdown: [
-    { name: "Projects", path: "/project-showcase" },
-    { name: "Project Demo1", path: "/projectsdemo1" },
+  // dropdown: [
+  //   { name: "Projects", path: "/project-showcase" },
+    
   
-  ],
+  // ],
   },
 
   {
-    name: "Media",
+    name: "News Room",
     path: "/media",
     dropdown: [
-      { name: "Awards", path: "/Awardsection" },
-      { name: "News", path: "/Media" },
+      { name: "In the News", path: "/Media" },
+      { name: "Publications", path: "/Awardsection" },
+      { name: "Awards and Recognition", path: "/Awardsection" },
+    
     ],
   },
 

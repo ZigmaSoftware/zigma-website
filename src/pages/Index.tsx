@@ -3,9 +3,8 @@ import Footer from "@/components/Footer";
 import HeroSection from "@/components/home/HeroSection";
 import AboutSection from "@/components/home/AboutSection";
 import StatsSection from "@/components/home/StatsSection";
-import PresenceSection from "@/components/home/PresenceSection";
+import { IndiaPresence } from "@/components/home/Indiapresence";
 import ServicesSection from "@/components/home/ServicesSection";
-import PartnersSection from "@/components/home/PartnersSection";
 import PartnersSectioncp from "@/components/home/PartnersSectioncp";
 
 const Index = () => {
@@ -16,8 +15,8 @@ const Index = () => {
         <HeroSection />   
         <StatsSection />
         <AboutSection />
-        <PresenceSection />
-        <ServicesSection />
+        <IndiaPresence/>
+        <ServicesSection/>
         <PartnersSectioncp/>
       </main>
       <Footer />

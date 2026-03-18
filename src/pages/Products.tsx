@@ -10,6 +10,8 @@ import product2 from "@/assets/website/stone.jpg";
 import product3 from "@/assets/website/soil.jpg";
 import product4 from "@/assets/website/glass.jpg";
 import product5 from "@/assets/website/Ferrous.jpg";
+import img4 from "@/assets/website/hero/Furnitures.png";
+
 import bg1 from "@/assets/background-1.png"; 
 
 const SLOW_EASE = "power2.out";
@@ -94,6 +96,22 @@ const products = [
     ],
     applications: ["Rubberized Asphalt", "Playground Surfaces", "Fuel Alternative", "Civil Engineering"],
     icon: Recycle
+  },
+  {
+    id: 6,
+    name: "Recycled Furniture",
+    tagline: "From Waste to Wealth, Responsibly.",
+    description: "Eco-friendly furniture crafted from recycled materials, promoting sustainable living and reducing environmental impact through innovative design.",
+    image: img4,
+    color: "from-purple-600 to-purple-800",
+    features: [
+      "Made from recycled materials",
+      "Durable and stylish designs",
+      "Eco-friendly production",
+      "Customizable options"
+    ],
+    applications: ["Home Furniture", "Office Furniture", "Outdoor Furniture", "Commercial Spaces"],
+    icon: Sparkles
   }
 ];
 

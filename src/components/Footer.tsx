@@ -28,7 +28,7 @@ const Footer = () => {
         </div>
 
         <div className="container-main py-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.05fr_1.1fr_1fr_1.2fr] gap-5 lg:gap-x-4 lg:gap-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1.4fr_1.5fr_1.1fr] gap-5 lg:gap-x-4 lg:gap-y-6">
             {/* Company Info */}
             <div>
               <a href="/"
@@ -107,7 +107,7 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
-                {["About Us", "Services", "Projects", "Facilities", "Awards", "Careers", "Governance Policies", "Contact"].map((link) => (
+                {["About Us", "Services", "Projects", "Products", "News", "Publications", "Awards & Recognition", "Careers", "Governance Policies", "Contact"].map((link) => (
                   <li key={link}>
                     <Link
                       to={`/${link.toLowerCase().replace(" ", "-")}`}
@@ -124,7 +124,7 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-4">Services</h4>
               <ul className="space-y-2">
-                {["Landfill Mining", "Landfill Management", "Wet Waste Management"].map((service) => (
+                {["Landfill Mining and Remediation", "Landfill Management", "Fresh Waste Management and Processing", "BSFL Based Organic Waste Management", "IOT Systems for Waste Management"].map((service) => (
                   <li key={service}>
                     <Link
                       to="/services"
@@ -159,7 +159,7 @@ const Footer = () => {
                 <li className="flex items-center gap-3">
                   <Phone className="w-4 h-4 flex-shrink-0" />
                   <a href="tel:+911234567890" className="text-foreground/70 hover:text-primary text-md transition-colors">
-                    +91 98943 26007
+                   0424 222 5157
                   </a>
                 </li>
               </ul>

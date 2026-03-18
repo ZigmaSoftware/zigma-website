@@ -62,109 +62,83 @@ const plantsCol3Images = allocateImages("plants", 8, 16);
 
 const CARD_HEIGHTS = [
   "tall",
-  "short",
-  "medium",
-  "tall",
-  "short",
-  "medium",
-  "tall",
-  "short",
 ] as const;
 
 type CardHeight = (typeof CARD_HEIGHTS)[number];
 
 const heightMap: Record<CardHeight, string> = {
   tall: "h-[340px] lg:h-[300px] md:h-[240px] sm:h-[200px]",
-  medium: "h-[230px] lg:h-[200px] md:h-[160px] sm:h-[140px]",
-  short: "h-[160px] lg:h-[140px] md:h-[120px] sm:h-[110px]",
+  medium: "h-[280px] lg:h-[250px] md:h-[200px] sm:h-[160px]",
+  short: "h-[220px] lg:h-[200px] md:h-[160px] sm:h-[120px]"
 };
 
 /* ───────── Scroll Column ───────── */
 
-interface ScrollColumnProps {
-  images: MediaType[];
-  speed: number;
-}
-
-const ScrollColumn = ({ images, speed }: ScrollColumnProps) => {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const cloneRef = useRef<HTMLDivElement>(null);
-  const offset = useRef(0);
-  const pausedRef = useRef(false);
-  const rafRef = useRef<number>(0);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    const clone = cloneRef.current;
-
-    if (!track || !clone) return;
-
-    const animate = () => {
-      if (!pausedRef.current) {
-        offset.current += speed;
-        const trackH = track.scrollHeight + 20;
-
-        if (offset.current >= trackH) offset.current -= trackH;
-
-        track.style.transform = `translateY(-${offset.current}px)`;
-        clone.style.transform = `translateY(-${offset.current}px)`;
-      }
-
-      rafRef.current = requestAnimationFrame(animate);
-    };
-
-    rafRef.current = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [speed]);
+const ScrollColumn = ({ images, isMiddle = false }: { images: MediaType[], isMiddle?: boolean }) => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const cards = images.map((img, i) => ({
     img,
     height: CARD_HEIGHTS[i % CARD_HEIGHTS.length],
   }));
 
-  const CardList = ({ refProp }: { refProp: React.RefObject<HTMLDivElement> }) => (
-    <div ref={refProp} className="flex flex-col gap-5 w-full">
-      {cards.map(({ img, height }, i) => (
-        <div
-          key={i}
-          className={`relative rounded-[18px] overflow-hidden flex-shrink-0 border border-white/70
-          shadow-[0_4px_16px_rgba(31,38,135,0.08),0_1px_3px_rgba(0,0,0,0.06)]
-          group cursor-pointer transition-all duration-300 hover:scale-[1.03]
-          hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(31,38,135,0.18)]
-          ${heightMap[height]}`}
-        >
-          {img.type === "video" ? (
-            <video
-              src={img.src}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <img
-              src={img.src}
-              alt={img.label}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
-            />
-          )}
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || isHovered) return;
 
-          <div className="absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-white/8" />
-        </div>
-      ))}
-    </div>
-  );
+    const scrollSpeed = isMiddle ? 1.2 : 0.5; // Middle column much faster
+
+    const autoScroll = setInterval(() => {
+      container.scrollTop += scrollSpeed;
+      
+      // Reset scroll to top when reaching bottom
+      if (container.scrollTop >= container.scrollHeight - container.clientHeight) {
+        container.scrollTop = 0;
+      }
+    }, 30);
+
+    return () => clearInterval(autoScroll);
+  }, [isHovered, isMiddle]);
 
   return (
     <div
-      className="relative overflow-hidden h-full"
-      onMouseEnter={() => (pausedRef.current = true)}
-      onMouseLeave={() => (pausedRef.current = false)}
+      ref={scrollContainerRef}
+      className="overflow-y-auto h-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <CardList refProp={trackRef} />
-      <CardList refProp={cloneRef} />
+      <div className="flex flex-col gap-5 w-full pr-2">
+        {cards.map(({ img, height }, i) => (
+          <div
+            key={i}
+            className={`relative rounded-[18px] overflow-hidden flex-shrink-0 border border-white/70
+            shadow-[0_4px_16px_rgba(31,38,135,0.08),0_1px_3px_rgba(0,0,0,0.06)]
+            group cursor-pointer transition-all duration-300 hover:scale-[1.03]
+            hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(31,38,135,0.18)]
+            ${heightMap[height]}`}
+          >
+            {img.type === "video" ? (
+              <video
+                src={img.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <img
+                src={img.src}
+                alt={img.label}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+              />
+            )}
+
+            <div className="absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-white/8" />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -240,21 +214,21 @@ const PeopleAtZigma = () => {
         </div>
       </div>
 
-      <main className="flex-1">
+      <main className="flex-1 ">
 
         {activeTab === "our-office" && (
-          <section className="container-main">
+          <section >
             <div
-              className="mx-auto w-[95%] max-w-[1200px] overflow-hidden relative pb-20"
+              className="  overflow-hidden relative pb-20"
               style={{ height: galleryExpanded ? "120vh" : "100vh" }}
             >
               <div
                 className="grid h-full gap-5 px-8"
                 style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
               >
-                <ScrollColumn images={officeCol1Images} speed={0.4} />
-                <ScrollColumn images={officeCol2Images} speed={0.65} />
-                <ScrollColumn images={officeCol3Images} speed={0.5} />
+                <ScrollColumn images={officeCol1Images} />
+                <ScrollColumn images={officeCol2Images} isMiddle={true} />
+                <ScrollColumn images={officeCol3Images} />
               </div>
             </div>
           </section>
@@ -263,20 +237,39 @@ const PeopleAtZigma = () => {
         {activeTab === "our-plants" && (
           <section>
             <div
-              className="mx-auto w-[95%] max-w-[1200px] pb-20 overflow-hidden relative"
+              className="overflow-hidden relative pb-20"
               style={{ height: galleryExpanded ? "120vh" : "100vh" }}
             >
               <div
                 className="grid h-full gap-5 px-8"
                 style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
               >
-                <ScrollColumn images={plantsCol1Images} speed={0.4} />
-                <ScrollColumn images={plantsCol2Images} speed={0.65} />
-                <ScrollColumn images={plantsCol3Images} speed={0.5} />
+                <ScrollColumn images={plantsCol1Images} />
+                <ScrollColumn images={plantsCol2Images} isMiddle={true} />
+                <ScrollColumn images={plantsCol3Images} />
               </div>
             </div>
           </section>
         )}
+
+        {activeTab === "beyond-work" && (
+          <section>
+            <div
+              className="overflow-hidden relative pb-20"
+              style={{ height: galleryExpanded ? "120vh" : "100vh" }}
+            >
+              <div
+                className="grid h-full gap-5 px-8"
+                style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
+              >
+                <ScrollColumn images={plantsCol1Images} />
+                <ScrollColumn images={plantsCol2Images} isMiddle={true} />
+                <ScrollColumn images={plantsCol3Images} />
+              </div>
+            </div>
+          </section>
+        )}
+
       </main>
 
       {/* Values Section */}

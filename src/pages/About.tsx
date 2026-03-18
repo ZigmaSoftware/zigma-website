@@ -34,6 +34,7 @@ import picture11 from '@/assets/Leaders/Mr. Shankar Raman.jpeg';
 import picture13 from '@/assets/Leaders/Mr. Varun Boralkar.jpeg';
 import picture14 from '@/assets/website/Mr. Maran.png';
 import picture15 from '@/assets/Leaders/Mr. Senthil Annamalai.jpeg';
+import picture16 from '@/assets/Leaders/vijayan.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -53,7 +54,7 @@ interface Milestone {
 }
 
 type Leader = {
-  group: 'Promoters and CoFounders' | 'Leaders';
+  group: 'Promoters and CoFounders' | 'Management Team';
   name: string;
   designation?: string;
   image?: string;
@@ -185,7 +186,7 @@ const leaders: Leader[] = [
     name: 'Ku Tha Ilangovan',
     image: picture4,
     designation: 'Director',
-    linkedin: 'https://www.linkedin.com/in/ku-tha-ilangovan-9b1a8614a/',
+    linkedin: 'https://www.linkedin.com/in/ilangovan-thangavelu-kugalur-a44084185/',
   },
   {
     group: 'Promoters and CoFounders',
@@ -196,15 +197,23 @@ const leaders: Leader[] = [
   },
   {
     group: 'Promoters and CoFounders',
+    name: 'Prashant Singh',
+    image: picture10,
+    designation: 'Director',
+    linkedin: 'https://www.linkedin.com/in/prashantsingh4/',
+  },
+  {
+    group: 'Promoters and CoFounders',
     name: 'K.P Mutharasu',
     image: picture2,
-    designation: 'Director',
+    designation: 'Co-Founder',
     linkedin: 'https://www.linkedin.com/in/mutharasu-k-p-125b2546/',
   },
   {
     group: 'Promoters and CoFounders',
-    name: 'Vijayan K',
-    designation: 'Director',
+    name: 'Vijayan S',
+    designation: 'Co-Founder',
+    image: picture16,
     linkedin: 'https://www.linkedin.com/in/vijayans/',
   },
   {
@@ -214,60 +223,55 @@ const leaders: Leader[] = [
     designation: 'Co-Founder',
     linkedin: 'https://www.linkedin.com/in/nageshprabhu/',
   },
-  {
-    group: 'Promoters and CoFounders',
-    name: 'Prashant Singh',
-    image: picture10,
-    designation: 'Co-Founder & CEO',
-    linkedin: 'https://www.linkedin.com/in/prashantsingh4/',
+  
+   {
+    group: 'Management Team',
+    name: 'Senthil Annamalai',
+    image: picture15,
+    designation: 'Chief Operating Officer',
+    linkedin: 'https://www.linkedin.com/in/senthil-annamalai-b3b38258/',
   },
   {
-    group: 'Leaders',
+    group: 'Management Team',
     name: 'A Rajasekaran',
     image: picture6,
-    designation: 'Director - Technical',
+    designation: 'President - Technical',
     linkedin: 'https://www.linkedin.com/in/aghoramoorthy-rajasekaran-54479521/',
   },
   {
-    group: 'Leaders',
+    group: 'Management Team',
     name: 'Maran',
     designation: 'Vice President - Product Development & R&D',
     linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
   },
     
   {
-    group: 'Leaders',
+    group: 'Management Team',
     name: 'Sridhar Jegannathan',
     image: picture7,
     designation: 'Vice President - Operations',
     linkedin: 'https://www.linkedin.com/in/sridhar-jagannathan-00a52444/',
   },
   {
-    group: 'Leaders',
+    group: 'Management Team',
     name: 'Shankar Raman CV',
     image: picture11,
     designation: 'Vice President - Business Development',
     linkedin: 'https://www.linkedin.com/in/shankar-raman-c-v-64528611/',
   },
   {
-    group: 'Leaders',
+    group: 'Management Team',
     name: 'Varun Boralkar',
     image: picture13,
     designation: 'Vice President - Strategic Business Group',
     linkedin: 'https://www.linkedin.com/in/varun-boralkar-aa085a15/',
   },
+ 
   {
-    group: 'Leaders',
-    name: 'Senthil Annamalai',
-    image: picture15,
-    designation: 'COO',
-    linkedin: 'https://www.linkedin.com/in/senthil-annamalai-9b1a8614a/',
-  },
-  {
-    group: 'Leaders',
+    group: 'Management Team',
     name: 'Mohan Kumar',
     // image: picture12,
-    designation: 'Vice President - Operations',
+    designation: 'General Manager',
     linkedin: 'https://www.linkedin.com/in/mohan-kumar-9b1a8614a/',
   },
 ];
@@ -277,7 +281,7 @@ const isReducedMotionPreferred = (): boolean =>
 
 const clampMilestoneIndex = (index: number): number =>
   Math.max(0, Math.min(milestones.length - 1, index));
-const leaderGroups: Array<Leader['group']> = ['Promoters and CoFounders', 'Leaders'];
+const leaderGroups: Array<Leader['group']> = ['Promoters and CoFounders', 'Management Team'];
 
 const SectionTitle = ({ label, title }: { label: string; title: JSX.Element | string }) => (
   <div>
@@ -616,7 +620,7 @@ const About = (): JSX.Element => {
           <div className="container-main flex flex-col">
             <Reveal data-anim-start="top 92%" data-anim-duration="1.45" data-anim-ease={SLOW_EASE}>
               <SectionTitle
-                label="Meet Our Leaders"
+                label="Meet Our Management Team"
                 title={
                   <>
                     Leadership Driving Sustainable <span className="text-primary">Excellence</span>
@@ -627,7 +631,7 @@ const About = (): JSX.Element => {
 
             {leaderGroups.map((group) => (
               <div key={group} className="mt-8 first:mt-6">
-                <h3 className="mb-4 text-xl font-semibold text-slate-900">{group}</h3>
+                <h3 className="mb-4 text-xl font-semibold text-slate-900">{group.replace('CoFounders', 'Co-Founders')}</h3>
                 <div className="grid grid-cols-1 gap-y-14 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-3 xl:gap-x-10">
                   {leaders
                     .filter((leader) => leader.group === group)

@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import erode from "@/assets/erd-pic.webp";
+import erode from "@/assets/zigma picture.jpg";
 import chennai from "@/assets/Chennai.jpg";
 import Delhi from "@/assets/New Delhi.webp";
 import Mumbai from "@/assets/Mumbai.jpg";
@@ -163,7 +163,7 @@ const Contact = () => {
                     </div>
                     <div>
                       {/* <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Office</p> */}
-                      <h3 className="text-base font-bold text-foreground mb-1.5">Office Address</h3>
+                      <h3 className="text-base font-bold text-foreground mb-1.5">HO Address</h3>
                       <p className="text-muted-foreground">
                         178, Indu Nagar, Palayapalayam, <br />
                         Perundurai Road, Erode, Tamilnadu - 638 011.
@@ -193,7 +193,7 @@ const Contact = () => {
                       {/* <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Phone</p> */}
                       <h3 className="text-base font-bold text-foreground mb-1.5">Call Us</h3>
                       <a href="tel:+911234567890" className="text-primary hover:underline">
-                        (91) 98943 26007
+                        0424 222 5157
                       </a>
                     </div>
                   </div>

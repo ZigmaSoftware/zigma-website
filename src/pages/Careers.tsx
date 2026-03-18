@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -17,13 +17,11 @@ import bg from "@/assets/background-1.png";
 import picture1 from "@/assets/website/war room.jpeg";
 
 import {
-  Briefcase,
-  MapPin,
-  Clock,
   Send,
   Building2,
-  Check,
-  Upload
+  Upload,
+  Play,
+  Pause,
 } from "lucide-react";
 
 import { toast } from "sonner";
@@ -123,6 +121,23 @@ const initialApplicationForm = {
 const Careers = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("all");
   const [selectedLocation, setSelectedLocation] = useState("all");
+  const [playingId, setPlayingId] = useState<string | null>(null);
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
+
+  const cultureVideos = [
+    { id: "v1", src: "/videos/video3.mp4", tag: "Recruitment" },
+    { id: "v2", src: "/videos/video1.mp4",  tag: "Projects" },
+    { id: "v3", src: "/videos/video2.mp4",  tag: "Team" },
+  ];
+
+  const handleVideoPlay = (index: number, id: string) => {
+    setPlayingId(id);
+    const el = videoRefs.current[index];
+    if (el) {
+      el.controls = true;
+      el.play();
+    }
+  };
 
   const [selectedJob, setSelectedJob] =
     useState<(typeof jobOpenings)[number] | null>(null);
@@ -477,10 +492,98 @@ const Careers = () => {
 
             </form>
 
-
           </DialogContent>
         </Dialog>
-         {/* CTA Section */}
+
+        
+        {/* VIDEO SECTION */}
+
+        <section className="section-padding">
+          <div className="container-main">
+
+            {/* Section Header */}
+            <div className="text-center mb-12">
+            
+            <div className="text-center mb-10">
+              <p className="text-md uppercase tracking-[0.35em] text-muted-foreground">
+                Life at Zigma
+              </p>
+              <h2 className="text-4xl font-semibold mt-3">
+                We're <span className="text-primary">Hiring</span>
+              </h2>
+              <p className="mt-4 text-lg text-muted-foreground max-w-xl mx-auto">
+                Get a glimpse of our culture and the exciting opportunities waiting for you at Zigma.
+              </p>
+            </div>
+            </div>
+
+            {/* 3-Card Video Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+              {cultureVideos.map((video, i) => (
+                <div
+                  key={video.id}
+                  className="group relative rounded-2xl overflow-hidden bg-black shadow-lg hover:shadow-2xl transition-shadow duration-300"
+                 
+                >
+                  {/* 16:9 aspect container */}
+                  <div className="relative h-[300px] sm:h-[340px] lg:h-[500px]">
+                    <video
+                      ref={(el) => { if (el) videoRefs.current[i] = el; }}
+                      src={video.src}
+                      className="w-full h-full object-cover"
+                      playsInline
+                      onEnded={() => setPlayingId(null)}
+                    />
+
+                    {/* Play Overlay — hidden once playing */}
+                    {playingId !== video.id && (
+                      <div
+                        className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer transition-all duration-300"
+                        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%)" }}
+                        onClick={() => handleVideoPlay(i, video.id)}
+                      >
+                        {/* Play button circle - show on hover and initially */}
+                        <div className="w-16 h-16 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:scale-110 group-hover:border-primary transition-all duration-300 bg-black/20 backdrop-blur-sm">
+                          <Play className="w-6 h-6 text-white fill-white ml-1" />
+                        </div>
+
+                        {/* Bottom label */}
+                        <div className="absolute bottom-0 left-0 right-0 px-5 py-4">
+                          <p className="text-white text-sm font-semibold leading-tight truncate">
+                           
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Pause Overlay — shown while playing */}
+                    {playingId === video.id && (
+                      <div
+                        className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%)" }}
+                        onClick={() => {
+                          const el = videoRefs.current[i];
+                          if (el) {
+                            el.pause();
+                            setPlayingId(null);
+                          }
+                        }}
+                      >
+                        {/* Pause button circle - show on hover */}
+                        <div className="w-16 h-16 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:scale-110 group-hover:border-primary transition-all duration-300 bg-black/20 backdrop-blur-sm">
+                          <Pause className="w-6 h-6 text-white fill-white" />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+
+        {/* CTA Section */}
         <section className=" section-padding">
           <div className="container-main text-center">
             <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">

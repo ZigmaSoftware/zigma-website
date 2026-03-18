@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
-import landfillManagement from "@/assets/website/hero/noida-present-hero.jpg";
-import wetWaste from "@/assets/Wet Waste Management.jpeg";
+import landfillManagement from "@/assets/windrow.jpg";
+import wetWaste from "@/assets/fresh waste.jpg.jpeg";
 import herobg from "@/assets/website/hero/noida-present-hero.jpg";
-import Wpe from "@/assets/website/Wpe product.png";
-import machine from "@/assets/website/machineries.jpg";
+import machine from "@/assets/Grinder.jpg";
+import iot from "@/assets/iot.jpg";
+import bsfl from "@/assets/Bsfl.png";
 import Servicescp from "./Servicescp";
 
 
@@ -63,7 +64,7 @@ const services = [
     id: "bsfl-organic-waste",
     title: "BSFL Based Organic Waste Management",
     eyebrow: "Advanced Biological Processing",
-    image: Wpe,
+    image: bsfl,
     description: "Innovative organic waste treatment utilizing Black Soldier Fly larvae (BSFL) technology to convert biodegradable waste into valuable protein-rich biomass and organic amendments.",
     features: [
       "Black Soldier Fly larvae cultivation",
@@ -91,7 +92,7 @@ const services = [
     id: "iot-waste-management",
     title: "IOT Systems for Waste Management",
     eyebrow: "Smart Technology Solutions",
-    image: machine,
+    image: iot,
     description: "Advanced IoT-enabled monitoring and management systems providing real-time analytics, optimization, and control for waste management operations and infrastructure.",
     features: [
       "Real-time waste tracking and monitoring",
@@ -186,20 +187,20 @@ const Services = () => {
                     <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
                       {service.title}
                     </h2>
-                    <p className="mt-4 text-base lg:text-lg text-muted-foreground leading-relaxed mb-6">
-                      {isExpanded ? service.description : shortDescription}{" "}
-                      <button
-                        type="button"
-                        className="text-sm text-primary font-semibold hover:underline"
-                        onClick={() =>
-                          setExpandedService(isExpanded ? null : service.id)
-                        }
-                      >
-                        {isExpanded ? "Show Less" : "Read More"}
-                      </button>
+                    <p className="mt-4  text-base lg:text-lg text-muted-foreground leading-relaxed">
+                      {isExpanded ? service.description : shortDescription}
                     </p>
+                    <button
+                      type="button"
+                      className="text-sm p-2 text-primary font-semibold hover:underline mt-2 text-left"
+                      onClick={() =>
+                        setExpandedService(isExpanded ? null : service.id)
+                      }
+                    >
+                      {isExpanded ? "Show Less" : "Read More"}
+                    </button>
                     {isExpanded ? (
-                      <ul className="space-y-3 mb-8">
+                      <ul className="space-y-3 mb-8 mt-6">
                         {service.features.map((feature) => (
                           <li key={feature} className="flex items-center gap-3">
                             <Check className="w-5 h-5 text-primary flex-shrink-0" />
