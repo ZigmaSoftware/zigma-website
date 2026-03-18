@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Factory, Recycle, Cog, Cpu, Layers, Sprout, ArrowRight } from "lucide-react";
+import { Factory, Recycle, Cog, Cpu, Layers, Sprout, ArrowRight, Fuel, Trash2, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Reveal from "@/components/animation/Reveal";
 
@@ -45,6 +45,28 @@ const services = [
     description:
       "Smart monitoring systems delivering real-time waste analytics and optimization.",
     icon: Cpu,
+  },
+  {
+    id: "alternative-fuel-solutions",
+    title: "Integrated Alternative Fuel Solutions",
+    description:
+      "Supply of Alternative Fuel with preprocessing facility, operations & maintenance services.",
+    icon: Fuel,
+  },
+  {
+    id: "industrial-commercial-waste",
+    title: "Industrial & Commercial Waste Solutions",
+    description:
+      "Comprehensive waste management for hazardous and non-hazardous waste from manufacturers & end users.",
+    icon: Trash2,
+  },
+  {
+    id: "epr-responsibility",
+    title: "EPR ",
+    // title: "EPR (Extended Producer Responsibility)",
+    description:
+      "Extended Producer Responsibility - Sustainable producer responsibility programs ensuring end-of-life product management and recycling.",
+    icon: CheckCircle2,
   },
 ];
 
@@ -95,10 +117,11 @@ const ServicesSection = () => {
         </Reveal>
 
         {/* Services Grid */}
-        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
 
-          {services.map((service) => {
+          {services.map((service, index) => {
             const Icon = service.icon;
+            const isLast = index === services.length - 1;
 
             return (
               <motion.div
@@ -107,7 +130,8 @@ const ServicesSection = () => {
                 initial="hidden"
                 animate="show"
                 whileHover="hover"
-                className="group relative flex flex-col items-center text-center rounded-2xl bg-white/80 border border-gray-100 p-8 shadow-lg transition-shadow duration-500 hover:shadow-2xl"
+                className={`group relative flex flex-col items-center text-center rounded-2xl bg-white/80 border border-gray-100 p-3 shadow-lg transition-shadow duration-500 hover:shadow-2xl ${isLast ? "lg:col-start-2 lg:col-span-2 lg:justify-self-center" : ""
+                  }`}
               >
 
                 {/* Icon */}
@@ -121,17 +145,17 @@ const ServicesSection = () => {
                 </motion.div>
 
                 {/* Title */}
-                <h3 className="mt-6 text-lg font-semibold text-gray-900">
+                <h3 className="mt-2 text-lg font-semibold text-gray-900">
                   {service.title}
                 </h3>
 
                 {/* Description */}
-                <p className="mt-3 text-sm leading-relaxed text-gray-600 max-w-xs">
+                <p className="mt-1 text-sm leading-relaxed text-gray-600 max-w-xs">
                   {service.description}
                 </p>
 
                 {/* Read More Button */}
-                <div className="mt-6 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                <div className="mt-2 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                   <Link
                     to="/services"
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-3 transition-all duration-200"

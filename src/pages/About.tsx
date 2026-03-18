@@ -35,6 +35,7 @@ import picture13 from '@/assets/Leaders/Mr. Varun Boralkar.jpeg';
 import picture14 from '@/assets/website/Mr. Maran.png';
 import picture15 from '@/assets/Leaders/Mr. Senthil Annamalai.jpeg';
 import picture16 from '@/assets/Leaders/vijayan.png';
+import picture17 from '@/assets/Leaders/Mohan kumar.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -223,14 +224,8 @@ const leaders: Leader[] = [
     designation: 'Co-Founder',
     linkedin: 'https://www.linkedin.com/in/nageshprabhu/',
   },
-  
-   {
-    group: 'Management Team',
-    name: 'Senthil Annamalai',
-    image: picture15,
-    designation: 'Chief Operating Officer',
-    linkedin: 'https://www.linkedin.com/in/senthil-annamalai-b3b38258/',
-  },
+
+
   {
     group: 'Management Team',
     name: 'A Rajasekaran',
@@ -240,11 +235,18 @@ const leaders: Leader[] = [
   },
   {
     group: 'Management Team',
+    name: 'Senthil Annamalai',
+    image: picture15,
+    designation: 'Chief Operating Officer',
+    linkedin: 'https://www.linkedin.com/in/senthil-annamalai-b3b38258/',
+  },
+  {
+    group: 'Management Team',
     name: 'Maran',
     designation: 'Vice President - Product Development & R&D',
     linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
   },
-    
+
   {
     group: 'Management Team',
     name: 'Sridhar Jegannathan',
@@ -266,12 +268,12 @@ const leaders: Leader[] = [
     designation: 'Vice President - Strategic Business Group',
     linkedin: 'https://www.linkedin.com/in/varun-boralkar-aa085a15/',
   },
- 
+
   {
     group: 'Management Team',
     name: 'Mohan Kumar',
-    // image: picture12,
-    designation: 'General Manager',
+    image: picture17,
+    designation: 'General Manager - AFR',
     linkedin: 'https://www.linkedin.com/in/mohan-kumar-9b1a8614a/',
   },
 ];
@@ -696,7 +698,7 @@ const About = (): JSX.Element => {
           </div>
         </section>
 
-      
+
       </main>
       <Footer />
     </div>

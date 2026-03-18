@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import IndiaMapSVG from "./IndiaMapSVG";
-import { stateData, legendItems, plantTypeLabels } from "@/data/indiaPresenceData";
+import { stateData, legendItems } from "@/data/indiaPresenceData";
 
 const IndiaPresence: React.FC = () => {
   const [activeState, setActiveState] = useState<string | null>(null);
@@ -24,61 +24,52 @@ const IndiaPresence: React.FC = () => {
     setActiveState(stateId);
   };
 
-  // Group plants by brand+type
-  const groupedPlants = currentData
-    ? currentData.plants.reduce(
-        (acc, plant) => {
-          const key = `${plant.brand} - ${plantTypeLabels[plant.type]}`;
-          if (!acc[key]) acc[key] = [];
-          acc[key].push(plant.name);
-          return acc;
-        },
-        {} as Record<string, string[]>
-      )
-    : {};
+
 
   return (
     <section className="min-h-screen bg-background py-16 px-4 md:px-8 lg:px-16">
       {/* Section Header */}
-      <div className="max-w-7xl mx-auto mb-12">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary tracking-tight">
-          India Presence
-        </h1>
-        <p className="mt-3 text-muted-foreground text-base md:text-lg max-w-2xl">
-          Our extensive network of integrated plants, grinding units, and bulk
-          terminals across India.
+      <div className="max-w-7xl mx-auto mb-12 text-center ">
+        <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">Pan-India Presence</p>
+
+        <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+          Transforming Landfills <span className="text-primary">Across India</span>
+        </h2>
+
+        <p className="mt-6 text-sm md:text-lg max-w-2xl mx-auto text-muted-foreground leading-relaxed">
+          Driving large-scale landfill reclamation through advanced biomining, reclaiming land, reducing
+          environmental risk and carbon impact, and enabling circular urban transformation.
         </p>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-4 mt-6">
+        <div className="flex flex-wrap justify-center gap-4 mt-6">
           {legendItems.map((item) => (
             <div key={item.label} className="flex items-center gap-2">
-              <span
+              {/* <span
                 className="w-3 h-3 rounded-sm inline-block"
                 style={{ backgroundColor: item.color }}
               />
               <span className="text-sm text-foreground font-medium">
                 {item.label}
-              </span>
+              </span> */}
             </div>
           ))}
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
-        {/* State Tabs - Vertical list on left */}
-        <div className="lg:w-48 shrink-0">
+      <div className="max-w-7xl  mx-auto grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] gap-8 items-center">
+        {/* State Tabs - Left */}
+        <div>
           <div className="flex lg:flex-col flex-wrap gap-1">
             {stateList.map((state) => (
               <button
                 key={state.id}
                 onClick={() => handleTabClick(state.id)}
-                className={`text-left text-sm px-3 py-2 rounded-sm transition-all duration-200 font-medium
-                  ${
-                    currentState === state.id
-                      ? "bg-primary text-primary-foreground"
-                      : "text-foreground hover:bg-secondary"
+                className={`text-left text-lg px-3 py-2 rounded-sm transition-all duration-200 font-medium
+                  ${currentState === state.id
+                    ? "bg-primary text-primary-foreground"
+                    : "text-foreground hover:bg-secondary"
                   }`}
               >
                 {state.name}
@@ -87,9 +78,9 @@ const IndiaPresence: React.FC = () => {
           </div>
         </div>
 
-        {/* Map */}
-        <div className="flex-1 flex items-center justify-center relative">
-          <div className="w-full max-w-lg">
+        {/* Map - Center */}
+        <div className="flex items-center justify-center">
+          <div className="w-full max-w-lg mx-auto">
             <IndiaMapSVG
               activeState={currentState}
               onStateHover={handleStateHover}
@@ -98,8 +89,8 @@ const IndiaPresence: React.FC = () => {
           </div>
         </div>
 
-        {/* Data Card */}
-        <div className="lg:w-80 shrink-0">
+        {/* Data Card - Right */}
+        <div className="flex flex-col justify-start">
           {currentData ? (
             <div
               key={currentData.id}
@@ -112,31 +103,20 @@ const IndiaPresence: React.FC = () => {
                 </h2>
               </div>
 
-              <div className="text-sm text-muted-foreground mb-4">
-                {currentData.plants.length} plant
-                {currentData.plants.length > 1 ? "s" : ""}
-              </div>
-
-              <div className="space-y-4">
-                {Object.entries(groupedPlants).map(([group, locations]) => (
-                  <div key={group}>
-                    <h3 className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
-                      {group}
-                    </h3>
-                    <ul className="space-y-1">
-                      {locations.map((loc) => (
-                        <li
-                          key={loc}
-                          className="text-sm text-foreground flex items-center gap-2"
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block" />
-                          {loc}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
+              <p className="text-md text-muted-foreground mb-5">
+                {currentData.description}
+              </p>
+{/* 
+              <div className="flex gap-6">
+                <div>
+                  <p className="text-2xl font-bold text-primary">{currentData.ongoing}</p>
+                  <p className="text-md text-muted-foreground uppercase tracking-wider">Ongoing</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-accent">{currentData.completed}</p>
+                  <p className="text-md text-muted-foreground uppercase tracking-wider">Completed</p>
+                </div>
+              </div> */}
             </div>
           ) : (
             <div className="bg-card border border-border rounded-sm p-6 shadow-sm">
@@ -154,9 +134,9 @@ const IndiaPresence: React.FC = () => {
                     d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
                   />
                 </svg>
-                <p className="text-sm font-medium">Hover over a state</p>
-                <p className="text-xs mt-1">
-                  to view plant locations and details
+                <p className="text-md font-medium">Hover over a state</p>
+                <p className="text-md mt-1">
+                  to view project details
                 </p>
               </div>
             </div>

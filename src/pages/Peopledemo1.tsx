@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { TrendingUp, BarChart3, Users } from "lucide-react";
 import bg from "@/assets/background-1.png";
+import newyear from "@/assets";
 
 /* ───────── Media Import (Images + Videos) ───────── */
 
@@ -58,6 +59,15 @@ const plantsCol1Images = allocateImages("plants", 8, 0);
 const plantsCol2Images = allocateImages("plants", 8, 8);
 const plantsCol3Images = allocateImages("plants", 8, 16);
 
+// Show one video on left, one video on right, with images below each
+const beyondAllMedia = getMediaByCategory("beyond");
+const beyondVideos = beyondAllMedia.filter((item) => item.type === "video");
+const beyondImages = beyondAllMedia.filter((item) => item.type === "image");
+const imagesPerColumn = Math.ceil(beyondImages.length / 3);
+const beyondCol1Images = [beyondVideos[0], ...beyondImages.slice(0, imagesPerColumn)].filter(Boolean);
+const beyondCol2Images = beyondImages.slice(imagesPerColumn, imagesPerColumn * 2);
+const beyondCol3Images = [beyondVideos[1], ...beyondImages.slice(imagesPerColumn * 2)].filter(Boolean);
+
 /* ───────── Card Heights ───────── */
 
 const CARD_HEIGHTS = [
@@ -77,29 +87,48 @@ const heightMap: Record<CardHeight, string> = {
 const ScrollColumn = ({ images, isMiddle = false }: { images: MediaType[], isMiddle?: boolean }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [canScroll, setCanScroll] = useState(isMiddle);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const cards = images.map((img, i) => ({
     img,
     height: CARD_HEIGHTS[i % CARD_HEIGHTS.length],
   }));
 
+  // Handle video end event for non-middle columns
+  useEffect(() => {
+    if (isMiddle || images.length === 0) return;
+
+    const firstCard = images[0];
+    if (firstCard.type === "video") {
+      // Wait for first video to end before scrolling
+      setCanScroll(false);
+    } else {
+      // If first card is not a video, start scrolling immediately
+      setCanScroll(true);
+    }
+  }, [images, isMiddle]);
+
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (!container || isHovered) return;
+    if (!container || isHovered || !canScroll) return;
 
-    const scrollSpeed = isMiddle ? 1.2 : 0.5; // Middle column much faster
+    const scrollSpeed = isMiddle ? 1.2 : 0.5;
 
     const autoScroll = setInterval(() => {
       container.scrollTop += scrollSpeed;
       
-      // Reset scroll to top when reaching bottom
       if (container.scrollTop >= container.scrollHeight - container.clientHeight) {
         container.scrollTop = 0;
       }
     }, 30);
 
     return () => clearInterval(autoScroll);
-  }, [isHovered, isMiddle]);
+  }, [isHovered, isMiddle, canScroll]);
+
+  const handleVideoEnded = () => {
+    setCanScroll(true);
+  };
 
   return (
     <div
@@ -120,6 +149,13 @@ const ScrollColumn = ({ images, isMiddle = false }: { images: MediaType[], isMid
           >
             {img.type === "video" ? (
               <video
+                ref={(el) => {
+                  videoRefs.current[i] = el;
+                  if (i === 0 && el && !isMiddle) {
+                    el.addEventListener("ended", handleVideoEnded);
+                    return () => el.removeEventListener("ended", handleVideoEnded);
+                  }
+                }}
                 src={img.src}
                 autoPlay
                 muted
@@ -262,9 +298,9 @@ const PeopleAtZigma = () => {
                 className="grid h-full gap-5 px-8"
                 style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
               >
-                <ScrollColumn images={plantsCol1Images} />
-                <ScrollColumn images={plantsCol2Images} isMiddle={true} />
-                <ScrollColumn images={plantsCol3Images} />
+                <ScrollColumn images={beyondCol1Images} />
+                <ScrollColumn images={beyondCol2Images} isMiddle={true} />
+                <ScrollColumn images={beyondCol3Images} />
               </div>
             </div>
           </section>

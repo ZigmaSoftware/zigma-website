@@ -118,7 +118,7 @@ const ComparisonSlider: React.FC<{ beforeSrc: string; afterSrc: string; revealed
   const sliderPos = revealed ? '100%' : '15%';
   return (
     <div
-      className="relative flex-1 min-h-[440px] cursor-pointer overflow-hidden select-none bg-slate-950"
+      className="relative flex-1 min-h-[580px] cursor-pointer overflow-hidden select-none bg-slate-950"
       onClick={onToggle}
     >
       {/* After panel */}
@@ -147,6 +147,79 @@ const ComparisonSlider: React.FC<{ beforeSrc: string; afterSrc: string; revealed
           transition: 'left 0.8s cubic-bezier(0.16,1,0.3,1)',
         }}
       />
+    </div>
+  );
+};
+
+// ── Animated Tile wrapper ──────────────────────────────────────
+const AnimatedTile: React.FC<{ visible: boolean; delay: number; children: React.ReactNode }> = ({ visible, delay, children }) => (
+  <div
+    style={{
+      opacity: visible ? 1 : 0,
+      transform: visible ? 'translateY(0)' : 'translateY(24px)',
+      transition: `opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms`,
+    }}
+  >
+    {children}
+  </div>
+);
+
+// ── ProjectCard with tile animation ────────────────────────────
+const ProjectCard: React.FC<{
+  project: Project;
+  revealedMap: { [id: number]: boolean };
+  toggleReveal: (id: number) => void;
+}> = ({ project: p, revealedMap, toggleReveal }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={cardRef} className="flex flex-col md:flex-row gap-8 md:gap-12">
+      <ComparisonSlider
+        beforeSrc={p.beforeImage}
+        afterSrc={p.afterImage}
+        revealed={!!revealedMap[p.id]}
+        onToggle={() => toggleReveal(p.id)}
+      />
+      <div className="flex-1 flex flex-col justify-between gap-4">
+        <AnimatedTile visible={isVisible} delay={0}>
+          <h3 className="text-xl font-bold">{p.title}</h3>
+        </AnimatedTile>
+        <AnimatedTile visible={isVisible} delay={100}>
+          <p className="text-muted-foreground">{p.subtitle}</p>
+        </AnimatedTile>
+        <AnimatedTile visible={isVisible} delay={200}>
+          <p>{p.desc}</p>
+        </AnimatedTile>
+        <AnimatedTile visible={isVisible} delay={300}>
+          <p>{p.project}</p>
+        </AnimatedTile>
+        <AnimatedTile visible={isVisible} delay={400}>
+          <p>{p.focus}</p>
+        </AnimatedTile>
+        <AnimatedTile visible={isVisible} delay={500}>
+          <p>{p.outcome}</p>
+        </AnimatedTile>
+
+        <AnimatedTile visible={isVisible} delay={600}>
+          <div className="flex flex-wrap gap-2 mt-4">
+            <StatPill label="Waste Processed" target={p.waste} unit="m³" active={isVisible} />
+            <StatPill label="Land Reclaimed" target={p.land} unit="acres" active={isVisible} delay={100} />
+            <StatPill label="CO2 Mitigated" target={p.co2} unit="MT" active={isVisible} delay={200} />
+          </div>
+        </AnimatedTile>
+      </div>
     </div>
   );
 };
@@ -183,57 +256,34 @@ const ProjectShowcase: React.FC = () => {
       <Header />
 
       {/* ── State Filter Nav ────────────────────────────── */}
-    <nav
-  className={`fixed pt-8 left-0 right-0 top-[64px] p-3 overflow-hidden border-y border-slate-200 bg-white/95 backdrop-blur z-40 transition-transform duration-300 ${
-    showFilter ? 'translate-y-0' : '-translate-y-full'
-  }`}
->
-  <div className="flex justify-center overflow-x-auto no-scrollbar gap-2.5">
-    <button
-      className={`px-3 py-1 rounded-full ${!activeState ? 'bg-primary text-white' : 'bg-muted'}`}
-      onClick={() => setActiveState(null)}
-    >
-      All States
-    </button>
-
-    {states.map((state) => (
-      <button
-        key={state}
-        className={`px-3 py-1 rounded-full ${
-          activeState === state ? 'bg-primary text-white' : 'bg-muted'
-        }`}
-        onClick={() => setActiveState(state)}
+      <nav
+        className={`fixed pt-8 left-0 right-0 top-[64px] p-3 overflow-hidden border-y border-slate-200 bg-white/95 backdrop-blur z-40 transition-transform duration-300 ${showFilter ? 'translate-y-0' : '-translate-y-full'
+          }`}
       >
-        {state}
-      </button>
-    ))}
-  </div>
-</nav>
+        <div className="flex justify-center overflow-x-auto no-scrollbar gap-2.5">
+          <button
+            className={`px-3 py-1 rounded-full ${!activeState ? 'bg-primary text-white' : 'bg-muted'}`}
+            onClick={() => setActiveState(null)}
+          >
+            All States
+          </button>
+
+          {states.map((state) => (
+            <button
+              key={state}
+              className={`px-3 py-1 rounded-full ${activeState === state ? 'bg-primary text-white' : 'bg-muted'
+                }`}
+              onClick={() => setActiveState(state)}
+            >
+              {state}
+            </button>
+          ))}
+        </div>
+      </nav>
 
       <main className="max-w-[1400px] mx-auto px-[5%]  flex flex-col gap-20 section-padding">
         {filteredProjects.map((p) => (
-          <div key={p.id} className="flex flex-col md:flex-row gap-8 md:gap-12">
-            <ComparisonSlider
-              beforeSrc={p.beforeImage}
-              afterSrc={p.afterImage}
-              revealed={!!revealedMap[p.id]}
-              onToggle={() => toggleReveal(p.id)}
-            />
-            <div className="flex-1 flex flex-col justify-between gap-4">
-              <h3 className="text-xl font-bold">{p.title}</h3>
-              <p className="text-muted-foreground">{p.subtitle}</p>
-              <p>{p.desc}</p>
-              <p>{p.project}</p>
-              <p>{p.focus}</p>
-              <p>{p.outcome}</p>
-
-              <div className="flex flex-wrap gap-2 mt-4">
-                <StatPill label="Waste Processed" target={p.waste} unit="m³" active={true} />
-                <StatPill label="Land Reclaimed" target={p.land} unit="acres" active={true} delay={100} />
-                <StatPill label="CO2 Mitigated" target={p.co2} unit="MT" active={true} delay={200} />
-              </div>
-            </div>
-          </div>
+          <ProjectCard key={p.id} project={p} revealedMap={revealedMap} toggleReveal={toggleReveal} />
         ))}
       </main>
 

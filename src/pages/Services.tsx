@@ -9,8 +9,8 @@ import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
 import landfillManagement from "@/assets/windrow.jpg";
 import wetWaste from "@/assets/fresh waste.jpg.jpeg";
 import herobg from "@/assets/website/hero/noida-present-hero.jpg";
-import machine from "@/assets/Grinder.jpg";
-import iot from "@/assets/iot.jpg";
+import machine from "@/assets/services/machinery.jpeg";
+import iot from "@/assets/services/WB.png";
 import bsfl from "@/assets/Bsfl.png";
 import Servicescp from "./Servicescp";
 
@@ -86,7 +86,7 @@ const services = [
       "Purchase and ownership support",
       "Technical assistance and training",
       "Maintenance and operational support",
-    ],  
+    ],
   },
   {
     id: "iot-waste-management",
@@ -156,9 +156,8 @@ const Services = () => {
                   data-anim-start="top 90%"
                   data-anim-duration="1.45"
                   data-anim-ease={SLOW_EASE}
-                  className={`grid lg:grid-cols-2 gap-12 items-center ${
-                    index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                  }`}
+                  className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
+                    }`}
                 >
                   {(() => {
                     const isExpanded = expandedService === service.id;
@@ -169,50 +168,50 @@ const Services = () => {
 
                     return (
                       <>
-                  <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                    <div className="overflow-hidden rounded-2xl shadow-xl">
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-80 object-cover transition-transform duration-300 hover:scale-105"
-                      />
-                    </div>
-                  </div>
-                  <div className={`${index % 2 === 1 ? "lg:order-1" : ""} flex flex-col`}>
-                    <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
-                      {service.eyebrow}
-                    </span>
-                    <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                      {service.title}
-                    </h2>
-                    <p className="mt-4  text-base lg:text-lg text-muted-foreground leading-relaxed">
-                      {isExpanded ? service.description : shortDescription}
-                    </p>
-                    <button
-                      type="button"
-                      className="text-sm p-2 text-primary font-semibold hover:underline mt-2 text-left"
-                      onClick={() =>
-                        setExpandedService(isExpanded ? null : service.id)
-                      }
-                    >
-                      {isExpanded ? "Show Less" : "Read More"}
-                    </button>
-                    {isExpanded ? (
-                      <ul className="space-y-3 mb-8 mt-6">
-                        {service.features.map((feature) => (
-                          <li key={feature} className="flex items-center gap-3">
-                            <Check className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-foreground">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                    <Button asChild   className="w-28">
-                      <Link to="/contact">Enquire Now</Link>
-                    </Button>
-                  </div>
+                        <div className={index % 2 === 1 ? "lg:order-2" : ""}>
+                          <div className="overflow-hidden rounded-2xl shadow-xl">
+                            <img
+                              src={service.image}
+                              alt={service.title}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-80 object-cover transition-transform duration-300 hover:scale-105"
+                            />
+                          </div>
+                        </div>
+                        <div className={`${index % 2 === 1 ? "lg:order-1" : ""} flex flex-col`}>
+                          <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
+                            {service.eyebrow}
+                          </span>
+                          <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                            {service.title}
+                          </h2>
+                          <p className="mt-4  text-base lg:text-lg text-muted-foreground leading-relaxed">
+                            {isExpanded ? service.description : shortDescription}
+                          </p>
+                          <button
+                            type="button"
+                            className="text-sm p-2 text-primary font-semibold hover:underline mt-2 text-left"
+                            onClick={() =>
+                              setExpandedService(isExpanded ? null : service.id)
+                            }
+                          >
+                            {isExpanded ? "Show Less" : "Read More"}
+                          </button>
+                          {isExpanded ? (
+                            <ul className="space-y-3 mb-8 mt-6">
+                              {service.features.map((feature) => (
+                                <li key={feature} className="flex items-center gap-3">
+                                  <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                                  <span className="text-foreground">{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : null}
+                          <Button asChild className="w-28">
+                            <Link to="/contact">Enquire Now</Link>
+                          </Button>
+                        </div>
                       </>
                     );
                   })()}

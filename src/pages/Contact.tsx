@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import erode from "@/assets/zigma picture.jpg";
+import erode from "@/assets/zigma picture.png";
 import chennai from "@/assets/Chennai.jpg";
 import Delhi from "@/assets/New Delhi.webp";
 import Mumbai from "@/assets/Mumbai.jpg";
@@ -122,7 +122,7 @@ const Contact = () => {
       <main className="scroll-pt-24 lg:scroll-pt-28">
 
 
-         <section className="relative overflow-hidden text-white min-h-[100svh] flex items-center scroll-mt-24 lg:scroll-mt-28">
+        <section className="relative overflow-hidden text-white min-h-[100svh] flex items-center scroll-mt-24 lg:scroll-mt-28">
           <div
             className=" absolute inset-0 bg-cover"
             style={{ backgroundImage: `url(${Herobg})` }}
@@ -135,14 +135,14 @@ const Contact = () => {
           <div className="relative container-main section-padding text-center">
             <div className="max-w-4xl mx-auto">
               <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
-            Let’s Connect
+                Let’s Connect
               </div>
 
               <h1 className="mt-1 text-3xl sm:text-2xl lg:text-5xl font-semibold leading-tight">
-               Talk to Us
+                Talk to Us
               </h1>
               <p className="mt-6 text-lg max-w-2xl mx-auto text-white/80 leading-relaxed">
-              For business queries, collaboration opportunities, or to understand our sustainable solutions, get in touch with us.</p>
+                For business queries, collaboration opportunities, or to understand our sustainable solutions, get in touch with us.</p>
             </div>
           </div>
         </section>
