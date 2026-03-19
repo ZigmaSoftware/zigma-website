@@ -32,6 +32,7 @@ import Peopledemo1 from "./pages/Peopledemo1";
 import Peopledemo2 from "./pages/Peopledemo2";
 import Peopledemo3 from "./pages/Peopledemo3";
 import Projectsdemo1 from "./pages/Projectsdemo1";
+import Testimonials from "./pages/Testimonials";
 
 
 const queryClient = new QueryClient();
@@ -74,6 +75,7 @@ const App = () => (
             <Route path="/peopledemo2" element={<Peopledemo2 />} />
             <Route path="/peopledemo3" element={<Peopledemo3 />} />
             <Route path="/projectsdemo1" element={<Projectsdemo1 />} />
+            <Route path="/testimonials" element={<Testimonials />} />
           </Routes>
         </BrowserRouter>
       </SmoothScrollProvider>

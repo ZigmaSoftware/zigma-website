@@ -4,6 +4,7 @@ export interface StateData {
   ongoing: number;
   completed: number;
   description: string;
+  districts?: string[];
 }
 
 export const stateData: Record<string, StateData> = {
@@ -13,6 +14,27 @@ export const stateData: Record<string, StateData> = {
     ongoing: 3,
     completed: 5,
     description: "Leading biomining initiatives in southern India.",
+    districts: [
+      "Tiruchirappalli (Trichy)",
+      "Chidambaram",
+      "Cuddalore",
+      "Dindigul",
+      "Karaikudi",
+      "Karur",
+      "Kumbakonam",
+      "Pallavaram",
+      "Pammal",
+      "Perungudi Package-3",
+      "Poonamallee",
+      "Sembakkam",
+      "Tambaram",
+      "Sathya Sub",
+      "Vairapalayam",
+      "Vendipalayam",
+      "Erode Muthusamy Colony",
+      "Pondy",
+      "Pudukottai",
+    ],
   },
   kerala: {
     id: "kerala",
@@ -20,6 +42,7 @@ export const stateData: Record<string, StateData> = {
     ongoing: 2,
     completed: 4,
     description: "Sustainable waste management projects.",
+    districts: ["Kollam"],
   },
   "andhra-pradesh": {
     id: "andhra-pradesh",
@@ -27,6 +50,7 @@ export const stateData: Record<string, StateData> = {
     ongoing: 4,
     completed: 3,
     description: "Advanced landfill reclamation efforts.",
+    districts: ["Tirupati", "Vijayawada", "Vizag"],
   },
   gujarat: {
     id: "gujarat",
@@ -34,6 +58,7 @@ export const stateData: Record<string, StateData> = {
     ongoing: 3,
     completed: 6,
     description: "Pioneering environmental restoration.",
+    districts: ["Vadodara", "Makkarpura"],
   },
   maharashtra: {
     id: "maharashtra",
@@ -41,6 +66,7 @@ export const stateData: Record<string, StateData> = {
     ongoing: 5,
     completed: 7,
     description: "Major urban waste transformation projects.",
+    districts: ["Nagpur"],
   },
   assam: {
     id: "assam",
@@ -48,6 +74,7 @@ export const stateData: Record<string, StateData> = {
     ongoing: 2,
     completed: 3,
     description: "Northeast India's green initiatives.",
+    districts: [],
   },
   "uttar-pradesh": {
     id: "uttar-pradesh",
@@ -55,13 +82,7 @@ export const stateData: Record<string, StateData> = {
     ongoing: 2,
     completed: 2,
     description: "Scaling landfill reclamation across key urban centers.",
-  },
-  telangana: {
-    id: "telangana",
-    name: "Telangana",
-    ongoing: 1,
-    completed: 1,
-    description: "New projects focused on sustainable waste recovery.",
+    districts: ["Noida-54", "Noida-145 Old", "Noida-New"],
   },
 };
 

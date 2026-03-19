@@ -115,7 +115,7 @@ const StatsSection = () => {
         <div className="relative w-full pt-[56.25%]">
           <iframe
             ref={videoRef}
-            src="https://www.youtube.com/embed/hdu_hZGvom4?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=hdu_hZGvom4&rel=0&modestbranding=1&playsinline=1&vq=hd1080"
+            src="https://www.youtube.com/embed/tf9xo3Q0x3Q?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=tf9xo3Q0x3Q&rel=0&modestbranding=1&playsinline=1&vq=hd1080"
             title="Zigma avpn summit Video"
             className="absolute inset-0 h-full w-full"
             frameBorder={0}

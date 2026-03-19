@@ -33,6 +33,19 @@ import P14b from "@/assets/before after projects/karur before.png";
 import P14a from "@/assets/before after projects/karur after.png";
 import P15b from "@/assets/before after projects/tambaram before.png";
 import P15a from "@/assets/before after projects/tambaram after.png";
+import p16b from "@/assets/before after projects/CUDDALORE PANCHANKUPPAM  before.png";
+import p16a from "@/assets/before after projects/CUDDALORE PANCHANKUPPAM  after.png";
+import p17b from "@/assets/before after projects/KOLLAM - KUREEPUZHA before.png";
+import p17a from "@/assets/before after projects/KOLLAM - KUREEPUZHA  after.png";
+import p18b from "@/assets/before after projects/GUWAHATI - BORAGOAN before.png";
+import p18a from "@/assets/before after projects/GUWAHATI - BORAGOAN after.png";
+import p19b from "@/assets/before after projects/Perungudi before.png";
+import p19a from "@/assets/before after projects/Perungudi after.png";
+import p20b from "@/assets/before after projects/muthusamy colony before.png";
+import p20a from "@/assets/before after projects/muthusamy colony after.png";
+
+
+
 
 // ── Types ──────────────────────────────────────────────────────
 interface Project {

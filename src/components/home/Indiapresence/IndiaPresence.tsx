@@ -103,9 +103,27 @@ const IndiaPresence: React.FC = () => {
                 </h2>
               </div>
 
-              <p className="text-md text-muted-foreground mb-5">
+              <p className="text-md text-muted-foreground mb-5">  
                 {currentData.description}
               </p>
+
+              {currentData.districts && currentData.districts.length > 0 ? (
+                <div className="mt-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground mb-2">
+                    Locations
+                  </p>
+                  <ul className="grid grid-cols-1 gap-y-1 gap-x-6 text-sm text-foreground md:grid-cols-2 list-disc pl-5">
+                    {currentData.districts.map((district) => (
+                      <li
+                        key={district}
+                        className="leading-snug truncate"
+                      >
+                        {district}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
 {/* 
               <div className="flex gap-6">
                 <div>

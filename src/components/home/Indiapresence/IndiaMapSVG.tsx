@@ -18,7 +18,6 @@ const svgIdToStateId: Record<string, string> = {
   pb: "punjab",
   rj: "rajasthan",
   tn: "tamil-nadu",
-  tg: "telangana",
   up: "uttar-pradesh",
   ut: "uttarakhand",
   wb: "west-bengal",
@@ -42,7 +41,6 @@ const stateCentroids: Record<string, { x: number; y: number }> = {
   "maharashtra": { x: 155, y: 440 },
   "assam": { x: 520, y: 270 },
   "uttar-pradesh": { x: 250, y: 260 },
-  "telangana": { x: 225, y: 460 },
 };
 
 interface IndiaMapSVGProps {
@@ -52,6 +50,9 @@ interface IndiaMapSVGProps {
 }
 
 const markerKeys = Object.keys(stateCentroids);
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.max(min, Math.min(max, value));
 
 const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
   activeState,
@@ -64,35 +65,50 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
     path: string;
   }>;
 
+  const [viewBoxX, viewBoxY, viewBoxWidth, viewBoxHeight] = (
+    String(indiaMapData.viewBox).split(" ").map(Number) as [number, number, number, number]
+  );
+
   // Auto-cycle through markers one at a time
   const [highlightedIndex, setHighlightedIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (isPaused) return;
+    if (activeState) return;
     const timer = setInterval(() => {
       setHighlightedIndex((prev) => (prev + 1) % markerKeys.length);
     }, 2500);
     return () => clearInterval(timer);
-  }, [isPaused]);
+  }, [activeState]);
 
-  // Pause auto-cycle when user hovers a state
   const handleMarkerEnter = useCallback((stateId: string, index: number) => {
-    setIsPaused(true);
     setHighlightedIndex(index);
     onStateHover(stateId);
   }, [onStateHover]);
 
   const handleMarkerLeave = useCallback(() => {
-    setIsPaused(false);
     onStateHover(null);
   }, [onStateHover]);
 
   // Collect marker data for interactive states that have stateData and centroids
-  const markerLocations = Object.entries(stateCentroids).map(([stateId, centroid], index) => {
-    const svgId = stateIdToSvgId[stateId] || stateId;
-    return { stateId, centroid, index, id: svgId };
-  });
+  const markerLocations = Object.entries(stateCentroids)
+    .filter(([stateId]) => interactiveStateIds.has(stateId))
+    .map(([stateId, centroid], index) => {
+      const svgId = stateIdToSvgId[stateId] || stateId;
+      return { stateId, centroid, index, id: svgId };
+    });
+
+  const stateIdToMarkerIndex = new Map(markerLocations.map((m) => [m.stateId, m.index]));
+
+  useEffect(() => {
+    if (!activeState) return;
+    const idx = stateIdToMarkerIndex.get(activeState);
+    if (typeof idx === "number") setHighlightedIndex(idx);
+  }, [activeState, stateIdToMarkerIndex]);
+
+  // Render highlighted marker last so it appears above others (SVG has no z-index)
+  const orderedMarkerLocations = [...markerLocations].sort(
+    (a, b) => Number(a.index === highlightedIndex) - Number(b.index === highlightedIndex),
+  );
 
   return (
     <svg
@@ -139,7 +155,7 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
       {/* All state paths */}
       {locations.map((location) => {
         const stateId = svgIdToStateId[location.id];
-        const isInteractive = !!stateId;
+        const isInteractive = !!stateId && interactiveStateIds.has(stateId);
         const isActive = activeState === stateId;
 
         return (
@@ -170,11 +186,69 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
       })}
 
       {/* MapPin Markers on all interactive states */}
-      {markerLocations.map(({ stateId, centroid, index, id }) => {
+      {orderedMarkerLocations.map(({ stateId, centroid, index, id }) => {
         const isActive = activeState === stateId;
         const isHighlighted = index === highlightedIndex;
+        const isTooltipVisible = isActive || (!activeState && isHighlighted);
         const data = stateData[stateId];
         const pinColor = "hsl(145, 63%, 32%)";
+        const tooltipTitle = data?.name || stateId;
+        const districts = data?.districts || [];
+
+        // Tooltip layout: prefer 2 columns for long lists so the tooltip doesn't become too tall.
+        const useTwoColumns = districts.length >= 7;
+        const maxTooltipLocations = useTwoColumns ? 12 : 8;
+        const tooltipLocations = districts.slice(0, maxTooltipLocations);
+        const hasMoreLocations = districts.length > tooltipLocations.length;
+
+        const tooltipMaxLen = Math.max(
+          tooltipTitle.length,
+          ...tooltipLocations.map((district) => district.length),
+          hasMoreLocations ? `+${districts.length - tooltipLocations.length} more`.length : 0,
+          "Locations".length,
+        );
+        // Wider max helps long names like "Tiruchirappalli (Trichy)" fit without truncating.
+        const baseTooltipWidth = clamp(Math.ceil((tooltipMaxLen * 7 + 70) / 10) * 10, 200, 340);
+        const tooltipWidth = useTwoColumns
+          ? clamp(Math.ceil((baseTooltipWidth * 1.35) / 10) * 10, 320, 440)
+          : baseTooltipWidth;
+
+        const locationRows = useTwoColumns
+          ? Math.ceil(tooltipLocations.length / 2)
+          : tooltipLocations.length;
+        const visibleLocationCount = locationRows + (hasMoreLocations ? 1 : 0);
+        const headerHeight = 22;
+        const tooltipPaddingY = 20; // 10 top + 10 bottom
+        const rowHeight = 18;
+        const tooltipHeight = clamp(
+          districts.length > 0
+            ? tooltipPaddingY + headerHeight + 8 + visibleLocationCount * rowHeight
+            : tooltipPaddingY + headerHeight,
+          56,
+          190,
+        );
+
+        const preferredRightX = centroid.x + 18;
+        const preferredLeftX = centroid.x - 18 - tooltipWidth;
+        const canPlaceRight = preferredRightX + tooltipWidth <= viewBoxX + viewBoxWidth - 8;
+        const canPlaceLeft = preferredLeftX >= viewBoxX + 8;
+        const placeRight = canPlaceRight || !canPlaceLeft;
+
+        const unclampedTooltipX = placeRight ? preferredRightX : preferredLeftX;
+        const unclampedTooltipY = centroid.y - tooltipHeight / 2;
+
+        const tooltipX = clamp(unclampedTooltipX, viewBoxX + 8, viewBoxX + viewBoxWidth - tooltipWidth - 8);
+        const tooltipY = clamp(unclampedTooltipY, viewBoxY + 8, viewBoxY + viewBoxHeight - tooltipHeight - 8);
+
+        const arrowMidY = clamp(centroid.y, tooltipY + 18, tooltipY + tooltipHeight - 18);
+        const arrowSize = 8;
+        const arrowTipX = placeRight ? tooltipX : tooltipX + tooltipWidth;
+        const arrowBaseX = placeRight ? arrowTipX - arrowSize : arrowTipX + arrowSize;
+        const arrowPath = `M ${arrowTipX} ${arrowMidY} L ${arrowBaseX} ${arrowMidY - 7} L ${arrowBaseX} ${arrowMidY + 7} Z`;
+
+        // Light-green theme (clean + subtle)
+        const cardBg = "#F0FDF4"; // emerald-50
+        const cardBorder = "rgba(5, 150, 105, 0.25)"; // emerald-600/25
 
         return (
           <g
@@ -230,31 +304,154 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
               />
             </g>
 
-            {/* Tooltip - state name label (visible only when highlighted) */}
-            <g className={isHighlighted ? "marker-tooltip-visible" : "marker-tooltip-hidden"}>
-              <rect
-                x={centroid.x + 12}
-                y={centroid.y - 12}
-                width={data ? data.name.length * 7 + 30 : 80}
-                height="24"
-                rx="4"
-                ry="4"
-                fill={"#059236ff"}
-                opacity="0.95"
+            {/* Tooltip - state name + districts (visible only when highlighted) */}
+            <g className={isTooltipVisible ? "marker-tooltip-visible" : "marker-tooltip-hidden"}>
+              {/* Arrow */}
+              <path d={arrowPath} fill={cardBg} stroke={cardBorder} strokeWidth="1" />
 
-
-              />
-              <text
-
-                x={centroid.x + 20}
-                y={centroid.y + 4}
-                fontSize="16"
-                fontWeight="600"
-                fill="white"
-                fontFamily="system-ui, sans-serif"
+              <foreignObject
+                x={tooltipX}
+                y={tooltipY}
+                width={tooltipWidth}
+                height={tooltipHeight}
               >
-                {data?.name || stateId}
-              </text>
+                <div
+	                  style={{
+	                    width: "100%",
+	                    height: "100%",
+	                    background: cardBg,
+	                    color: "#0F172A",
+	                    borderRadius: 10,
+	                    border: `1px solid ${cardBorder}`,
+	                    boxShadow: "0 10px 22px rgba(2,6,23,0.14), 0 2px 6px rgba(2,6,23,0.08)",
+	                    padding: "10px 12px",
+	                    boxSizing: "border-box",
+	                    fontFamily: "system-ui, sans-serif",
+	                    lineHeight: 1.25,
+	                    textAlign: "left",
+	                  }}
+	                >
+	                  <div
+	                    style={{
+	                      display: "flex",
+	                      gap: 10,
+	                      alignItems: "flex-start",
+	                      marginBottom: districts.length > 0 ? 10 : 0,
+	                    }}
+	                  >
+                    <div
+                      style={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: 999,
+                        background: pinColor,
+                        marginTop: 4,
+                        flex: "0 0 auto",
+                        boxShadow: "0 0 0 4px rgba(5,146,54,0.10)",
+                      }}
+                    />
+                    <div style={{ minWidth: 0 }}>
+                      <div
+                        style={{
+                          fontSize: 14,
+                          fontWeight: 800,
+                          color: "#065F46",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                        title={tooltipTitle}
+                      >
+                        {tooltipTitle}
+                      </div>
+                     
+                    </div>
+	                  </div>
+
+	                  {districts.length > 0 ? (
+	                    <div>
+	                      {/* <div
+	                        style={{
+	                          fontSize: 11,
+	                          fontWeight: 700,
+                          color: "rgba(15,23,42,0.72)",
+                          marginBottom: 6,
+                          letterSpacing: "0.04em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Locations
+                      </div> */}
+		                      <div
+		                        style={{
+		                          paddingRight: 4,
+		                        }}
+		                      >
+		                        <div
+		                          style={{
+		                            display: "grid",
+		                            gridTemplateColumns: useTwoColumns
+		                              ? "repeat(2, minmax(0, 1fr))"
+		                              : "minmax(0, 1fr)",
+		                            columnGap: 16,
+		                            rowGap: 3,
+		                          }}
+		                        >
+		                          {tooltipLocations.map((district) => (
+		                            <div
+		                              key={district}
+		                              title={district}
+		                              style={{
+		                                display: "flex",
+		                                alignItems: "center",
+		                                gap: 8,
+		                                minWidth: 0,
+		                              }}
+		                            >
+		                              <span
+		                                style={{
+		                                  width: 5,
+		                                  height: 5,
+		                                  borderRadius: 999,
+		                                  background: "#16A34A",
+		                                  flex: "0 0 auto",
+		                                }}
+		                              />
+		                              <span
+		                                style={{
+		                                  fontSize: 12,
+		                                  fontWeight: 600,
+		                                  color: "#0F172A",
+		                                  lineHeight: 1.3,
+		                                  whiteSpace: "nowrap",
+		                                  overflow: "hidden",
+		                                  textOverflow: "ellipsis",
+		                                }}
+		                              >
+		                                {district}
+		                              </span>
+		                            </div>
+		                          ))}
+
+                              {hasMoreLocations ? (
+                                <div
+                                  style={{
+                                    marginTop: 4,
+                                    fontSize: 12,
+                                    fontWeight: 700,
+                                    color: "rgba(6,95,70,0.85)",
+                                    gridColumn: "1 / -1",
+                                  }}
+                                >
+                                  +{districts.length - tooltipLocations.length} more
+                                </div>
+                              ) : null}
+		                        </div>
+	                      </div>
+	                    </div>
+	                  ) : null}
+                </div>
+              </foreignObject>
             </g>
           </g>
         );
@@ -264,4 +461,3 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
 };
 
 export default IndiaMapSVG;
-

@@ -20,6 +20,10 @@ const navItems = [
       { name: "BSFL Based Organic Waste Management", path: "/services#Bsfl" },
       { name: "Machinery Sales & Rentals", path: "/services#machinery" },
       { name: "IOT Systems for Waste Management", path: "/services#iot" },
+      // { name: "Integrated Alternative Fuel Solutions", path: "/services#energy" },
+      // { name: "Waste-to-Energy", path: "/services#wtw" },
+      // { name: "Industrial & Commercial Waste Solutions", path: "/services#industrial" },
+      // { name: "EPR", path: "/services#epr" },
   
     ],
   },
@@ -41,6 +45,7 @@ const navItems = [
       { name: "In the News", path: "/Media" },
       { name: "Publications", path: "/Awardsection" },
       { name: "Awards and Recognition", path: "/Awardsection" },
+      { name: "Testimonials", path: "/Testimonials" },  
     
     ],
   },

@@ -34,8 +34,9 @@ import picture11 from '@/assets/Leaders/Mr. Shankar Raman.jpeg';
 import picture13 from '@/assets/Leaders/Mr. Varun Boralkar.jpeg';
 import picture14 from '@/assets/website/Mr. Maran.png';
 import picture15 from '@/assets/Leaders/Mr. Senthil Annamalai.jpeg';
-import picture16 from '@/assets/Leaders/vijayan.png';
+import picture16 from '@/assets/Leaders/Vijayan.jpeg';
 import picture17 from '@/assets/Leaders/Mohan kumar.jpeg';
+import picture18 from '@/assets/Leaders/Shivashankar Pandian.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -179,14 +180,14 @@ const leaders: Leader[] = [
     group: 'Promoters and CoFounders',
     name: 'Boopathy Dharmaraj',
     image: picture1,
-    designation: 'Managing Director',
+    designation: 'Managing Director & Co-Founder',
     linkedin: 'https://www.linkedin.com/in/boopathy-dharmaraj-6b64b0ba/',
   },
   {
     group: 'Promoters and CoFounders',
     name: 'Ku Tha Ilangovan',
     image: picture4,
-    designation: 'Director',
+    designation: 'Director & Co-Founder',
     linkedin: 'https://www.linkedin.com/in/ilangovan-thangavelu-kugalur-a44084185/',
   },
   {
@@ -207,13 +208,13 @@ const leaders: Leader[] = [
     group: 'Promoters and CoFounders',
     name: 'K.P Mutharasu',
     image: picture2,
-    designation: 'Co-Founder',
+    designation: ' Promoter & Co- Founder',
     linkedin: 'https://www.linkedin.com/in/mutharasu-k-p-125b2546/',
   },
   {
     group: 'Promoters and CoFounders',
     name: 'Vijayan S',
-    designation: 'Co-Founder',
+    designation: 'Promoter',
     image: picture16,
     linkedin: 'https://www.linkedin.com/in/vijayans/',
   },
@@ -221,7 +222,7 @@ const leaders: Leader[] = [
     group: 'Promoters and CoFounders',
     name: 'Nagesh Prabhu Chinivartha',
     image: picture5,
-    designation: 'Co-Founder',
+    designation: 'Promoter & Co- Founder',
     linkedin: 'https://www.linkedin.com/in/nageshprabhu/',
   },
 
@@ -230,7 +231,7 @@ const leaders: Leader[] = [
     group: 'Management Team',
     name: 'A Rajasekaran',
     image: picture6,
-    designation: 'President - Technical',
+    designation: '9President- Technical',
     linkedin: 'https://www.linkedin.com/in/aghoramoorthy-rajasekaran-54479521/',
   },
   {
@@ -243,7 +244,7 @@ const leaders: Leader[] = [
   {
     group: 'Management Team',
     name: 'Maran',
-    designation: 'Vice President - Product Development & R&D',
+    designation: 'Vice President',
     linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
   },
 
@@ -274,8 +275,16 @@ const leaders: Leader[] = [
     name: 'Mohan Kumar',
     image: picture17,
     designation: 'General Manager - AFR',
-    linkedin: 'https://www.linkedin.com/in/mohan-kumar-9b1a8614a/',
+    linkedin: 'https://www.linkedin.com/in/mohan-kumaar-subramaniam-a3b064175/',
   },
+   {
+    group: 'Management Team',
+    name: 'Shivashankar Pandian',
+    image: picture18,
+    designation: 'GM- Finance & Accounts',
+    linkedin: 'https://www.linkedin.com/in/mohan-kumaar-subramaniam-a3b064175/',
+  },
+
 ];
 
 const isReducedMotionPreferred = (): boolean =>

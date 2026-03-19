@@ -6,6 +6,9 @@ import StatsSection from "@/components/home/StatsSection";
 import { IndiaPresence } from "@/components/home/Indiapresence";
 import ServicesSection from "@/components/home/ServicesSection";
 import PartnersSectioncp from "@/components/home/PartnersSectioncp";
+import ULBClientsSection from "@/components/home/ULBClientsSection";
+import ULBClientsSectioncp from "@/components/home/ULBClientsSectioncp";
+
 
 const Index = () => {
   return (
@@ -18,6 +21,8 @@ const Index = () => {
         <IndiaPresence/>
         <ServicesSection/>
         <PartnersSectioncp/>
+        <ULBClientsSection/>
+        <ULBClientsSectioncp/>
       </main>
       <Footer />
     </div>
