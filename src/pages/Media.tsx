@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Herobg from "@/assets/website/globe_bg.png";
+import Herobg from "@/assets/website/news_bg.jpeg";
 import bg1 from "@/assets/background-1.png";
 
 type MediaAsset = {

@@ -66,9 +66,9 @@ const IndiaPresence: React.FC = () => {
               <button
                 key={state.id}
                 onClick={() => handleTabClick(state.id)}
-                className={`text-left text-lg px-3 py-2 rounded-sm transition-all duration-200 font-medium
+                className={`text-left text-lg px-3 py-2 rounded-sm border border-transparent transition-all duration-200 font-medium
                   ${currentState === state.id
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-primary/15 text-primary border border-primary/25"
                     : "text-foreground hover:bg-secondary"
                   }`}
               >

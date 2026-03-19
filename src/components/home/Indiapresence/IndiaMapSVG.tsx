@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import indiaMapData from "@/data/india-map-raw.js";
 import { stateData } from "@/data/indiaPresenceData";
+import { cn } from "@/lib/utils";
 
 // Map from svg-maps IDs to our stateData IDs (interactive states)
 const svgIdToStateId: Record<string, string> = {
@@ -116,7 +117,7 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
       className="w-full h-full"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Pulsing animation keyframes */}
+      {/* Marker/tooltip animation keyframes */}
       <defs>
         <style>{`
           @keyframes marker-pulse {
@@ -127,27 +128,22 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
             0% { transform: scale(1); opacity: 0.6; }
             75%, 100% { transform: scale(2.5); opacity: 0; }
           }
-          .marker-pulse-ring {
-            animation: marker-pulse 1.8s ease-in-out infinite;
-            transform-box: fill-box;
-            transform-origin: center;
-          }
-          .marker-ping-ring {
-            animation: marker-ping 1.8s ease-in-out infinite;
-            transform-box: fill-box;
-            transform-origin: center;
-          }
           @keyframes marker-tooltip-fadein {
             0% { opacity: 0; transform: translateX(-4px); }
             100% { opacity: 1; transform: translateX(0); }
           }
-          .marker-tooltip-visible {
-            animation: marker-tooltip-fadein 0.4s ease forwards;
-            pointer-events: none;
+          .animate-marker-pulse {
+            animation: marker-pulse 1.8s ease-in-out infinite;
+            transform-box: fill-box;
+            transform-origin: center;
           }
-          .marker-tooltip-hidden {
-            opacity: 0;
-            pointer-events: none;
+          .animate-marker-ping {
+            animation: marker-ping 1.8s ease-in-out infinite;
+            transform-box: fill-box;
+            transform-origin: center;
+          }
+          .animate-marker-tooltip-fadein {
+            animation: marker-tooltip-fadein 0.4s ease forwards;
           }
         `}</style>
       </defs>
@@ -162,14 +158,15 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
           <path
             key={location.id}
             d={location.path}
-            className={`map-state-path ${isActive ? "active" : ""}`}
-            style={
+            className={cn(
+              "map-state-path stroke-black transition-colors duration-200",
               !isInteractive
-                ? { fill: "#E5E7EB", stroke: "#000", strokeWidth: 0.5, cursor: "default", opacity: 0.5 }
+                ? "fill-white cursor-default"
                 : isActive
-                  ? { fill: "hsl(145, 63%, 32%)", stroke: "#000", strokeWidth: 0.5, cursor: "pointer", transition: "fill 0.2s" }
-                  : { fill: "#ffffffff", stroke: "#000", strokeWidth: 0.5, cursor: "pointer", transition: "fill 0.2s" }
-            }
+                  ? "fill-emerald-700 cursor-pointer"
+                  : "fill-white cursor-pointer"
+            )}
+            strokeWidth={0.5}
             onMouseEnter={
               isInteractive ? () => onStateHover(stateId) : undefined
             }
@@ -246,15 +243,14 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
         const arrowBaseX = placeRight ? arrowTipX - arrowSize : arrowTipX + arrowSize;
         const arrowPath = `M ${arrowTipX} ${arrowMidY} L ${arrowBaseX} ${arrowMidY - 7} L ${arrowBaseX} ${arrowMidY + 7} Z`;
 
-        // Light-green theme (clean + subtle)
-        const cardBg = "#F0FDF4"; // emerald-50
+        // Tooltip theme
+        const cardBg = "#FFFFFF";
         const cardBorder = "rgba(5, 150, 105, 0.25)"; // emerald-600/25
 
         return (
           <g
             key={`marker-${id}`}
-            className="marker-group"
-            style={{ cursor: "pointer" }}
+            className="marker-group cursor-pointer"
             onMouseEnter={() => handleMarkerEnter(stateId, index)}
             onMouseLeave={handleMarkerLeave}
             onClick={() => onStateClick(stateId)}
@@ -266,7 +262,7 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
               r="10"
               fill={pinColor}
               opacity="0.3"
-              className="marker-pulse-ring"
+              className="animate-marker-pulse"
               style={{ animationDelay: `${index * 0.12}s` }}
             />
 
@@ -279,7 +275,7 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
                 fill="none"
                 stroke={pinColor}
                 strokeWidth="2"
-                className="marker-ping-ring"
+                className="animate-marker-ping"
               />
             )}
 
@@ -305,7 +301,9 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
             </g>
 
             {/* Tooltip - state name + districts (visible only when highlighted) */}
-            <g className={isTooltipVisible ? "marker-tooltip-visible" : "marker-tooltip-hidden"}>
+            <g className={cn(
+              isTooltipVisible ? "animate-marker-tooltip-fadein pointer-events-none" : "opacity-0 pointer-events-none"
+            )}>
               {/* Arrow */}
               <path d={arrowPath} fill={cardBg} stroke={cardBorder} strokeWidth="1" />
 
@@ -315,141 +313,51 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
                 width={tooltipWidth}
                 height={tooltipHeight}
               >
-                <div
-	                  style={{
-	                    width: "100%",
-	                    height: "100%",
-	                    background: cardBg,
-	                    color: "#0F172A",
-	                    borderRadius: 10,
-	                    border: `1px solid ${cardBorder}`,
-	                    boxShadow: "0 10px 22px rgba(2,6,23,0.14), 0 2px 6px rgba(2,6,23,0.08)",
-	                    padding: "10px 12px",
-	                    boxSizing: "border-box",
-	                    fontFamily: "system-ui, sans-serif",
-	                    lineHeight: 1.25,
-	                    textAlign: "left",
-	                  }}
-	                >
-	                  <div
-	                    style={{
-	                      display: "flex",
-	                      gap: 10,
-	                      alignItems: "flex-start",
-	                      marginBottom: districts.length > 0 ? 10 : 0,
-	                    }}
-	                  >
+                <div className="w-full h-full bg-white text-slate-900 rounded-lg border border-emerald-600/25 shadow-lg p-3 box-border font-system text-sm leading-tight text-left">
+                  <div className="flex gap-2.5 items-start mb-2.5">
                     <div
-                      style={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: 999,
-                        background: pinColor,
-                        marginTop: 4,
-                        flex: "0 0 auto",
-                        boxShadow: "0 0 0 4px rgba(5,146,54,0.10)",
-                      }}
+                      className="w-2.5 h-2.5 rounded-full flex-shrink-0 mt-1 shadow-sm"
+                      style={{ background: pinColor, boxShadow: "0 0 0 4px rgba(5,146,54,0.10)" }}
                     />
-                    <div style={{ minWidth: 0 }}>
+                    <div className="min-w-0">
                       <div
-                        style={{
-                          fontSize: 14,
-                          fontWeight: 800,
-                          color: "#065F46",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
+                        className="text-sm font-black text-emerald-800 whitespace-nowrap overflow-hidden text-ellipsis"
                         title={tooltipTitle}
                       >
                         {tooltipTitle}
                       </div>
-                     
                     </div>
-	                  </div>
+                  </div>
 
-	                  {districts.length > 0 ? (
-	                    <div>
-	                      {/* <div
-	                        style={{
-	                          fontSize: 11,
-	                          fontWeight: 700,
-                          color: "rgba(15,23,42,0.72)",
-                          marginBottom: 6,
-                          letterSpacing: "0.04em",
-                          textTransform: "uppercase",
-                        }}
+                  {districts.length > 0 && (
+                    <div className="pr-1">
+                      <div
+                        className={cn(
+                          "gap-x-4 gap-y-0.5",
+                          useTwoColumns ? "grid grid-cols-2" : "flex flex-col"
+                        )}
                       >
-                        Locations
-                      </div> */}
-		                      <div
-		                        style={{
-		                          paddingRight: 4,
-		                        }}
-		                      >
-		                        <div
-		                          style={{
-		                            display: "grid",
-		                            gridTemplateColumns: useTwoColumns
-		                              ? "repeat(2, minmax(0, 1fr))"
-		                              : "minmax(0, 1fr)",
-		                            columnGap: 16,
-		                            rowGap: 3,
-		                          }}
-		                        >
-		                          {tooltipLocations.map((district) => (
-		                            <div
-		                              key={district}
-		                              title={district}
-		                              style={{
-		                                display: "flex",
-		                                alignItems: "center",
-		                                gap: 8,
-		                                minWidth: 0,
-		                              }}
-		                            >
-		                              <span
-		                                style={{
-		                                  width: 5,
-		                                  height: 5,
-		                                  borderRadius: 999,
-		                                  background: "#16A34A",
-		                                  flex: "0 0 auto",
-		                                }}
-		                              />
-		                              <span
-		                                style={{
-		                                  fontSize: 12,
-		                                  fontWeight: 600,
-		                                  color: "#0F172A",
-		                                  lineHeight: 1.3,
-		                                  whiteSpace: "nowrap",
-		                                  overflow: "hidden",
-		                                  textOverflow: "ellipsis",
-		                                }}
-		                              >
-		                                {district}
-		                              </span>
-		                            </div>
-		                          ))}
+                        {tooltipLocations.map((district) => (
+                          <div
+                            key={district}
+                            title={district}
+                            className="flex items-center gap-2 min-w-0"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-600 flex-shrink-0" />
+                            <span className="text-xs font-semibold text-slate-900 leading-snug whitespace-nowrap overflow-hidden text-ellipsis">
+                              {district}
+                            </span>
+                          </div>
+                        ))}
 
-                              {hasMoreLocations ? (
-                                <div
-                                  style={{
-                                    marginTop: 4,
-                                    fontSize: 12,
-                                    fontWeight: 700,
-                                    color: "rgba(6,95,70,0.85)",
-                                    gridColumn: "1 / -1",
-                                  }}
-                                >
-                                  +{districts.length - tooltipLocations.length} more
-                                </div>
-                              ) : null}
-		                        </div>
-	                      </div>
-	                    </div>
-	                  ) : null}
+                        {hasMoreLocations && (
+                          <div className="mt-1 text-xs font-bold text-emerald-700/85 col-span-full">
+                            +{districts.length - tooltipLocations.length} more
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </foreignObject>
             </g>

@@ -23,30 +23,35 @@ const awards: Award[] = [
   {
     id: 1,
     source: "Zigma Impact",
+    href: "/awardsection",
     description:
       "Partnering with Urban Local Bodies across India to deliver scalable, technology-driven waste management and sustainability solutions.",
   },
   {
     id: 2,
     source: "Digital Transformation",
+    href: "/awardsection",
     description:
       "Enabled municipalities with ERP, IoT integrations, and real-time dashboards to improve operational efficiency and compliance.",
   },
   {
     id: 3,
     source: "Operational Excellence",
+    href: "/awardsection",
     description:
       "Driving measurable impact through data-driven decision making, process automation, and smart monitoring systems.",
   },
   {
     id: 4,
     source: "Sustainability",
+    href: "/awardsection",
     description:
       "Supporting cities in achieving cleaner environments through intelligent waste management and circular economy practices.",
   },
   {
     id: 5,
     source: "Scalability",
+    href: "/awardsection",
     description:
       "Solutions designed to scale across multiple cities, handling high-volume municipal operations with consistency and accuracy.",
   },
@@ -205,7 +210,7 @@ export default function ULBClientsSectioncp() {
           <div className="flex flex-col gap-3">
             {leftAwards.map((award) => (
               <AwardCard key={award.id} award={award} />
-            ))}
+            ))} 
           </div>
         </div>
 

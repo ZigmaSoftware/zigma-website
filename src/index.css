@@ -205,7 +205,7 @@ html.lenis body {
 
   @media (min-width: 768px) {
     .container-main {
-      width: min(90% - 3rem, 1280px);
+      width: min(95% - 3rem, 1280px);
     }
   }
 
