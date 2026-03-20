@@ -110,15 +110,9 @@ const MarqueeRow = ({
 );
 
 const ULBClientsMarquee = ({ clients }: { clients: Client[] }) => {
-  const rowOne = clients.filter((_, index) => index % 3 === 0);
-  const rowTwo = clients.filter((_, index) => index % 3 === 1);
-  const rowThree = clients.filter((_, index) => index % 3 === 2);
-
   return (
-    <div className="mt-10 space-y-10">
-      <MarqueeRow clients={rowOne} direction="left" />
-      <MarqueeRow clients={rowTwo} direction="right" />
-      <MarqueeRow clients={rowThree} direction="left" durationSeconds={48} />
+    <div className="mt-10">
+      <MarqueeRow clients={clients} direction="left" />
     </div>
   );
 };

@@ -22,7 +22,7 @@ const Index = () => {
         <ServicesSection/>
         <PartnersSectioncp/>
         <ULBClientsSection/>
-        <ULBClientsSectioncp/>
+        {/* <ULBClientsSectioncp/> */}
       </main>
       <Footer />
     </div>

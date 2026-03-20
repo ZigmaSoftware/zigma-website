@@ -231,7 +231,7 @@ const leaders: Leader[] = [
     group: 'Management Team',
     name: 'A Rajasekaran',
     image: picture6,
-    designation: '9President- Technical',
+    designation: 'President- Technical',
     linkedin: 'https://www.linkedin.com/in/aghoramoorthy-rajasekaran-54479521/',
   },
   {
@@ -243,7 +243,7 @@ const leaders: Leader[] = [
   },
   {
     group: 'Management Team',
-    name: 'Maran',
+    name: 'Maran V',
     designation: 'Vice President',
     linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
   },
