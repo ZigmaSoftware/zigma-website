@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import StaggerReveal from "@/components/animation/StaggerReveal";
 
 export type MilestoneItem = {
   year: string;
@@ -60,9 +61,15 @@ const MilestoneSection = ({
         <div className="relative mt-10">
           <div className="absolute bottom-0 left-[17px] top-0 w-px bg-slate-200" aria-hidden="true" />
 
-          <ul className="space-y-5">
+          <StaggerReveal
+            as="ul"
+            className="space-y-5"
+            itemClassName="relative pl-12"
+            data-anim-duration="0.8"
+            data-anim-ease="power2.out"
+          >
             {items.map((item) => (
-              <li key={`${item.year}-${item.title}`} className="relative pl-12">
+              <li key={`${item.year}-${item.title}`}>
                 <span
                   className="absolute left-3 top-6 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-white bg-green-700 shadow"
                   aria-hidden="true"
@@ -79,7 +86,7 @@ const MilestoneSection = ({
                 </article>
               </li>
             ))}
-          </ul>
+          </StaggerReveal>
         </div>
       </div>
     </section>

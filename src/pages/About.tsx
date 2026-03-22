@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+﻿import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -41,7 +41,7 @@ import picture18 from '@/assets/Leaders/Shivashankar Pandian.jpeg';
 gsap.registerPlugin(ScrollTrigger);
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
-const INITIAL_INDEX = 3;
+const INITIAL_INDEX = 0;
 const SLOW_EASE = 'power2.out';
 const INPUT_CLASS =
   'w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-700';
@@ -66,110 +66,123 @@ type Leader = {
 const milestones: Milestone[] = [
   {
     year: 2015,
-    title: 'Founding Year',
+    title: 'The Foundation',
     description: [
-      "Founded to tackle India's legacy waste crisis.",
-      'Developed indigenous machines with near-zero human intervention.',
+      'March: Zigma Global Environ Solutions Pvt. Ltd. was founded.',
+      "May: Awarded the Kumbakonam biomining project for 1.3 lakh mÂ³, India's first ever integrated landfill mining project executed on zero residue methodology.",
+      'July: Invited by the Ministry of Urban Development (Govt. of India) to present in workshops for first Swachh Survekshan 2017 for Bio-mining across 500 cities in India.',
     ],
     image: img1,
   },
   {
     year: 2016,
-    title: 'National Recognition Begins',
+    title: 'Early Expansion',
     description: [
-      'Instrumental in the Gazette notification of the SWM Rules 2016 mandating landfill mining.',
-      "Invited to Swachh Survekshan 2016 by MoUD to showcase India's first biomining project.",
-      'Marked as a best practice across 500 cities.',
+      'April: Reclaimed more than 4 acres of land in Kumbakonam.',
+      'June: Secured orders from 20 municipalities in Tamil Nadu for MSW plants and machinery.',
+      'July: Received the prestigious Frost & Sullivan 2016 Award.',
+      'December: Reclaimed an additional 6+ acres in Kumbakonam.',
     ],
     image: img2,
   },
   {
     year: 2017,
-    title: 'Tech Collaboration and First Project',
+    title: 'Strategic Partnerships',
     description: [
-      'Partnership with Forcebel (Korea) - access to technology.',
-      "Awarded India's first DBFOO model biomining project in Kumbakonam.",
-      'Reclaimed 12 acres; began receiving central funding approvals.',
+      "May: Formed a joint venture with Forcebel, establishing Zigma as Asia's largest landfill mining company.",
+      'July: Awarded biomining projects in Sembakkam and Pammal (Chennai).',
+      'August: Awarded biomining project in Vijayawada.',
+      'October: Awarded biomining project in Vadodara.',
     ],
     image: img3,
   },
   {
     year: 2018,
-    title: 'Infrastructure and Pipeline Expansion',
+    title: 'National Footprint',
     description: [
-      '15 acres reclaimed by March, 30 acres by December.',
-      'Commissioned a 25 TPH line in Kumbakonam.',
-      'Collaboration with IIT Bombay on aggregate disposal.',
-      'Strong pipeline of 45 projects, 25+ million tonnes waste, INR 1,400+ Cr revenue potential.',
+      'April - July: Awarded major biomining projects across India, including Chidambaram, Poonamallee (Chennai), NOIDA, and Nagpur.',
     ],
     image: img4,
   },
   {
     year: 2019,
-    title: 'Capacity and Reputation Scaling',
+    title: 'Land Reclamation Success',
     description: [
-      'Commissioned 40 TPH line in Vijayawada.',
-      'Participated in Swachh Sarvekshan workshops with 500+ officials.',
-      'Cemented national model status with MoUD and MoEF&CC backing.',
+      'January: Awarded projects in Trichy and Erode.',
+      'February: Handed over 4 reclaimed acres to Sembakkam Municipality.',
+      'March: Awarded Tirupati project and successfully reclaimed 10.5 acres in Vadodara and 32.5 acres in Vijayawada.',
     ],
     image: img5,
   },
   {
     year: 2020,
-    title: 'Awards and Partnerships',
+    title: 'Investment and Growth',
     description: [
-      'CII 3R Awards for Excellence in Municipal Solid Waste Management.',
-      'Expanded urban partnerships and state-level adoption.',
+      'January: Awarded biomining project in Visakhapatnam.',
+      'March: Blue Planet Environmental Solutions made a significant investment in Zigma.',
+      'June - August: Awarded projects in Karaikudi, Karur, and NOIDA; reclaimed 5 acres in Pammal.',
+      'October: Awarded projects in Cuddalore, Dindigul, and Perungudi; handed over 2 reclaimed acres to Poonamallee Municipality.',
     ],
     image: img6,
   },
   {
     year: 2021,
-    title: 'Strategic Acquisitions',
+    title: 'Regional Milestones',
     description: [
-      'February: Awarded biomining project in Chennai; handed over 6.2 acres of reclaimed land to NOIDA Municipality.',
-      'September: Handed over 7 acres of reclaimed land to Erode Municipality.',
-      'October: Handed over 4 acres of reclaimed land to Pammal Municipality.',
-      'December: Handed over 10.5 acres of reclaimed land to Vadodara Municipality.',
-      'Awarded first Union Territory project in Puducherry.',
+      "February: Awarded the prestigious Chennai-Perungudi project, India's largest marshland recovery project.",
+      'Handed over 6.2 acres to NOIDA Municipality.',
+      'September - October: Reclaimed land handed over to Erode (7 acres) and Pammal (4 acres) municipalities.',
+      'December: Handed over 10.5 acres to Vadodara Municipality and awarded the first Union Territory project in Puducherry.',
     ],
     image: img7,
   },
   {
     year: 2022,
-    title: 'Enhanced Credentials',
+    title: 'Market Diversification',
     description: [
-      'Platinum Leadership Award for CSR & ESG at the 14th Annual Global CSR & ESG Summit, Hanoi, Vietnam.',
-      'Reinforced focus on ESG, sustainability and global standards.',
+      'Secured the first-ever private contract for landfill mining from ITC.',
+      'Expanded into North East India with a project awarded in Guwahati.',
     ],
     image: img8,
   },
   {
     year: 2023,
-    title: 'Strategic Positioning',
+    title: 'Massive Scaling',
     description: [
-      'Won Best ESG Initiative for GHG Emission Reduction at the 4th Annual ESG Summit & Awards.',
-      'Positioned as an industrial decarbonisation enabler.',
+      'Received a $35 million investment from the Investment Fund for Developing Countries (IFU) via Blue Planet.',
+      'Awarded the Kodungaiyur Project in Chennai.',
+      'Reached a massive achievement of 400 total acres of land reclaimed.',
     ],
     image: img9,
   },
   {
     year: 2024,
-    title: 'Key Partnerships',
+    title: 'Innovation and Command',
     description: [
-      'Blue Planet was an Anchor Partner of the AVPN South Asia Summit 2024, held in Chennai, India, on December 9, 2024.',
-      'Moved to their new state of art facility in Erode, a world class facility, also a CCC Control Command Centre.',
+      "December: Blue Planet served as Anchor Partner for the AVPN South Asia Summit 2024 in Chennai, the world's first summit of this magnitude undertaken in a reclaimed dumpsite.",
+      'Inaugurated a new state-of-the-art office facility in Erode, featuring a world-class CCC (Control Command Centre).',
     ],
     image: img10,
   },
   {
     year: 2025,
-    title: 'Capacity Scale-up',
+    title: 'A Decade of Impact',
     description: [
-      'The legendary Andhra Pradesh Cluster project was awarded.',
-      'Processing capacity increased to 30 thousand tons per day.',
-      '25 lakh tons of RDF coprocessed with cement plants & Waste to Energy by October 2025.',
-      'Completed a decade of working for the people and the Planet.',
+      'January: Awarded the Legendary Andhra Pradesh Cluster project covering multiple sites and enabling large-scale reclamation.',
+      'Increased processing capacity to 30,000 tons per day.',
+      'Co-processed 25 lakh tons of RDF with cement plants and Waste-to-Energy facilities, the highest in the country.',
+      'October: Zigma officially completed one decade of working for the people and the planet.',
+    ],
+    image: img11,
+  },
+  {
+    year: 2026,
+    title: 'The Dawn of the Second Decade',
+    description: [
+      'Awarded the prestigious project of Kozhikode by Kerala SWMP, fully funded by the World Bank.',
+      "Bagged Kerala's first integrated bio-mining project at Kureepuzha, Kollam.",
+      "Awarded the Andhra Pradesh Chief Minister's award for exemplary performance in bio-mining.",
+      'Received funding from Denmark-based Novo Holdings through Blue Planet.',
     ],
     image: img11,
   },
@@ -304,13 +317,16 @@ const SectionTitle = ({ label, title }: { label: string; title: JSX.Element | st
 const About = (): JSX.Element => {
   const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(isReducedMotionPreferred);
-  const [autoPlay, setAutoPlay] = useState(() => !isReducedMotionPreferred());
+  const [autoPlay, setAutoPlay] = useState(false);
+  const [isMilestoneInView, setIsMilestoneInView] = useState(false);
 
   const heroSectionRef = useRef<HTMLElement | null>(null);
+  const milestoneSectionRef = useRef<HTMLElement | null>(null);
   const heroImageRef = useRef<HTMLImageElement | null>(null);
   const milestoneImagePanelRef = useRef<HTMLDivElement | null>(null);
   const milestoneTextPanelRef = useRef<HTMLDivElement | null>(null);
   const currentIndexRef = useRef(currentIndex);
+  const hasStartedTimelineRef = useRef(false);
 
   useEffect(() => {
     currentIndexRef.current = currentIndex;
@@ -353,6 +369,51 @@ const About = (): JSX.Element => {
 
     return () => clearInterval(intervalId);
   }, [autoPlay, prefersReducedMotion, transitionToMilestone]);
+
+  useEffect(() => {
+    const section = milestoneSectionRef.current;
+    if (!section || prefersReducedMotion) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        const isInView = Boolean(entry?.isIntersecting);
+        setIsMilestoneInView(isInView);
+        if (!isInView || hasStartedTimelineRef.current) return;
+
+        hasStartedTimelineRef.current = true;
+        transitionToMilestone(0);
+        setAutoPlay(true);
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(section);
+    return () => {
+      observer.disconnect();
+      setIsMilestoneInView(false);
+    };
+  }, [prefersReducedMotion, transitionToMilestone]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code !== 'Space' || !isMilestoneInView || prefersReducedMotion) return;
+
+      const target = event.target as HTMLElement | null;
+      const isTypingTarget =
+        target?.tagName === 'INPUT' ||
+        target?.tagName === 'TEXTAREA' ||
+        target?.tagName === 'SELECT' ||
+        target?.isContentEditable;
+
+      if (isTypingTarget) return;
+      event.preventDefault();
+      setAutoPlay((prev) => !prev);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isMilestoneInView, prefersReducedMotion]);
 
   useEffect(() => {
     const section = heroSectionRef.current;
@@ -479,6 +540,7 @@ const About = (): JSX.Element => {
         </section>
 
         <section
+          ref={milestoneSectionRef}
           data-no-animate
           className="min-h-[100svh] py-6 scroll-mt-24 lg:scroll-mt-28 lg:snap-start lg:py-8"
           style={{ backgroundImage: `url(${bg1})` }}
@@ -495,7 +557,7 @@ const About = (): JSX.Element => {
                   label="Path to Recognition"
                   title={
                     <>
-                      Building India’s First <span className="text-primary">Landfill Mining Powerhouse</span>
+                      Building India's First <span className="text-primary">Landfill Mining Powerhouse</span>
                     </>
                   }
                 />
@@ -571,9 +633,26 @@ const About = (): JSX.Element => {
                     {currentMilestone.title}
                   </h3>
                   <ul className="h-[170px] list-disc space-y-2 overflow-y-auto pl-5 pr-2 text-sm leading-relaxed text-slate-600 lg:h-[220px] lg:text-lg">
-                    {currentMilestone.description.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
+                    {currentMilestone.description.map((item) => {
+                      const keyPattern =
+                        /\b(January|February|March|April|May|June|July|August|September|October|November|December|Swachh Survekshan 2017|Frost & Sullivan 2016 Award|AVPN South Asia Summit 2024|Chief Minister's award|World Bank|Novo Holdings|Blue Planet|Forcebel|Kumbakonam|Sembakkam|Pammal|Vijayawada|Vadodara|NOIDA|Nagpur|Trichy|Erode|Tirupati|Visakhapatnam|Karaikudi|Karur|Cuddalore|Dindigul|Perungudi|Puducherry|ITC|Guwahati|Kodungaiyur|Kozhikode|Kerala SWMP|Kureepuzha|Kollam|RDF|CCC|Zigma)\b|\b\d[\d,.]*\+?\s*(?:acres?|tons?|tonnes?|TPH|m³|lakh|million|cities?|municipalities|sites?)\b/g;
+                      const highlightKeyWords = (text: string) => {
+                        const parts = text.split(keyPattern);
+                        return parts.map((part, index) => {
+                          if (!part) return null;
+                          if (part.match(keyPattern)) {
+                            return (
+                              <span key={`${item}-k-${index}`} className="font-semibold text-slate-700 ">
+                                {part}
+                              </span>
+                            );
+                          }
+                          return <span key={`${item}-n-${index}`}>{part}</span>;
+                        });
+                      };
+
+                      return <li key={item}>{highlightKeyWords(item)}</li>;
+                    })}
                   </ul>
                 </div>
               </div>
@@ -715,6 +794,7 @@ const About = (): JSX.Element => {
 };
 
 export default About;
+
 
 
 

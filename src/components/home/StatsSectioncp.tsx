@@ -5,7 +5,7 @@ const stats = [
   { value: 750, suffix: "+", label: "Acres Land Cleared" },
   { value: 55, suffix: "+", label: "Landfills Projects Completed" },
   { value: 2.5, suffix: "M+", label: "Tonnes RDF" },
-  { value: 170, suffix: "", label: "Projects in 15 Countries" },
+  { value: 170, suffix: "+", label: "Projects in 15 Countries" },
   { value: 8, suffix: "M+", label: "CO2 Emissions Reduced" },
   { value: 25, suffix: "K+", label: "MT Daily Waste Pocessing" },
 ];
@@ -20,7 +20,7 @@ const StatsSection = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting) {   
           setIsVisible(true);
           setAnimationRun((prev) => prev + 1);
           return;

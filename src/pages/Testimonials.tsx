@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, FC } from "react";
+﻿import { useState, useEffect, useRef, useCallback, FC } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -17,21 +17,47 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/animation/Reveal";
 import { cn } from "@/lib/utils";
+import msJennyBatesImg from "@/assets/Testimonials/Ms. Jenny Bates.png";
+import ministerGraceFuImg from "@/assets/Testimonials/Minister Grace Fu.png";
+import msRupaMishraImg from "@/assets/Testimonials/Ms. Rupa Mishra.png";
+import mrsAlmitraHPatelImg from "@/assets/Testimonials/Mrs. Almitra H. Patel.png";
+import drVIraiAnduImg from "@/assets/Testimonials/Dr. V. Irai Andu.png";
+import msSupriyaSahuImg from "@/assets/Testimonials/Ms. Supriya Sahu.png";
+import mrAjayKapurImg from "@/assets/Testimonials/Mr. Ajay Kapur.png";
+import ganKimYongImg from "@/assets/Testimonials/Gan Kim Yong.png";
+import videoOne from "@/assets/Testimonials/video 1.mp4";
+import videoTwo from "@/assets/Testimonials/video 2.mp4";
+import videoThree from "@/assets/Testimonials/video 3.mp4";
+import pictureOne from "@/assets/Testimonials/Picture1.png";
+import pictureTwo from "@/assets/Testimonials/Picture2.png";
+import pictureThree from "@/assets/Testimonials/Picture3.png";
+import socialImg1 from "@/assets/Testimonials/social.jpg";
+import socialImg2 from "@/assets/Testimonials/social2.png";
+import socialImg3 from "@/assets/Testimonials/social3.png";
+import socialImg4 from "@/assets/Testimonials/social4.png";
+import socialImg5 from "@/assets/Testimonials/social5.png";
+import socialImg6 from "@/assets/Testimonials/social6.png";
+import socialImg7 from "@/assets/Testimonials/social7.png";
+import socialImg8 from "@/assets/Testimonials/social8.png";
+import socialImg9 from "@/assets/Testimonials/social9.png";
+import socialImg10 from "@/assets/Testimonials/social10.png";
+import bg from "@/assets/Testimonials bg.png";
 
-/* ─────────────────────────────────────────────
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    TYPES
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 interface Slide {
   text: string;
-  initials: string;
-  gradient: string;
+  image: string;
   name: string;
   role: string;
   tag: string;
 }
 
 interface Video {
-  gradient: string;
+  src: string;
+  poster: string;
   label: string;
   duration: string;
   title: string;
@@ -65,77 +91,105 @@ interface WallCard {
   likes: string;
   time: string;
   tall?: boolean;
+  image?: string;
 }
 
 type LoadState = "idle" | "loading" | "done";
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    DATA
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const SLIDES: Slide[] = [
   {
-    text: `"Zigma's landfill mining solution transformed our facility completely. We reduced waste volumes by 60% and generated new revenue from recovered materials. Their team was exceptional throughout—professional, knowledgeable, and truly committed to our success."`,
-    initials: "RK",
-    gradient: "linear-gradient(135deg,#10B981,#34D399)",
-    name: "Rajesh Kumar",
-    role: "CEO, GreenPath Industries",
-    tag: "Landfill Mining",
+    text: "So impressive - the collaboration, the engineering and the scale. Plus, an excellent impact for the future.",
+    image: msJennyBatesImg,
+    name: "Ms. Jenny Bates",
+    role: "Director General, Indo-Pacific, FCDO United Kingdom",
+    tag: "United Kingdom",
   },
   {
-    text: `"The BSFL organic waste management program was a game-changer for our food processing plant. We went from paying for waste disposal to earning from bio-conversion. The ROI was remarkable—we broke even within 8 months. Highly recommend partnering with Zigma!"`,
-    initials: "PS",
-    gradient: "linear-gradient(135deg,#059669,#10B981)",
-    name: "Priya Sharma",
-    role: "Operations Director, FreshFoods Co.",
-    tag: "BSFL Organic",
+    text: "I am most impressed with the technology that is involved in especially how we can mine and turn waste into treasure... there are too many sites that need to be cured.",
+    image: ministerGraceFuImg,
+    name: "Minister Grace Fu",
+    role: "Minister for Sustainability and the Environment, MP, Singapore",
+    tag: "Singapore",
   },
   {
-    text: `"We partnered with Zigma for our municipality's waste-to-energy initiative. The results exceeded every benchmark we set. Carbon emissions down 45%, landfill usage cut to near zero. The community response has been overwhelmingly positive. Zigma delivered excellence."`,
-    initials: "AM",
-    gradient: "linear-gradient(135deg,#047857,#10B981)",
-    name: "Arjun Mehta",
-    role: "Municipal Commissioner, EcoCity",
-    tag: "Waste-to-Energy",
+    text: "Looks like a factory site while in reality it is full scale work going on at the dumpsite in Vizag.",
+    image: msRupaMishraImg,
+    name: "Ms. Rupa Mishra",
+    role: "Joint Secretary of MoHUA and NMD of Swachh Bharat Mission",
+    tag: "India",
   },
   {
-    text: `"The BluePlanet bioremediation project for our contaminated industrial site was handled with precision and care. The remediation was 3x faster than traditional methods. Their environmental scientists were always accessible and transparent. Outstanding professionalism."`,
-    initials: "SD",
-    gradient: "linear-gradient(135deg,#065F46,#059669)",
-    name: "Sunita Desai",
-    role: "VP Sustainability, IndoTech Corp",
-    tag: "Bioremediation",
+    text: "It is the only site where absolutely zero material is left behind on the cleared area.",
+    image: mrsAlmitraHPatelImg,
+    name: "Mrs. Almitra H. Patel",
+    role: "National Expert of Swachh Bharat Mission",
+    tag: "India",
+  },
+  {
+    text: "Had the experience of visiting the site. It is a great learning experience. The project is going as per schedule, aiming for completion by December 2022. Suggested creating a booklet for officials or other municipalities and preparing a time-lapse video.",
+    image: drVIraiAnduImg,
+    name: "Dr. V. Irai Andu",
+    role: "Chief Secretary to the Government of Tamil Nadu",
+    tag: "Tamil Nadu",
+  },
+  {
+    text: "The visit to the Zigma facility was a great learning experience. The task at hand is humongous and I hope that the ground team completes it on time. The facility was certainly impressive.",
+    image: msSupriyaSahuImg,
+    name: "Ms. Supriya Sahu",
+    role: "IAS, ACS, ECC&F Department, Tamil Nadu",
+    tag: "Tamil Nadu",
+  },
+  {
+    text: "For nearly a decade, Zigma part of the Blue Planet Group and our sustainability partner, has played a crucial role in advancing the circular economy in our cement manufacturing. I commend them for facilitating the use of over two million tonnes of RDF.",
+    image: mrAjayKapurImg,
+    name: "Mr. Ajay Kapur",
+    role: "CEO, Cement Business, Adani Group",
+    tag: "Adani Group",
+  },
+  {
+    text: "I visited Blue Planet, a Singapore-headquartered company driving sustainability through technology driven solutions, for end-to-end waste management and upcycling. We also made a tour to a wetland park complete with water fountains and a children's playground. The wetland park was in fact a dumping site just a couple of years ago!",
+    image: ganKimYongImg,
+    name: "Gan Kim Yong",
+    role: "Deputy Prime Minister of Singapore",
+    tag: "Singapore",
   },
 ];
 
 const VIDEOS: Video[] = [
   {
-    gradient: "linear-gradient(135deg,#064e3b,#10B981)",
-    label: "Landfill Mining Success",
-    duration: "4:32",
-    title: "From Waste to Wealth",
-    desc: "GreenPath Industries shares how landfill mining opened new revenue streams",
-    author: "Rajesh Kumar · GreenPath Industries",
+    src: videoOne,
+    poster: pictureOne,
+    label: "Site Visit",
+    duration: "Video 1",
+    title: "Transformation At Scale",
+    desc: "Field insights and outcomes from leadership visits to Zigma project sites.",
+    author: "Zigma Testimonials",
     dotColor: "#10B981",
     featured: false,
   },
   {
-    gradient: "linear-gradient(135deg,#047857,#34D399)",
+    src: videoTwo,
+    poster: pictureTwo,
     label: "Featured Story",
-    duration: "8:15",
-    title: "A City Transformed",
-    desc: "How EcoCity municipality eliminated landfill usage in under 2 years—a documentary",
-    author: "Arjun Mehta · EcoCity Municipality",
+    duration: "Video 2",
+    title: "Partners Speak",
+    desc: "A featured testimonial compilation from key government and industry stakeholders.",
+    author: "Zigma Testimonials",
     dotColor: "#34D399",
     featured: true,
-    badge: "⭐ Most Watched",
+    badge: "Featured",
   },
   {
-    gradient: "linear-gradient(135deg,#065F46,#059669)",
-    label: "Industrial Reclamation",
-    duration: "5:47",
-    title: "Bioremediation Excellence",
-    desc: "IndoTech Corp walks through the contamination-to-clean journey",
-    author: "Sunita Desai · IndoTech Corp",
+    src: videoThree,
+    poster: pictureThree,
+    label: "Project Story",
+    duration: "Video 3",
+    title: "Waste To Value",
+    desc: "Ground-level view of remediation progress and circular-economy impact.",
+    author: "Zigma Testimonials",
     dotColor: "#059669",
     featured: false,
   },
@@ -189,135 +243,101 @@ const STATS: Stat[] = [
 
 const WALL_CARDS: WallCard[] = [
   {
-    initials: "RK",
+    initials: "JB",
     gradient: "linear-gradient(135deg,#10B981,#34D399)",
-    name: "Rajesh Kumar",
-    handle: "@rajesh_greenpath · LinkedIn",
+    name: "Ms. Jenny Bates",
+    handle: "@jenny_bates - LinkedIn",
     platform: "linkedin",
-    text: `Just completed our 1-year anniversary with <b>@Zigma_Enviro</b> – our landfill has been reduced by 60%! Best environmental partner we've ever worked with. 🌿 #SustainableBusiness #WasteManagement`,
-    likes: "234",
-    time: "2 hours ago",
-  },
-  {
-    initials: "PS",
-    gradient: "linear-gradient(135deg,#059669,#10B981)",
-    name: "Priya Sharma",
-    handle: "@priya_freshfoods · Twitter",
-    platform: "twitter",
-    text: `Our BSFL facility is now fully operational thanks to <b>@ZigmaBluePlanet</b>. We turned 5 tonnes/day of organic waste into bioprotein. The future of circular economy is here! 🦋`,
-    likes: "189",
-    time: "5 hours ago",
-  },
-  {
-    initials: "AM",
-    gradient: "linear-gradient(135deg,#047857,#10B981)",
-    name: "Arjun Mehta",
-    handle: "@arjun_ecocity · LinkedIn",
-    platform: "linkedin",
-    text: `We declared EcoCity officially landfill-free! This milestone was made possible by our 2-year partnership with <b>@Zigma</b>. Carbon emissions are down 45%. 🌍💚 #EcoCity #ZeroWaste`,
-    likes: "1.2k",
-    time: "1 day ago",
-    tall: true,
-  },
-  {
-    initials: "SD",
-    gradient: "linear-gradient(135deg,#065F46,#059669)",
-    name: "Sunita Desai",
-    handle: "@sunita_indotech · Twitter",
-    platform: "twitter",
-    text: `Bioremediation complete 🎉 Our site went from heavily contaminated to certified clean in 14 months — <b>@ZigmaBluePlanet</b> delivered 3x faster than any previous contractor. #CleanSite`,
-    likes: "312",
+    text: `So impressive - the collaboration, the engineering and the scale. Plus, an excellent impact for the future.`,
+    likes: "2.1k",
     time: "3 days ago",
+    image: socialImg1,
   },
   {
-    initials: "VN",
-    gradient: "linear-gradient(135deg,#10B981,#6EE7B7)",
-    name: "Vikram Nair",
-    handle: "@vikram_cleanearth · LinkedIn",
+    initials: "GF",
+    gradient: "linear-gradient(135deg,#059669,#10B981)",
+    name: "Minister Grace Fu",
+    handle: "@gracefu_sg - LinkedIn",
     platform: "linkedin",
-    text: `Partnered with Zigma for our industrial zone cleanup project. Professional, punctual, and produced results beyond what was scoped. 10/10 would recommend. 🌱`,
-    likes: "445",
+    text: `I am most impressed with the technology involved, especially how we can mine and turn waste into treasure.`,
+    likes: "1.8k",
+    time: "5 days ago",
+    image: socialImg2,
+  },
+  {
+    initials: "RM",
+    gradient: "linear-gradient(135deg,#047857,#10B981)",
+    name: "Ms. Rupa Mishra",
+    handle: "@rupa_mohua - LinkedIn",
+    platform: "linkedin",
+    text: `Looks like a factory site while in reality it is full-scale work going on at the dumpsite in Vizag.`,
+    likes: "1.2k",
     time: "1 week ago",
-  },
-  {
-    initials: "MT",
-    gradient: "linear-gradient(135deg,#059669,#34D399)",
-    name: "Meera Trivedi",
-    handle: "@meera_hydrogro · Twitter",
-    platform: "twitter",
-    text: `Just hosted <b>@ZigmaEnviro</b> for an on-site review of our hydroponic waste-loop system they designed. 18 months in, zero food waste going to landfill. 🌿💧 #CircularEconomy`,
-    likes: "567",
-    time: "2 weeks ago",
-  },
-  {
-    initials: "KR",
-    gradient: "linear-gradient(135deg,#047857,#34D399)",
-    name: "Karan Reddy",
-    handle: "@karan_zerocarbon · LinkedIn",
-    platform: "linkedin",
-    text: `Six months into our ZeroCarbon initiative and we've already offset 12,000 tonnes of CO₂ equivalent. This is what systemic change looks like. 💚🌍 #ZeroCarbon`,
-    likes: "892",
-    time: "3 weeks ago",
-    tall: true,
+    image: socialImg3,
   },
   {
     initials: "AP",
-    gradient: "linear-gradient(135deg,#10B981,#059669)",
-    name: "Aisha Patel",
-    handle: "@aisha_biogreen · Twitter",
-    platform: "twitter",
-    text: `Our BioGreen Labs chose <b>@ZigmaBluePlanet</b> after evaluating 6 other environmental firms. Best decision we made. Their BSFL tech is at least 2 generations ahead. 🔬🌿`,
-    likes: "278",
-    time: "1 month ago",
+    gradient: "linear-gradient(135deg,#065F46,#059669)",
+    name: "Mrs. Almitra H. Patel",
+    handle: "@almitra_sbm - LinkedIn",
+    platform: "linkedin",
+    text: `It is the only site where absolutely zero material is left behind on the cleared area.`,
+    likes: "986",
+    time: "9 days ago",
+    image: socialImg4,
   },
 ];
 
 const EXTRA_CARDS: WallCard[] = [
   {
-    initials: "LP",
-    gradient: "linear-gradient(135deg,#10B981,#059669)",
-    name: "Lakshmi Pillai",
-    handle: "@lakshmi_naturefirst · LinkedIn",
+    initials: "VA",
+    gradient: "linear-gradient(135deg,#10B981,#6EE7B7)",
+    name: "Dr. V. Irai Andu",
+    handle: "@viraiandu_tn - LinkedIn",
     platform: "linkedin",
-    text: `NatureFirst has been working with Zigma for 3 years. Their environmental audit reports are thorough and their remediation team sets the gold standard. 🌿 #GreenFuture`,
+    text: `The site visit was a great learning experience. The project is progressing as per schedule.`,
     likes: "1.1k",
-    time: "5 weeks ago",
+    time: "2 weeks ago",
+    image: socialImg5,
   },
   {
-    initials: "DG",
-    gradient: "linear-gradient(135deg,#047857,#34D399)",
-    name: "Deepak Gupta",
-    handle: "@deepak_opti · Twitter",
-    platform: "twitter",
-    text: `Zigma upgraded our waste processing line and our monthly disposal costs dropped by 70%. The system paid for itself in under a year. Jaw-dropping ROI. 💰🌱`,
-    likes: "398",
-    time: "6 weeks ago",
-  },
-  {
-    initials: "SR",
-    gradient: "linear-gradient(135deg,#065F46,#10B981)",
-    name: "Sneha Rao",
-    handle: "@sneha_zerocarbon · LinkedIn",
+    initials: "SS",
+    gradient: "linear-gradient(135deg,#059669,#34D399)",
+    name: "Ms. Supriya Sahu",
+    handle: "@supriya_sahu - LinkedIn",
     platform: "linkedin",
-    text: `Zero Waste certification achieved! After implementing Zigma's circular economy framework, we now have zero materials going to landfill. 🏆 #CircularEconomy #ZeroWaste`,
-    likes: "2.3k",
-    time: "2 months ago",
+    text: `The visit to the Zigma facility was a strong learning experience. The task is huge and the facility is impressive.`,
+    likes: "1.4k",
+    time: "2 weeks ago",
+    image: socialImg6,
   },
   {
-    initials: "BN",
-    gradient: "linear-gradient(135deg,#059669,#6EE7B7)",
-    name: "Balaji Nair",
-    handle: "@balaji_solarair · Twitter",
-    platform: "twitter",
-    text: `Integration of our solar farm with Zigma's waste-to-energy grid was seamless. 40% of our power now comes from secondary recovered sources. 🌞♻️`,
-    likes: "512",
-    time: "2 months ago",
+    initials: "AK",
+    gradient: "linear-gradient(135deg,#047857,#34D399)",
+    name: "Mr. Ajay Kapur",
+    handle: "@ajaykapur_adani - LinkedIn",
+    platform: "linkedin",
+    text: `For nearly a decade, Zigma has played a crucial role in advancing circular economy outcomes in cement manufacturing.`,
+    likes: "1.6k",
+    time: "3 weeks ago",
+    image: socialImg7,
+  },
+  {
+    initials: "GK",
+    gradient: "linear-gradient(135deg,#10B981,#059669)",
+    name: "Gan Kim Yong",
+    handle: "@gankimyong - LinkedIn",
+    platform: "linkedin",
+    text: `Technology-driven end-to-end waste management and upcycling can transform even former dumping sites.`,
+    likes: "2.4k",
+    time: "1 month ago",
+    image: socialImg8,
   },
 ];
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    ICONS
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const StatIcons: Record<StatIconType, React.ComponentType<any>> = {
   globe: Globe,
   leaf: Leaf,
@@ -327,9 +347,9 @@ const StatIcons: Record<StatIconType, React.ComponentType<any>> = {
   award: Award,
 };
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    HOOKS
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function useInView(
   ref: React.RefObject<HTMLElement | null>,
   threshold = 0.15
@@ -374,9 +394,9 @@ function useCounter(
   return val;
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    SUB-COMPONENTS
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 interface StatCardProps {
   stat: Stat;
@@ -463,27 +483,31 @@ const WallCardItem: FC<WallCardProps> = ({ card, delay = 0 }) => (
             card.platform === "linkedin" ? "bg-blue-600" : "bg-black"
           )}
         >
-          {card.platform === "linkedin" ? "in" : "𝕏"}
+          {card.platform === "linkedin" ? "in" : "ð•"}
         </div>
       </div>
       <p
         className="mb-3.5 text-sm leading-relaxed text-muted-foreground"
         dangerouslySetInnerHTML={{ __html: card.text }}
       />
-      {card.tall && (
-        <div className="mb-3.5 h-32 rounded-xl border border-primary/20 bg-primary/10" />
+      {card.image && (
+        <img
+          src={card.image}
+          alt={card.name}
+          className="mb-3.5 h-36 w-full rounded-xl border border-border/60 object-cover"
+        />
       )}
       <div className="flex items-center justify-between border-t border-border/60 pt-3">
-        <span className="text-xs text-muted-foreground">❤ {card.likes}</span>
+        <span className="text-xs text-muted-foreground"> {card.likes}</span>
         <span className="text-xs text-muted-foreground">{card.time}</span>
       </div>
     </div>
   </Reveal>
 );
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    MAIN COMPONENT
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const Testimonials: FC = () => {
   /* Slider state */
   const [current, setCurrent] = useState<number>(0);
@@ -541,6 +565,7 @@ const Testimonials: FC = () => {
 
   /* Video modal */
   const [videoOpen, setVideoOpen] = useState<boolean>(false);
+  const [selectedVideo, setSelectedVideo] = useState<Video>(VIDEOS[0]);
 
   /* Social wall */
   const [wallCards, setWallCards] = useState<WallCard[]>(WALL_CARDS);
@@ -559,8 +584,40 @@ const Testimonials: FC = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="scroll-pt-24">
-        {/* ════════ FEATURED TESTIMONIALS ════════ */}
-        <section className="mx-auto max-w-5xl px-8 py-24 text-center">
+        <section
+          data-no-animate
+          className="relative flex min-h-[90vh] items-center overflow-hidden pt-20"
+        >
+          <img
+            src={bg}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+          {/* <div
+            className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/50 to-black/35"
+            aria-hidden="true"
+          /> */}
+
+          <div className="container-main relative text-center">
+            <Reveal className="mx-auto max-w-3xl">
+              <div className="text-sm font-medium uppercase tracking-[0.35em] text-white/85">
+                Testimonials
+              </div>
+              <h1 className="mt-3 text-4xl font-bold leading-tight text-white md:text-5xl">
+                Voices That Validate Our Impact
+              </h1>
+              <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
+                Hear directly from global leaders, public officials, and partners
+                who have witnessed our waste-to-value transformation.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+        {/* FEATURED TESTIMONIALS  */}
+        <section className="section-padding">
+          <div className="container-main text-center">
           <Reveal className="inline-flex items-center gap-2">
             <span className="text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
               Featured Testimonials
@@ -580,7 +637,7 @@ const Testimonials: FC = () => {
           </Reveal>
 
           <div
-            className="relative mt-12 overflow-hidden rounded-2xl"
+            className="relative mt-6 overflow-hidden rounded-2xl"
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
           >
@@ -589,15 +646,15 @@ const Testimonials: FC = () => {
                 key={i}
                 style={{ display: i === current ? "block" : "none" }}
               >
-                <div className="relative overflow-hidden rounded-2xl border border-border bg-white p-14 shadow-lg md:p-16">
+                <div className="relative h-[460px] md:h-[460px]  overflow-hidden rounded-2xl border border-border bg-white p-14 shadow-lg md:p-16">
                   <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-primary to-primary/70" />
                   <div className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-gradient-to-br from-primary/15 to-transparent blur-3xl" />
 
-                  <div className="relative z-10">
+                  <div className="relative z-10 flex h-full flex-col">
                     <div className="mb-8 opacity-75">
                       <svg
-                        width="48"
-                        height="48"
+                        width="30"
+                        height="30"
                         viewBox="0 0 48 48"
                         fill="none"
                       >
@@ -616,17 +673,16 @@ const Testimonials: FC = () => {
                       </svg>
                     </div>
 
-                    <p className="mb-9 text-lg italic leading-relaxed text-muted-foreground md:text-xl">
+                    <p className=" flex-1 overflow-y-auto pr-1 text-lg italic  text-muted-foreground md:text-xl">
                       {s.text}
                     </p>
 
                     <div className="flex flex-wrap items-center gap-5">
-                      <div
-                        className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full text-white text-sm font-bold shadow-md"
-                        style={{ background: s.gradient }}
-                      >
-                        {s.initials}
-                      </div>
+                      <img
+                        src={s.image}
+                        alt={s.name}
+                        className="h-32 w-32 flex-shrink-0 rounded-full object-cover shadow-md"
+                      />
                       <div className="flex flex-col gap-0.5">
                         <strong className="text-base font-bold text-foreground">
                           {s.name}
@@ -635,7 +691,7 @@ const Testimonials: FC = () => {
                           {s.role}
                         </span>
                         <div className="mt-1 text-lg tracking-wider text-amber-400">
-                          ★★★★★
+                          {"\u2605\u2605\u2605\u2605\u2605"}
                         </div>
                       </div>
                       <div className="ml-auto rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
@@ -647,7 +703,6 @@ const Testimonials: FC = () => {
               </div>
             ))}
 
-            {/* Slider Controls */}
             <div className="mt-8 flex items-center justify-center gap-5">
               <button
                 onClick={handlePrev}
@@ -689,11 +744,13 @@ const Testimonials: FC = () => {
               />
             </div>
           </div>
+          </div>
         </section>
 
-        {/* ════════ VIDEO TESTIMONIALS ════════ */}
-        <section className="relative overflow-hidden bg-muted/30 px-8 py-24 text-center">
+        {/* â•â•â•â•â•â•â•â• VIDEO TESTIMONIALS â•â•â•â•â•â•â•â• */}
+        <section className="relative overflow-hidden bg-muted/30">
           <div className="pointer-events-none absolute -right-32 -top-40 h-96 w-96 rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-3xl" />
+          <div className="container-main section-padding text-center">
 
           <Reveal className="inline-flex items-center gap-2">
             <span className="text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
@@ -713,12 +770,15 @@ const Testimonials: FC = () => {
             </p>
           </Reveal>
 
-          <div className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {VIDEOS.map((v: Video, i: number) => (
               <Reveal key={i} className="group">
                 <div
                   className="overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:-translate-y-1.5 hover:shadow-xl cursor-pointer"
-                  onClick={() => setVideoOpen(true)}
+                  onClick={() => {
+                    setSelectedVideo(v);
+                    setVideoOpen(true);
+                  }}
                 >
                   <div
                     className={cn(
@@ -726,10 +786,12 @@ const Testimonials: FC = () => {
                       v.featured ? "h-64" : "h-48"
                     )}
                   >
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: v.gradient }}
+                    <img
+                      src={v.poster}
+                      alt={v.title}
+                      className="absolute inset-0 h-full w-full object-cover"
                     />
+                    <div className="absolute inset-0 bg-black/35" />
 
                     <div className="absolute left-4 top-4 rounded-full bg-black/45 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
                       {v.label}
@@ -777,6 +839,7 @@ const Testimonials: FC = () => {
               </Reveal>
             ))}
           </div>
+          </div>
         </section>
 
         {/* Video Modal */}
@@ -796,18 +859,23 @@ const Testimonials: FC = () => {
               >
                 <X size={20} />
               </button>
-              <div className="flex min-h-96 items-center justify-center px-8 py-12">
-                <div className="text-center">
-                  <Play size={56} className="mx-auto mb-4 text-muted-foreground" />
-                  <p className="text-muted-foreground">Video player would load here.</p>
-                </div>
+              <div className="aspect-video w-full bg-black">
+                <video
+                  key={selectedVideo.src}
+                  src={selectedVideo.src}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="h-full w-full"
+                />
               </div>
             </div>
           </div>
         )}
 
-        {/* ════════ SOCIAL PROOF WALL ════════ */}
-        <section className="mx-auto max-w-6xl px-8 py-24 text-center">
+        {/* â•â•â•â•â•â•â•â• SOCIAL PROOF WALL â•â•â•â•â•â•â•â• */}
+        <section className="section-padding">
+          <div className="container-main text-center">
           <Reveal className="inline-flex items-center gap-2">
             <span className="text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
               Social Proof
@@ -828,7 +896,7 @@ const Testimonials: FC = () => {
           </Reveal>
 
 
-          <div className="columns-1 gap-6 md:columns-2 lg:columns-4 mt-12">
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {wallCards.map((c: WallCard, i: number) => (
               <WallCardItem key={i} card={c} delay={(i % 4) * 0.06} />
             ))}
@@ -851,7 +919,7 @@ const Testimonials: FC = () => {
                   <ChevronDown size={18} />
                 </>
               )}
-              {loadState === "loading" && <span>Loading…</span>}
+              {loadState === "loading" && <span>Loadingâ€¦</span>}
               {loadState === "done" && (
                 <>
                   <span>All Reviews Loaded</span>
@@ -859,6 +927,7 @@ const Testimonials: FC = () => {
                 </>
               )}
             </button>
+          </div>
           </div>
         </section>
       </main>
@@ -868,3 +937,7 @@ const Testimonials: FC = () => {
 };
 
 export default Testimonials;
+
+
+
+
