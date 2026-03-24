@@ -10,6 +10,8 @@ import product2 from "@/assets/website/stone.jpg";
 import product3 from "@/assets/website/soil.jpg";
 import product4 from "@/assets/website/glass.jpg";
 import product5 from "@/assets/website/Ferrous.jpg";
+import productRdf from "@/assets/services/Refuse-Derived Fuel.png";
+import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
 import img4 from "@/assets/website/hero/Furnitures.png";
 
 import bg1 from "@/assets/background-1.png"; 
@@ -17,6 +19,38 @@ import bg1 from "@/assets/background-1.png";
 const SLOW_EASE = "power2.out";
 
 const products = [
+  {
+    id: 101,
+    name: "Refuse-Derived Fuel",
+    tagline: "High-Calorific Recovery",
+    description: "Engineered refuse-derived fuel processed from non-recyclable waste streams for efficient co-processing in industrial kilns and energy recovery systems.",
+    image: productRdf,
+    color: "from-orange-600 to-orange-800",
+    features: [
+      "Consistent calorific value",
+      "Moisture-controlled output",
+      "Reduced landfill dependency",
+      "Industrial-grade processing"
+    ],
+    applications: ["Cement Kilns", "Waste-to-Energy", "Industrial Boilers", "Co-processing Units"],
+    icon: Recycle
+  },
+  {
+    id: 102,
+    name: "Alternative fuel derivative feedstocks",
+    tagline: "Circular Energy Inputs",
+    description: "Pre-processed alternative fuel derivative feedstocks designed for thermal substitution and circular fuel programs across energy-intensive industries.",
+    image: productAfd,
+    color: "from-emerald-600 to-emerald-800",
+    features: [
+      "Segregated and pre-processed",
+      "Optimized burn characteristics",
+      "Reliable bulk supply",
+      "Supports decarbonization goals"
+    ],
+    applications: ["Thermal Substitution", "Industrial Furnaces", "Energy Recovery", "Alternative Fuel Blends"],
+    icon: Leaf
+  },
   {
     id: 1,
     name: "Bio Earth",

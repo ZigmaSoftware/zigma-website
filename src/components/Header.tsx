@@ -2,10 +2,45 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
+import landfillManagement from "@/assets/windrow.jpg";
+import wetWaste from "@/assets/fresh waste.jpg.jpeg";
+import herobg from "@/assets/website/hero/noida-present-hero.jpg";
+import machine from "@/assets/services/machinery.jpeg";
+import iot from "@/assets/services/WB.png";
+import bsfl from "@/assets/Bsfl.png";
+import productRdf from "@/assets/services/Refuse-Derived Fuel.png";
+import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
+import productBioEarth from "@/assets/website/goodearth.jpg";
+import productInertStones from "@/assets/website/stone.jpg";
+import productInertSoil from "@/assets/website/soil.jpg";
+import productGlass from "@/assets/website/glass.jpg";
+import productIron from "@/assets/website/Ferrous.jpg";
+import productFurniture from "@/assets/website/hero/Furnitures.png";
+
+
+/* ── Types ─────────────────────────────────────────────────── */
+interface DropdownItem {
+  name: string;
+  path: string;
+  image?: string;
+}
+
+interface NavItem {
+  name: string;
+  path: string;
+  megaMenu?: boolean;
+  dropdown?: DropdownItem[];
+}
+
+const splitIntoTwoRows = <T,>(items: T[]): [T[], T[]] => {
+  const midpoint = Math.ceil(items.length / 2);
+  return [items.slice(0, midpoint), items.slice(midpoint)];
+};
 
 /* NAV ITEMS */
 
-const navItems = [
+const navItems: NavItem[] = [
   { name: "Home", path: "/" },
 
   { name: "About Us", path: "/about" },
@@ -13,22 +48,73 @@ const navItems = [
   {
     name: "Services",
     path: "/services",
+    megaMenu: true,
     dropdown: [
-      { name: "Landfill Mining and Remediation", path: "/services" },
-      { name: "Landfill Management", path: "/services#landfill-management" },
-      { name: "Fresh Waste Management and Processing", path: "/services#wet-waste" },
-      { name: "BSFL Based Organic Waste Management", path: "/services#Bsfl" },
-      { name: "Machinery Sales & Rentals", path: "/services#machinery" },
-      { name: "IOT Systems for Waste Management", path: "/services#iot" },
-      // { name: "Integrated Alternative Fuel Solutions", path: "/services#energy" },
-      // { name: "Waste-to-Energy", path: "/services#wtw" },
-      // { name: "Industrial & Commercial Waste Solutions", path: "/services#industrial" },
-      // { name: "EPR", path: "/services#epr" },
-  
+      {
+        name: "Landfill Mining and Remediation",
+        path: "/services",
+        image: landfillMining,
+        },
+      {
+        name: "Landfill Management",
+        path: "/services#landfill-management",
+        image: landfillManagement,
+      },
+      {
+        name: "Fresh Waste Management and Processing",
+        path: "/services#wet-waste",
+        image: wetWaste,
+      },
+      {
+        name: "BSFL Based Organic Waste Management",
+        path: "/services#Bsfl",
+        image: bsfl,
+      },
+      {
+        name: "Machinery Sales & Rentals",
+        path: "/services#machinery",
+        image: machine,
+      },
+      {
+        name: "IOT Systems for Waste Management",
+        path: "/services#iot",
+        image: iot,
+      },
+      {
+        name: "Integrated Alternative Fuel Solutions",
+        path: "/services#alt-fuel",
+        // image: "https://images.pexels.com/photos/27904916/pexels-photo-27904916.jpeg",
+      },
+      {
+        name: "Industrial & Commercial Waste Solutions",
+        path: "/services#industrial",
+        // image: "https://images.pexels.com/photos/27904916/pexels-photo-27904916.jpeg",      
+      },
+      {
+        name: "EPR Responsibility Services",
+        path: "/services#epr",
+        // image: "https://images.pexels.com/photos/27904916/pexels-photo-27904916.jpeg",
+      },
+      
+
     ],
   },
 
-  { name: "Products", path: "/products" },
+    {
+    name: "Products",
+    path: "/products",
+    megaMenu: true,
+    dropdown: [
+      { name: "Refuse-Derived Fuel", path: "/products", image: productRdf },
+      { name: "Alternative fuel derivative feedstocks", path: "/products", image: productAfd },
+      { name: "Bio Earth", path: "/products", image: productBioEarth },
+      { name: "Inert Stones", path: "/products", image: productInertStones },
+      { name: "Inert Soil", path: "/products", image: productInertSoil },
+      { name: "Glass scrap", path: "/products", image: productGlass },
+      { name: "Iron Scrap", path: "/products", image: productIron },
+      { name: "Recycled Furniture", path: "/products", image: productFurniture },
+    ],
+  },
 
   { name: "Projects", path: "/project-showcase" ,
   // dropdown: [
@@ -142,7 +228,11 @@ const Header = () => {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    }, []);
+
+  const activeMegaMenuItem = navItems.find(
+    (item) => item.name === activeDropdown && item.megaMenu && item.dropdown
+  );
 
   return (
     <header className="sticky top-0 inset-x-0 z-[80] bg-background/95 backdrop-blur border-b border-border">
@@ -169,7 +259,10 @@ const Header = () => {
               dropdownRef.current = el;
               navRef.current = el;
             }}
-            onMouseLeave={resetIndicatorToActive}
+            onMouseLeave={() => {
+              resetIndicatorToActive();
+              setActiveDropdown(null);
+            }}
           >
 
             {/* Sliding Indicator */}
@@ -183,16 +276,15 @@ const Header = () => {
               }}
             />
 
-            {navItems.map((item) => (
+                        {navItems.map((item) => (
 
               <div
                 key={item.name}
-                className="relative"
+                className={item.megaMenu ? "static" : "relative"}
                 ref={(el) => {
                   itemRefs.current[item.name] = el;
                 }}
                 onMouseEnter={() => updateIndicatorToItem(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
               >
 
                 {item.dropdown ? (
@@ -232,12 +324,9 @@ const Header = () => {
 
                 {/* DROPDOWN */}
 
-                {item.dropdown && activeDropdown === item.name && (
-
-                  <div className="absolute top-full left-0 z-50 w-max min-w-[200px] bg-card border border-border rounded-md shadow-xl p-2">
-
+                {item.dropdown && !item.megaMenu && activeDropdown === item.name && (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 z-50 w-max min-w-[200px] bg-card border border-border rounded-md shadow-xl p-2">
                     {item.dropdown.map((sub) => (
-
                       <Link
                         key={sub.name}
                         to={sub.path}
@@ -246,16 +335,57 @@ const Header = () => {
                       >
                         {sub.name}
                       </Link>
-
                     ))}
-
                   </div>
-
                 )}
 
               </div>
 
             ))}
+
+            {activeMegaMenuItem?.dropdown && (
+              <div
+                className="absolute top-full left-1/2 -translate-x-1/2 z-50 bg-white border border-border rounded-xl shadow-2xl p-6"
+                style={{ width: "clamp(760px, 88vw, 1200px)" }}
+              >
+                <p className="text-[0.65rem] font-bold tracking-widest text-muted-foreground uppercase mb-5 px-1">
+                  {`Our ${activeMegaMenuItem.name}`}
+                </p>
+
+                <div className="space-y-5">
+                  {splitIntoTwoRows(activeMegaMenuItem.dropdown).map((row, rowIndex) => (
+                    <div key={`row-${rowIndex}`} className="grid grid-cols-5 gap-4">
+                      {row.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          to={sub.path}
+                          onClick={() => setActiveDropdown(null)}
+                          className="group flex flex-col gap-2 rounded-lg overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        >
+                          <div className="relative overflow-hidden rounded-lg bg-muted aspect-[16/9]">
+                            {sub.image ? (
+                              <img
+                                src={sub.image}
+                                alt={sub.name}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-secondary" />
+                            )}
+                            <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
+                          </div>
+
+                          <span className="text-[0.9rem] font-medium text-foreground text-center group-hover:text-primary transition-colors duration-200 leading-snug px-1 pb-1">
+                            {sub.name}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
           </nav>
 
@@ -288,61 +418,116 @@ const Header = () => {
 
           <nav className="lg:hidden py-4 border-t border-border max-h-[70vh] overflow-y-auto">
 
-            {navItems.map((item) => (
+                        {navItems.map((item) => (
 
-              <div key={item.name}>
+              <div
+                key={item.name}
+                className={item.megaMenu ? "static" : "relative"}
+                ref={(el) => {
+                  itemRefs.current[item.name] = el;
+                }}
+                onMouseEnter={() => updateIndicatorToItem(item.name)}
+              >
 
-                <Link
-                  to={item.path}
-                  className={`block py-3 px-4 text-sm text-bold ${
-                    isActive(item.path)
-                      ? "text-primary "
-                      : "text-foreground"
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
+                {item.dropdown ? (
 
-                {item.dropdown && (
+                  <button
+                    onMouseEnter={() => setActiveDropdown(item.name)}
+                    className={`flex items-center gap-1 py-4 text-sm font-medium transition-colors whitespace-nowrap ${
+                      isActive(item.path)
+                        ? "text-primary"
+                        : "text-foreground hover:text-primary"
+                    }`}
+                  >
+                    {item.name}
 
-                  <div className="pl-6 pb-2">
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${
+                        activeDropdown === item.name ? "rotate-180" : ""
+                      }`}
+                    />
 
+                  </button>
+
+                ) : (
+
+                  <Link
+                    to={item.path}
+                    className={`flex items-center py-4 text-sm font-medium transition-colors whitespace-nowrap ${
+                      isActive(item.path)
+                        ? "text-primary"
+                        : "text-foreground hover:text-primary"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+
+                )}
+
+                {/* DROPDOWN */}
+
+                {item.dropdown && !item.megaMenu && activeDropdown === item.name && (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 z-50 w-max min-w-[200px] bg-card border border-border rounded-md shadow-xl p-2">
                     {item.dropdown.map((sub) => (
-
                       <Link
                         key={sub.name}
                         to={sub.path}
-                        className="block py-2 text-sm text-muted-foreground hover:text-primary"
-                        onClick={() => setIsMenuOpen(false)}
+                        className="block px-4 py-2 text-sm hover:text-primary"
+                        onClick={() => setActiveDropdown(null)}
                       >
                         {sub.name}
                       </Link>
-
                     ))}
-
                   </div>
-
                 )}
 
               </div>
 
             ))}
 
-            <div className="mt-4 px-4">
+            {activeMegaMenuItem?.dropdown && (
+              <div
+                className="absolute top-full left-1/2 -translate-x-1/2 z-50 bg-white border border-border rounded-xl shadow-2xl p-6"
+                style={{ width: "clamp(760px, 88vw, 1200px)" }}
+              >
+                <p className="text-[0.65rem] font-bold tracking-widest text-muted-foreground uppercase mb-5 px-1">
+                  {`Our ${activeMegaMenuItem.name}`}
+                </p>
 
-              <Button asChild className="w-full">
+                <div className="space-y-5">
+                  {splitIntoTwoRows(activeMegaMenuItem.dropdown).map((row, rowIndex) => (
+                    <div key={`row-${rowIndex}`} className="grid grid-cols-5 gap-4">
+                      {row.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          to={sub.path}
+                          onClick={() => setActiveDropdown(null)}
+                          className="group flex flex-col gap-2 rounded-lg overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        >
+                          <div className="relative overflow-hidden rounded-lg bg-muted aspect-[16/9]">
+                            {sub.image ? (
+                              <img
+                                src={sub.image}
+                                alt={sub.name}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-secondary" />
+                            )}
+                            <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
+                          </div>
 
-                <Link
-                  to="/contact"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Get in Touch
-                </Link>
-
-              </Button>
-
-            </div>
+                          <span className="text-[0.9rem] font-medium text-foreground text-center group-hover:text-primary transition-colors duration-200 leading-snug px-1 pb-1">
+                            {sub.name}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
           </nav>
 

@@ -188,7 +188,7 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
         const isHighlighted = index === highlightedIndex;
         const isTooltipVisible = isActive || (!activeState && isHighlighted);
         const data = stateData[stateId];
-        const pinColor = "hsl(145, 63%, 32%)";
+        const pinColor = "hsl(0, 0%, 60%)";
         const tooltipTitle = data?.name || stateId;
         const districts = data?.districts || [];
 
@@ -260,7 +260,7 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
               cx={centroid.x}
               cy={centroid.y}
               r="10"
-              fill={pinColor}
+              fill="#16a34a" 
               opacity="0.3"
               className="animate-marker-pulse"
               style={{ animationDelay: `${index * 0.12}s` }}
@@ -317,7 +317,7 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
                   <div className="flex gap-2.5 items-start mb-2.5">
                     <div
                       className="w-2.5 h-2.5 rounded-full flex-shrink-0 mt-1 shadow-sm"
-                      style={{ background: pinColor, boxShadow: "0 0 0 4px rgba(5,146,54,0.10)" }}
+                      style={{ background: "#16a34a", boxShadow: "0 0 0 4px rgba(5,146,54,0.10)" }}
                     />
                     <div className="min-w-0">
                       <div

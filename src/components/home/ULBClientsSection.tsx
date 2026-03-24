@@ -125,7 +125,7 @@ export default function ULBClientsSection() {
       <div className="container-main relative">
         <div className="text-center">
           <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
-            Our Assumed Clients
+           Our esteemed Clients
           </p>
 
           <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">

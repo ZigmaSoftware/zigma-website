@@ -22,20 +22,20 @@ import img10 from '@/assets/website/hero/controll room.png';
 import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
 
 import picture1 from '@/assets/Leaders/Mr. Boopathy Dharmaraj.jpeg';
-import picture2 from '@/assets/Leaders/Mr. K P Mutharasu.jpeg';
-import picture3 from '@/assets/Leaders/Mr. ANAND THANGARAJ.jpeg';
-import picture4 from '@/assets/Leaders/Mr. KTI.jpeg';
+import picture2 from '@/assets/Leaders/Mr. K P Mutharasu.png';
+import picture3 from '@/assets/Leaders/Mr. ANAND THANGARAJ.png';
+import picture4 from '@/assets/Leaders/Mr. KTI.png';
 import picture5 from '@/assets/Leaders/Mr. NAGESH PRABHU.jpeg';
-import picture6 from '@/assets/Leaders/Mr. Aghoramoorthy Rajasekaran.jpeg';
+import picture6 from '@/assets/Leaders/Mr. Aghoramoorthy Rajasekaran.png';
 import picture7 from '@/assets/Leaders/Mr. Sridhar Jagannathan.jpeg';
 import picture10 from '@/assets/Leaders/Mr. Prashant Singh.jpeg';
-import picture11 from '@/assets/Leaders/Mr. Shankar Raman.jpeg';
+import picture11 from '@/assets/Leaders/Mr. Shankar Raman.png';
 // import picture12 from '@/assets/Mr. Mohan Kumar.png';
-import picture13 from '@/assets/Leaders/Mr. Varun Boralkar.jpeg';
+import picture13 from '@/assets/Leaders/Mr. Varun Boralkar.png';
 import picture14 from '@/assets/website/Mr. Maran.png';
-import picture15 from '@/assets/Leaders/Mr. Senthil Annamalai.jpeg';
-import picture16 from '@/assets/Leaders/Vijayan.jpeg';
-import picture17 from '@/assets/Leaders/Mohan kumar.jpeg';
+import picture15 from '@/assets/Leaders/Senthil Annamalai.png';
+import picture16 from '@/assets/Leaders/Vijayan.png';
+import picture17 from '@/assets/Leaders/Mohan kumar.png';
 import picture18 from '@/assets/Leaders/Shivashankar Pandian.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -69,7 +69,7 @@ const milestones: Milestone[] = [
     title: 'The Foundation',
     description: [
       'March: Zigma Global Environ Solutions Pvt. Ltd. was founded.',
-      "May: Awarded the Kumbakonam biomining project for 1.3 lakh mÂ³, India's first ever integrated landfill mining project executed on zero residue methodology.",
+      "May: Awarded the Kumbakonam biomining project for 1.3 lakh m³, India's first ever integrated landfill mining project executed on zero residue methodology.",
       'July: Invited by the Ministry of Urban Development (Govt. of India) to present in workshops for first Swachh Survekshan 2017 for Bio-mining across 500 cities in India.',
     ],
     image: img1,
@@ -210,13 +210,13 @@ const leaders: Leader[] = [
     designation: 'Director',
     linkedin: 'https://www.linkedin.com/in/anand-thangaraj-9b1a8614a/',
   },
-  {
-    group: 'Promoters and CoFounders',
-    name: 'Prashant Singh',
-    image: picture10,
-    designation: 'Director',
-    linkedin: 'https://www.linkedin.com/in/prashantsingh4/',
-  },
+  // {
+  //   group: 'Promoters and CoFounders',
+  //   name: 'Prashant Singh',
+  //   image: picture10,
+  //   designation: 'Director',
+  //   linkedin: 'https://www.linkedin.com/in/prashantsingh4/',
+  // },
   {
     group: 'Promoters and CoFounders',
     name: 'K.P Mutharasu',
@@ -635,7 +635,7 @@ const About = (): JSX.Element => {
                   <ul className="h-[170px] list-disc space-y-2 overflow-y-auto pl-5 pr-2 text-sm leading-relaxed text-slate-600 lg:h-[220px] lg:text-lg">
                     {currentMilestone.description.map((item) => {
                       const keyPattern =
-                        /\b(January|February|March|April|May|June|July|August|September|October|November|December|Swachh Survekshan 2017|Frost & Sullivan 2016 Award|AVPN South Asia Summit 2024|Chief Minister's award|World Bank|Novo Holdings|Blue Planet|Forcebel|Kumbakonam|Sembakkam|Pammal|Vijayawada|Vadodara|NOIDA|Nagpur|Trichy|Erode|Tirupati|Visakhapatnam|Karaikudi|Karur|Cuddalore|Dindigul|Perungudi|Puducherry|ITC|Guwahati|Kodungaiyur|Kozhikode|Kerala SWMP|Kureepuzha|Kollam|RDF|CCC|Zigma)\b|\b\d[\d,.]*\+?\s*(?:acres?|tons?|tonnes?|TPH|m³|lakh|million|cities?|municipalities|sites?)\b/g;
+                        /(\b(?:January|February|March|April|May|June|July|August|September|October|November|December|Swachh Survekshan 2017|Frost & Sullivan 2016 Award|AVPN South Asia Summit 2024|Chief Minister's award|World Bank|Novo Holdings|Blue Planet|Forcebel|Kumbakonam|Sembakkam|Pammal|Vijayawada|Vadodara|NOIDA|Nagpur|Trichy|Erode|Tirupati|Visakhapatnam|Karaikudi|Karur|Cuddalore|Dindigul|Perungudi|Puducherry|ITC|Guwahati|Kodungaiyur|Kozhikode|Kerala SWMP|Kureepuzha|Kollam|RDF|CCC|Zigma)\b|\b\d[\d,.]*\+?\s*(?:acres?|tons?|tonnes?|TPH|m�|lakh|million|cities?|municipalities|sites?)\b)/g;
                       const highlightKeyWords = (text: string) => {
                         const parts = text.split(keyPattern);
                         return parts.map((part, index) => {

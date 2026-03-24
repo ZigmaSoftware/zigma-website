@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Factory, Recycle, Cog, Cpu, Layers, Sprout, ArrowRight } from "lucide-react";
+import { Factory, Recycle, Cog, Cpu, Layers, Sprout, ArrowRight, CheckCircle2, Fuel, Trash2} from "lucide-react";
 import { Link } from "react-router-dom";
 import Reveal from "@/components/animation/Reveal";
 
@@ -22,21 +22,21 @@ const services = [
     id: "fresh-waste",
     title: "Fresh Waste Management and Processing",
     description:
-      "Organic waste processing systems converting biodegradable waste into compost.",
+      "Waste processing systems converting biodegradable waste into compost/gas, non-biodegradables into refuse derived fuel and channelising recyclables into circularity solutions. ",
     icon: Recycle,
   },
   {
     id: "bsfl-organic-waste",
     title: "BSFL Based Organic Waste Management",
     description:
-      "High-efficiency organic waste treatment using Black Soldier Fly larvae technology.",
+      "High-efficiency organic waste treatment using Black Soldier Fly larvae technology to derive highly enriched manure, frass and BSF larvae as protein supplements. ",
     icon: Sprout,
   },
   {
     id: "machinery-sales-rentals",
     title: "Machinery Sales & Rentals",
     description:
-      "Industrial machinery supply and rental support for waste processing operations.",
+      "Industrial waste management machinery supplies and rental support for waste processing operations.",
     icon: Cog,
   },
   {
@@ -46,28 +46,28 @@ const services = [
       "Smart monitoring systems delivering real-time waste analytics and optimization.",
     icon: Cpu,
   },
-  // {
-  //   id: "alternative-fuel-solutions",
-  //   title: "Integrated Alternative Fuel Solutions",
-  //   description:
-  //     "Supply of Alternative Fuel with preprocessing facility, operations & maintenance services.",
-  //   icon: Fuel,
-  // },
-  // {
-  //   id: "industrial-commercial-waste",
-  //   title: "Industrial & Commercial Waste Solutions",
-  //   description:
-  //     "Comprehensive waste management for hazardous and non-hazardous waste from manufacturers & end users.",
-  //   icon: Trash2,
-  // },
-  // {
-  //   id: "epr-responsibility",
-  //   title: "EPR ",
-  //   // title: "EPR (Extended Producer Responsibility)",
-  //   description:
-  //     "Extended Producer Responsibility - Sustainable producer responsibility programs ensuring end-of-life product management and recycling.",
-  //   icon: CheckCircle2,
-  // },
+  {
+    id: "alternative-fuel-solutions",
+    title: "Integrated Alternative Fuel Solutions",
+    description:
+      "Supply of alternative fuel along with preprocessing facilities, establishment, operations and maintenance services, and related support services delivered as an integrated solution.",
+    icon: Fuel,
+  },
+  {
+    id: "industrial-commercial-waste",
+    title: "Industrial & Commercial Waste Solutions",
+    description:
+      "Comprehensive waste management for hazardous and non-hazardous waste from manufacturers & end users.",
+    icon: Trash2,
+  },
+  {
+    id: "epr-responsibility",
+    title: "EPR ",
+    // title: "EPR (Extended Producer Responsibility)",
+    description:
+      "Extended Producer Responsibility - Sustainable producer responsibility programs ensuring end-of-life product management and recycling.",
+    icon: CheckCircle2,
+  },
 ];
 
 const cardAnimation = {

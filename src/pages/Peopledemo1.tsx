@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { TrendingUp, BarChart3, Users } from "lucide-react";
 import bg from "@/assets/background-1.png";
-import newyear from "@/assets";
+// import newyear from "@/assets";
 
 /* ───────── Media Import (Images + Videos) ───────── */
 
@@ -78,8 +78,8 @@ type CardHeight = (typeof CARD_HEIGHTS)[number];
 
 const heightMap: Record<CardHeight, string> = {
   tall: "h-[340px] lg:h-[300px] md:h-[240px] sm:h-[200px]",
-  medium: "h-[280px] lg:h-[250px] md:h-[200px] sm:h-[160px]",
-  short: "h-[220px] lg:h-[200px] md:h-[160px] sm:h-[120px]"
+  // medium: "h-[280px] lg:h-[250px] md:h-[200px] sm:h-[160px]",
+  // short: "h-[220px] lg:h-[200px] md:h-[160px] sm:h-[120px]"
 };
 
 /* ───────── Scroll Column ───────── */
@@ -137,14 +137,13 @@ const ScrollColumn = ({ images, isMiddle = false }: { images: MediaType[], isMid
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex flex-col gap-5 w-full pr-2">
+      <div className="flex flex-col gap-2 w-full pr-2">
         {cards.map(({ img, height }, i) => (
           <div
             key={i}
-            className={`relative rounded-[18px] overflow-hidden flex-shrink-0 border border-white/70
-            shadow-[0_4px_16px_rgba(31,38,135,0.08),0_1px_3px_rgba(0,0,0,0.06)]
-            group cursor-pointer transition-all duration-300 hover:scale-[1.03]
-            hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(31,38,135,0.18)]
+            className={`relative rounded-lg overflow-hidden flex-shrink-0 border border-white/70
+          
+            group cursor-pointer transition-all duration-300
             ${heightMap[height]}`}
           >
             {img.type === "video" ? (
@@ -171,7 +170,7 @@ const ScrollColumn = ({ images, isMiddle = false }: { images: MediaType[], isMid
               />
             )}
 
-            <div className="absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-white/8" />
+            {/* <div className="absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-white/8" /> */}
           </div>
         ))}
       </div>
@@ -259,7 +258,7 @@ const PeopleAtZigma = () => {
               style={{ height: galleryExpanded ? "120vh" : "100vh" }}
             >
               <div
-                className="grid h-full gap-5 px-8"
+                className="grid h-full gap-.5 px-4"
                 style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
               >
                 <ScrollColumn images={officeCol1Images} />
@@ -277,7 +276,7 @@ const PeopleAtZigma = () => {
               style={{ height: galleryExpanded ? "120vh" : "100vh" }}
             >
               <div
-                className="grid h-full gap-5 px-8"
+                className="grid h-full gap-.5 px-4"
                 style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
               >
                 <ScrollColumn images={plantsCol1Images} />
@@ -295,7 +294,7 @@ const PeopleAtZigma = () => {
               style={{ height: galleryExpanded ? "120vh" : "100vh" }}
             >
               <div
-                className="grid h-full gap-5 px-8"
+                className="grid h-full gap-.5 px-4"
                 style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
               >
                 <ScrollColumn images={beyondCol1Images} />
