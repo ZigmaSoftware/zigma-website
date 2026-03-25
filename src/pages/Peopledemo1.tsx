@@ -6,7 +6,7 @@ import { TrendingUp, BarChart3, Users } from "lucide-react";
 import bg from "@/assets/background-1.png";
 // import newyear from "@/assets";
 
-/* ───────── Media Import (Images + Videos) ───────── */
+/* --------- Media Import (Images + Videos) --------- */
 
 const mediaModules = import.meta.glob(
   "../assets/people at zigma/**/*.{jpg,jpeg,png,webp,mp4,webm}",
@@ -35,7 +35,7 @@ const allMedia: MediaType[] = Object.entries(mediaModules).map(
   })
 );
 
-/* ───────── Media Allocation ───────── */
+/* --------- Media Allocation --------- */
 
 const getMediaByCategory = (category: MediaType["category"]) =>
   allMedia.filter((item) => item.category === category);
@@ -49,7 +49,7 @@ const allocateImages = (
   return items.slice(startIndex, startIndex + count);
 };
 
-/* ───────── Column Media ───────── */
+/* --------- Column Media --------- */
 
 const officeCol1Images = allocateImages("office", 8, 0);
 const officeCol2Images = allocateImages("office", 8, 8);
@@ -68,7 +68,7 @@ const beyondCol1Images = [beyondVideos[0], ...beyondImages.slice(0, imagesPerCol
 const beyondCol2Images = beyondImages.slice(imagesPerColumn, imagesPerColumn * 2);
 const beyondCol3Images = [beyondVideos[1], ...beyondImages.slice(imagesPerColumn * 2)].filter(Boolean);
 
-/* ───────── Card Heights ───────── */
+/* --------- Card Heights --------- */
 
 const CARD_HEIGHTS = [
   "tall",
@@ -82,38 +82,21 @@ const heightMap: Record<CardHeight, string> = {
   // short: "h-[220px] lg:h-[200px] md:h-[160px] sm:h-[120px]"
 };
 
-/* ───────── Scroll Column ───────── */
+/* --------- Scroll Column --------- */
 
 const ScrollColumn = ({ images, isMiddle = false }: { images: MediaType[], isMiddle?: boolean }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [canScroll, setCanScroll] = useState(isMiddle);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const [canScroll] = useState(true);
 
   const cards = images.map((img, i) => ({
     img,
     height: CARD_HEIGHTS[i % CARD_HEIGHTS.length],
   }));
-
-  // Handle video end event for non-middle columns
-  useEffect(() => {
-    if (isMiddle || images.length === 0) return;
-
-    const firstCard = images[0];
-    if (firstCard.type === "video") {
-      // Wait for first video to end before scrolling
-      setCanScroll(false);
-    } else {
-      // If first card is not a video, start scrolling immediately
-      setCanScroll(true);
-    }
-  }, [images, isMiddle]);
-
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (!container || isHovered || !canScroll) return;
+    if (!container || !canScroll) return;
 
-    const scrollSpeed = isMiddle ? 1.2 : 0.5;
+    const scrollSpeed = isMiddle ? 1 : 0.8;
 
     const autoScroll = setInterval(() => {
       container.scrollTop += scrollSpeed;
@@ -121,21 +104,14 @@ const ScrollColumn = ({ images, isMiddle = false }: { images: MediaType[], isMid
       if (container.scrollTop >= container.scrollHeight - container.clientHeight) {
         container.scrollTop = 0;
       }
-    }, 30);
+    }, 35);
 
     return () => clearInterval(autoScroll);
-  }, [isHovered, isMiddle, canScroll]);
-
-  const handleVideoEnded = () => {
-    setCanScroll(true);
-  };
-
+  }, [isMiddle, canScroll]);
   return (
     <div
       ref={scrollContainerRef}
       className="overflow-y-auto h-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex flex-col gap-2 w-full pr-2">
         {cards.map(({ img, height }, i) => (
@@ -147,15 +123,7 @@ const ScrollColumn = ({ images, isMiddle = false }: { images: MediaType[], isMid
             ${heightMap[height]}`}
           >
             {img.type === "video" ? (
-              <video
-                ref={(el) => {
-                  videoRefs.current[i] = el;
-                  if (i === 0 && el && !isMiddle) {
-                    el.addEventListener("ended", handleVideoEnded);
-                    return () => el.removeEventListener("ended", handleVideoEnded);
-                  }
-                }}
-                src={img.src}
+              <video                src={img.src}
                 autoPlay
                 muted
                 loop
@@ -178,7 +146,7 @@ const ScrollColumn = ({ images, isMiddle = false }: { images: MediaType[], isMid
   );
 };
 
-/* ───────── Values Section ───────── */
+/* --------- Values Section --------- */
 
 const VALUES = [
   {
@@ -198,7 +166,7 @@ const VALUES = [
   },
 ];
 
-/* ───────── Tabs ───────── */
+/* --------- Tabs --------- */
 
 const TABS = [
   { id: "our-office", label: "Our Office" },
@@ -208,7 +176,7 @@ const TABS = [
 
 type TabId = (typeof TABS)[number]["id"];
 
-/* ───────── Main Page ───────── */
+/* --------- Main Page --------- */
 
 const PeopleAtZigma = () => {
   const [activeTab, setActiveTab] = useState<TabId>("our-office");
@@ -336,3 +304,9 @@ const PeopleAtZigma = () => {
 };
 
 export default PeopleAtZigma;
+
+
+
+
+
+

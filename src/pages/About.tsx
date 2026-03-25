@@ -290,7 +290,7 @@ const leaders: Leader[] = [
     designation: 'General Manager - AFR',
     linkedin: 'https://www.linkedin.com/in/mohan-kumaar-subramaniam-a3b064175/',
   },
-   {
+  {
     group: 'Management Team',
     name: 'Shivashankar Pandian',
     image: picture18,
@@ -521,20 +521,16 @@ const About = (): JSX.Element => {
                 Zigma Global Environ <span className="text-primary">Solutions Pvt Ltd.</span>
               </h2>
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-                Zigma was founded by a group of serial enterpreneurs from South India, experienced in
-                manufacuring Steel, TMT Bars, Billets, UPVC Door and Window profiles, hospitality and IT
-                infrastructure projects. On the quest for a worthy challenge came across the rising
-                menace of waste mismanagement and realised that this was the opportunity to so
-                something phenomenal that would benefit not only the community but the country at large.
+                In 2015, while exploring various waste streams, our founders discovered a stark reality: India had no solution for its growing legacy waste crisis. Open dump yards across the country were overflowing with decades of mismanaged municipal solid waste, and the nation was grappling with the absence of a clear, scientific pathway to address it.
               </p>
+               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
+This realization became the turning point. A group of serial entrepreneurs from South India—experienced in steel manufacturing, TMT bars, billets, UPVC profiles, hospitality, and IT infrastructure—saw in this challenge an opportunity to do something truly transformative, not just for communities but for the country at large.              </p>
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-                After extensive research and travel to countries like Germany, South Africa,
-                Thailand, China and South Korea to understand how these countries manage their
-                Municipal Solid Waste (MSW), Zigma was founded, to solve the problem of legacy
-                waste management. At the core of our operations is a low carbon emission model
-                for segregation of legacy MSW dumped indiscriminately in the open dump yards
-                in India today.
+                Determined to find answers, they traveled across Germany, South Africa, Thailand, China, and South Korea, studying how these nations tackled municipal solid waste. Out of this exploration emerged Zigma: a company dedicated to pioneering solutions for legacy waste management.
               </p>
+
+              <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
+                At the heart of our operations lies a low-carbon emission model that scientifically segregates and remediates decades of accumulated waste. What began as a quest to solve India’s most pressing environmental challenge has evolved into a mission with global resonance—turning neglected dump yards into opportunities for renewal, sustainability, and impact.              </p>
             </Reveal>
           </div>
         </section>

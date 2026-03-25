@@ -8,10 +8,13 @@ import { Check } from "lucide-react";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
 import landfillManagement from "@/assets/windrow.jpg";
 import wetWaste from "@/assets/fresh waste.jpg.jpeg";
-import herobg from "@/assets/website/hero/noida-present-hero.jpg";
+import herobg from "@/assets/services/kumbakonam.png";
 import machine from "@/assets/services/machinery.jpeg";
 import iot from "@/assets/services/WB.png";
 import bsfl from "@/assets/Bsfl.png";
+import integrated from "@/assets/services/Integrated Alternative Fuel Solutions.jpg";
+import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpg";
+import epr from "@/assets/services/EPR.png";
 import Servicescp from "./Servicescp";
 
 
@@ -23,7 +26,7 @@ const services = [
     title: "Landfill Mining and Remediation",
     eyebrow: "Legacy Waste Reclamation",
     image: landfillMining,
-    description: "Landfill mining involves the excavation, processing, treatment, and/or recovery of deposited materials from active or closed landfill sites.",
+    description: "Scientific recovery of legacy waste to reclaim land and extract reusable resources.",
     features: [
       "Material recovery and recycling",
       "Land reclamation for reuse",
@@ -37,7 +40,7 @@ const services = [
     title: "Landfill Management",
     eyebrow: "Scientific Landfill Operations",
     image: landfillManagement,
-    description: "Comprehensive landfill management services ensuring safe, efficient, and environmentally responsible waste disposal operations.",
+    description: "Advanced landfill operations with environmental monitoring and compliance control.",
     features: [
       "Site design and development",
       "Operational management",
@@ -51,7 +54,7 @@ const services = [
     title: "Fresh Waste Management and Processing",
     eyebrow: "Organic Waste Processing",
     image: wetWaste,
-    description: "Sustainable processing of organic waste through composting and bio-methanation, converting waste into valuable resources.",
+    description: "Waste processing systems converting biodegradable waste into compost/gas, non-biodegradables into refuse derived fuel and channelising recyclables into circularity solutions.",
     features: [
       "Composting solutions",
       "Bio-methanation plants",
@@ -65,7 +68,7 @@ const services = [
     title: "BSFL Based Organic Waste Management",
     eyebrow: "Advanced Biological Processing",
     image: bsfl,
-    description: "Innovative organic waste treatment utilizing Black Soldier Fly larvae (BSFL) technology to convert biodegradable waste into valuable protein-rich biomass and organic amendments.",
+    description: "High-efficiency organic waste treatment using Black Soldier Fly larvae technology to derive highly enriched manure, frass and BSF larvae as protein supplements.",
     features: [
       "Black Soldier Fly larvae cultivation",
       "High-efficiency waste conversion",
@@ -79,7 +82,7 @@ const services = [
     title: "Machinery Sales & Rentals",
     eyebrow: "Industrial Processing Equipment",
     image: machine,
-    description: "Comprehensive machinery supply and rental solutions for waste processing operations, offering both purchase and flexible rental arrangements for municipal and commercial clients.",
+    description: "Industrial waste management machinery supplies and rental support for waste processing operations.",
     features: [
       "Wide range of processing equipment",
       "Flexible rental and lease options",
@@ -93,7 +96,7 @@ const services = [
     title: "IOT Systems for Waste Management",
     eyebrow: "Smart Technology Solutions",
     image: iot,
-    description: "Advanced IoT-enabled monitoring and management systems providing real-time analytics, optimization, and control for waste management operations and infrastructure.",
+    description: "Smart monitoring systems delivering real-time waste analytics and optimization.",
     features: [
       "Real-time waste tracking and monitoring",
       "Smart sensor networks integration",
@@ -102,10 +105,54 @@ const services = [
       "Predictive maintenance and alerts",
     ],
   },
+  {
+    id: "integrated-alternative-fuel-solutions",
+    title: "Integrated Alternative Fuel Solutions",
+    eyebrow: "Alternative Fuel Systems",
+    image: integrated,
+    description: "Supply of alternative fuel along with preprocessing facilities, establishment, operations and maintenance services, and related support services delivered as an integrated solution.",
+    features: [
+      "On-site and centralized C&D waste handling",
+      "Automated crushing and screening systems",
+      "Recovered aggregate quality control",
+      "Diversion of inert waste from landfills",
+      "Support for green construction materials",
+    ],
+  },
+  {
+    id: "industrial-commercial-waste-solutions",
+    title: "Industrial & Commercial Waste Solutions",
+    eyebrow: "Comprehensive Waste Management",
+    image: industrial,
+    description: "Comprehensive waste management for hazardous and non-hazardous waste from manufacturers & end users.",
+    features: [
+      "Refuse Derived Fuel preparation",
+      "Calorific value optimization and blending",
+      "Pre-processing for co-processing industries",
+      "Moisture reduction and shredding systems",
+      "Stable feedstock supply planning",
+    ],
+  },
+  {
+    id: "epr-extended-producer-responsibility",
+    title: "EPR (Extended Producer Responsibility)",
+    eyebrow: "EPR Programs and Compliance",
+    image: epr,
+    description: "Extended Producer Responsibility - Sustainable producer responsibility programs ensuring end-of-life product management and recycling.",
+    features: [
+      "Plastic waste collection and sorting networks",
+      "Recycler onboarding and verification",
+      "Digital traceability and reporting",
+      "EPR documentation and evidence support",
+      "Annual target planning and compliance tracking",
+    ],
+  },
+  
 ];
 
 const Services = () => {
   const [expandedService, setExpandedService] = useState<string | null>(null);
+  const [hoveredService, setHoveredService] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -116,13 +163,13 @@ const Services = () => {
         <section className="relative min-h-[100vh] flex items-center overflow-hidden">
           <img
             src={herobg}
-            alt=""
+            alt=" Services Hero Background"
             aria-hidden="true"
             fetchPriority="high"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
-          <div className="absolute inset-0 from-black/35 via-black/45 to-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-black/15" aria-hidden="true" />
+          {/* <div className="absolute inset-0 from-black/35 via-black/45 to-black/30" aria-hidden="true" /> */}
 
           <div className="container-main relative grid items-center justify-items-center pt-28 text-center">
             <Reveal
@@ -158,9 +205,12 @@ const Services = () => {
                   data-anim-ease={SLOW_EASE}
                   className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
                     }`}
+                  onMouseEnter={() => setHoveredService(service.id)}
+                  onMouseLeave={() => setHoveredService((current) => (current === service.id ? null : current))}
                 >
                   {(() => {
-                    const isExpanded = expandedService === service.id;
+                    const isPinnedExpanded = expandedService === service.id;
+                    const isExpanded = isPinnedExpanded || hoveredService === service.id;
                     const shortDescription =
                       service.description.length > 140
                         ? `${service.description.slice(0, 140)}...`
@@ -193,10 +243,10 @@ const Services = () => {
                             type="button"
                             className="text-sm p-2 text-primary font-semibold hover:underline mt-2 text-left"
                             onClick={() =>
-                              setExpandedService(isExpanded ? null : service.id)
+                              setExpandedService(isPinnedExpanded ? null : service.id)
                             }
                           >
-                            {isExpanded ? "Show Less" : "Read More"}
+                            {isPinnedExpanded ? "Show Less" : "Read More"}
                           </button>
                           {isExpanded ? (
                             <ul className="space-y-3 mb-8 mt-6">

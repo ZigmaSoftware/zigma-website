@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/zigma_blueplanet_logo.png";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
 import landfillManagement from "@/assets/windrow.jpg";
 import wetWaste from "@/assets/fresh waste.jpg.jpeg";
@@ -9,6 +10,8 @@ import herobg from "@/assets/website/hero/noida-present-hero.jpg";
 import machine from "@/assets/services/machinery.jpeg";
 import iot from "@/assets/services/WB.png";
 import bsfl from "@/assets/Bsfl.png";
+import servicesDropdownLogo from "@/assets/services/zigma_blueplanet_logo.png";
+import zigflyLogo from "@/assets/services/zigfly.png";
 import productRdf from "@/assets/services/Refuse-Derived Fuel.png";
 import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
 import productBioEarth from "@/assets/website/goodearth.jpg";
@@ -17,6 +20,10 @@ import productInertSoil from "@/assets/website/soil.jpg";
 import productGlass from "@/assets/website/glass.jpg";
 import productIron from "@/assets/website/Ferrous.jpg";
 import productFurniture from "@/assets/website/hero/Furnitures.png";
+import integrated from "@/assets/services/Integrated Alternative Fuel Solutions.jpg";
+import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpg";
+import epr from "@/assets/services/EPR.png";
+// import 
 
 
 /* ── Types ─────────────────────────────────────────────────── */
@@ -83,17 +90,17 @@ const navItems: NavItem[] = [
       {
         name: "Integrated Alternative Fuel Solutions",
         path: "/services#alt-fuel",
-        // image: "https://images.pexels.com/photos/27904916/pexels-photo-27904916.jpeg",
+        image: integrated,
       },
       {
         name: "Industrial & Commercial Waste Solutions",
         path: "/services#industrial",
-        // image: "https://images.pexels.com/photos/27904916/pexels-photo-27904916.jpeg",      
+        image: industrial,
       },
       {
         name: "EPR Responsibility Services",
         path: "/services#epr",
-        // image: "https://images.pexels.com/photos/27904916/pexels-photo-27904916.jpeg",
+        image: epr,
       },
       
 
@@ -117,11 +124,12 @@ const navItems: NavItem[] = [
   },
 
   { name: "Projects", path: "/project-showcase" ,
-  // dropdown: [
-  //   { name: "Projects", path: "/project-showcase" },
+  dropdown: [
+    { name: "Completed Projects", path: "/project-showcase" },
+    { name: "Ongoing Projects", path: "/projectsdemo1" },
     
   
-  // ],
+  ],
   },
 
   {
@@ -233,6 +241,10 @@ const Header = () => {
   const activeMegaMenuItem = navItems.find(
     (item) => item.name === activeDropdown && item.megaMenu && item.dropdown
   );
+  const megaMenuWidth = activeMegaMenuItem?.name === "Products"
+    ? "clamp(760px, 78vw, 1080px)"
+    : "clamp(760px, 88vw, 1200px)";
+  const megaGridCols = activeMegaMenuItem?.name === "Products" ? "grid-cols-4" : "grid-cols-5";
 
   return (
     <header className="sticky top-0 inset-x-0 z-[80] bg-background/95 backdrop-blur border-b border-border">
@@ -245,7 +257,7 @@ const Header = () => {
 
           <Link to="/" className="flex items-center gap-3 shrink-0">
             <img
-              src="/zigma_blueplanet_logo.png"
+              src={logo}
               alt="Zigma Blue Planet"
               className="h-12 w-auto object-contain"
             />
@@ -346,7 +358,7 @@ const Header = () => {
             {activeMegaMenuItem?.dropdown && (
               <div
                 className="absolute top-full left-1/2 -translate-x-1/2 z-50 bg-white border border-border rounded-xl shadow-2xl p-6"
-                style={{ width: "clamp(760px, 88vw, 1200px)" }}
+                style={{ width: megaMenuWidth }}
               >
                 <p className="text-[0.65rem] font-bold tracking-widest text-muted-foreground uppercase mb-5 px-1">
                   {`Our ${activeMegaMenuItem.name}`}
@@ -354,33 +366,67 @@ const Header = () => {
 
                 <div className="space-y-5">
                   {splitIntoTwoRows(activeMegaMenuItem.dropdown).map((row, rowIndex) => (
-                    <div key={`row-${rowIndex}`} className="grid grid-cols-5 gap-4">
-                      {row.map((sub) => (
-                        <Link
-                          key={sub.name}
-                          to={sub.path}
-                          onClick={() => setActiveDropdown(null)}
-                          className="group flex flex-col gap-2 rounded-lg overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                        >
-                          <div className="relative overflow-hidden rounded-lg bg-muted aspect-[16/9]">
-                            {sub.image ? (
-                              <img
-                                src={sub.image}
-                                alt={sub.name}
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                loading="lazy"
-                              />
-                            ) : (
-                              <div className="w-full h-full bg-secondary" />
-                            )}
-                            <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
-                          </div>
+                    <div key={`row-${rowIndex}`} className={`grid ${megaGridCols} gap-4`}>
+                      {row.map((sub) => {
+                        const isServicesMenu = activeMegaMenuItem.name === "Services";
+                        const serviceCardLogo =
+                          sub.name === "BSFL Based Organic Waste Management"
+                            ? zigflyLogo
+                            : servicesDropdownLogo;
 
-                          <span className="text-[0.9rem] font-medium text-foreground text-center group-hover:text-primary transition-colors duration-200 leading-snug px-1 pb-1">
-                            {sub.name}
-                          </span>
-                        </Link>
-                      ))}
+                        return (
+                          <Link
+                            key={sub.name}
+                            to={sub.path}
+                            onClick={() => setActiveDropdown(null)}
+                            className="group flex flex-col gap-2 rounded-lg overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                          >
+                            <div
+                              className={`relative overflow-hidden rounded-lg aspect-[16/9] ${
+                                isServicesMenu ? "bg-transparent" : "bg-muted"
+                              }`}
+                            >
+                              {isServicesMenu ? (
+                                <>
+                                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 transition-opacity duration-300 group-hover:opacity-0">
+                                    <img
+                                      src={serviceCardLogo}
+                                      alt=""
+                                      aria-hidden="true"
+                                      className="h-10 w-auto object-contain mix-blend-multiply"
+                                      loading="lazy"
+                                    />
+                                  </div>
+                                  {sub.image ? (
+                                    <img
+                                      src={sub.image}
+                                      alt={sub.name}
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                      loading="lazy"
+                                    />
+                                  ) : null}
+                                </>
+                              ) : sub.image ? (
+                                <img
+                                  src={sub.image}
+                                  alt={sub.name}
+                                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <div className="w-full h-full bg-secondary" />
+                              )}
+                              {isServicesMenu ? null : (
+                                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
+                              )}
+                            </div>
+
+                            <span className="text-[0.9rem] font-medium text-foreground text-center group-hover:text-primary transition-colors duration-200 leading-snug px-1 pb-1">
+                              {sub.name}
+                            </span>
+                          </Link>
+                        );
+                      })}
                     </div>
                   ))}
                 </div>
@@ -488,7 +534,7 @@ const Header = () => {
             {activeMegaMenuItem?.dropdown && (
               <div
                 className="absolute top-full left-1/2 -translate-x-1/2 z-50 bg-white border border-border rounded-xl shadow-2xl p-6"
-                style={{ width: "clamp(760px, 88vw, 1200px)" }}
+                style={{ width: megaMenuWidth }}
               >
                 <p className="text-[0.65rem] font-bold tracking-widest text-muted-foreground uppercase mb-5 px-1">
                   {`Our ${activeMegaMenuItem.name}`}
@@ -496,33 +542,67 @@ const Header = () => {
 
                 <div className="space-y-5">
                   {splitIntoTwoRows(activeMegaMenuItem.dropdown).map((row, rowIndex) => (
-                    <div key={`row-${rowIndex}`} className="grid grid-cols-5 gap-4">
-                      {row.map((sub) => (
-                        <Link
-                          key={sub.name}
-                          to={sub.path}
-                          onClick={() => setActiveDropdown(null)}
-                          className="group flex flex-col gap-2 rounded-lg overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                        >
-                          <div className="relative overflow-hidden rounded-lg bg-muted aspect-[16/9]">
-                            {sub.image ? (
-                              <img
-                                src={sub.image}
-                                alt={sub.name}
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                loading="lazy"
-                              />
-                            ) : (
-                              <div className="w-full h-full bg-secondary" />
-                            )}
-                            <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
-                          </div>
+                    <div key={`row-${rowIndex}`} className={`grid ${megaGridCols} gap-4`}>
+                      {row.map((sub) => {
+                        const isServicesMenu = activeMegaMenuItem.name === "Services";
+                        const serviceCardLogo =
+                          sub.name === "BSFL Based Organic Waste Management"
+                            ? zigflyLogo
+                            : servicesDropdownLogo;
 
-                          <span className="text-[0.9rem] font-medium text-foreground text-center group-hover:text-primary transition-colors duration-200 leading-snug px-1 pb-1">
-                            {sub.name}
-                          </span>
-                        </Link>
-                      ))}
+                        return (
+                          <Link
+                            key={sub.name}
+                            to={sub.path}
+                            onClick={() => setActiveDropdown(null)}
+                            className="group flex flex-col gap-2 rounded-lg overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                          >
+                            <div
+                              className={`relative overflow-hidden rounded-lg aspect-[16/9] ${
+                                isServicesMenu ? "bg-transparent" : "bg-muted"
+                              }`}
+                            >
+                              {isServicesMenu ? (
+                                <>
+                                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/10 transition-opacity duration-300 group-hover:opacity-0">
+                                    <img
+                                      src={serviceCardLogo}
+                                      alt=""
+                                      aria-hidden="true"
+                                      className="h-10 w-auto object-contain mix-blend-multiply"
+                                      loading="lazy"
+                                    />
+                                  </div>
+                                  {sub.image ? (
+                                    <img
+                                      src={sub.image}
+                                      alt={sub.name}
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                      loading="lazy"
+                                    />
+                                  ) : null}
+                                </>
+                              ) : sub.image ? (
+                                <img
+                                  src={sub.image}
+                                  alt={sub.name}
+                                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <div className="w-full h-full bg-secondary" />
+                              )}
+                              {isServicesMenu ? null : (
+                                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
+                              )}
+                            </div>
+
+                            <span className="text-[0.9rem] font-medium text-foreground text-center group-hover:text-primary transition-colors duration-200 leading-snug px-1 pb-1">
+                              {sub.name}
+                            </span>
+                          </Link>
+                        );
+                      })}
                     </div>
                   ))}
                 </div>

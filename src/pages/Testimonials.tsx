@@ -20,11 +20,20 @@ import { cn } from "@/lib/utils";
 import msJennyBatesImg from "@/assets/Testimonials/Ms. Jenny Bates.png";
 import ministerGraceFuImg from "@/assets/Testimonials/Minister Grace Fu.png";
 import msRupaMishraImg from "@/assets/Testimonials/Ms. Rupa Mishra.png";
-import mrsAlmitraHPatelImg from "@/assets/Testimonials/Mrs. Almitra H. Patel.png";
-import drVIraiAnduImg from "@/assets/Testimonials/Dr. V. Irai Andu.png";
-import msSupriyaSahuImg from "@/assets/Testimonials/Ms. Supriya Sahu.png";
-import mrAjayKapurImg from "@/assets/Testimonials/Mr. Ajay Kapur.png";
-import ganKimYongImg from "@/assets/Testimonials/Gan Kim Yong.png";
+import mrsAlmitraHPatelImg from "@/assets/Testimonials/Mrs. Almitra H Patel.png";
+import drVIraiAnduImg from "@/assets/Testimonials/Dr. V. Irai Andu, IAS.png";
+import msSupriyaSahuImg from "@/assets/Testimonials/Ms. Supriya Sahu, IAS.jpg";
+import mrVenkaihNaiduImg from "@/assets/Testimonials/Mr. Venkaih Naidu.jpg";
+import mrDurgaShankarMishraImg from "@/assets/Testimonials/Mr. Durga Shankar Mishra.jpg";
+import drTarjindarSinghDhindsaImg from "@/assets/Testimonials/Dr. Tarjindar Singh Dhindsa.png";
+import msRAPriyangaImg from "@/assets/Testimonials/Ms. R A Priyanga, IAS.png";
+import mrAmolSAwateImg from "@/assets/Testimonials/Mr. Amol S. Awate, IAS.png";
+import drJRadhakrishnanImg from "@/assets/Testimonials/Dr. J. Radhakrishnan, IAS.png";
+import mrPSwaroopImg from "@/assets/Testimonials/Mr. P. Swaroop, IAS.png";
+import mrGagandeepSinghBediImg from "@/assets/Testimonials/Mr. Gagandeep Singh Bedi, IAS.png";
+import mrManojJoshiImg from "@/assets/Testimonials/Mr. Manoj Joshi, IAS.jpg";
+import mrJusticePJyothimaniImg from "@/assets/Testimonials/Mr. Justice P Jyothimani.jpg";
+import mrJusticeAdiImg from "@/assets/Testimonials/Mr. Justice Adi.jpg";
 import videoOne from "@/assets/Testimonials/video 1.mp4";
 import videoTwo from "@/assets/Testimonials/video 2.mp4";
 import videoThree from "@/assets/Testimonials/video 3.mp4";
@@ -101,60 +110,123 @@ type LoadState = "idle" | "loading" | "done";
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const SLIDES: Slide[] = [
   {
-    text: "So impressive - the collaboration, the engineering and the scale. Plus, an excellent impact for the future.",
+    text: "Take a tour of #Kumbakonm and learn about the bio-mining.",
+    image: mrVenkaihNaiduImg,
+    name: "Mr. Venkaih Naidu",
+    role: "Former Minister for Urban Development, Govt. of India",
+    tag: "India",
+  },
+  {
+    text: "I am most impressed with the technology that is involved, especially how we can mine and turn waste into Treasure... there are too many sites that need to be cured.",
+    image: ministerGraceFuImg,
+    name: "Minister Grace Fu",
+    role: "Minister for Sustainability & the Environment, Member of Parliament, Singapore",
+    tag: "Singapore",
+  },
+  {
+    text: "Extremely impressed by the process going on in remediating the legacy waste, my best wishes.",
+    image: mrDurgaShankarMishraImg,
+    name: "Mr. Durga Shankar Mishra",
+    role: "Secretary, Ministry of Housing and Urban Affairs (MoHUA), Govt. of India",
+    tag: "India",
+  },
+  {
+    text: "Excellent facility & infrastructure created with the potential to have a solid-free city.",
+    image: drTarjindarSinghDhindsaImg,
+    name: "Dr. Tarjindar Singh Dhindsa",
+    role: "Deputy Executive Director, Dalmia Cement",
+    tag: "India",
+  },
+  {
+    text: "Had a great experience learning the hardships involved in waste clearance. Good luck & continue the great work.",
+    image: msRAPriyangaImg,
+    name: "Ms. R A Priyanga, IAS",
+    role: "Assistant Collector, Dindigul District",
+    tag: "Tamil Nadu",
+  },
+  {
+    text: "Well-organized and well-maintained SWM plant.",
+    image: mrAmolSAwateImg,
+    name: "Mr. Amol S. Awate, IAS",
+    role: "Sub Divisional Magistrate, Dwarka, Gujarat",
+    tag: "Gujarat",
+  },
+  {
+    text: "Amazed to see the work addressing legacy waste issues.",
+    image: drJRadhakrishnanImg,
+    name: "Dr. J. Radhakrishnan, IAS",
+    role: "Commissioner, Greater Chennai Corporation (GCC), Tamil Nadu",
+    tag: "Tamil Nadu",
+  },
+  {
+    text: "The visit to the Zigma facility was a great learning experience. The task at hand is humongous, and I hope that the ground team completes it on time. The facility was certainly impressive.",
+    image: msSupriyaSahuImg,
+    name: "Ms. Supriya Sahu, IAS",
+    role: "ACS, ECC&F Department, Tamil Nadu",
+    tag: "Tamil Nadu",
+  },
+  {
+    text: "Today visited the dump yard at Atladara and witnessed a massive transformation from garbage dump to a processed plant. Seventeen acres of valuable land have been preserved and reclaimed. Good work.",
+    image: mrPSwaroopImg,
+    name: "Mr. P. Swaroop, IAS",
+    role: "Municipal Commissioner, Vadodara",
+    tag: "Gujarat",
+  },
+  {
+    text: "Had the experience of visiting the site. It is a great learning experience. The project is going as per schedule, aiming for completion by December 2022. Suggested creating a booklet for officials of other municipalities and preparing a time-lapse video.",
+    image: drVIraiAnduImg,
+    name: "Dr. V. Irai Andu, IAS",
+    role: "Chief Secretary to the Government of Tamil Nadu",
+    tag: "Tamil Nadu",
+  },
+  {
+    text: "Happy to see the initial works starting here, wish to see a quick starting of the project and continuation of the good work already done by Zigma in other cities.",
+    image: mrGagandeepSinghBediImg,
+    name: "Mr. Gagandeep Singh Bedi, IAS",
+    role: "Commissioner, Greater Chennai Corporation (GCC)",
+    tag: "Tamil Nadu",
+  },
+  {
+    text: "Carried out an inspection of the bio mining work being done at the Perungudi garbage dump in Chennai, Tamil Nadu. GOI stands committed under the Swachh Bharat Mission for remediation of legacy dumpsites of solid waste in urban cities.",
+    image: mrManojJoshiImg,
+    name: "Mr. Manoj Joshi, IAS",
+    role: "Former Secretary, MoHUA, Govt. of India",
+    tag: "India",
+  },
+  {
+    text: "Looks like a factory site while in reality it is full scale work going on at the dumpsite in Vizag.",
+    image: msRupaMishraImg,
+    name: "Ms. Rupa Mishra",
+    role: "Jt. Secretary, MoHUA and National Mission Director, Swachh Bharat Mission",
+    tag: "India",
+  },
+  {
+    text: "I was astonished to see that the TN Municipal Administration department along with Zigma are able to implement bio-mining projects while still other states are in the conceptualization stage.",
+    image: mrJusticePJyothimaniImg,
+    name: "Mr. Justice P Jyothimani",
+    role: "Chairman, South Zone NGT",
+    tag: "India",
+  },
+  {
+    text: "So impressive - the collaboration, the engineering and the scale. Plus an excellent impact for the future.",
     image: msJennyBatesImg,
     name: "Ms. Jenny Bates",
     role: "Director General, Indo-Pacific, FCDO United Kingdom",
     tag: "United Kingdom",
   },
   {
-    text: "I am most impressed with the technology that is involved in especially how we can mine and turn waste into treasure... there are too many sites that need to be cured.",
-    image: ministerGraceFuImg,
-    name: "Minister Grace Fu",
-    role: "Minister for Sustainability and the Environment, MP, Singapore",
-    tag: "Singapore",
-  },
-  {
-    text: "Looks like a factory site while in reality it is full scale work going on at the dumpsite in Vizag.",
-    image: msRupaMishraImg,
-    name: "Ms. Rupa Mishra",
-    role: "Joint Secretary of MoHUA and NMD of Swachh Bharat Mission",
+    text: "Very impressive. Would love to see progress in few years' time here.",
+    image: mrJusticeAdiImg,
+    name: "Mr. Justice Adi",
+    role: "Head, Karnataka NGT SWM Monitoring Committee",
     tag: "India",
   },
   {
     text: "It is the only site where absolutely zero material is left behind on the cleared area.",
     image: mrsAlmitraHPatelImg,
-    name: "Mrs. Almitra H. Patel",
-    role: "National Expert of Swachh Bharat Mission",
+    name: "Mrs. Almitra H Patel",
+    role: "National Expert, Swachh Bharat Mission and Former Member, Supreme Court Committee for SWM",
     tag: "India",
-  },
-  {
-    text: "Had the experience of visiting the site. It is a great learning experience. The project is going as per schedule, aiming for completion by December 2022. Suggested creating a booklet for officials or other municipalities and preparing a time-lapse video.",
-    image: drVIraiAnduImg,
-    name: "Dr. V. Irai Andu",
-    role: "Chief Secretary to the Government of Tamil Nadu",
-    tag: "Tamil Nadu",
-  },
-  {
-    text: "The visit to the Zigma facility was a great learning experience. The task at hand is humongous and I hope that the ground team completes it on time. The facility was certainly impressive.",
-    image: msSupriyaSahuImg,
-    name: "Ms. Supriya Sahu",
-    role: "IAS, ACS, ECC&F Department, Tamil Nadu",
-    tag: "Tamil Nadu",
-  },
-  {
-    text: "For nearly a decade, Zigma part of the Blue Planet Group and our sustainability partner, has played a crucial role in advancing the circular economy in our cement manufacturing. I commend them for facilitating the use of over two million tonnes of RDF.",
-    image: mrAjayKapurImg,
-    name: "Mr. Ajay Kapur",
-    role: "CEO, Cement Business, Adani Group",
-    tag: "Adani Group",
-  },
-  {
-    text: "I visited Blue Planet, a Singapore-headquartered company driving sustainability through technology driven solutions, for end-to-end waste management and upcycling. We also made a tour to a wetland park complete with water fountains and a children's playground. The wetland park was in fact a dumping site just a couple of years ago!",
-    image: ganKimYongImg,
-    name: "Gan Kim Yong",
-    role: "Deputy Prime Minister of Singapore",
-    tag: "Singapore",
   },
 ];
 
@@ -678,12 +750,17 @@ const Testimonials: FC = () => {
                     </p>
 
                     <div className="flex flex-wrap items-center gap-5">
-                      <img
-                        src={s.image}
-                        alt={s.name}
-                        className="h-32 w-32 flex-shrink-0 rounded-full object-cover shadow-md"
-                      />
-                      <div className="flex flex-col gap-0.5">
+                      <div className="relative flex-shrink-0">
+                        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-emerald-400/70 via-emerald-500/40 to-transparent blur-[1px]" />
+                        <div className="relative rounded-full p-1.5 bg-white shadow-lg ring-1 ring-emerald-100">
+                          <img
+                            src={s.image}
+                            alt={s.name}
+                            className="h-24 w-24 md:h-28 md:w-28 rounded-full object-cover object-top border-2 border-emerald-200/70"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-0.5 max-w-[420px]">
                         <strong className="text-base font-bold text-foreground">
                           {s.name}
                         </strong>

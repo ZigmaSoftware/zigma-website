@@ -8,7 +8,7 @@ const Footer = () => {
   const [email, setEmail] = useState("");
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
@@ -27,12 +27,11 @@ const Footer = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(148,163,184,0.14),transparent_50%)]" />
         </div>
 
-        <div className="container-main py-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1.4fr_1.5fr_1.1fr] gap-5 lg:gap-x-4 lg:gap-y-6">
+        <div className="container-main py-6 lg:py-7 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[.8fr_1.5fr_1.7fr_1.1fr] gap-4 lg:gap-x-4 lg:gap-y-5">
             {/* Company Info */}
             <div>
-              <a href="/"
-                className="flex items-center gap-3 mb-4">
+              <a href="/" className="flex items-center gap-3 mb-4">
                 <img
                   src="/zigma_blueplanet_logo.png"
                   alt="Zigma Blue Planet"
@@ -60,24 +59,19 @@ const Footer = () => {
                   href="https://x.com/zigmaglobal1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8  hover:bg-[#000000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-8 h-8 hover:bg-[#000000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on Twitter"
                 >
                   {/* <Twitter className="w-4 h-4" /> */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="w-4 h-4 fill-current"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current">
                     <path d="M18.244 2H21.5l-7.38 8.43L22 22h-6.87l-5.39-7.05L3.5 22H.244l7.89-9.01L2 2h7l4.89 6.43L18.244 2z" />
                   </svg>
-
                 </a>
                 <a
                   href="https://in.linkedin.com/company/zigma-global-environ-solutions-plc"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8  hover:bg-[#0A66C2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-8 h-8 hover:bg-[#0A66C2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on LinkedIn"
                 >
                   <Linkedin className="w-4 h-4" />
@@ -95,7 +89,7 @@ const Footer = () => {
                   href="https://www.youtube.com/channel/UCoSAp-9wtY6m58IknjmweHg/null"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8  hover:bg-[#FF0000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-8 h-8 hover:bg-[#FF0000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on YouTube"
                 >
                   <Youtube className="w-5 h-5" />
@@ -107,7 +101,19 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
-                {["About Us", "Services", "Projects", "Products", "In the News", "Publications", "Awards & Recognition","Testimonials", "Careers", "Governance Policies", "Contact"].map((link) => (
+                {[
+                  "About Us",
+                  "Services",
+                  "Projects",
+                  "Products",
+                  "In the News",
+                  "Publications",
+                  "Awards & Recognition",
+                  "Testimonials",
+                  "Careers",
+                  "Governance Policies",
+                  "Contact",
+                ].map((link) => (
                   <li key={link}>
                     <Link
                       to={`/${link.toLowerCase().replace(" ", "-")}`}
@@ -123,8 +129,18 @@ const Footer = () => {
             {/* Services */}
             <div>
               <h4 className="text-lg font-semibold mb-4">Services</h4>
-              <ul className="space-y-2">
-                {["Landfill Mining and Remediation", "Landfill Management", "Fresh Waste Management and Processing", "BSFL Based Organic Waste Management", "IOT Systems for Waste Management"].map((service) => (
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+                {[
+                  "Landfill Mining and Remediation",
+                  "Landfill Management",
+                  "Fresh Waste Management and Processing",
+                  "BSFL Based Organic Waste Management",
+                  "Machinery Sales & Rentals",
+                  "IOT Systems for Waste Management",
+                  "Integrated Alternative Fuel Solutions",
+                  "Industrial & Commercial Waste Solutions",
+                  "EPR Responsibility Services",
+                ].map((service) => (
                   <li key={service}>
                     <Link
                       to="/services"
@@ -142,16 +158,13 @@ const Footer = () => {
               <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
               <ul className="space-y-3 mb-4">
                 <li className="flex items-start gap-3">
-
                   <MapPin className="w-4 h-4 mt-1.5 flex-shrink-0" />
-
                   <span className="text-foreground/70 text-md">
                     178, Indu Nagar, Palayapalayam, Perundurai Road, Erode, Tamilnadu - 638 011.
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail className="w-4 h-4  flex-shrink-0" />
-
+                  <Mail className="w-4 h-4 flex-shrink-0" />
                   <a href="mailto:connect@zigma.in" className="text-foreground/70 hover:text-primary text-md transition-colors">
                     connect@zigma.in
                   </a>
@@ -159,12 +172,10 @@ const Footer = () => {
                 <li className="flex items-center gap-3">
                   <Phone className="w-4 h-4 flex-shrink-0" />
                   <a href="tel:+911234567890" className="text-foreground/70 hover:text-primary text-md transition-colors">
-                   0424 222 5157
+                    0424 222 5157
                   </a>
                 </li>
               </ul>
-
-
 
               {/* Newsletter Signup */}
               {/* <div>
@@ -183,15 +194,11 @@ const Footer = () => {
                   </Button>
                 </form>
               </div> */}
-
-
-
-
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <div className="mt-8 pt-6 border-t border-foreground/20 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="mt-6 pt-5 border-t border-foreground/20 flex flex-col md:flex-row justify-between items-center gap-3">
             <p className="text-foreground/60 text-sm">
               © {new Date().getFullYear()} Zigma Global Environ Solutions Pvt Ltd. All Rights Reserved.
             </p>
@@ -200,7 +207,7 @@ const Footer = () => {
                 Privacy Policy & Terms of Service
               </Link>
               {/* <Link to="/governance-policies" className="text-foreground/60 hover:text-foreground text-sm transition-colors">
-                
+
               </Link> */}
             </div>
           </div>

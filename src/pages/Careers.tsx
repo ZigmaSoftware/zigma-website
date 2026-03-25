@@ -126,8 +126,8 @@ const Careers = () => {
 
   const cultureVideos = [
     { id: "v1", src: "/videos/video3.mp4", tag: "Recruitment" },
-    { id: "v2", src: "/videos/video1.mp4",  tag: "Projects" },
-    { id: "v3", src: "/videos/video2.mp4",  tag: "Team" },
+    { id: "v2", src: "/videos/video1.mp4", tag: "Projects" },
+    { id: "v3", src: "/videos/video2.mp4", tag: "Team" },
   ];
 
   const handleVideoPlay = (index: number, id: string) => {
@@ -293,7 +293,7 @@ const Careers = () => {
             </div>
 
           </div>
-        </section>  
+        </section>
 
         {/* JOB OPENINGS */}
 
@@ -435,8 +435,8 @@ const Careers = () => {
                   onDragLeave={handleResumeDragLeave}
                   onDrop={handleResumeDrop}
                   className={`border-dashed border-2 p-6 text-center rounded-lg ${isDragOverResume
-                      ? "border-primary bg-primary/10"
-                      : "border-border"
+                    ? "border-primary bg-primary/10"
+                    : "border-border"
                     }`}
                 >
                   <input
@@ -495,7 +495,7 @@ const Careers = () => {
           </DialogContent>
         </Dialog>
 
-        
+
         {/* VIDEO SECTION */}
 
         <section className="section-padding">
@@ -503,18 +503,18 @@ const Careers = () => {
 
             {/* Section Header */}
             <div className="text-center mb-12">
-            
-            <div className="text-center mb-10">
-              <p className="text-md uppercase tracking-[0.35em] text-muted-foreground">
-                Life at Zigma
-              </p>
-              <h2 className="text-4xl font-semibold mt-3">
-                We're <span className="text-primary">Hiring</span>
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground max-w-xl mx-auto">
-                Get a glimpse of our culture and the exciting opportunities waiting for you at Zigma.
-              </p>
-            </div>
+
+              <div className="text-center mb-10">
+                <p className="text-md uppercase tracking-[0.35em] text-muted-foreground">
+                  Life at Zigma
+                </p>
+                <h2 className="text-4xl font-semibold mt-3">
+                  We're <span className="text-primary">Hiring</span>
+                </h2>
+                <p className="mt-4 text-lg text-muted-foreground max-w-xl mx-auto">
+                  Get a glimpse of our culture and the exciting opportunities waiting for you at Zigma.
+                </p>
+              </div>
             </div>
 
             {/* 3-Card Video Grid */}
@@ -523,7 +523,7 @@ const Careers = () => {
                 <div
                   key={video.id}
                   className="group relative rounded-2xl overflow-hidden bg-black shadow-lg hover:shadow-2xl transition-shadow duration-300"
-                 
+
                 >
                   {/* 16:9 aspect container */}
                   <div className="relative h-[300px] sm:h-[340px] lg:h-[500px]">
@@ -550,7 +550,7 @@ const Careers = () => {
                         {/* Bottom label */}
                         <div className="absolute bottom-0 left-0 right-0 px-5 py-4">
                           <p className="text-white text-sm font-semibold leading-tight truncate">
-                           
+
                           </p>
                         </div>
                       </div>
@@ -602,8 +602,22 @@ const Careers = () => {
                 <Send className="ml-2 h-5 w-5" />
               </a>
             </Button>
+
+
+            {/* Secondary Email Line */}
+            <p className="text-sm text-gray-500 mt-4">
+              or email us at{" "}
+              <a
+                href="mailto:careers@zigma.in"
+                className="text-green-600 font-medium hover:underline"
+              >
+                careers@zigma.in
+              </a>
+            </p>
           </div>
         </section>
+
+
 
 
       </main>

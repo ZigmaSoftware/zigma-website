@@ -35,7 +35,7 @@ const interactiveStateIds = new Set(Object.keys(stateData));
 
 // Manually defined center coordinates for each state (calibrated to viewBox 0 0 612 696)
 const stateCentroids: Record<string, { x: number; y: number }> = {
-  "tamil-nadu": { x: 215, y: 580 },
+  "tamil-nadu": { x: 210, y: 610 },
   "kerala": { x: 165, y: 600 },
   "andhra-pradesh": { x: 250, y: 495 },
   "gujarat": { x: 95, y: 340 },
@@ -44,13 +44,21 @@ const stateCentroids: Record<string, { x: number; y: number }> = {
   "uttar-pradesh": { x: 250, y: 260 },
 };
 
+const standaloneMarkers = [
+  {
+    id: "pondicherry",
+    stateId: "pondicherry",
+    centroid: { x: 240, y: 585 },
+    name: "Pondicherry",
+    districts: ["Pondicherry"],
+  },
+];
+
 interface IndiaMapSVGProps {
   activeState: string | null;
   onStateHover: (stateId: string | null) => void;
   onStateClick: (stateId: string) => void;
 }
-
-const markerKeys = Object.keys(stateCentroids);
 
 const clamp = (value: number, min: number, max: number) =>
   Math.max(min, Math.min(max, value));
@@ -73,14 +81,6 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
   // Auto-cycle through markers one at a time
   const [highlightedIndex, setHighlightedIndex] = useState(0);
 
-  useEffect(() => {
-    if (activeState) return;
-    const timer = setInterval(() => {
-      setHighlightedIndex((prev) => (prev + 1) % markerKeys.length);
-    }, 2500);
-    return () => clearInterval(timer);
-  }, [activeState]);
-
   const handleMarkerEnter = useCallback((stateId: string, index: number) => {
     setHighlightedIndex(index);
     onStateHover(stateId);
@@ -91,12 +91,37 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
   }, [onStateHover]);
 
   // Collect marker data for interactive states that have stateData and centroids
-  const markerLocations = Object.entries(stateCentroids)
+  const stateMarkerLocations = Object.entries(stateCentroids)
     .filter(([stateId]) => interactiveStateIds.has(stateId))
     .map(([stateId, centroid], index) => {
       const svgId = stateIdToSvgId[stateId] || stateId;
-      return { stateId, centroid, index, id: svgId };
+      return {
+        stateId,
+        centroid,
+        index,
+        id: svgId,
+        isStandalone: false,
+        name: undefined,
+        districts: undefined,
+      };
     });
+
+  const markerLocations = [
+    ...stateMarkerLocations,
+    ...standaloneMarkers.map((marker, offset) => ({
+      ...marker,
+      index: stateMarkerLocations.length + offset,
+      isStandalone: true,
+    })),
+  ];
+
+  useEffect(() => {
+    if (activeState) return;
+    const timer = setInterval(() => {
+      setHighlightedIndex((prev) => (prev + 1) % markerLocations.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, [activeState, markerLocations.length]);
 
   const stateIdToMarkerIndex = new Map(markerLocations.map((m) => [m.stateId, m.index]));
 
@@ -183,14 +208,14 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
       })}
 
       {/* MapPin Markers on all interactive states */}
-      {orderedMarkerLocations.map(({ stateId, centroid, index, id }) => {
-        const isActive = activeState === stateId;
+      {orderedMarkerLocations.map(({ stateId, centroid, index, id, isStandalone, name, districts: standaloneDistricts }) => {
+        const isActive = !isStandalone && activeState === stateId;
         const isHighlighted = index === highlightedIndex;
-        const isTooltipVisible = isActive || (!activeState && isHighlighted);
+        const isTooltipVisible = isStandalone ? isHighlighted : isActive || (!activeState && isHighlighted);
         const data = stateData[stateId];
         const pinColor = "hsl(0, 0%, 60%)";
-        const tooltipTitle = data?.name || stateId;
-        const districts = data?.districts || [];
+        const tooltipTitle = name || data?.name || stateId;
+        const districts = standaloneDistricts || data?.districts || [];
 
         // Tooltip layout: prefer 2 columns for long lists so the tooltip doesn't become too tall.
         const useTwoColumns = districts.length >= 7;
@@ -251,16 +276,20 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
           <g
             key={`marker-${id}`}
             className="marker-group cursor-pointer"
-            onMouseEnter={() => handleMarkerEnter(stateId, index)}
-            onMouseLeave={handleMarkerLeave}
-            onClick={() => onStateClick(stateId)}
+            onMouseEnter={
+              isStandalone
+                ? () => setHighlightedIndex(index)
+                : () => handleMarkerEnter(stateId, index)
+            }
+            onMouseLeave={isStandalone ? undefined : handleMarkerLeave}
+            onClick={isStandalone ? undefined : () => onStateClick(stateId)}
           >
             {/* Pulsing outer ring */}
             <circle
               cx={centroid.x}
               cy={centroid.y}
-              r="10"
-              fill="#16a34a" 
+              r="8"
+              fill={pinColor} 
               opacity="0.3"
               className="animate-marker-pulse"
               style={{ animationDelay: `${index * 0.12}s` }}
