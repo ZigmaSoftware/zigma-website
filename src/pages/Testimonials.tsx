@@ -996,7 +996,7 @@ const Testimonials: FC = () => {
                   <ChevronDown size={18} />
                 </>
               )}
-              {loadState === "loading" && <span>Loadingâ€¦</span>}
+              {loadState === "loading" && <span>Loading</span>}
               {loadState === "done" && (
                 <>
                   <span>All Reviews Loaded</span>

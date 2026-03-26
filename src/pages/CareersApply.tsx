@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,19 @@ const CareersApply = (): JSX.Element => {
   const [form, setForm] = useState(initialForm);
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [isDragOverResume, setIsDragOverResume] = useState(false);
+  const [isRoleLocked, setIsRoleLocked] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const roleFromQuery = params.get("role")?.trim() ?? "";
+    if (!roleFromQuery) return;
+
+    setForm((prev) => ({ ...prev, role: roleFromQuery }));
+    setIsRoleLocked(true);
+  }, []);
+
+  const isPdfFile = (file: File) =>
+    file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -27,6 +40,18 @@ const CareersApply = (): JSX.Element => {
 
   const handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
+    if (!file) {
+      setResumeFile(null);
+      return;
+    }
+
+    if (!isPdfFile(file)) {
+      toast.error("Only PDF files are allowed.");
+      setResumeFile(null);
+      e.target.value = "";
+      return;
+    }
+
     setResumeFile(file);
   };
 
@@ -44,7 +69,14 @@ const CareersApply = (): JSX.Element => {
     e.preventDefault();
     setIsDragOverResume(false);
     const file = e.dataTransfer.files?.[0] ?? null;
-    if (file) setResumeFile(file);
+    if (!file) return;
+
+    if (!isPdfFile(file)) {
+      toast.error("Only PDF files are allowed.");
+      return;
+    }
+
+    setResumeFile(file);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -125,7 +157,13 @@ const CareersApply = (): JSX.Element => {
                   value={form.role}
                   onChange={handleInputChange}
                   placeholder="Example: Project Engineer"
+                  readOnly={isRoleLocked}
                 />
+                {isRoleLocked && (
+                  <p className="text-xs text-muted-foreground">
+                    This role was selected from the Careers page.
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -143,7 +181,7 @@ const CareersApply = (): JSX.Element => {
                   <input
                     id="resumeUpload"
                     type="file"
-                    accept=".pdf,.doc,.docx"
+                    accept=".pdf,application/pdf"
                     className="absolute inset-0 cursor-pointer opacity-0"
                     onChange={handleResumeUpload}
                   />
@@ -154,7 +192,7 @@ const CareersApply = (): JSX.Element => {
                   <span className="mt-1.5 px-2 text-sm text-muted-foreground">
                     {resumeFile ? resumeFile.name : "or click to browse file"}
                   </span>
-                  <span className="mt-1 text-sm text-muted-foreground/80">PDF, DOC, DOCX</span>
+                  <span className="mt-1 text-sm text-muted-foreground/80">PDF only</span>
                 </div>
               </div>
 

@@ -146,7 +146,7 @@ const navItems: NavItem[] = [
 
   {
     name: "People At Zigma",
-    path: "/peopledemo1",
+    path: "/people",
     // dropdown: [
     //   { name: "People", path: "/people" },
     //   { name: "People Demo1", path: "/peopledemo1" },

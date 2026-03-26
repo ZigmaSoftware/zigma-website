@@ -12,11 +12,11 @@ import globeSvg from '@/assets/contact_globe.svg';
 import img1 from '@/assets/website/Kumbakonam.png';
 import img2 from '@/assets/website/Forcebel.png';
 import img3 from '@/assets/Forcebel awd.jpg';
-import img4 from '@/assets/Before - After/11 chidambaram_a.jpg';
-import img5 from '@/assets/Before - After/2 sembakam_A.jpg';
-import img6 from '@/assets/Before - After/14 karur_A.jpg';
-import img7 from '@/assets/Before - After/6 vijawada_A.jpg';
-import img8 from '@/assets/website/Noida.png';
+import img4 from '@/assets/before after projects/chidambaram after.png';
+import img5 from '@/assets/before after projects/SEMBAKKAM LAKE  after.png';
+import img6 from '@/assets/before after projects/karaikudi after.png';
+import img7 from '@/assets/before after projects/VIJAYAWADA-AJITSINGH NAGAR after.png';
+import img8 from '@/assets/website/noida present.png';
 import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/website/hero/controll room.png';
 import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
@@ -463,10 +463,10 @@ const About = (): JSX.Element => {
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
-          <div
+          {/* <div
             className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30"
             aria-hidden="true"
-          />
+          /> */}
 
           <div className="container-main relative grid items-center justify-items-center">
             <Reveal

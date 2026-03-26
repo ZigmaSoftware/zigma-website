@@ -8,6 +8,8 @@ const IndiaPresence: React.FC = () => {
 
   const currentState = selectedState || activeState;
   const currentData = currentState ? stateData[currentState] : null;
+  const landfillLocation = currentData?.districts?.[0] ?? "To Be Announced";
+  const bsflLocation = currentData?.districts?.[1] ?? "To Be Announced";
 
   const stateList = Object.values(stateData);
 
@@ -107,23 +109,24 @@ const IndiaPresence: React.FC = () => {
                 {currentData.description}
               </p>
 
-              {currentData.districts && currentData.districts.length > 0 ? (
-                <div className="mt-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground mb-2">
-                    Locations
+              <div className="mt-4 space-y-4">
+                <div className="border-l-2 border-primary/30 pl-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                    Landfill Mining
                   </p>
-                  <ul className="grid grid-cols-1 gap-y-1 gap-x-6 text-sm text-foreground md:grid-cols-2 list-disc pl-5">
-                    {currentData.districts.map((district) => (
-                      <li
-                        key={district}
-                        className="leading-snug truncate"
-                      >
-                        {district}
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="text-sm text-foreground mt-1">
+                    {landfillLocation}
+                  </p>
                 </div>
-              ) : null}
+                <div className="border-l-2 border-primary/30 pl-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                    BSFL Project
+                  </p>
+                  <p className="text-sm text-foreground mt-1">
+                    {bsflLocation}
+                  </p>
+                </div>
+              </div>
 {/* 
               <div className="flex gap-6">
                 <div>

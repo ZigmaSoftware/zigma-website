@@ -152,7 +152,6 @@ const services = [
 
 const Services = () => {
   const [expandedService, setExpandedService] = useState<string | null>(null);
-  const [hoveredService, setHoveredService] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -205,12 +204,10 @@ const Services = () => {
                   data-anim-ease={SLOW_EASE}
                   className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
                     }`}
-                  onMouseEnter={() => setHoveredService(service.id)}
-                  onMouseLeave={() => setHoveredService((current) => (current === service.id ? null : current))}
                 >
                   {(() => {
                     const isPinnedExpanded = expandedService === service.id;
-                    const isExpanded = isPinnedExpanded || hoveredService === service.id;
+                    const isExpanded = isPinnedExpanded;
                     const shortDescription =
                       service.description.length > 140
                         ? `${service.description.slice(0, 140)}...`

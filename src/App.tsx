@@ -7,7 +7,7 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
-import Projects from "./pages/Projects";
+// import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Products from "./pages/Products";
 import Careers from "./pages/Careers";
@@ -15,8 +15,8 @@ import CareersApply from "./pages/CareersApply";
 import Media from "./pages/Media";
 import NotFound from "./pages/NotFound";
 import Awards from "./pages/Awards";
-import People from "@/pages/People";
-import Facilities from "./pages/Facilities";
+import People from "./pages/People";
+// import Facilities from "./pages/Facilities";
 import GovernancePolicies from "./pages/GovernancePolicies";
 import Policies from "./pages/Policies";
 import ProjectShowcase from "./pages/ProjectShowcase";
@@ -28,9 +28,9 @@ import Servicescp from "./pages/Servicescp";
 import SmoothScrollProvider from "@/components/animation/SmoothScrollProvider";
 import Mediacp from "./pages/Mediacp";
 import Awardsection from "./pages/Awardsection";
-import Peopledemo1 from "./pages/Peopledemo1";
-import Peopledemo2 from "./pages/Peopledemo2";
-import Peopledemo3 from "./pages/Peopledemo3";
+// import Peopledemo1 from "./pages/Peopledemo1";
+// import Peopledemo2 from "./pages/Peopledemo2";
+// import Peopledemo3 from "./pages/Peopledemo3";
 import Projectsdemo1 from "./pages/Projectsdemo1";
 import Testimonials from "./pages/Testimonials";
 
@@ -49,11 +49,11 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
-            <Route path="/facilities" element={<Facilities />} />
+            {/* <Route path="/facilities" element={<Facilities />} /> */}
             <Route path="/awards" element={<Awards />} />
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/projects" element={<Projects />} />
+            {/* <Route path="/projects" element={<Projects />} /> */}
             <Route path="/projects/:id" element={<ProjectDetail />} />
             <Route path="/products" element={<Products />} />
             <Route path="/careers" element={<Careers />} />
@@ -71,9 +71,9 @@ const App = () => (
 
             <Route path="/mediacp" element={<Mediacp />} />
             <Route path="/awardsection" element={<Awardsection />} />
-            <Route path="/peopledemo1" element={<Peopledemo1 />} />
-            <Route path="/peopledemo2" element={<Peopledemo2 />} />
-            <Route path="/peopledemo3" element={<Peopledemo3 />} />
+            {/* <Route path="/peopledemo1" element={<Peopledemo1 />} /> */}
+            {/* <Route path="/peopledemo2" element={<Peopledemo2 />} /> */}
+            {/* <Route path="/peopledemo3" element={<Peopledemo3 />} /> */}
             <Route path="/projectsdemo1" element={<Projectsdemo1 />} />
             <Route path="/testimonials" element={<Testimonials />} />
           </Routes>

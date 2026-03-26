@@ -9,11 +9,12 @@ import img1 from "@/assets/website/hero/noida-present-hero.jpg";
 import img2 from "@/assets/website/hero/landfill-mining-hero.jpg";
 import img3 from "@/assets/website/hero/Pdgclose.jpg";
 import img4 from "@/assets/website/hero/Furnitures.png";
-import img5 from "@/assets/before after projects/kumbakonam after.png";
+import img5 from "@/assets/services/kumbakonam.png";
 import img6 from "@/assets/website/hero/vairapalayam.jpg";
 import img7 from "@/assets/website/hero/kdg.png";
 import img8 from "@/assets/website/hero/controll room.png";
 import img9 from "@/assets/website/hero/RDF1.jpeg";
+// import herobg from "@/assets/services/kumbakonam.png";
 
 
 

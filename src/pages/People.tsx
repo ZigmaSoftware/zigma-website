@@ -1,236 +1,316 @@
+import { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-
-import bg from "@/assets/background-1.png";
-
 import { TrendingUp, BarChart3, Users } from "lucide-react";
+import bg from "@/assets/background-1.png";
+// import newyear from "@/assets";
 
-const peopleImageModules = import.meta.glob<{ default: string }>(
-  "../assets/people at zigma/*.{jpg,jpeg,JPG,png,webp,avif,JPEG,PNG,WEBP,AVIF}",
+/* --------- Media Import (Images + Videos) --------- */
+
+const mediaModules = import.meta.glob(
+  "../assets/people at zigma/**/*.{jpg,jpeg,png,webp,mp4,webm}",
   { eager: true }
 );
 
-const peopleRelatedTitles = [
-  "Team Celebration",
-  "Festival Moments",
-  "Culture Day",
-  "Office Bonding",
-  "Zigma Family",
-  "Together at Work",
-  "Team Spirit",
-  "Happy Workspace",
-  "Shared Success",
-  "Life at Zigma",
-  "Collaboration Time",
-  "Workplace Memories",
-];
+type MediaType = {
+  src: string;
+  label: string;
+  type: "image" | "video";
+  category: "office" | "plants" | "beyond" | "other";
+};
 
-const collageImages = Object.entries(peopleImageModules)
-  .sort(([pathA], [pathB]) => pathA.localeCompare(pathB, undefined, { numeric: true, sensitivity: "base" }))
-  .map(([, module], index) => {
-    const title = peopleRelatedTitles[index % peopleRelatedTitles.length];
-    return { title, image: module.default };
+const allMedia: MediaType[] = Object.entries(mediaModules).map(
+  ([path, mod]: any) => ({
+    src: mod.default,
+    label: path.split("/").pop()?.replace(/\.[^.]+$/, "") || "media",
+    type: path.match(/\.(mp4|webm)$/i) ? "video" : "image",
+    category: path.toLowerCase().includes("/office/")
+      ? "office"
+      : path.toLowerCase().includes("/plants/")
+      ? "plants"
+      : path.toLowerCase().includes("/zigma beyond work/")
+      ? "beyond"
+      : "other",
   })
-  .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: "base" }));
+);
 
-const collagePattern = [
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-2",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-2",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-2",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-2",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-2",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-];
+/* --------- Media Allocation --------- */
 
-/*  
-   COMPONENT
-===================================================== */
-const People = () => {
+const getMediaByCategory = (category: MediaType["category"]) =>
+  allMedia.filter((item) => item.category === category);
+
+const allocateImages = (
+  category: MediaType["category"],
+  count: number,
+  startIndex = 0
+) => {
+  const items = getMediaByCategory(category);
+  return items.slice(startIndex, startIndex + count);
+};
+
+/* --------- Column Media --------- */
+
+const officeCol1Images = allocateImages("office", 8, 0);
+const officeCol2Images = allocateImages("office", 8, 8);
+const officeCol3Images = allocateImages("office", 8, 16);
+
+const plantsCol1Images = allocateImages("plants", 8, 0);
+const plantsCol2Images = allocateImages("plants", 8, 8);
+const plantsCol3Images = allocateImages("plants", 8, 16);
+
+// Show one video on left, one video on right, with images below each
+const beyondAllMedia = getMediaByCategory("beyond");
+const beyondVideos = beyondAllMedia.filter((item) => item.type === "video");
+const beyondImages = beyondAllMedia.filter((item) => item.type === "image");
+const imagesPerColumn = Math.ceil(beyondImages.length / 3);
+const beyondCol1Images = [beyondVideos[0], ...beyondImages.slice(0, imagesPerColumn)].filter(Boolean);
+const beyondCol2Images = beyondImages.slice(imagesPerColumn, imagesPerColumn * 2);
+const beyondCol3Images = [beyondVideos[1], ...beyondImages.slice(imagesPerColumn * 2)].filter(Boolean);
+
+/* --------- Card Heights --------- */
+
+const CARD_HEIGHTS = [
+  "tall",
+] as const;
+
+type CardHeight = (typeof CARD_HEIGHTS)[number];
+
+const heightMap: Record<CardHeight, string> = {
+  tall: "h-[340px] lg:h-[300px] md:h-[240px] sm:h-[200px]",
+  // medium: "h-[280px] lg:h-[250px] md:h-[200px] sm:h-[160px]",
+  // short: "h-[220px] lg:h-[200px] md:h-[160px] sm:h-[120px]"
+};
+
+/* --------- Scroll Column --------- */
+
+const ScrollColumn = ({ images, isMiddle = false }: { images: MediaType[], isMiddle?: boolean }) => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScroll] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const cards = images.map((img, i) => ({
+    img,
+    height: CARD_HEIGHTS[i % CARD_HEIGHTS.length],
+  }));
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || !canScroll || isHovered) return;
+
+    const scrollSpeed = isMiddle ? 1 : 0.8;
+
+    const autoScroll = setInterval(() => {
+      container.scrollTop += scrollSpeed;
+      
+      if (container.scrollTop >= container.scrollHeight - container.clientHeight) {
+        container.scrollTop = 0;
+      }
+    }, 35);
+
+    return () => clearInterval(autoScroll);
+  }, [isMiddle, canScroll, isHovered]);
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <ScrollToTop />
-      <Header />
+    <div
+      ref={scrollContainerRef}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="overflow-y-auto h-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
+      <div className="flex flex-col gap-2 w-full pr-2">
+        {cards.map(({ img, height }, i) => (
+          <div
+            key={i}
+            className={`relative rounded-lg overflow-hidden flex-shrink-0 border border-white/70
+          
+            group cursor-pointer transition-all duration-300
+            ${heightMap[height]}`}
+          >
+            {img.type === "video" ? (
+              <video                src={img.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <img
+                src={img.src}
+                alt={img.label}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+              />
+            )}
 
-      <div className="pt-20">
-        {/* MASONRY GALLERY */}
-        <section className="w-full bg-[#efefef] py-4 sm:py-6">
-          <div className="mx-auto w-[min(96%,1280px)] border border-slate-300 bg-[#f6f6f6] p-2 sm:p-3">
-            <div className="grid grid-cols-2 auto-rows-[72px] gap-1 sm:grid-cols-4 sm:auto-rows-[88px] lg:grid-cols-6 lg:auto-rows-[100px]">
-              {collageImages.map((item, index) => (
-                <div
-                  key={`${item.title}-${index}`}
-                  className={`group relative overflow-hidden bg-white ${collagePattern[index % collagePattern.length]}`}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-95"
-                  />
-                  <div className="pointer-events-none absolute inset-0 ring-0 ring-white/70 transition duration-300 group-hover:ring-2" />
-                </div>
-              ))}
-            </div>
+            {/* <div className="absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-white/8" /> */}
           </div>
-        </section>
-
-        {/* STACKED CAROUSEL */}
-        {/* <section className="bg-white w-full py-6 sm:py-8 lg:py-10">
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
-            <div className="relative h-[280px] sm:h-[360px] lg:h-[460px] overflow-hidden">
-              {visibleSlides.map((slide) => {
-                const distance = Math.abs(slide.offset);
-                const isActive = slide.offset === 0;
-                const xOffset = isActive ? 0 : Math.sign(slide.offset) * (120 + distance * 95);
-                const scale = isActive ? 1 : Math.max(0.58, 0.95 - distance * 0.16);
-                const opacity = isActive ? 1 : Math.max(0.22, 0.72 - distance * 0.18);
-                const zIndex = 20 - distance;
-
-                return (
-                  <button
-                    key={`${slide.title}-${slide.index}`}
-                    type="button"
-                    onClick={() => setActiveIndex(slide.index)}
-                    className="absolute left-1/2 top-1/2 h-[80%] w-[80%] max-w-[600px] -translate-y-1/2 overflow-hidden rounded-[26px] border border-white/75 shadow-[0_18px_40px_rgba(15,23,42,0.25)] transition-all duration-500 ease-out sm:h-[84%] sm:w-[76%] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
-                    style={{
-                      transform: `translate(calc(-50% + ${xOffset}px), -50%) scale(${scale})`,
-                      opacity,
-                      zIndex,
-                    }}
-                    aria-label={`Show ${slide.title}`}
-                  >
-                    <img
-                      src={slide.image}
-                      alt={slide.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                      style={{ filter: isActive ? "none" : "brightness(0.4) saturate(0.85)" }}
-                    />
-                    <div
-                      className={`pointer-events-none absolute inset-0 ${
-                        isActive
-                          ? "bg-gradient-to-t from-black/45 via-primary/12 to-transparent"
-                          : "bg-black/18"
-                      }`}
-                    />
-                    {isActive ? (
-                      <div className="pointer-events-none absolute bottom-0 left-0 right-0 p-4 text-left sm:p-6">
-                        <h3 className="text-lg font-semibold text-white sm:text-[38px]">
-                          {slide.title}
-                        </h3>
-                      </div>
-                    ) : null}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="mt-6 flex items-center justify-center gap-3">
-              <button
-                type="button"
-                onClick={() => goToSlide(-1)}
-                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200/80 bg-slate-50 text-slate-700 shadow-[0_8px_18px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-0.5 hover:border-primary/35 hover:bg-white hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-                aria-label="Previous slide"
-              >
-                <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
-              </button>
-              <button
-                type="button"
-                onClick={() => goToSlide(1)}
-                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200/80 bg-slate-50 text-slate-700 shadow-[0_8px_18px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-0.5 hover:border-primary/35 hover:bg-white hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-                aria-label="Next slide"
-              >
-                <ChevronRight className="h-5 w-5" strokeWidth={2.25} />
-              </button>
-            </div>
-          </div>
-        </section> */}
-
-        {/*        WORKING @ ZIGMA – REFINED DESIGN */}
-        <section className=" min-h-[100svh]  py-6 lg:py-8 "   style={{
-                  backgroundImage: `url(${bg})`,
-                 
-                }}>
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center">
-             
-
-                          <span className="text-sm  uppercase tracking-[0.3em] text-muted-foreground">
-             Working @ Zigma
-            </span>
-            <h2 className="mt-2 text-3xl md:text-4xl font-bold text-foreground">
-              Where Performance Meets<span className="text-primary"> Purpose</span>
-            </h2>
-
-            <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-center text-sm md:text-lg  ">
-                  A performance-driven workplace where people, purpose, and
-                progress move together.
-              </p>
-            </div>
-
-            <div className="grid text-center grid-cols-1 md:grid-cols-3 gap-8  container-main section-padding">
-              {/* Card 1 */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-                <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-green-50 mb-6 mx-auto">
-                  <TrendingUp className="h-6 w-6 text-green-700" />
-                </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                  Supersonic Growth
-                </h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Accelerate your career with real ownership, challenging
-                  projects, and fast-tracked learning opportunities.
-                </p>
-              </div>
-
-              {/* Card 2 */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-                <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-green-50 mb-6 mx-auto">
-                  <BarChart3 className="h-6 w-6 text-green-700" />
-                </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                  Continuous Opportunity
-                </h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Work across domains, expand your skills, and unlock growth
-                  paths aligned with your ambition.
-                </p>
-              </div>
-
-              {/* Card 3 */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-                <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-green-50 mb-6 mx-auto">
-                  <Users className="h-6 w-6 text-green-700" />
-                </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-3">
-                  People-First Culture
-                </h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Thrive in a collaborative, respectful, and high-energy
-                  environment that values people as much as performance.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <Footer />
+        ))}
       </div>
     </div>
   );
 };
 
+/* --------- Values Section --------- */
+
+const VALUES = [
+  {
+    Icon: TrendingUp,
+    title: "Supersonic Growth",
+    text: "Accelerate your career with real ownership and challenging projects.",
+  },
+  {
+    Icon: BarChart3,
+    title: "Continuous Opportunity",
+    text: "Work across domains and expand your skills.",
+  },
+  {
+    Icon: Users,
+    title: "People-First Culture",
+    text: "A collaborative and energetic work environment.",
+  },
+];
+
+/* --------- Tabs --------- */
+
+const TABS = [
+  { id: "our-office", label: "Our Office" },
+  { id: "our-plants", label: "Our Plants" },
+  { id: "beyond-work", label: "Zigma Beyond Work" },
+] as const;
+
+type TabId = (typeof TABS)[number]["id"];
+
+/* --------- Main Page --------- */
+
+const People = () => {
+  const [activeTab, setActiveTab] = useState<TabId>("our-office");
+  const [galleryExpanded, setGalleryExpanded] = useState(false);
+
+  const scrollToSection = (id: TabId) => {
+    setActiveTab(id);
+
+    setTimeout(() => {
+      const mainEl = document.querySelector("main");
+      if (mainEl)
+        window.scrollTo({ top: mainEl.offsetTop - 110, behavior: "smooth" });
+    }, 0);
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-white">
+      <ScrollToTop />
+      <Header />
+
+      {/* Navigation */}
+
+      <div className="sticky z-[70] bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-center gap-2">
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => scrollToSection(tab.id)}
+              className={`px-6 py-3 text-sm font-medium border-b-2 ${
+                activeTab === tab.id
+                  ? "text-green-600 border-green-600"
+                  : "text-slate-600 border-transparent"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <main className="flex-1 ">
+
+        {activeTab === "our-office" && (
+          <section >
+            <div
+              className="  overflow-hidden relative pb-20"
+              style={{ height: galleryExpanded ? "120vh" : "100vh" }}
+            >
+              <div
+                className="grid h-full gap-.5 px-4"
+                style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
+              >
+                <ScrollColumn images={officeCol1Images} />
+                <ScrollColumn images={officeCol2Images} isMiddle={true} />
+                <ScrollColumn images={officeCol3Images} />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {activeTab === "our-plants" && (
+          <section>
+            <div
+              className="overflow-hidden relative pb-20"
+              style={{ height: galleryExpanded ? "120vh" : "100vh" }}
+            >
+              <div
+                className="grid h-full gap-.5 px-4"
+                style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
+              >
+                <ScrollColumn images={plantsCol1Images} />
+                <ScrollColumn images={plantsCol2Images} isMiddle={true} />
+                <ScrollColumn images={plantsCol3Images} />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {activeTab === "beyond-work" && (
+          <section>
+            <div
+              className="overflow-hidden relative pb-20"
+              style={{ height: galleryExpanded ? "120vh" : "100vh" }}
+            >
+              <div
+                className="grid h-full gap-.5 px-4"
+                style={{ gridTemplateColumns: "1fr 1.65fr 1fr" }}
+              >
+                <ScrollColumn images={beyondCol1Images} />
+                <ScrollColumn images={beyondCol2Images} isMiddle={true} />
+                <ScrollColumn images={beyondCol3Images} />
+              </div>
+            </div>
+          </section>
+        )}
+
+      </main>
+
+      {/* Values Section */}
+
+      <section
+        id="beyond-work"
+        className="py-20 bg-cover bg-center min-h-[60vh]"
+        style={{ backgroundImage: `url(${bg})` }}
+      >
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-7">
+            {VALUES.map(({ Icon, title, text }) => (
+              <div key={title} className="bg-white rounded-2xl p-8 border shadow-sm">
+                <div className="h-12 w-12 flex items-center justify-center rounded-lg bg-secondary mb-6 mx-auto">
+                  <Icon className="h-6 w-6 text-primary" />
+                </div>
+
+                <h3 className="text-lg font-bold text-center">{title}</h3>
+                <p className="text-muted-foreground text-center">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
 export default People;
+
+
+
+
+
+
+

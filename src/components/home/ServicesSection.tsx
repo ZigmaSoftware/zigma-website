@@ -1,7 +1,16 @@
 import { motion } from "framer-motion";
-import { Factory, Recycle, Cog, Cpu, Layers, Sprout, ArrowRight, CheckCircle2, Fuel, Trash2} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Reveal from "@/components/animation/Reveal";
+import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
+import landfillManagement from "@/assets/windrow.jpg";
+import freshWaste from "@/assets/fresh waste.jpg.jpeg";
+import bsflWaste from "@/assets/Bsfl.png";
+import machinery from "@/assets/services/machinery.jpeg";
+import iotWaste from "@/assets/services/WB.png";
+import altFuel from "@/assets/services/Integrated Alternative Fuel Solutions.jpg";
+import industrialWaste from "@/assets/services/Industrial & Commercial Waste Solutions.jpg";
+import eprService from "@/assets/services/EPR.png";
 
 const services = [
   {
@@ -9,64 +18,64 @@ const services = [
     title: "Landfill Mining and Remediation",
     description:
       "Scientific recovery of legacy waste to reclaim land and extract reusable resources.",
-    icon: Layers,
+    image: landfillMining,
   },
   {
     id: "landfill-management",
     title: "Landfill Management",
     description:
       "Advanced landfill operations with environmental monitoring and compliance control.",
-    icon: Factory,
+    image: landfillManagement,
   },
   {
     id: "fresh-waste",
     title: "Fresh Waste Management and Processing",
     description:
       "Waste processing systems converting biodegradable waste into compost/gas, non-biodegradables into refuse derived fuel and channelising recyclables into circularity solutions. ",
-    icon: Recycle,
+    image: freshWaste,
   },
   {
     id: "bsfl-organic-waste",
     title: "BSFL Based Organic Waste Management",
     description:
       "High-efficiency organic waste treatment using Black Soldier Fly larvae technology to derive highly enriched manure, frass and BSF larvae as protein supplements. ",
-    icon: Sprout,
+    image: bsflWaste,
   },
   {
     id: "machinery-sales-rentals",
     title: "Machinery Sales & Rentals",
     description:
       "Industrial waste management machinery supplies and rental support for waste processing operations.",
-    icon: Cog,
+    image: machinery,
   },
   {
     id: "iot-waste-management",
     title: "IOT Systems for Waste Management",
     description:
       "Smart monitoring systems delivering real-time waste analytics and optimization.",
-    icon: Cpu,
+    image: iotWaste,
   },
   {
-    id: "alternative-fuel-solutions",
+    id: "integrated-alternative-fuel-solutions",
     title: "Integrated Alternative Fuel Solutions",
     description:
       "Supply of alternative fuel along with preprocessing facilities, establishment, operations and maintenance services, and related support services delivered as an integrated solution.",
-    icon: Fuel,
+    image: altFuel,
   },
   {
-    id: "industrial-commercial-waste",
+    id: "industrial-commercial-waste-solutions",
     title: "Industrial & Commercial Waste Solutions",
     description:
       "Comprehensive waste management for hazardous and non-hazardous waste from manufacturers & end users.",
-    icon: Trash2,
+    image: industrialWaste,
   },
   {
-    id: "epr-responsibility",
+    id: "epr-extended-producer-responsibility",
     title: "EPR ",
     // title: "EPR (Extended Producer Responsibility)",
     description:
       "Extended Producer Responsibility - Sustainable producer responsibility programs ensuring end-of-life product management and recycling.",
-    icon: CheckCircle2,
+    image: eprService,
   },
 ];
 
@@ -78,20 +87,8 @@ const cardAnimation = {
     transition: { duration: 0.6, ease: "easeOut" as const },
   },
   hover: {
-    y: -10,
-    scale: 1.02,
-    rotateX: 2,
-    rotateY: -2,
-    transition: { type: "spring" as const, stiffness: 180, damping: 18 },
-  },
-};
-
-const iconAnimation = {
-  initial: { scale: 1, rotate: 0 },
-  hover: {
-    scale: 1.12,
-    rotate: 6,
-    transition: { type: "spring" as const, stiffness: 260, damping: 14 },
+    scale: 1.01,
+    transition: { type: "spring" as const, stiffness: 220, damping: 20 },
   },
 };
 
@@ -119,56 +116,44 @@ const ServicesSection = () => {
         {/* Services Grid */}
         <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
 
-          {services.map((service) => {
-            const Icon = service.icon;
+          {services.map((service) => (
+            <motion.div
+              key={service.id}
+              variants={cardAnimation}
+              initial="hidden"
+              animate="show"
+              whileHover="hover"
+              className="group relative h-80 overflow-hidden rounded-md shadow-lg transition-shadow duration-500 hover:shadow-2xl"
+            >
+              <img
+                src={service.image}
+                alt={service.title}
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
 
-            return (
-              <motion.div
-                key={service.id}
-                variants={cardAnimation}
-                initial="hidden"
-                animate="show"
-                whileHover="hover"
-                className="group relative flex flex-col items-center text-center rounded-2xl bg-white/80 border border-gray-100 p-3 shadow-lg transition-shadow duration-500 hover:shadow-2xl"
-              >
+              <div className="absolute inset-0 bg-black/30 transition-colors duration-300 group-hover:bg-black/55" />
+              <div className="pointer-events-none absolute left-4 top-4 h-px w-0 bg-white/80 transition-all duration-300 group-hover:w-10" />
+              <div className="pointer-events-none absolute left-4 top-4 h-0 w-px bg-white/80 transition-all duration-300 group-hover:h-10" />
 
-                {/* Icon */}
-                <motion.div
-                  variants={iconAnimation}
-                  initial="initial"
-                  whileHover="hover"
-                  className="flex items-center justify-center text-primary"
-                >
-                  <Icon size={36} strokeWidth={1.8} />
-                </motion.div>
-
-                {/* Title */}
-                <h3 className="mt-2 text-lg font-semibold text-gray-900">
+              <div className="absolute inset-0 flex flex-col justify-end p-6 text-white opacity-100 transition-all duration-300 md:translate-y-6 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
+                <h3 className="text-xl font-semibold leading-tight">
                   {service.title}
                 </h3>
-
-                {/* Description */}
-                <p className="mt-1 text-sm leading-relaxed text-gray-600 max-w-xs">
+                <p className="mt-3 text-sm leading-relaxed text-white/90">
                   {service.description}
                 </p>
-
-                {/* Read More Button */}
-                <div className="mt-2 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                  <Link
-                    to="/services"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-3 transition-all duration-200"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Read More <ArrowRight size={15} />
-                  </Link>
-                </div>
-
-                {/* Bottom Accent */}
-                <div className="absolute bottom-0 left-1/2 h-[3px] w-0 bg-primary transition-all duration-500 group-hover:w-full group-hover:left-0 rounded-b-xl" />
-
-              </motion.div>
-            );
-          })}
+                <Link
+                  to={`/services#${service.id}`}
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-white hover:gap-3 transition-all duration-200"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Read More <ArrowRight size={15} />
+                </Link>
+              </div>
+            </motion.div>
+          ))}
 
         </div>
       </div>

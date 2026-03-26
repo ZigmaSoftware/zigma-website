@@ -1,10 +1,7 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -19,32 +16,47 @@ import picture1 from "@/assets/website/war room.jpeg";
 import {
   Send,
   Building2,
-  Upload,
   Play,
   Pause,
+  MapPin,
+  Briefcase,
+  Clock3,
 } from "lucide-react";
-
-import { toast } from "sonner";
 
 /* ---------------- JOB DATA ---------------- */
 
-const jobOpenings = [
+type JobOpening = {
+  id: number;
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  experience: string;
+  summary: string;
+  qualifications: string[];
+  responsibilities: string[];
+};
+
+const jobOpenings: JobOpening[] = [
   {
     id: 1,
-    title: "Environmental Engineer/ Officer",
+    title: "Environmental Engineer / Officer",
     department: "Operations",
     location: "Guwahati, Puducherry, Tirupati, Chittoor, Trichy",
     type: "Full-time",
-    Qualifications:
-      "BE/ME - Environmental Engineering, B.Sc/M.Sc - Environmental Science, Chemistry",
     experience: "0-3 years",
-    description:
-      "Lead environmental assessment and remediation projects for landfill sites.",
+    summary:
+      "Lead environmental assessment and remediation programs for landfill and waste-management sites.",
+    qualifications: [
+      "BE/ME in Environmental Engineering, or B.Sc/M.Sc in Environmental Science/Chemistry",
+      "Strong understanding of environmental regulations and compliance",
+      "Ability to prepare field and technical documentation",
+    ],
     responsibilities: [
       "Conduct environmental impact assessments",
       "Design and implement remediation strategies",
       "Monitor compliance with environmental regulations",
-      "Prepare technical reports and documentation",
+      "Prepare technical reports and project documentation",
     ],
   },
   {
@@ -54,15 +66,19 @@ const jobOpenings = [
     location:
       "Chennai, Chittoor, Srikalasti, Nellore, Guwahati, Tirupati, Visakhapatnam",
     type: "Full-time",
-    Qualifications: "Diploma / B.E. in: Any Specialization",
     experience: "2-4 years",
-    description:
-      "Manage large-scale waste management and landfill reclamation projects.",
+    summary:
+      "Execute large-scale waste-management and landfill-reclamation projects with quality, cost, and timeline control.",
+    qualifications: [
+      "Diploma / B.E. in any specialization",
+      "Experience in project planning, reporting, and stakeholder coordination",
+      "Ability to manage multiple workstreams and site teams",
+    ],
     responsibilities: [
       "Oversee project planning and execution",
-      "Manage project budgets and timelines",
-      "Coordinate with stakeholders and clients",
-      "Lead cross-functional project teams",
+      "Manage project budgets and schedules",
+      "Coordinate with clients and cross-functional stakeholders",
+      "Track project risks and ensure timely closure",
     ],
   },
   {
@@ -71,58 +87,54 @@ const jobOpenings = [
     department: "Field Operations",
     location: "Pan India (Multiple Sites)",
     type: "Full-time",
-    Qualifications: [
-      "Electrical installation, maintenance, and troubleshooting",
-      "Handling LT panels, motors, pumps, and control wiring",
-      "Routine inspection and preventive maintenance",
-      "Compliance with safety and electrical standards",
-      "Support site operations with minimal downtime",
-    ],
     experience: "0-5 years",
-    description:
-      "Operate heavy machinery for landfill mining and waste processing.",
+    summary:
+      "Operate and maintain heavy machinery for landfill mining and waste-processing operations.",
+    qualifications: [
+      "Hands-on experience with heavy equipment operations",
+      "Knowledge of LT panels, motors, pumps, and control wiring is preferred",
+      "Awareness of electrical and site safety standards",
+    ],
     responsibilities: [
-      "Operate excavators and loaders",
-      "Perform routine maintenance checks",
-      "Follow safety protocols and guidelines",
-      "Report equipment issues promptly",
+      "Operate excavators, loaders, and related machinery",
+      "Perform routine inspection and preventive maintenance",
+      "Follow safety SOPs and escalation procedures",
+      "Report and coordinate closure of equipment issues",
     ],
   },
   {
     id: 4,
     title: "Stores Executive",
     department: "Stores & Logistics",
-    location: "Puducherry, Kodungaiyur(Chennai)",
+    location: "Puducherry, Kodungaiyur (Chennai)",
     type: "Full-time",
-    Qualifications: "Any degree",
     experience: "0-3 years",
-    description:
-      "Manage receipt, storage, and issue of materials, maintain stock registers and ERP entries.",
+    summary:
+      "Manage receipt, storage, and issue of materials while maintaining stock registers and ERP records.",
+    qualifications: [
+      "Any degree",
+      "Basic understanding of inventory systems and stock audits",
+      "Good coordination skills with procurement and site teams",
+    ],
     responsibilities: [
-      "Monitor inventory levels",
+      "Monitor inventory levels and reorder points",
       "Coordinate with procurement and logistics teams",
-      "Ensure FIFO and stock audits",
-      "Maintain store hygiene and compliance",
+      "Ensure FIFO practices and periodic stock audits",
+      "Maintain store hygiene, records, and compliance",
     ],
   },
 ];
-
-/* ---------------- FORM STATE ---------------- */
-
-const initialApplicationForm = {
-  fullName: "",
-  email: "",
-  phone: "",
-  coverLetter: "",
-};
 
 /* ---------------- COMPONENT ---------------- */
 
 const Careers = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("all");
-  const [selectedLocation, setSelectedLocation] = useState("all");
+  const [selectedLocation] = useState("all");
   const [playingId, setPlayingId] = useState<string | null>(null);
   const videoRefs = useRef<HTMLVideoElement[]>([]);
+
+  const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
+  const [isJobDetailsOpen, setIsJobDetailsOpen] = useState(false);
 
   const cultureVideos = [
     { id: "v1", src: "/videos/video3.mp4", tag: "Recruitment" },
@@ -138,15 +150,6 @@ const Careers = () => {
       el.play();
     }
   };
-
-  const [selectedJob, setSelectedJob] =
-    useState<(typeof jobOpenings)[number] | null>(null);
-
-  const [applicationForm, setApplicationForm] =
-    useState(initialApplicationForm);
-
-  const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [isDragOverResume, setIsDragOverResume] = useState(false);
 
   /* ---------------- ANIMATION ---------------- */
 
@@ -192,63 +195,22 @@ const Careers = () => {
 
   /* ---------------- HANDLERS ---------------- */
 
-  const openApplicationForm = (jobId: number) => {
+  const openJobDetails = (jobId: number) => {
     const job = jobOpenings.find((j) => j.id === jobId) ?? null;
     setSelectedJob(job);
+    setIsJobDetailsOpen(Boolean(job));
   };
 
-  const closeApplicationForm = () => {
-    setSelectedJob(null);
-    setApplicationForm(initialApplicationForm);
-    setResumeFile(null);
+  const closeJobDetails = () => {
+    setIsJobDetailsOpen(false);
   };
 
-  const handleApplicationFormChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setApplicationForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null;
-    setResumeFile(file);
-  };
-
-  const handleResumeDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragOverResume(true);
-  };
-
-  const handleResumeDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragOverResume(false);
-  };
-
-  const handleResumeDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragOverResume(false);
-
-    const file = e.dataTransfer.files?.[0] ?? null;
-
-    if (file) setResumeFile(file);
-  };
-
-  const handleApplicationSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!resumeFile) {
-      toast.error("Please upload your resume.");
-      return;
-    }
-
-    if (!selectedJob) return;
-
-    toast.success(`Application submitted for ${selectedJob.title}.`);
-
-    closeApplicationForm();
+  const openApplicationPage = () => {
+    const applyUrl = selectedJob
+      ? `/careers/apply?role=${encodeURIComponent(selectedJob.title)}`
+      : "/careers/apply";
+    const popup = window.open(applyUrl, "_blank", "noopener,noreferrer");
+    popup?.focus();
   };
 
   /* ---------------- UI ---------------- */
@@ -334,164 +296,116 @@ const Careers = () => {
 
             {/* JOB CARDS */}
 
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredJobs.length === 0 ? (
+              <div className="rounded-xl border border-dashed p-8 text-center text-muted-foreground">
+                No openings found for the selected filters.
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filteredJobs.map((job) => (
+                  <div
+                    key={job.id}
+                    className="border rounded-xl p-5 bg-card hover:shadow-lg transition"
+                  >
+                    <div className="flex justify-between items-start mb-3">
 
-              {filteredJobs.map((job) => (
+                      <div className="text-xs uppercase tracking-widest text-muted-foreground">
+                        {job.department}
+                      </div>
 
-                <div
-                  key={job.id}
-                  className="border rounded-xl p-5 bg-card hover:shadow-lg transition"
-                >
-                  <div className="flex justify-between items-start mb-3">
+                      <Building2 className="w-4 h-4 text-primary" />
 
-                    <div className="text-xs uppercase tracking-widest text-muted-foreground">
-                      {job.department}
                     </div>
 
-                    <Building2 className="w-4 h-4 text-primary" />
+                    <h3 className="text-lg font-bold mb-2">{job.title}</h3>
+
+                    <p className="text-muted-foreground text-sm mb-4">
+                      {job.summary}
+                    </p>
+
+                    <Button
+                      variant="outline"
+                      onClick={() => openJobDetails(job.id)}
+                    >
+                      <Send className="w-4 h-4 mr-2" />
+                      View Details
+                    </Button>
 
                   </div>
-
-                  <h3 className="text-lg font-bold mb-2">{job.title}</h3>
-
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {job.description}
-                  </p>
-
-                  <Button
-                    variant="outline"
-                    onClick={() => openApplicationForm(job.id)}
-                  >
-                    <Send className="w-4 h-4 mr-2" />
-                    View Opening
-                  </Button>
-
-                </div>
-              ))}
-
-            </div>
+                ))}
+              </div>
+            )}
 
           </div>
 
         </section>
 
-        {/* APPLICATION DIALOG */}
+        {/* JOB DETAILS DIALOG */}
 
-        <Dialog open={Boolean(selectedJob)} onOpenChange={() => closeApplicationForm()}>
-          <DialogContent className="max-w-3xl">
-
+        <Dialog open={isJobDetailsOpen} onOpenChange={setIsJobDetailsOpen}>
+          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Application Form</DialogTitle>
+              <DialogTitle>{selectedJob?.title}</DialogTitle>
               <DialogDescription>
-                Complete your application details below.
+                Review role details before starting your application.
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleApplicationSubmit} className="space-y-4 mt-4">
-
-              <div className="grid md:grid-cols-2 gap-4">
-
-                <div>
-                  <Label>Full Name</Label>
-                  <Input
-                    name="fullName"
-                    value={applicationForm.fullName}
-                    onChange={handleApplicationFormChange}
-                    required
-                  />
+            {selectedJob && (
+              <div className="space-y-6 mt-2">
+                <div className="grid md:grid-cols-3 gap-3">
+                  <div className="rounded-lg border p-3">
+                    <p className="text-xs text-muted-foreground mb-1">Location</p>
+                    <p className="text-sm font-medium flex items-start gap-2">
+                      <MapPin className="h-4 w-4 mt-0.5" />
+                      {selectedJob.location}
+                    </p>
+                  </div>
+                  <div className="rounded-lg border p-3">
+                    <p className="text-xs text-muted-foreground mb-1">Employment Type</p>
+                    <p className="text-sm font-medium flex items-center gap-2">
+                      <Briefcase className="h-4 w-4" />
+                      {selectedJob.type}
+                    </p>
+                  </div>
+                  <div className="rounded-lg border p-3">
+                    <p className="text-xs text-muted-foreground mb-1">Experience</p>
+                    <p className="text-sm font-medium flex items-center gap-2">
+                      <Clock3 className="h-4 w-4" />
+                      {selectedJob.experience}
+                    </p>
+                  </div>
                 </div>
 
                 <div>
-                  <Label>Phone</Label>
-                  <Input
-                    name="phone"
-                    value={applicationForm.phone}
-                    onChange={handleApplicationFormChange}
-                    required
-                  />
+                  <h4 className="text-base font-semibold">About This Role</h4>
+                  <p className="text-sm text-muted-foreground mt-2">{selectedJob.summary}</p>
                 </div>
 
-              </div>
-
-              <div>
-                <Label>Email</Label>
-                <Input
-                  type="email"
-                  name="email"
-                  value={applicationForm.email}
-                  onChange={handleApplicationFormChange}
-                  required
-                />
-              </div>
-
-              {/* RESUME */}
-
-              <div>
-
-                <Label>Upload Resume</Label>
-
-                <div
-                  onDragOver={handleResumeDragOver}
-                  onDragLeave={handleResumeDragLeave}
-                  onDrop={handleResumeDrop}
-                  className={`border-dashed border-2 p-6 text-center rounded-lg ${isDragOverResume
-                    ? "border-primary bg-primary/10"
-                    : "border-border"
-                    }`}
-                >
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    onChange={handleResumeUpload}
-                    className="hidden"
-                    id="resumeUpload"
-                  />
-
-                  <label
-                    htmlFor="resumeUpload"
-                    className="cursor-pointer text-primary font-medium"
-                  >
-                    <Upload className="inline mr-2 w-4 h-4" />
-                    Drag & Drop Resume
-                  </label>
-
-                  <p className="text-sm text-muted-foreground mt-2">
-                    {resumeFile ? resumeFile.name : "or click to upload"}
-                  </p>
-
+                <div>
+                  <h4 className="text-base font-semibold">Key Responsibilities</h4>
+                  <ul className="mt-2 list-disc pl-5 space-y-1 text-sm text-muted-foreground">
+                    {selectedJob.responsibilities.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
 
+                <div>
+                  <h4 className="text-base font-semibold">Qualifications</h4>
+                  <ul className="mt-2 list-disc pl-5 space-y-1 text-sm text-muted-foreground">
+                    {selectedJob.qualifications.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="flex justify-end gap-3 pt-2">
+                  <Button variant="outline" onClick={closeJobDetails}>Close</Button>
+                  <Button onClick={openApplicationPage}>Apply Now</Button>
+                </div>
               </div>
-
-              <div>
-
-                <Label>Why are you fit for this role?</Label>
-
-                <Textarea
-                  rows={4}
-                  name="coverLetter"
-                  value={applicationForm.coverLetter}
-                  onChange={handleApplicationFormChange}
-                  required
-                />
-
-              </div>
-
-              <div className="flex justify-end gap-3 pt-2">
-
-                <Button variant="outline" type="button" onClick={closeApplicationForm}>
-                  Cancel
-                </Button>
-
-                <Button type="submit">
-                  <Send className="w-4 h-4 mr-2" />
-                  Submit
-                </Button>
-
-              </div>
-
-            </form>
-
+            )}
           </DialogContent>
         </Dialog>
 
@@ -528,14 +442,16 @@ const Careers = () => {
                   {/* 16:9 aspect container */}
                   <div className="relative h-[300px] sm:h-[340px] lg:h-[500px]">
                     <video
-                      ref={(el) => { if (el) videoRefs.current[i] = el; }}
+                      ref={(el) => {
+                        if (el) videoRefs.current[i] = el;
+                      }}
                       src={video.src}
                       className="w-full h-full object-cover"
                       playsInline
                       onEnded={() => setPlayingId(null)}
                     />
 
-                    {/* Play Overlay — hidden once playing */}
+                    {/* Play Overlay - hidden once playing */}
                     {playingId !== video.id && (
                       <div
                         className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer transition-all duration-300"
@@ -556,7 +472,7 @@ const Careers = () => {
                       </div>
                     )}
 
-                    {/* Pause Overlay — shown while playing */}
+                    {/* Pause Overlay - shown while playing */}
                     {playingId === video.id && (
                       <div
                         className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -584,36 +500,27 @@ const Careers = () => {
         </section>
 
         {/* CTA Section */}
-        <section className=" section-padding">
+        <section className="section-padding">
           <div className="container-main text-center">
-            <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
+            <span className="text-xs font-medium uppercase tracking-[0.32em] text-slate-500">
               Join Our Team
             </span>
-            <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+            <h2 className="mx-auto mt-4 max-w-4xl text-4xl font-bold leading-tight text-slate-900 md:text-5xl">
               Ready to Build Your Career With Us?
             </h2>
-            <p className="mt-6 text-base lg:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
+            <p className="mx-auto mb-10 mt-6 max-w-3xl text-base leading-relaxed text-slate-600 md:text-lg">
               We're always looking for talented individuals. Send us your resume and
-              we'll reach out when a suitable position opens up.            </p>
-
-            <Button size="lg" asChild className="items-center justify-center">
-              <a href="/careers/apply" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                Send Your Profile
-                <Send className="ml-2 h-5 w-5" />
-              </a>
-            </Button>
-
-
-            {/* Secondary Email Line */}
-            <p className="text-sm text-gray-500 mt-4">
-              or email us at{" "}
-              <a
-                href="mailto:careers@zigma.in"
-                className="text-green-600 font-medium hover:underline"
-              >
-                careers@zigma.in
-              </a>
+              we'll reach out when a suitable position opens up.
             </p>
+
+            <a
+              href="mailto:careers@zigma.in?subject=Career%20Application&body=Hi%20Zigma%20Team%2C%0A%0AI%20would%20like%20to%20share%20my%20profile%20for%20career%20opportunities.%0A%0ARegards%2C"
+              aria-label="Send your profile to careers@zigma.in"
+              className="inline-flex items-center gap-2 text-base font-semibold text-emerald-700 underline underline-offset-4 hover:text-emerald-800"
+            >
+              <Send className="h-4 w-4" />
+              careers@zigma.in
+            </a>
           </div>
         </section>
 

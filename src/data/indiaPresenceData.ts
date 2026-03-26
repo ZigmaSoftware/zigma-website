@@ -42,7 +42,7 @@ export const stateData: Record<string, StateData> = {
     ongoing: 2,
     completed: 4,
     description: "Sustainable waste management projects.",
-    districts: ["Kollam"],
+    districts: ["Kollam", "Kochi"],
   },
   "andhra-pradesh": {
     id: "andhra-pradesh",
