@@ -71,7 +71,7 @@ const services = [
   },
   {
     id: "epr-extended-producer-responsibility",
-    title: "EPR ",
+    title: "EPR (Extended Producer Responsibility)",
     // title: "EPR (Extended Producer Responsibility)",
     description:
       "Extended Producer Responsibility - Sustainable producer responsibility programs ensuring end-of-life product management and recycling.",
@@ -133,11 +133,17 @@ const ServicesSection = () => {
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
 
-              <div className="absolute inset-0 bg-black/30 transition-colors duration-300 group-hover:bg-black/55" />
+              <div className="absolute inset-0 bg-black/35 transition-colors duration-300 group-hover:bg-black/60" />
               <div className="pointer-events-none absolute left-4 top-4 h-px w-0 bg-white/80 transition-all duration-300 group-hover:w-10" />
               <div className="pointer-events-none absolute left-4 top-4 h-0 w-px bg-white/80 transition-all duration-300 group-hover:h-10" />
 
-              <div className="absolute inset-0 flex flex-col justify-end p-6 text-white opacity-100 transition-all duration-300 md:translate-y-6 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
+              <div className="absolute inset-x-0 bottom-0 p-6 text-white transition-all duration-300 group-hover:opacity-0 group-hover:translate-y-3">
+                <h3 className="text-xl font-semibold leading-tight">
+                  {service.title}
+                </h3>
+              </div>
+
+              <div className="absolute inset-0 flex flex-col justify-end p-6 text-white opacity-0 translate-y-6 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                 <h3 className="text-xl font-semibold leading-tight">
                   {service.title}
                 </h3>
