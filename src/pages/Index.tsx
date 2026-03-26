@@ -20,8 +20,8 @@ const Index = () => {
         <AboutSection />
         <IndiaPresence/>
         <ServicesSection/>
-        <PartnersSectioncp/>
         <ULBClientsSection/>
+        <PartnersSectioncp/>
         {/* <ULBClientsSectioncp/> */}
       </main>
       <Footer />

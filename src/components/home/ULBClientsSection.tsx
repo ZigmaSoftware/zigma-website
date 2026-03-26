@@ -70,12 +70,12 @@ const CLIENTS: Client[] = Object.entries(ULB_LOGOS)
 
 
 const ClientMarqueeCard = ({ client }: { client: Client }) => (
-  <div className="group relative min-w-[140px] md:min-w-[170px] h-14 md:h-24 bg-card rounded-lg flex items-center justify-center px-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg hover:z-10">
+  <div className="group relative min-w-[140px] md:min-w-[170px] h-14 md:h-36 bg-card rounded-lg flex items-center justify-center px-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg hover:z-10">
     <img
       src={client.logoSrc}
       alt={client.name}
       loading="lazy"
-      className="h-20 w-auto max-w-full object-contain opacity-95 transition-opacity transition-transform duration-300 ease-out group-hover:opacity-100"
+      className="h-28 w-auto max-w-full object-contain opacity-95 transition-opacity transition-transform duration-300 ease-out group-hover:opacity-100"
     />
   </div>
 );

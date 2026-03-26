@@ -1,6 +1,4 @@
 ﻿import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ScrollToTop from "@/components/ScrollToTop";
 // import Container from "./Container";
@@ -119,14 +117,12 @@ const HeroSection = () => {
       {/* Content */}
       <div className="container-main relative z-10 ">
         <div className="max-w-3xl text-background transition-all duration-700 ease-out ">
-          <div className="relative pl-6 py-2 overflow-visible">
-            {/* Accent Line */}
-            <div className="absolute left-0 top-0 h-full w-1 bg-primary animate-lineGrow" />
+          <div className="relative py-2 overflow-visible">
 
             {/* Animated Text */}
             <h1
               key={current}
-              className="text-3xl md:text-5xl  font-semibold text-white leading-[1.12] tracking-tight opacity-0 translate-x-[-45px] animate-slideIn"
+              className="text-3xl md:text-5xl font-semibold text-white leading-[1.42] md:leading-[1.25] opacity-0 translate-x-[-45px] animate-slideIn [text-shadow:0_4px_14px_rgba(0,0,0,0.85),0_14px_36px_rgba(0,0,0,0.65)]"
             >
               {slides[current].title}
             </h1>

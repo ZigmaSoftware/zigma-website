@@ -12,6 +12,7 @@ import iot from "@/assets/services/WB.png";
 import bsfl from "@/assets/Bsfl.png";
 import servicesDropdownLogo from "@/assets/services/zigma_blueplanet_logo.png";
 import zigflyLogo from "@/assets/services/zigfly.png";
+import wasteTechLogo from "@/assets/services/logo-wastetech.png";
 import productRdf from "@/assets/services/Refuse-Derived Fuel.png";
 import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
 import productBioEarth from "@/assets/website/goodearth.jpg";
@@ -369,9 +370,14 @@ const Header = () => {
                     <div key={`row-${rowIndex}`} className={`grid ${megaGridCols} gap-4`}>
                       {row.map((sub) => {
                         const isServicesMenu = activeMegaMenuItem.name === "Services";
+                        const isWasteTechService =
+                          sub.name === "Machinery Sales & Rentals" ||
+                          sub.name === "IOT Systems for Waste Management";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo
+                            : isWasteTechService
+                              ? wasteTechLogo
                             : servicesDropdownLogo;
 
                         return (
@@ -393,7 +399,7 @@ const Header = () => {
                                       src={serviceCardLogo}
                                       alt=""
                                       aria-hidden="true"
-                                      className="h-10 w-auto object-contain mix-blend-multiply"
+                                      className={`w-auto object-contain mix-blend-multiply ${isWasteTechService ? "h-6" : "h-10"}`}
                                       loading="lazy"
                                     />
                                   </div>
@@ -545,9 +551,14 @@ const Header = () => {
                     <div key={`row-${rowIndex}`} className={`grid ${megaGridCols} gap-4`}>
                       {row.map((sub) => {
                         const isServicesMenu = activeMegaMenuItem.name === "Services";
+                        const isWasteTechService =
+                          sub.name === "Machinery Sales & Rentals" ||
+                          sub.name === "IOT Systems for Waste Management";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo
+                            : isWasteTechService
+                              ? wasteTechLogo
                             : servicesDropdownLogo;
 
                         return (
@@ -569,7 +580,7 @@ const Header = () => {
                                       src={serviceCardLogo}
                                       alt=""
                                       aria-hidden="true"
-                                      className="h-10 w-auto object-contain mix-blend-multiply"
+                                      className={`w-auto object-contain mix-blend-multiply ${isWasteTechService ? "h-6" : "h-10"}`}
                                       loading="lazy"
                                     />
                                   </div>

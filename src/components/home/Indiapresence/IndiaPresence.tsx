@@ -2,14 +2,66 @@ import React, { useState } from "react";
 import IndiaMapSVG from "./IndiaMapSVG";
 import { stateData, legendItems } from "@/data/indiaPresenceData";
 
+const normalizeLocationName = (name: string) => {
+  const trimmed = name.trim();
+
+  if (/^Noida-/i.test(trimmed)) return "Noida";
+  if (/^Makkarpura/i.test(trimmed)) return "Makkarpura";
+  if (/^Perungudi Package-/i.test(trimmed)) return "Perungudi";
+  if (/^Vizag New$/i.test(trimmed) || /^GVMC Vizag$/i.test(trimmed)) return "Vizag";
+  if (/^Nagpur Smart City$/i.test(trimmed) || /^NMC-Project/i.test(trimmed)) return "Nagpur";
+  if (/^Pondy/i.test(trimmed)) return "Pondy";
+  if (/^Trichy New$/i.test(trimmed)) return "Trichy";
+  if (/^KDG-PG\d+$/i.test(trimmed)) return "Kodungaiyur";
+  if (/^Erode Muthusamy Colony$/i.test(trimmed)) return "Erode";
+
+  return trimmed;
+};
+
+const dedupe = (items: string[]) => Array.from(new Set(items.filter((item) => item.length > 0)));
+
 const IndiaPresence: React.FC = () => {
   const [activeState, setActiveState] = useState<string | null>(null);
   const [selectedState, setSelectedState] = useState<string | null>(null);
 
   const currentState = selectedState || activeState;
   const currentData = currentState ? stateData[currentState] : null;
-  const landfillLocation = currentData?.districts?.[0] ?? "To Be Announced";
-  const bsflLocation = currentData?.districts?.[1] ?? "To Be Announced";
+  const isTamilNadu = currentData?.id === "tamil-nadu";
+  const districtEntries = currentData?.districts ?? [];
+  const taggedLandfillLocations = dedupe(
+    districtEntries
+      .map((district) => {
+        const parts = district.split(" - ");
+        if (parts.length < 2) return "";
+        const projectName = parts.slice(1).join(" - ").toLowerCase();
+        if (!projectName.includes("landfill mining")) return "";
+        return normalizeLocationName(parts[0]);
+      }),
+  );
+  const bsflLocations = dedupe(
+    districtEntries
+      .map((district) => {
+        const parts = district.split(" - ");
+        if (parts.length < 2) return "";
+        const projectName = parts.slice(1).join(" - ").toLowerCase();
+        if (!projectName.includes("bsfl")) return "";
+        return normalizeLocationName(parts[0]);
+      }),
+  );
+  const ungroupedLocations = dedupe(
+    districtEntries
+      .map((district) => {
+        const parts = district.split(" - ");
+        if (parts.length < 2) return normalizeLocationName(district);
+        const projectName = parts.slice(1).join(" - ").toLowerCase();
+        if (projectName.includes("landfill mining") || projectName.includes("bsfl")) return "";
+        return normalizeLocationName(parts[0]);
+      }),
+  );
+  const landfillLocations =
+    taggedLandfillLocations.length > 0
+      ? taggedLandfillLocations
+      : ungroupedLocations;
 
   const stateList = Object.values(stateData);
 
@@ -105,28 +157,37 @@ const IndiaPresence: React.FC = () => {
                 </h2>
               </div>
 
-              <p className="text-md text-muted-foreground mb-5">  
-                {currentData.description}
-              </p>
+              {landfillLocations.length > 0 || bsflLocations.length > 0 ? (
+                <div className="mt-4 space-y-3">
+                  {landfillLocations.length > 0 ? (
+                    <div>
+                      <p className="text-sm font-semibold text-foreground mb-1">Landfill Mining Project</p>
+                      <ul className={isTamilNadu ? "grid grid-cols-2 gap-x-4 gap-y-1" : "space-y-1"}>
+                        {landfillLocations.map((location) => (
+                          <li key={location} className="flex items-start gap-2 text-sm text-foreground leading-snug">
+                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
+                            {location}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
 
-              <div className="mt-4 space-y-4">
-                <div className="border-l-2 border-primary/30 pl-3">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                    Landfill Mining
-                  </p>
-                  <p className="text-sm text-foreground mt-1">
-                    {landfillLocation}
-                  </p>
+                  {bsflLocations.length > 0 ? (
+                    <div>
+                      <p className="text-sm font-semibold text-foreground mb-1">BSFL Project</p>
+                      <ul className="space-y-1">
+                        {bsflLocations.map((location) => (
+                          <li key={location} className="flex items-start gap-2 text-sm text-foreground leading-snug">
+                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
+                            {location}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
                 </div>
-                <div className="border-l-2 border-primary/30 pl-3">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                    BSFL Project
-                  </p>
-                  <p className="text-sm text-foreground mt-1">
-                    {bsflLocation}
-                  </p>
-                </div>
-              </div>
+              ) : null}
 {/* 
               <div className="flex gap-6">
                 <div>
