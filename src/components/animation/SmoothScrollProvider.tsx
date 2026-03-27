@@ -1,8 +1,4 @@
 import { useEffect, type ReactNode } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 type LenisLike = {
   raf: (time: number) => void;
@@ -30,9 +26,16 @@ const SmoothScrollProvider = ({ children }: SmoothScrollProviderProps) => {
 
     let isActive = true;
     let lenis: LenisLike | null = null;
+    let cleanupTicker: (() => void) | undefined;
 
     const init = async () => {
       try {
+        const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+          import("gsap"),
+          import("gsap/ScrollTrigger"),
+        ]);
+        gsap.registerPlugin(ScrollTrigger);
+
         const lenisModuleName = "lenis";
         const imported = await import(/* @vite-ignore */ lenisModuleName);
         const Lenis = imported.default;
@@ -62,20 +65,16 @@ const SmoothScrollProvider = ({ children }: SmoothScrollProviderProps) => {
         ScrollTrigger.addEventListener("refresh", updateScroll);
         ScrollTrigger.refresh();
 
-        return () => {
+        cleanupTicker = () => {
           ScrollTrigger.removeEventListener("refresh", updateScroll);
           gsap.ticker.remove(raf);
         };
       } catch {
         // Graceful fallback when lenis is not installed in the local environment.
       }
-      return undefined;
     };
 
-    let cleanupTicker: (() => void) | undefined;
-    init().then((cleanup) => {
-      cleanupTicker = cleanup;
-    });
+    void init();
 
     return () => {
       isActive = false;

@@ -110,7 +110,7 @@ const PROJECTS: Project[] = [
   { id: 23, title: "Perungudi Package-5", subtitle: "Project Under Progress", state: "Tamil Nadu", desc: "Perungudi Package-5 legacy waste project.", project: "Quantity: 443,576 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 100,649.", outcome: "Category: TN.", metrics: [], waste: 443576, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
   { id: 24, title: "Trichy", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Trichy legacy waste project.", project: "Quantity: 619,925 tons. Area reclaimed: 38 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 97,386.", outcome: "Category: TN.", metrics: [], waste: 619925, land: 38, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
   { id: 25, title: "Trichy New", subtitle: "Project Under Progress", state: "Tamil Nadu", desc: "Trichy New legacy waste project.", project: "Quantity: 289,621 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 95,786.", outcome: "Category: TN.", metrics: [], waste: 289621, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 26, title: "ITC", subtitle: "Project Under Progress", state: "Tamil Nadu", desc: "ITC legacy waste project.", project: "Quantity: 225,000 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 17,958.", outcome: "Category: TN.", metrics: [], waste: 225000, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
+  { id: 26, title: "Mettupalayam-ITC", subtitle: "Project Under Progress", state: "Tamil Nadu", desc: "ITC legacy waste project.", project: "Quantity: 225,000 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 17,958.", outcome: "Category: TN.", metrics: [], waste: 225000, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
   { id: 27, title: "Sathya Sub", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Sathya Sub legacy waste project.", project: "Quantity: 25,097 tons. Area reclaimed: 6.2 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 1,917.", outcome: "Category: TN.", metrics: [], waste: 25097, land: 6.2, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
   { id: 28, title: "Vendipalayam", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Vendipalayam legacy waste project.", project: "Quantity: 575,960 tons. Area reclaimed: 20 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 70,739.", outcome: "Category: TN.", metrics: [], waste: 575960, land: 20, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
   { id: 29, title: "Muthusamy Colony", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Muthusamy Colony legacy waste project.", project: "Quantity: 18,819 tons. Area reclaimed: 3 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 1,613.", outcome: "Category: TN.", metrics: [], waste: 18819, land: 3, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
@@ -584,7 +584,7 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
 };
 
 // -- Main Page --------------------------------------------------
-const ProjectShowcase: React.FC = () => {
+const CompletedProjects: React.FC = () => {
   const STATES = Array.from(new Set(PROJECTS.map(p => p.state)));
   const [selectedState, setSelectedState] = useState(STATES[0] || '');
   const filteredProjects = PROJECTS.filter(p => p.state === selectedState);
@@ -657,7 +657,7 @@ const ProjectShowcase: React.FC = () => {
   );
 };
 
-export default ProjectShowcase;
+export default CompletedProjects;
 
 
 

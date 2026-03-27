@@ -1,16 +1,47 @@
+import { Suspense, lazy, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/home/HeroSection";
 import AboutSection from "@/components/home/AboutSection";
 import StatsSection from "@/components/home/StatsSection";
-import { IndiaPresence } from "@/components/home/Indiapresence";
-import ServicesSection from "@/components/home/ServicesSection";
-import PartnersSectioncp from "@/components/home/PartnersSectioncp";
-import ULBClientsSection from "@/components/home/ULBClientsSection";
-import ULBClientsSectioncp from "@/components/home/ULBClientsSectioncp";
+// import ULBClientsSectioncp from "@/components/home/ULBClientsSectioncp";
+
+const IndiaPresence = lazy(() =>
+  import("@/components/home/Indiapresence").then((module) => ({ default: module.IndiaPresence })),
+);
+const ServicesSection = lazy(() => import("@/components/home/ServicesSection"));
+const ULBClientsSection = lazy(() => import("@/components/home/ULBClientsSection"));
+const PartnersSectioncp = lazy(() => import("@/components/home/PartnersSectioncp"));
 
 
 const Index = () => {
+  const [showDeferredSections, setShowDeferredSections] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: number | undefined;
+    let idleId: number | undefined;
+
+    const reveal = () => setShowDeferredSections(true);
+
+    if ("requestIdleCallback" in window) {
+      idleId = (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(
+        reveal,
+        { timeout: 1200 },
+      );
+    } else {
+      timeoutId = window.setTimeout(reveal, 450);
+    }
+
+    return () => {
+      if (idleId !== undefined && "cancelIdleCallback" in window) {
+        (
+          window as Window & { cancelIdleCallback: (id: number) => void }
+        ).cancelIdleCallback(idleId);
+      }
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -18,10 +49,14 @@ const Index = () => {
         <HeroSection />   
         <StatsSection />
         <AboutSection />
-        <IndiaPresence/>
-        <ServicesSection/>
-        <ULBClientsSection/>
-        <PartnersSectioncp/>
+        {showDeferredSections ? (
+          <Suspense fallback={null}>
+            <IndiaPresence />
+            <ServicesSection />
+            <ULBClientsSection />
+            <PartnersSectioncp />
+          </Suspense>
+        ) : null}
         {/* <ULBClientsSectioncp/> */}
       </main>
       <Footer />

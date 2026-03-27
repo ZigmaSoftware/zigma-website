@@ -20,6 +20,7 @@ import img8 from '@/assets/website/noida present.png';
 import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/website/hero/controll room.png';
 import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
+import img12 from '@/assets/Awards/award12_Swachha Andhra.png';
 
 import picture1 from '@/assets/Leaders/Mr. Boopathy Dharmaraj.jpeg';
 import picture2 from '@/assets/Leaders/Mr. K P Mutharasu.png';
@@ -27,7 +28,7 @@ import picture3 from '@/assets/Leaders/Mr. ANAND THANGARAJ.png';
 import picture4 from '@/assets/Leaders/Mr. KTI.png';
 import picture5 from '@/assets/Leaders/Mr. NAGESH PRABHU.jpeg';
 import picture6 from '@/assets/Leaders/Mr. Aghoramoorthy Rajasekaran.png';
-import picture7 from '@/assets/Leaders/Mr. Sridhar Jagannathan.jpeg';
+import picture7 from '@/assets/Leaders/Sridhar Jagannathan.jpeg';
 import picture10 from '@/assets/Leaders/Mr. Prashant Singh.jpeg';
 import picture11 from '@/assets/Leaders/Mr. Shankar Raman.png';
 // import picture12 from '@/assets/Mr. Mohan Kumar.png';
@@ -184,7 +185,7 @@ const milestones: Milestone[] = [
       "Awarded the Andhra Pradesh Chief Minister's award for exemplary performance in bio-mining.",
       'Received funding from Denmark-based Novo Holdings through Blue Planet.',
     ],
-    image: img11,
+    image: 'http://www.w3.org/2000/svg',
   },
 ];
 
@@ -229,7 +230,7 @@ const leaders: Leader[] = [
     name: 'Vijayan S',
     designation: 'Promoter',
     image: picture16,
-    linkedin: 'https://www.linkedin.com/in/vijayans/',
+    linkedin: 'https://www.linkedin.com/in/anand-thangaraj-9b1a8614a/',
   },
   {
     group: 'Promoters and CoFounders',

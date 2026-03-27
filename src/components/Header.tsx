@@ -9,7 +9,7 @@ import wetWaste from "@/assets/fresh waste.jpg.jpeg";
 import herobg from "@/assets/website/hero/noida-present-hero.jpg";
 import machine from "@/assets/services/machinery.jpeg";
 import iot from "@/assets/services/WB.png";
-import bsfl from "@/assets/Bsfl.png";
+import bsflsolar from "@/assets/solarr.jpg.jpeg";
 import servicesDropdownLogo from "@/assets/services/zigma_blueplanet_logo.png";
 import zigflyLogo from "@/assets/services/zigfly.png";
 import wasteTechLogo from "@/assets/services/logo-wastetech.png";
@@ -69,14 +69,14 @@ const navItems: NavItem[] = [
         image: landfillManagement,
       },
       {
-        name: "Fresh Waste Management and Processing",
+        name: "Daily MSW Management and Processing",
         path: "/services#wet-waste",
         image: wetWaste,
       },
       {
         name: "BSFL Based Organic Waste Management",
         path: "/services#Bsfl",
-        image: bsfl,
+        image: bsflsolar,
       },
       {
         name: "Machinery Sales & Rentals",
@@ -126,8 +126,8 @@ const navItems: NavItem[] = [
 
   { name: "Projects", path: "/project-showcase" ,
   dropdown: [
-    { name: "Completed Projects", path: "/project-showcase" },
-    { name: "Ongoing Projects", path: "/projectsdemo1" },
+    { name: "Completed Projects", path: "/completedprojects" },
+    { name: "Ongoing Projects", path: "/ongoingprojects" },
     
   
   ],
@@ -138,8 +138,8 @@ const navItems: NavItem[] = [
     path: "/media",
     dropdown: [
       { name: "In the News", path: "/Media" },
-      { name: "Publications", path: "/Awardsection" },
-      { name: "Awards and Recognition", path: "/Awardsection" },
+      { name: "Publications", path: "/AwardsandRecognition" },
+      { name: "Awards and Recognitions", path: "/AwardsandRecognition" },
       { name: "Testimonials", path: "/Testimonials" },  
     
     ],

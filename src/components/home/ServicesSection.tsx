@@ -5,7 +5,7 @@ import Reveal from "@/components/animation/Reveal";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
 import landfillManagement from "@/assets/windrow.jpg";
 import freshWaste from "@/assets/fresh waste.jpg.jpeg";
-import bsflWaste from "@/assets/Bsfl.png";
+import bsflWaste from "@/assets/solarr.jpg.jpeg";
 import machinery from "@/assets/services/machinery.jpeg";
 import iotWaste from "@/assets/services/WB.png";
 import altFuel from "@/assets/services/Integrated Alternative Fuel Solutions.jpg";

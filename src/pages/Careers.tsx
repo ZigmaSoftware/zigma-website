@@ -37,6 +37,13 @@ type JobOpening = {
   responsibilities: string[];
 };
 
+type CultureVideo = {
+  id: string;
+  src: string;
+  objectPosition?: string;
+  zoom?: number;
+};
+
 const jobOpenings: JobOpening[] = [
   {
     id: 1,
@@ -136,19 +143,27 @@ const Careers = () => {
   const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
   const [isJobDetailsOpen, setIsJobDetailsOpen] = useState(false);
 
-  const cultureVideos = [
-    { id: "v1", src: "/videos/video3.mp4", tag: "Recruitment" },
-    { id: "v2", src: "/videos/video1.mp4", tag: "Projects" },
-    { id: "v3", src: "/videos/video2.mp4", tag: "Team" },
+  const cultureVideos: CultureVideo[] = [
+    { id: "v1", src: "/videos/video3.mp4", objectPosition: "center 45%", zoom: 1.06 },
+    { id: "v2", src: "/videos/video1.mp4", objectPosition: "center center", zoom: 1.08 },
+    { id: "v3", src: "/videos/video2.mp4", objectPosition: "center center", zoom: 1.42 },
   ];
 
   const handleVideoPlay = (index: number, id: string) => {
     setPlayingId(id);
-    const el = videoRefs.current[index];
-    if (el) {
-      el.controls = true;
-      el.play();
-    }
+    videoRefs.current.forEach((el, i) => {
+      if (!el) return;
+      if (i === index) {
+        el.muted = false;
+        el.controls = true;
+        el.play();
+        return;
+      }
+      el.pause();
+      el.currentTime = 0;
+      el.muted = true;
+      el.controls = false;
+    });
   };
 
   /* ---------------- ANIMATION ---------------- */
@@ -436,7 +451,7 @@ const Careers = () => {
               {cultureVideos.map((video, i) => (
                 <div
                   key={video.id}
-                  className="group relative rounded-2xl overflow-hidden bg-black shadow-lg hover:shadow-2xl transition-shadow duration-300"
+                  className="group relative rounded-2xl overflow-hidden bg-slate-950 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
 
                 >
                   {/* 16:9 aspect container */}
@@ -446,8 +461,16 @@ const Careers = () => {
                         if (el) videoRefs.current[i] = el;
                       }}
                       src={video.src}
-                      className="w-full h-full object-cover"
+                      preload="metadata"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      style={{
+                        objectPosition: video.objectPosition ?? "center",
+                        transform: `scale(${video.zoom ?? 1})`,
+                      }}
                       playsInline
+                      autoPlay
+                      muted
+                      loop
                       onEnded={() => setPlayingId(null)}
                     />
 
@@ -455,7 +478,7 @@ const Careers = () => {
                     {playingId !== video.id && (
                       <div
                         className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer transition-all duration-300"
-                        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%)" }}
+                        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.52) 100%)" }}
                         onClick={() => handleVideoPlay(i, video.id)}
                       >
                         {/* Play button circle - show on hover and initially */}
@@ -463,12 +486,6 @@ const Careers = () => {
                           <Play className="w-6 h-6 text-white fill-white ml-1" />
                         </div>
 
-                        {/* Bottom label */}
-                        <div className="absolute bottom-0 left-0 right-0 px-5 py-4">
-                          <p className="text-white text-sm font-semibold leading-tight truncate">
-
-                          </p>
-                        </div>
                       </div>
                     )}
 
@@ -476,11 +493,15 @@ const Careers = () => {
                     {playingId === video.id && (
                       <div
                         className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%)" }}
+                        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.52) 100%)" }}
                         onClick={() => {
                           const el = videoRefs.current[i];
                           if (el) {
                             el.pause();
+                            el.currentTime = 0;
+                            el.muted = true;
+                            el.controls = false;
+                            el.play();
                             setPlayingId(null);
                           }
                         }}
