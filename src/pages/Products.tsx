@@ -13,6 +13,7 @@ import product5 from "@/assets/website/Ferrous.jpg";
 import productRdf from "@/assets/services/Refuse-Derived Fuel.png";
 import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
 import img4 from "@/assets/website/hero/Furnitures.png";
+import larva from "@/assets/website/larva.jpeg";
 
 import bg1 from "@/assets/background-1.png"; 
 
@@ -130,6 +131,22 @@ const products = [
     ],
     applications: ["Rubberized Asphalt", "Playground Surfaces", "Fuel Alternative", "Civil Engineering"],
     icon: Recycle
+  },
+  {
+    id: 7,
+    name: "Black Soldier Fly Larvae (BSFL)",
+    tagline: "Sustainable Protein Source",
+    description: "Black Soldier Fly Larvae (BSFL) produced through controlled organic waste bioconversion for use in animal feed, aquaculture, and circular bio-economy applications.",
+    image: larva,
+    color: "from-amber-500 to-orange-700",
+    features: [
+      "High protein and fat content",
+      "Produced from organic waste streams",
+      "Supports circular waste management",
+      "Consistent quality output"
+    ],
+    applications: ["Animal Feed", "Aquaculture", "Poultry Nutrition", "Organic Waste Bioconversion"],
+    icon: Leaf
   },
   {
     id: 6,

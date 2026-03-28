@@ -39,6 +39,15 @@ import picture16 from '@/assets/Leaders/Vijayan.png';
 import picture17 from '@/assets/Leaders/Mohan kumar.png';
 import picture18 from '@/assets/Leaders/Shivashankar Pandian.jpeg';
 
+
+import milestone2016 from '@/assets/milestone/sullivan award 2016.png';
+import milestone2017 from '@/assets/milestone/Chandrababu naidu handing over Vijayawada order.jpeg';
+import milestone2018 from '@/assets/milestone/Nitin gadkari foundation laying for nagpur.jpeg';
+import milestone2020 from '@/assets/milestone/blueplanet investing in Zigma.jpg';
+import milestone2022 from '@/assets/milestone/GUWAHATI BEFORE.jpg';
+import milestone2026 from '@/assets/milestone/KSWMP awarding Kozhikode project.jpeg';
+ 
+
 gsap.registerPlugin(ScrollTrigger);
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
@@ -84,7 +93,7 @@ const milestones: Milestone[] = [
       'July: Received the prestigious Frost & Sullivan 2016 Award.',
       'December: Reclaimed an additional 6+ acres in Kumbakonam.',
     ],
-    image: img2,
+    image: milestone2016,
   },
   {
     year: 2017,
@@ -95,7 +104,7 @@ const milestones: Milestone[] = [
       'August: Awarded biomining project in Vijayawada.',
       'October: Awarded biomining project in Vadodara.',
     ],
-    image: img3,
+    image:milestone2017,
   },
   {
     year: 2018,
@@ -103,7 +112,7 @@ const milestones: Milestone[] = [
     description: [
       'April - July: Awarded major biomining projects across India, including Chidambaram, Poonamallee (Chennai), NOIDA, and Nagpur.',
     ],
-    image: img4,
+    image: milestone2018,
   },
   {
     year: 2019,
@@ -124,7 +133,7 @@ const milestones: Milestone[] = [
       'June - August: Awarded projects in Karaikudi, Karur, and NOIDA; reclaimed 5 acres in Pammal.',
       'October: Awarded projects in Cuddalore, Dindigul, and Perungudi; handed over 2 reclaimed acres to Poonamallee Municipality.',
     ],
-    image: img6,
+    image: milestone2020,
   },
   {
     year: 2021,
@@ -144,7 +153,7 @@ const milestones: Milestone[] = [
       'Secured the first-ever private contract for landfill mining from ITC.',
       'Expanded into North East India with a project awarded in Guwahati.',
     ],
-    image: img8,
+    image: milestone2022,
   },
   {
     year: 2023,
@@ -185,7 +194,7 @@ const milestones: Milestone[] = [
       "Awarded the Andhra Pradesh Chief Minister's award for exemplary performance in bio-mining.",
       'Received funding from Denmark-based Novo Holdings through Blue Planet.',
     ],
-    image: 'http://www.w3.org/2000/svg',
+    image: milestone2026,
   },
 ];
 

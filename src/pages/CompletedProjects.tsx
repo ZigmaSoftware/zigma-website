@@ -43,6 +43,15 @@ import p19b from "@/assets/before after projects/Perungudi before.png";
 import p19a from "@/assets/before after projects/Perungudi after.png";
 import p20b from "@/assets/before after projects/muthusamy colony before.png";
 import p20a from "@/assets/before after projects/muthusamy colony after.png";
+import p21b from "@/assets/before after projects/CUDDALORE PANCHANKUPPAM  before.png";
+import p21a from "@/assets/before after projects/CUDDALORE PANCHANKUPPAM  after.png";
+import p22b from "@/assets/before after projects/Dindigul-Before.jpg"; 
+import p22a from "@/assets/before after projects/Dindigul-After.jpg";
+import p23b from "@/assets/before after projects/Trichy phase 1 Before.jpg";
+import p23a from "@/assets/before after projects/Trichy phase 1 After.jpg";
+
+
+
 
 
 

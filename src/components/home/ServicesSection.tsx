@@ -8,7 +8,7 @@ import freshWaste from "@/assets/fresh waste.jpg.jpeg";
 import bsflWaste from "@/assets/solarr.jpg.jpeg";
 import machinery from "@/assets/services/machinery.jpeg";
 import iotWaste from "@/assets/services/WB.png";
-import altFuel from "@/assets/services/Integrated Alternative Fuel Solutions.jpg";
+import altFuel from "@/assets/services/Integrated Alternative Fuel Solutions.jpg";    
 import industrialWaste from "@/assets/services/Industrial & Commercial Waste Solutions.jpg";
 import eprService from "@/assets/services/EPR.png";
 
