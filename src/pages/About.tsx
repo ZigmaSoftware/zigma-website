@@ -40,7 +40,7 @@ import picture17 from '@/assets/Leaders/Mohan kumar.png';
 import picture18 from '@/assets/Leaders/Shivashankar Pandian.jpeg';
 
 
-import milestone2016 from '@/assets/milestone/sullivan award 2016.png';
+import milestone2016 from '@/assets/Awards/award7.jpg';
 import milestone2017 from '@/assets/milestone/Chandrababu naidu handing over Vijayawada order.jpeg';
 import milestone2018 from '@/assets/milestone/Nitin gadkari foundation laying for nagpur.jpeg';
 import milestone2020 from '@/assets/milestone/blueplanet investing in Zigma.jpg';
