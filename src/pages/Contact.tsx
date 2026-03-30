@@ -1,4 +1,4 @@
-﻿import Header from "@/components/Header";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
 import erode from "@/assets/zigma picture.png";
 import chennai from "@/assets/Chennai.jpg";
 import Delhi from "@/assets/New Delhi.webp";
@@ -23,6 +24,10 @@ import Singapore from "@/assets/Singapore.jpg";
 import Malaysia from "@/assets/Malaysia.jpg";
 
 import Herobg from '@/assets/website/Office Night.jpeg';
+// EmailJS config (replace via .env in production)
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "PUBLIC_KEY";
 
 
 const Contact = () => {
@@ -33,15 +38,70 @@ const Contact = () => {
     subject: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.subject) {
+
+    if (!formData.subject.trim()) {
       toast.error("Please select an inquiry.");
       return;
     }
-    toast.success("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+
+    if (!formData.email.trim()) {
+      toast.error("Email is required.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      toast.error("Message is required.");
+      return;
+    }
+
+    // Prevent runtime issues if EmailJS IDs were not configured
+    if (
+      EMAILJS_SERVICE_ID === "SERVICE_ID" ||
+      EMAILJS_TEMPLATE_ID === "TEMPLATE_ID" ||
+      EMAILJS_PUBLIC_KEY === "PUBLIC_KEY"
+    ) {
+      toast.error("Email service is not configured yet. Please contact support.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      // Template variables used by the EmailJS admin template
+      const templateParams = {
+        name: formData.name.trim() || "Not provided",
+        email: formData.email.trim(),
+        phone: formData.phone.trim() || "Not provided",
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
+        to_email: "creative@zigma.in",
+        reply_to: formData.email.trim(),
+      };
+
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      toast.success("Thank you for your message! We'll get back to you soon.");
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS submission failed:", error);
+      toast.error("Could not send your message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -135,7 +195,7 @@ const Contact = () => {
           <div className="relative container-main section-padding text-center">
             <div className="max-w-4xl mx-auto">
               <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
-                Let’s Connect
+                Let's Connect
               </div>
 
               <h1 className="mt-1 text-3xl sm:text-2xl lg:text-5xl font-semibold leading-tight">
@@ -281,8 +341,8 @@ const Contact = () => {
                     className=" resize-y rounded-none border-0 border-b border-border bg-transparent px-0 text-foreground shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
                   />
 
-                  <Button type="submit" className="rounded-lg px-10" size="lg">
-                    Submit
+                  <Button type="submit" className="rounded-lg px-10" size="lg" disabled={isSubmitting}>
+                    {isSubmitting ? "Sending..." : "Submit"}
                   </Button>
                 </form>
               </div>
@@ -345,7 +405,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-
-
-

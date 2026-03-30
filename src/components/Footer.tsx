@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, ChevronUp, Facebook, Twitter, Linkedin, Instagram, Youtube, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -27,15 +27,15 @@ const Footer = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(148,163,184,0.14),transparent_50%)]" />
         </div>
 
-        <div className="container-main py-6 lg:py-7 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[.8fr_1.5fr_1.7fr_1.1fr] gap-4 lg:gap-x-4 lg:gap-y-5">
+        <div className="container-main  py-10 lg:py-12 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_2.5fr_1.8fr] gap-4 lg:gap-x-4 lg:gap-y-5">
             {/* Company Info */}
-            <div>
+            <div className="flex flex-col gap-8" >
               <a href="/" className="flex items-center gap-3 mb-4">
                 <img
                   src="/zigma_blueplanet_logo.png"
                   alt="Zigma Blue Planet"
-                  className="h-12 w-auto object-contain"
+                  className="h-20 w-auto object-contain"
                   loading="lazy"
                 />
               </a>
@@ -50,7 +50,7 @@ const Footer = () => {
                   href="https://www.facebook.com/zigmaglobal/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 hover:bg-[#1877F2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 hover:bg-[#1877F2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on Facebook"
                 >
                   <Facebook className="w-4 h-4" />
@@ -59,7 +59,7 @@ const Footer = () => {
                   href="https://x.com/zigmaglobal1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 hover:bg-[#000000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 hover:bg-[#000000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on Twitter"
                 >
                   {/* <Twitter className="w-4 h-4" /> */}
@@ -71,7 +71,7 @@ const Footer = () => {
                   href="https://in.linkedin.com/company/zigma-global-environ-solutions-plc"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 hover:bg-[#0A66C2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 hover:bg-[#0A66C2] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on LinkedIn"
                 >
                   <Linkedin className="w-4 h-4" />
@@ -80,7 +80,7 @@ const Footer = () => {
                   href="https://www.instagram.com/zigma_2015/?hl=en"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 hover:bg-[#E1306C] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 hover:bg-[#E1306C] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on Instagram"
                 >
                   <Instagram className="w-4 h-4" />
@@ -89,7 +89,7 @@ const Footer = () => {
                   href="https://www.youtube.com/channel/UCoSAp-9wtY6m58IknjmweHg/null"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 hover:bg-[#FF0000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 hover:bg-[#FF0000] hover:text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label="Follow us on YouTube"
                 >
                   <Youtube className="w-5 h-5" />
@@ -108,11 +108,12 @@ const Footer = () => {
                   "Products",
                   "In the News",
                   "Publications",
-                  "Awards & Recognition",
                   "Testimonials",
                   "Careers",
-                  "Governance Policies",
                   "Contact",
+                  "Governance Policies",
+                  "Awards & Recognition",
+                
                 ].map((link) => (
                   <li key={link}>
                     <Link
@@ -127,9 +128,9 @@ const Footer = () => {
             </div>
 
             {/* Services */}
-            <div>
+            {/* <div>
               <h4 className="text-lg font-semibold mb-4">Services</h4>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+              <ul className="grid grid-cols-1 sm:grid-cols- gap-x-6 gap-y-2">
                 {[
                   "Landfill Mining and Remediation",
                   "Landfill Management",
@@ -151,7 +152,7 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
 
             {/* Contact Info & Newsletter */}
             <div>
@@ -198,11 +199,11 @@ const Footer = () => {
           </div>
 
           {/* Bottom Bar */}
-          <div className="mt-6 pt-5 border-t border-foreground/20 flex flex-col md:flex-row justify-between items-center gap-3">
-            <p className="text-foreground/60 text-sm">
+          <div className="mt-12 pt-10  border-t border-foreground/20 flex flex-col md:flex-row justify-between items-center gap-3">
+            <p className="text-foreground/60 text-sm ">
               © {new Date().getFullYear()} Zigma Global Environ Solutions Pvt Ltd. All Rights Reserved.
             </p>
-            <div className="flex gap-6">
+            <div className="flex gap-6 ">
               <Link to="/governance-policies" className="text-foreground/60 hover:text-foreground text-sm transition-colors">
                 Privacy Policy & Terms of Service
               </Link>

@@ -138,7 +138,7 @@ const navItems: NavItem[] = [
     path: "/media",
     dropdown: [
       { name: "In the News", path: "/Media" },
-      { name: "Publications", path: "/AwardsandRecognition" },
+      { name: "Publications", path: "/publications" },
       { name: "Awards and Recognitions", path: "/AwardsandRecognition" },
       { name: "Testimonials", path: "/Testimonials" },  
     

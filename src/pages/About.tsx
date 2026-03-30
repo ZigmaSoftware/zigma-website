@@ -27,7 +27,7 @@ import picture2 from '@/assets/Leaders/Mr. K P Mutharasu.png';
 import picture3 from '@/assets/Leaders/Mr. ANAND THANGARAJ.png';
 import picture4 from '@/assets/Leaders/Mr. KTI.png';
 import picture5 from '@/assets/Leaders/Mr. NAGESH PRABHU.jpeg';
-import picture6 from '@/assets/Leaders/Mr. Aghoramoorthy Rajasekaran.png';
+import picture6 from '@/assets/Leaders/Mr. Aghoramoorthy Rajasekaran.jpeg';
 import picture7 from '@/assets/Leaders/Sridhar Jagannathan.jpeg';
 import picture10 from '@/assets/Leaders/Mr. Prashant Singh.jpeg';
 import picture11 from '@/assets/Leaders/Mr. Shankar Raman.png';
@@ -44,7 +44,10 @@ import milestone2016 from '@/assets/Awards/award7.jpg';
 import milestone2017 from '@/assets/milestone/Chandrababu naidu handing over Vijayawada order.jpeg';
 import milestone2018 from '@/assets/milestone/Nitin gadkari foundation laying for nagpur.jpeg';
 import milestone2020 from '@/assets/milestone/blueplanet investing in Zigma.jpg';
+import milestone2021 from '@/assets/milestone/Perungudi plant inauguration.png';
 import milestone2022 from '@/assets/milestone/GUWAHATI BEFORE.jpg';
+import milestone2023 from '@/assets/milestone/KDG inauguration picture.jpg';
+import milestone2024 from '@/assets/milestone/AVPN event.jpg';
 import milestone2026 from '@/assets/milestone/KSWMP awarding Kozhikode project.jpeg';
  
 
@@ -144,7 +147,7 @@ const milestones: Milestone[] = [
       'September - October: Reclaimed land handed over to Erode (7 acres) and Pammal (4 acres) municipalities.',
       'December: Handed over 10.5 acres to Vadodara Municipality and awarded the first Union Territory project in Puducherry.',
     ],
-    image: img7,
+    image: milestone2021,
   },
   {
     year: 2022,
@@ -163,7 +166,7 @@ const milestones: Milestone[] = [
       'Awarded the Kodungaiyur Project in Chennai.',
       'Reached a massive achievement of 400 total acres of land reclaimed.',
     ],
-    image: img9,
+    image: milestone2023,
   },
   {
     year: 2024,
@@ -172,7 +175,7 @@ const milestones: Milestone[] = [
       "December: Blue Planet served as Anchor Partner for the AVPN South Asia Summit 2024 in Chennai, the world's first summit of this magnitude undertaken in a reclaimed dumpsite.",
       'Inaugurated a new state-of-the-art office facility in Erode, featuring a world-class CCC (Control Command Centre).',
     ],
-    image: img10,
+    image: milestone2024,
   },
   {
     year: 2025,
