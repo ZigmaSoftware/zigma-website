@@ -21,7 +21,7 @@ import productInertSoil from "@/assets/website/soil.jpg";
 import productGlass from "@/assets/website/glass.jpg";
 import productIron from "@/assets/website/Ferrous.jpg";
 import productFurniture from "@/assets/website/hero/Furnitures.png";
-import integrated from "@/assets/services/Integrated Alternative Fuel Solutions.jpg";
+import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpg";
 import epr from "@/assets/services/EPR.png";
 // import 

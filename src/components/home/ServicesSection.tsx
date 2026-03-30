@@ -8,7 +8,7 @@ import freshWaste from "@/assets/fresh waste.jpg.jpeg";
 import bsflWaste from "@/assets/solarr.jpg.jpeg";
 import machinery from "@/assets/services/machinery.jpeg";
 import iotWaste from "@/assets/services/WB.png";
-import altFuel from "@/assets/services/Integrated Alternative Fuel Solutions.jpg";    
+import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrialWaste from "@/assets/services/Industrial & Commercial Waste Solutions.jpg";
 import eprService from "@/assets/services/EPR.png";
 
@@ -60,7 +60,7 @@ const services = [
     title: "Integrated Alternative Fuel Solutions",
     description:
       "Supply of alternative fuel along with preprocessing facilities, establishment, operations and maintenance services, and related support services delivered as an integrated solution.",
-    image: altFuel,
+    image: integrated,
   },
   {
     id: "industrial-commercial-waste-solutions",

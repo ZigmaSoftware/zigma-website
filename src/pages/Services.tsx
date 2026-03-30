@@ -13,7 +13,7 @@ import herobg from "@/assets/services/kumbakonam.png";
 import machine from "@/assets/services/machinery.jpeg";
 import iot from "@/assets/services/WB.png";
 import bsflsolarr from "@/assets/solarr.jpg.jpeg";
-import integrated from "@/assets/services/Integrated Alternative Fuel Solutions.jpg";
+import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpg";
 import epr from "@/assets/services/EPR.png";
 import Servicescp from "./Servicescp";
