@@ -22,19 +22,19 @@ import img10 from '@/assets/website/hero/controll room.png';
 import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
 import img12 from '@/assets/Awards/award12_Swachha Andhra.png';
 
-import picture1 from '@/assets/Leaders/Mr. Boopathy Dharmaraj.jpeg';
-import picture2 from '@/assets/Leaders/Mr. K P Mutharasu.png';
-import picture3 from '@/assets/Leaders/Mr. ANAND THANGARAJ.png';
-import picture4 from '@/assets/Leaders/Mr. KTI.png';
-import picture5 from '@/assets/Leaders/Mr. NAGESH PRABHU.jpeg';
-import picture6 from '@/assets/Leaders/Mr. Aghoramoorthy Rajasekaran.jpeg';
+import picture1 from '@/assets/Leaders/Boopathy Dharmaraj.jpeg';
+import picture2 from '@/assets/Leaders/K P Mutharasu.jpeg';
+import picture3 from '@/assets/Leaders/ANAND THANGARAJ.png';
+import picture4 from '@/assets/Leaders/KTI.png';
+import picture5 from '@/assets/Leaders/NAGESH PRABHU.jpeg';
+import picture6 from '@/assets/Leaders/Aghoramoorthy Rajasekaran.png';
 import picture7 from '@/assets/Leaders/Sridhar Jagannathan.jpeg';
-import picture10 from '@/assets/Leaders/Mr. Prashant Singh.jpeg';
-import picture11 from '@/assets/Leaders/Mr. Shankar Raman.png';
+import picture10 from '@/assets/Leaders/Prashant Singh.jpeg';
+import picture11 from '@/assets/Leaders/Shankar Raman.png';
 // import picture12 from '@/assets/Mr. Mohan Kumar.png';
-import picture13 from '@/assets/Leaders/Mr. Varun Boralkar.png';
+import picture13 from '@/assets/Leaders/Varun Boralkar.png';
 import picture14 from '@/assets/website/Mr. Maran.png';
-import picture15 from '@/assets/Leaders/Senthil Annamalai.png';
+import picture15 from '@/assets/Leaders/Senthil Annamalai.jpeg';
 import picture16 from '@/assets/Leaders/Vijayan.png';
 import picture17 from '@/assets/Leaders/Mohan kumar.png';
 import picture18 from '@/assets/Leaders/Shivashankar Pandian.jpeg';
@@ -270,7 +270,7 @@ const leaders: Leader[] = [
   {
     group: 'Management Team',
     name: 'Maran V',
-    designation: 'Vice President',
+    designation: 'Vice President - Research & Product  Development',
     linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
   },
 
@@ -300,7 +300,7 @@ const leaders: Leader[] = [
     group: 'Management Team',
     name: 'Mohan Kumar',
     image: picture17,
-    designation: 'General Manager - AFR',
+    designation: 'GM - AFR',
     linkedin: 'https://www.linkedin.com/in/mohan-kumaar-subramaniam-a3b064175/',
   },
   {

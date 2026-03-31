@@ -53,9 +53,8 @@ import socialImg10 from "@/assets/Testimonials/social10.png";
 import bg from "@/assets/Testimonials bg.png";
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   TYPES
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/*TYPES*/
+
 interface Slide {
   text: string;
   image: string;
@@ -313,45 +312,45 @@ const STATS: Stat[] = [
 
 const WALL_CARDS: WallCard[] = [
   {
-    initials: "JB",
+    initials: "MD",
     gradient: "linear-gradient(135deg,#10B981,#34D399)",
-    name: "Ms. Jenny Bates",
-    handle: "@jenny_bates - LinkedIn",
+    name: "MoUD",
+    handle: "@Moud_India",
     platform: "linkedin",
-    text: `So impressive - the collaboration, the engineering and the scale. Plus, an excellent impact for the future.`,
+    text: `Take a tour of #Kumbakonam dumpyard and learn about the biomining process. #MyCleanIndia.`,
     likes: "2.1k",
     time: "3 days ago",
     image: socialImg1,
   },
   {
-    initials: "GF",
+    initials: "NF",
     gradient: "linear-gradient(135deg,#059669,#10B981)",
-    name: "Minister Grace Fu",
-    handle: "@gracefu_sg - LinkedIn",
+    name: "Neev Fund",
+    handle: "@NeevFund",
     platform: "linkedin",
-    text: `I am most impressed with the technology involved, especially how we can mine and turn waste into treasure.`,
+    text: `Blue Planet Environmental Solutions and partners Zigma Global Environ Solutions Pvt. Ltd. are addressing urban waste by clearing a legacy dumpsite and freeing up land for Chidambaram Municipality.`,
     likes: "1.8k",
     time: "5 days ago",
     image: socialImg2,
   },
   {
-    initials: "RM",
+    initials: "NF",
     gradient: "linear-gradient(135deg,#047857,#10B981)",
-    name: "Ms. Rupa Mishra",
-    handle: "@rupa_mohua - LinkedIn",
+    name: "Neev Fund",
+    handle: "@NeevFund",
     platform: "linkedin",
-    text: `Looks like a factory site while in reality it is full-scale work going on at the dumpsite in Vizag.`,
+    text: `Our portfolio company Blue Planet Environmental Solutions' efforts in waste management and biomining have paid off, helping transform degraded sites into greener, more sustainable spaces.`,
     likes: "1.2k",
     time: "1 week ago",
     image: socialImg3,
   },
   {
-    initials: "AP",
+    initials: "NF",
     gradient: "linear-gradient(135deg,#065F46,#059669)",
-    name: "Mrs. Almitra H. Patel",
-    handle: "@almitra_sbm - LinkedIn",
+    name: "Neev Fund",
+    handle: "@NeevFund",
     platform: "linkedin",
-    text: `It is the only site where absolutely zero material is left behind on the cleared area.`,
+    text: `Rapid urbanization has intensified city waste challenges. This highlights Blue Planet Environmental Solutions and Zigma leaders discussing practical technologies to tackle the problem.`,
     likes: "986",
     time: "9 days ago",
     image: socialImg4,
@@ -360,45 +359,45 @@ const WALL_CARDS: WallCard[] = [
 
 const EXTRA_CARDS: WallCard[] = [
   {
-    initials: "VA",
+    initials: "BP",
     gradient: "linear-gradient(135deg,#10B981,#6EE7B7)",
-    name: "Dr. V. Irai Andu",
-    handle: "@viraiandu_tn - LinkedIn",
+    name: "Blue Planet Environmental Solutions",
+    handle: "@BluePlanet_Env",
     platform: "linkedin",
-    text: `The site visit was a great learning experience. The project is progressing as per schedule.`,
+    text: `This contribution by our associate company @zigmaglobal1 is commendable. We are working with partners to support communities with essential resources.`,
     likes: "1.1k",
     time: "2 weeks ago",
     image: socialImg5,
   },
   {
-    initials: "SS",
+    initials: "BP",
     gradient: "linear-gradient(135deg,#059669,#34D399)",
-    name: "Ms. Supriya Sahu",
-    handle: "@supriya_sahu - LinkedIn",
+    name: "Blue Planet Environmental Solutions",
+    handle: "@BluePlanet_Env",
     platform: "linkedin",
-    text: `The visit to the Zigma facility was a strong learning experience. The task is huge and the facility is impressive.`,
+    text: `Our partner @zigmaglobal1 has leveraged eco-friendly landfill-mining techniques to reclaim over 12 acres under the Kumbakonam Dumpyard Reclamation Project.`,
     likes: "1.4k",
     time: "2 weeks ago",
     image: socialImg6,
   },
   {
-    initials: "AK",
+    initials: "BP",
     gradient: "linear-gradient(135deg,#047857,#34D399)",
-    name: "Mr. Ajay Kapur",
-    handle: "@ajaykapur_adani - LinkedIn",
+    name: "Blue Planet Environmental Solutions",
+    handle: "@BluePlanet_Env",
     platform: "linkedin",
-    text: `For nearly a decade, Zigma has played a crucial role in advancing circular economy outcomes in cement manufacturing.`,
+    text: `We continue driving circular-economy outcomes with partners like @NeevFund through the #SustainabilityShowcase and broader sustainability efforts.`,
     likes: "1.6k",
     time: "3 weeks ago",
     image: socialImg7,
   },
   {
-    initials: "GK",
+    initials: "BP",
     gradient: "linear-gradient(135deg,#10B981,#059669)",
-    name: "Gan Kim Yong",
-    handle: "@gankimyong - LinkedIn",
+    name: "Blue Planet Environmental Solutions",
+    handle: "@BluePlanet_Env",
     platform: "linkedin",
-    text: `Technology-driven end-to-end waste management and upcycling can transform even former dumping sites.`,
+    text: `Converting landfills into clean, productive stretches of land may seem far-fetched, but together with Zigma Global Environ Solutions we have been doing exactly that.`,
     likes: "2.4k",
     time: "1 month ago",
     image: socialImg8,
@@ -436,6 +435,80 @@ function useInView(
     return () => obs.disconnect();
   }, [ref, threshold]);
   return visible;
+}
+
+function captureVideoThumbnail(src: string): Promise<string | null> {
+  return new Promise((resolve) => {
+    if (typeof document === "undefined") {
+      resolve(null);
+      return;
+    }
+
+    const video = document.createElement("video");
+    let done = false;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const finalize = (thumb: string | null): void => {
+      if (done) return;
+      done = true;
+      if (timeoutId) clearTimeout(timeoutId);
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+      resolve(thumb);
+    };
+
+    const drawFrame = (): void => {
+      if (!video.videoWidth || !video.videoHeight) {
+        finalize(null);
+        return;
+      }
+
+      const canvas = document.createElement("canvas");
+      const maxWidth = 960;
+      const scale = Math.min(1, maxWidth / video.videoWidth);
+      canvas.width = Math.max(1, Math.floor(video.videoWidth * scale));
+      canvas.height = Math.max(1, Math.floor(video.videoHeight * scale));
+
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        finalize(null);
+        return;
+      }
+
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      finalize(canvas.toDataURL("image/jpeg", 0.85));
+    };
+
+    const seekAndCapture = (): void => {
+      const seekTime =
+        Number.isFinite(video.duration) && video.duration > 0.25
+          ? Math.min(1.5, video.duration / 3)
+          : 0;
+
+      if (seekTime <= 0) {
+        drawFrame();
+        return;
+      }
+
+      const onSeeked = (): void => {
+        video.removeEventListener("seeked", onSeeked);
+        drawFrame();
+      };
+
+      video.addEventListener("seeked", onSeeked);
+      video.currentTime = seekTime;
+    };
+
+    video.addEventListener("loadeddata", seekAndCapture, { once: true });
+    video.addEventListener("error", () => finalize(null), { once: true });
+
+    timeoutId = setTimeout(() => finalize(null), 5000);
+    video.preload = "metadata";
+    video.muted = true;
+    video.playsInline = true;
+    video.src = src;
+  });
 }
 
 function useCounter(
@@ -522,50 +595,37 @@ const WallCardItem: FC<WallCardProps> = ({ card, delay = 0 }) => (
       marginBottom: 20,
     }}
   >
-    <div
+    <article
       className={cn(
-        "rounded-2xl border border-border/60 bg-white p-6 shadow-sm transition-all hover:border-primary/25 hover:shadow-md hover:-translate-y-1",
+        "group flex h-full flex-col overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl",
         card.tall && "motion-safe:hover:shadow-lg"
       )}
     >
-      <div className="mb-3.5 flex items-center gap-3">
-        <div
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-white text-xs font-bold"
-          style={{ background: card.gradient }}
-        >
-          {card.initials}
+      {card.image && (
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+          <img
+            src={card.image}
+            alt={card.name}
+            className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          />
         </div>
-        <div className="min-w-0 flex-1">
+      )}
+
+      <div className="flex flex-1 flex-col p-5">
+        <div className="mb-3 text-left">
           <strong className="block text-sm font-bold text-foreground">
             {card.name}
           </strong>
-          <span className="block text-xs text-muted-foreground">{card.handle}</span>
+          <span className="block text-xs text-muted-foreground">
+            {card.handle.replace(/\s*-\s*LinkedIn\s*$/i, "")}
+          </span>
         </div>
-        <div
-          className={cn(
-            "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded text-xs font-black text-white",
-            card.platform === "linkedin" ? "bg-blue-600" : "bg-black"
-          )}
-        >
-          {card.platform === "linkedin" ? "in" : "ð•"}
-        </div>
-      </div>
-      <p
-        className="mb-3.5 text-sm leading-relaxed text-muted-foreground"
-        dangerouslySetInnerHTML={{ __html: card.text }}
-      />
-      {card.image && (
-        <img
-          src={card.image}
-          alt={card.name}
-          className="mb-3.5 h-36 w-full rounded-xl border border-border/60 object-cover"
+        <p
+          className="text-left text-sm leading-relaxed text-muted-foreground"
+          dangerouslySetInnerHTML={{ __html: card.text }}
         />
-      )}
-      <div className="flex items-center justify-between border-t border-border/60 pt-3">
-        <span className="text-xs text-muted-foreground"> {card.likes}</span>
-        <span className="text-xs text-muted-foreground">{card.time}</span>
       </div>
-    </div>
+    </article>
   </Reveal>
 );
 
@@ -628,6 +688,33 @@ const Testimonials: FC = () => {
   /* Video modal */
   const [videoOpen, setVideoOpen] = useState<boolean>(false);
   const [selectedVideo, setSelectedVideo] = useState<Video>(VIDEOS[0]);
+  const [videoThumbs, setVideoThumbs] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    let active = true;
+
+    const loadThumbs = async (): Promise<void> => {
+      const entries = await Promise.all(
+        VIDEOS.map(async (video) => [
+          video.src,
+          await captureVideoThumbnail(video.src),
+        ] as const)
+      );
+
+      if (!active) return;
+
+      const nextThumbs: Record<string, string> = {};
+      for (const [src, thumb] of entries) {
+        if (thumb) nextThumbs[src] = thumb;
+      }
+      setVideoThumbs(nextThumbs);
+    };
+
+    void loadThumbs();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   /* Social wall */
   const [wallCards, setWallCards] = useState<WallCard[]>(WALL_CARDS);
@@ -708,61 +795,85 @@ const Testimonials: FC = () => {
                 key={i}
                 style={{ display: i === current ? "block" : "none" }}
               >
-                <div className="relative h-[460px] md:h-[460px]  overflow-hidden rounded-2xl border border-border bg-white p-14 shadow-lg md:p-16">
+                <div className="relative min-h-[460px] overflow-hidden rounded-2xl border border-border bg-white p-8 shadow-lg md:p-12">
                   <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-primary to-primary/70" />
                   <div className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-gradient-to-br from-primary/15 to-transparent blur-3xl" />
 
-                  <div className="relative z-10 flex h-full flex-col">
-                    <div className="mb-8 opacity-75">
-                      <svg
-                        width="30"
-                        height="30"
-                        viewBox="0 0 48 48"
-                        fill="none"
-                      >
-                        <path
-                          d="M14 20h-4a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6v-8a6 6 0 0 0-6-6zM8 20v-4a10 10 0 0 1 10-10"
-                          stroke="#10B981"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
+                  <div className="relative z-10 grid h-full items-center justify-items-center gap-8 md:grid-cols-[360px_1fr] md:gap-10">
+                    <div className="mx-auto w-full max-w-[360px]">
+                      <div className="relative overflow-hidden rounded-2xl border border-emerald-200/80 bg-emerald-50 shadow-md">
+                        <img
+                          src={s.image}
+                          alt={s.name}
+                          className="h-[340px] w-full object-cover object-top md:h-[390px]"
                         />
-                        <path
-                          d="M34 20h-4a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6v-8a6 6 0 0 0-6-6zM28 20v-4a10 10 0 0 1 10-10"
-                          stroke="#10B981"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                        />
-                      </svg>
+                      </div>
                     </div>
 
-                    <p className=" flex-1 overflow-y-auto pr-1 text-lg italic  text-muted-foreground md:text-xl">
-                      {s.text}
-                    </p>
+                    <div className="grid h-full w-full max-w-2xl grid-rows-[1fr_auto] gap-4">
+                      <div className="relative w-full self-center pb-6">
+                        <div className="mb-3 opacity-75">
+                          <svg
+                            width="30"
+                            height="30"
+                            viewBox="0 0 48 48"
+                            fill="none"
+                          >
+                            <path
+                              d="M14 20h-4a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6v-8a6 6 0 0 0-6-6zM8 20v-4a10 10 0 0 1 10-10"
+                              stroke="#10B981"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                            />
+                            <path
+                              d="M34 20h-4a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6v-8a6 6 0 0 0-6-6zM28 20v-4a10 10 0 0 1 10-10"
+                              stroke="#10B981"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </div>
+                        <p className="pl-4 pr-12 text-left text-lg italic text-muted-foreground md:pl-6 md:text-xl">
+                          {s.text}
+                        </p>
+                        <div className="absolute -bottom-1 right-0 w-fit opacity-75 rotate-180">
+                          <svg
+                            width="30"
+                            height="30"
+                            viewBox="0 0 48 48"
+                            fill="none"
+                          >
+                            <path
+                              d="M14 20h-4a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6v-8a6 6 0 0 0-6-6zM8 20v-4a10 10 0 0 1 10-10"
+                              stroke="#10B981"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                            />
+                            <path
+                              d="M34 20h-4a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6v-8a6 6 0 0 0-6-6zM28 20v-4a10 10 0 0 1 10-10"
+                              stroke="#10B981"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </div>
+                      </div>
 
-                    <div className="flex flex-wrap items-center gap-5">
-                      <div className="relative flex-shrink-0">
-                        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-emerald-400/70 via-emerald-500/40 to-transparent blur-[1px]" />
-                        <div className="relative rounded-full p-1.5 bg-white shadow-lg ring-1 ring-emerald-100">
-                          <img
-                            src={s.image}
-                            alt={s.name}
-                            className="h-24 w-24 md:h-28 md:w-28 rounded-full object-cover object-top border-2 border-emerald-200/70"
-                          />
+                      <div className="w-full pt-2">
+                        <div className="flex max-w-[420px] flex-col items-start gap-0.5 text-left">
+                          <strong className="text-xl font-bold text-foreground">
+                            {s.name}
+                          </strong>
+                          <span className="text-lmd font-medium text-muted-foreground">
+                            {s.role}
+                          </span>
+                          <div className="mt-1 text-lg tracking-wider text-amber-400">
+                            {"\u2605\u2605\u2605\u2605\u2605"}
+                          </div>
+                          <div className="mt-2 w-fit   pl-1  text-sm font-semibold text-primary">
+                            {s.tag}
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex flex-col gap-0.5 max-w-[420px]">
-                        <strong className="text-base font-bold text-foreground">
-                          {s.name}
-                        </strong>
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {s.role}
-                        </span>
-                        <div className="mt-1 text-lg tracking-wider text-amber-400">
-                          {"\u2605\u2605\u2605\u2605\u2605"}
-                        </div>
-                      </div>
-                      <div className="ml-auto rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
-                        {s.tag}
                       </div>
                     </div>
                   </div>
@@ -849,20 +960,16 @@ const Testimonials: FC = () => {
                 >
                   <div
                     className={cn(
-                      "relative overflow-hidden",
+                      "relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700",
                       v.featured ? "h-64" : "h-48"
                     )}
                   >
                     <img
-                      src={v.poster}
+                      src={videoThumbs[v.src] ?? v.poster}
                       alt={v.title}
                       className="absolute inset-0 h-full w-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/35" />
-
-                    <div className="absolute left-4 top-4 rounded-full bg-black/45 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
-                      {v.label}
-                    </div>
+                    <div className="absolute inset-0 bg-black/30" />
 
                     <button
                       className={cn(
@@ -878,15 +985,6 @@ const Testimonials: FC = () => {
                       />
                     </button>
 
-                    <div className="absolute bottom-3 right-3 rounded bg-black/60 px-2 py-1 text-xs font-semibold text-white">
-                      {v.duration}
-                    </div>
-
-                    {v.badge && (
-                      <div className="absolute right-3 top-3 rounded-full bg-gradient-to-r from-primary to-primary/70 px-3 py-1 text-xs font-bold text-white">
-                        {v.badge}
-                      </div>
-                    )}
                   </div>
 
                   <div className="p-6">
@@ -894,13 +992,6 @@ const Testimonials: FC = () => {
                       {v.title}
                     </h3>
                     <p className="mt-2 text-sm text-muted-foreground">{v.desc}</p>
-                    <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
-                      <div
-                        className="h-2 w-2 rounded-full flex-shrink-0"
-                        style={{ background: v.dotColor }}
-                      />
-                      <span>{v.author}</span>
-                    </div>
                   </div>
                 </div>
               </Reveal>
@@ -963,7 +1054,7 @@ const Testimonials: FC = () => {
           </Reveal>
 
 
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {wallCards.map((c: WallCard, i: number) => (
               <WallCardItem key={i} card={c} delay={(i % 4) * 0.06} />
             ))}

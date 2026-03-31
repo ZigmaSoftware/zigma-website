@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import logo from "@/assets/zigma_blueplanet_logo.png";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
 import landfillManagement from "@/assets/windrow.jpg";
-import wetWaste from "@/assets/fresh waste.jpg.jpeg";
+import wetWaste from "@/assets/fresh waste.jpg";
 import herobg from "@/assets/website/hero/noida-present-hero.jpg";
-import machine from "@/assets/services/machinery.jpeg";
+import machine from "@/assets/services/machinery.png";
 import iot from "@/assets/services/WB.png";
 import bsflsolar from "@/assets/solarr.jpg.jpeg";
 import servicesDropdownLogo from "@/assets/services/zigma_blueplanet_logo.png";
@@ -139,6 +139,7 @@ const navItems: NavItem[] = [
     dropdown: [
       { name: "In the News", path: "/Media" },
       { name: "Publications", path: "/publications" },
+      { name: "Newsletters", path: "/newsletters" },
       { name: "Awards and Recognitions", path: "/AwardsandRecognition" },
       { name: "Testimonials", path: "/Testimonials" },  
     

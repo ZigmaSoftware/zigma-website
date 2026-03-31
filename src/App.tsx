@@ -9,6 +9,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import SmoothScrollProvider from "@/components/animation/SmoothScrollProvider";
 import ongoingprojects from "./pages/OngoingProjects";
 import OngoingProjects from "./pages/OngoingProjects";
+import Newsletters from "./pages/Newsletters";
 // import Facilities from "./pages/Facilities";
 // import StackedCards from "./components/ui/StackedCards";
 // import Peopledemo1 from "./pages/Peopledemo1";
@@ -36,6 +37,7 @@ const Servicescp = lazy(() => import("./pages/Servicescp"));
 const Mediacp = lazy(() => import("./pages/Mediacp"));
 const AwardsandRecognition = lazy(() => import("./pages/AwardsandRecognition"));
 const Publications = lazy(() => import("./pages/Publications"));
+
 // const Projectsdemo1 = lazy(() => import("./pages/Projectsdemo1"));
 const Testimonials = lazy(() => import("./pages/Testimonials"));
 
@@ -70,6 +72,7 @@ const App = () => (
               <Route path="/careers/apply" element={<CareersApply />} />
               <Route path="/media" element={<Media />} />
               <Route path="/publications" element={<Publications />} />
+              <Route path="/newsletters" element={<Newsletters />} />
               <Route path="*" element={<NotFound />} />
               <Route path="/people" element={<People />} />
               <Route path="/completedprojects" element={<CompletedProjects />} />

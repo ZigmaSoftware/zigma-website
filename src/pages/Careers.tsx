@@ -138,7 +138,7 @@ const Careers = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("all");
   const [selectedLocation] = useState("all");
   const [playingId, setPlayingId] = useState<string | null>(null);
-  const videoRefs = useRef<HTMLVideoElement[]>([]);
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 
   const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
   const [isJobDetailsOpen, setIsJobDetailsOpen] = useState(false);
@@ -149,21 +149,57 @@ const Careers = () => {
     { id: "v3", src: "/videos/video2.mp4", objectPosition: "center center", zoom: 1.42 },
   ];
 
-  const handleVideoPlay = (index: number, id: string) => {
+  const playVideo = (videoElement: HTMLVideoElement, onError?: () => void) => {
+    const playPromise = videoElement.play();
+    if (playPromise) {
+      playPromise.catch(() => onError?.());
+    }
+  };
+
+  const setPreviewMode = (videoElement: HTMLVideoElement) => {
+    videoElement.muted = true;
+    videoElement.controls = false;
+    videoElement.loop = true;
+  };
+
+  const restorePreviewMode = (videoId: string, resetTime = false) => {
+    const videoElement = videoRefs.current[videoId];
+    if (!videoElement) return;
+
+    setPreviewMode(videoElement);
+    if (resetTime) {
+      videoElement.currentTime = 0;
+    }
+    playVideo(videoElement);
+  };
+
+  const handleVideoPlay = (id: string) => {
     setPlayingId(id);
-    videoRefs.current.forEach((el, i) => {
-      if (!el) return;
-      if (i === index) {
-        el.muted = false;
-        el.controls = true;
-        el.play();
+
+    cultureVideos.forEach((video) => {
+      const videoElement = videoRefs.current[video.id];
+      if (!videoElement) return;
+
+      if (video.id === id) {
+        videoElement.muted = false;
+        videoElement.controls = true;
+        videoElement.loop = false;
+        videoElement.currentTime = 0;
+        playVideo(videoElement, () => {
+          restorePreviewMode(video.id, true);
+          setPlayingId(null);
+        });
         return;
       }
-      el.pause();
-      el.currentTime = 0;
-      el.muted = true;
-      el.controls = false;
+
+      setPreviewMode(videoElement);
+      playVideo(videoElement);
     });
+  };
+
+  const handleVideoPause = (id: string) => {
+    restorePreviewMode(id, true);
+    setPlayingId(null);
   };
 
   /* ---------------- ANIMATION ---------------- */
@@ -448,7 +484,7 @@ const Careers = () => {
 
             {/* 3-Card Video Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-              {cultureVideos.map((video, i) => (
+              {cultureVideos.map((video) => (
                 <div
                   key={video.id}
                   className="group relative rounded-2xl overflow-hidden bg-slate-950 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
@@ -458,7 +494,7 @@ const Careers = () => {
                   <div className="relative h-[300px] sm:h-[340px] lg:h-[500px]">
                     <video
                       ref={(el) => {
-                        if (el) videoRefs.current[i] = el;
+                        videoRefs.current[video.id] = el;
                       }}
                       src={video.src}
                       preload="metadata"
@@ -469,9 +505,10 @@ const Careers = () => {
                       }}
                       playsInline
                       autoPlay
-                      muted
-                      loop
-                      onEnded={() => setPlayingId(null)}
+                      muted={playingId !== video.id}
+                      controls={playingId === video.id}
+                      loop={playingId !== video.id}
+                      onEnded={() => handleVideoPause(video.id)}
                     />
 
                     {/* Play Overlay - hidden once playing */}
@@ -479,7 +516,7 @@ const Careers = () => {
                       <div
                         className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer transition-all duration-300"
                         style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.52) 100%)" }}
-                        onClick={() => handleVideoPlay(i, video.id)}
+                        onClick={() => handleVideoPlay(video.id)}
                       >
                         {/* Play button circle - show on hover and initially */}
                         <div className="w-16 h-16 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:scale-110 group-hover:border-primary transition-all duration-300 bg-black/20 backdrop-blur-sm">
@@ -492,19 +529,9 @@ const Careers = () => {
                     {/* Pause Overlay - shown while playing */}
                     {playingId === video.id && (
                       <div
-                        className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300"
                         style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.52) 100%)" }}
-                        onClick={() => {
-                          const el = videoRefs.current[i];
-                          if (el) {
-                            el.pause();
-                            el.currentTime = 0;
-                            el.muted = true;
-                            el.controls = false;
-                            el.play();
-                            setPlayingId(null);
-                          }
-                        }}
+                        onClick={() => handleVideoPause(video.id)}
                       >
                         {/* Pause button circle - show on hover */}
                         <div className="w-16 h-16 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:scale-110 group-hover:border-primary transition-all duration-300 bg-black/20 backdrop-blur-sm">
@@ -556,3 +583,4 @@ const Careers = () => {
 };
 
 export default Careers;
+

@@ -221,7 +221,9 @@ const publications: Publication[] = Object.entries(publicationFiles)
   });
 
 const Publications = () => {
-  const filteredPublications = publications;
+  const filteredPublications = publications.filter(
+    (publication) => publication.coverImageUrl,
+  );
 
   const openPublication = (fileUrl: string) => {
     window.open(fileUrl, "_blank", "noopener,noreferrer");
@@ -293,7 +295,7 @@ const Publications = () => {
                         openPublication(publication.fileUrl);
                       }
                     }}
-                    className="group flex h-[550px] w-full max-w-[400px] cursor-pointer flex-col overflow-hidden border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                    className="group flex h-[500px] w-full max-w-[340px] cursor-pointer flex-col overflow-hidden border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="h-[470px] w-full overflow-hidden">
                       {publication.coverImageUrl ? (
