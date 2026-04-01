@@ -197,7 +197,7 @@ const services = [
     title: "IOT Systems for Waste Management",
     eyebrow: "Smart Technology Solutions",
     image: iot,
-    description: "Our Industrial Internet of Things (IIoT) platforms provide granular, real-time visibility into the entire waste management lifecycle. By integrating smart sensor networks, we enable data-driven optimization and predictive system maintenance to ensure maximum operational efficiency. This infrastructure facilitates real-time landfill management, oversight of door-to-door collection logistics, and continuous waste transfer station monitoring. Our technology ensures precise capacity monitoring, process monitoring, and disposal monitoring, providing total transparency from collection to final disposal, while incorporating a robust grievance redressal mechanism to ensure service accountability.",
+    description: "Our Industrial Internet of Things (IoT) platforms provide granular, real-time visibility into the entire waste management lifecycle. By integrating smart sensor networks, we enable data-driven optimization and predictive system maintenance to ensure maximum operational efficiency. This infrastructure facilitates real-time landfill management, oversight of door-to-door collection logistics, and continuous waste transfer station monitoring. Our technology ensures precise capacity monitoring, process monitoring, and disposal monitoring, providing total transparency from collection to final disposal, while incorporating a robust grievance redressal mechanism to ensure service accountability.",
     features: [
       "Advanced Pre-Processing: Utilization of automated crushing, shredding, and screening systems to produce standardized feedstock.",
       "Thermal Engineering: Precision calorific blending and moisture reduction to maximize energy recovery and combustion efficiency",
@@ -209,15 +209,18 @@ const services = [
   {
     id: "integrated-alternative-fuel-solutions",
     title: "Integrated Alternative Fuel Solutions",
-    eyebrow: "Comprehensive Waste Management",
+    eyebrow: "ALTERNATIVE FUEL SYSTEMS",
     image: integrated,
-    description: "We provide comprehensive, end-to-end solutions for the engineering, production, and supply of Refuse Derived Fuel (RDF). This includes the establishment and operation of specialized pre-processing facilities designed to optimize the calorific value and moisture content of diverse waste streams, ensuring they meet the technical requirements for industrial co-processing. Furthermore, we facilitate the establishment of alternative fuel systems across various industrial sectors to guarantee a consistent supply of high-quality alternative raw materials. All systems are implemented in strict adherence to regulatory norms and environmental standards, supporting a seamless transition to sustainable energy sources.",
+    description: [
+      "Consistent feedstock. Continuous supply. No surprises. The bottleneck in most alternative fuel programmes isn't intent, it's specification. RDF that swings in calorific value, arrives off-schedule, or carries excess moisture doesn't just underperform; it disrupts kiln stability and pushes operations back to coal.",
+      "ZIGMA engineers and operates end-to-end RDF production and supply systems, from pre-processing facility design through to delivery logistics, built around the precise technical requirements of cement plants, power producers, and paper mills. Designed to spec. Held to it.",
+    ],
     
     features: [
-      "Advanced Pre-Processing: Utilization of automated crushing, shredding, and screening systems to produce standardized feedstock.",
-      "Thermal Engineering: Precision calorific blending and moisture reduction to maximize energy recovery and combustion efficiency.",
-      "Industrial Feedstock Stability: Strategic planning and logistics to ensure a stable and regular supply of alternative fuel for continuous industrial operations.",
-      "Compliance-Driven Integration: System establishment and maintenance that prioritizes high-quality outputs while meeting all environmental and safety protocols.",
+      "Pre-Processing Infrastructure: Automated shredding, crushing, and multi-stage screening engineered to produce consistent, specification-grade RDF at scale.",
+      "Calorific & Moisture Engineering: Precision blending and drying protocols to consistently hit the calorific and moisture targets co-processing operations require maximizing energy recovery and combustion efficiency.",
+      "Feedstock Supply Planning: Strategic sourcing, logistics, and inventory management to guarantee uninterrupted feedstock flow for continuous industrial operations, eliminating the supply volatility.",
+      "Regulatory Integration: Full compliance with environmental norms and industrial safety standards across facility setup, operations, and supply chain, documented and audit-ready at every stage.",
     ],
   },
   {
@@ -225,26 +228,32 @@ const services = [
     title: "Industrial & Commercial Waste Solutions",
     eyebrow: "Comprehensive Waste Management",
     image: industrial,
-    description: "We provide end-to-end management for hazardous and non-hazardous waste streams, catering to both large-scale manufacturers and industrial end-users. We specialize in the technical preparation of Refuse Derived Fuel (RDF), utilizing sophisticated shredding and moisture reduction systems to optimize calorific value and blending for high-tier industrial applications. Acting as strategic technical consultants, we bridge the operational gap between waste generators and industrial consumers. By leveraging our specialized knowledge of material specifications and industrial requirements, we connect sellers with buyers to ensure that regular and apt material reaches the consumer without operational hitches. Our focus on stable feedstock supply planning ensures a seamless transition of processed waste into the energy and manufacturing supply chains.",
+    description: [
+      "Industrial and commercial waste streams have value, but realising it requires the right technical preparation, the right buyer, and a supply chain that holds.",
+      "We work directly with waste generators and industrial consumers alike. Generators get end-to-end handling for hazardous and non-hazardous streams, with RDF pre-processing, calorific optimisation, and compliance built in. Industrial consumers get a stable, specification-matched supply of alternative raw materials. And the material intelligence to connect both sides knowing exactly what co-processors need and what generators actually produce is what makes the supply relationship durable.",
+    ],
     features: [
-      "Advanced RDF Engineering: Precision pre-processing for co-processing industries, focusing on calorific optimization and moisture control.",
-      "Specialized Material Consulting: Expert-led brokerage and supply chain management to ensure consistent material quality and logistical reliability.",
-      "Industrial Waste Management: Tailored handling and disposal solutions for diverse manufacturing and commercial waste outputs.",
-      "Comprehensive Compliance Oversight: Managing various waste streams with rigorous adherence to environmental and safety standards.",
-      "Stable feedstock supply planning",
+      "RDF Pre-Processing & Quality Control: Shredding, moisture reduction, and calorific blending tailored to the specific requirements of cement kilns, power plants, and other co-processing end-users.",
+      "Material Brokerage & Supply Chain Management: Technically informed matching of waste producers with verified industrial buyers with ongoing management to ensure quality and delivery reliability hold over time.",
+      "Industrial Waste Handling: End-to-end disposal and processing for manufacturing and commercial waste of all compositions hazardous and non-hazardous, at any scale.",
+      "Compliance Management: Rigorous documentation, regulatory tracking, and audit-ready reporting across waste streams managed end to end.",
+      
     ],
   },
   {
     id: "epr-extended-producer-responsibility",
-    title: "EPR (Extended Producer Responsibility)",
-    eyebrow: "EPR Programs and Compliance",
+    title: "EPR compliance built to withstand audit.",
+    eyebrow: "EPR PROGRAMS & COMPLIANCE",
     image: epr,
-    description: "We engineer comprehensive Extended Producer Responsibility (EPR) programs designed to facilitate the sustainable end-of-life management of post-consumer products. Our frameworks provide a technical and transparent approach to fulfilling producer obligations through an integrated, large-scale network of plastic waste collection and sorting operations. By leveraging digital traceability and real-time reporting, we ensure total transparency across the recycling chain, from initial recovery to final processing by our verified network of industrial recycling partners.",
+    description: [
+      "One unverified recycler. One missed filing. One gap in the traceability chain. That's all it takes for a year of EPR effort to unravel under audit.",
+      "ZIGMA runs the full EPR cycle for PIBOs, registration and target mapping on the CPCB portal, processing through authorised PWPFs, credit generation and transfer, annual return filing, and ongoing support as regulations change. Every transaction is backed by ERP-based documentation covering material movement, GST, and processing proof structured for CPCB audit from day one. 3,500 TPD RDF operations, backed by a verified network across recyclers, co-processing units, and cement plants.",
+    ],
     features: [
-      "Strategic Compliance Planning: Professional management of annual target planning and systematic compliance tracking to meet and exceed regulatory mandates.",
-      "Verified Recycler Ecosystem: Rigorous onboarding and verification of recycling partners to guarantee high-standard material recovery and operational integrity.",
-      "Digital Traceability Frameworks: Advanced documentation and evidence support providing auditable data and granular visibility for end-of-life product management.",
-      "Network Optimization: Scalable plastic waste collection and sorting networks engineered for high-efficiency material recovery and circularity solutions.",
+      "Annual Target Planning & Tracking: Structured compliance planning from target-setting through to annual return submission with real-time tracking.",
+      "Verified PWPFs Network: Processing partners across recycling, co-processing, and waste-to-energy - onboarded, verified, and actively monitored against CPCB standards.",
+      "Digital Traceability: Auditable documentation from point of collection through to end-of-life processing giving PIBOs the evidence base to satisfy regulators and report with confidence.",
+      "Collection & Sorting Infrastructure: Scalable plastic waste collection and sorting networks engineered for high-efficiency material recovery and circularity solutions.",
       
     ],
   },
@@ -308,9 +317,10 @@ const Services = () => {
                   {(() => {
                     const isPinnedExpanded = expandedService === service.id;
                     const isExpanded = isPinnedExpanded;
-                    const fullDescription = Array.isArray(service.description)
-                      ? service.description.join(" ")
-                      : service.description;
+                    const descriptionParagraphs = Array.isArray(service.description)
+                      ? service.description
+                      : [service.description];
+                    const fullDescription = descriptionParagraphs.join(" ");
                     const shortDescription =
                       fullDescription.length > 140  
                         ? `${fullDescription.slice(0, 140)}...`
@@ -336,12 +346,19 @@ const Services = () => {
                           <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
                             {service.title}
                           </h2>
-                          <p className="mt-4  text-base lg:text-lg text-muted-foreground leading-relaxed text-justify">
-                            {highlightPhrases(
-                              isExpanded ? fullDescription : shortDescription,
-                              EMPHASIS_MAP[service.id] ?? []
-                            )}
-                          </p>
+                          {isExpanded ? (
+                            <div className="mt-4 space-y-4 text-base lg:text-lg text-muted-foreground leading-relaxed text-justify">
+                              {descriptionParagraphs.map((paragraph, paragraphIndex) => (
+                                <p key={`${service.id}-paragraph-${paragraphIndex}`}>
+                                  {highlightPhrases(paragraph, EMPHASIS_MAP[service.id] ?? [])}
+                                </p>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="mt-4 text-base lg:text-lg text-muted-foreground leading-relaxed text-justify">
+                              {highlightPhrases(shortDescription, EMPHASIS_MAP[service.id] ?? [])}
+                            </p>
+                          )}
                           <button
                             type="button"
                             className="text-sm pb-2 text-primary font-semibold hover:underline mt-2 text-left"

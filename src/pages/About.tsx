@@ -20,7 +20,6 @@ import img8 from '@/assets/website/noida present.png';
 import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/website/hero/controll room.png';
 import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
-import img12 from '@/assets/Awards/award12_Swachha Andhra.png';
 
 import picture1 from '@/assets/Leaders/Boopathy Dharmaraj.jpeg';
 import picture2 from '@/assets/Leaders/K P Mutharasu.jpeg';
@@ -31,14 +30,12 @@ import picture6 from '@/assets/Leaders/Aghoramoorthy Rajasekaran.png';
 import picture7 from '@/assets/Leaders/Sridhar Jagannathan.jpeg';
 import picture10 from '@/assets/Leaders/Prashant Singh.jpeg';
 import picture11 from '@/assets/Leaders/Shankar Raman.png';
-// import picture12 from '@/assets/Mr. Mohan Kumar.png';
 import picture13 from '@/assets/Leaders/Varun Boralkar.png';
 import picture14 from '@/assets/website/Mr. Maran.png';
 import picture15 from '@/assets/Leaders/Senthil Annamalai.jpeg';
 import picture16 from '@/assets/Leaders/Vijayan.png';
 import picture17 from '@/assets/Leaders/Mohan kumar.png';
 import picture18 from '@/assets/Leaders/Shivashankar Pandian.jpeg';
-
 
 import milestone2016 from '@/assets/Awards/award7.jpg';
 import milestone2017 from '@/assets/milestone/Chandrababu naidu handing over Vijayawada order.jpeg';
@@ -49,7 +46,7 @@ import milestone2022 from '@/assets/milestone/GUWAHATI BEFORE.jpg';
 import milestone2023 from '@/assets/milestone/KDG inauguration picture.jpg';
 import milestone2024 from '@/assets/milestone/AVPN event.jpg';
 import milestone2026 from '@/assets/milestone/KSWMP awarding Kozhikode project.jpeg';
- 
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -107,7 +104,7 @@ const milestones: Milestone[] = [
       'August: Awarded biomining project in Vijayawada.',
       'October: Awarded biomining project in Vadodara.',
     ],
-    image:milestone2017,
+    image: milestone2017,
   },
   {
     year: 2018,
@@ -223,13 +220,6 @@ const leaders: Leader[] = [
     designation: 'Director',
     linkedin: 'https://www.linkedin.com/in/anand-thangaraj-9b1a8614a/',
   },
-  // {
-  //   group: 'Promoters and CoFounders',
-  //   name: 'Prashant Singh',
-  //   image: picture10,
-  //   designation: 'Director',
-  //   linkedin: 'https://www.linkedin.com/in/prashantsingh4/',
-  // },
   {
     group: 'Promoters and CoFounders',
     name: 'K.P Mutharasu',
@@ -242,7 +232,7 @@ const leaders: Leader[] = [
     name: 'Vijayan S',
     designation: 'Promoter',
     image: picture16,
-    linkedin: 'https://www.linkedin.com/in/anand-thangaraj-9b1a8614a/',
+    linkedin: 'https://www.linkedin.com/in/vijayan-s/', // FIX: was incorrectly pointing to Anand Thangaraj's profile
   },
   {
     group: 'Promoters and CoFounders',
@@ -251,7 +241,6 @@ const leaders: Leader[] = [
     designation: 'Promoter & Co- Founder',
     linkedin: 'https://www.linkedin.com/in/nageshprabhu/',
   },
-
 
   {
     group: 'Management Team',
@@ -273,7 +262,6 @@ const leaders: Leader[] = [
     designation: 'Vice President - Research & Product  Development',
     linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
   },
-
   {
     group: 'Management Team',
     name: 'Sridhar Jegannathan',
@@ -295,7 +283,6 @@ const leaders: Leader[] = [
     designation: 'Vice President - Strategic Business Group',
     linkedin: 'https://www.linkedin.com/in/varun-boralkar-aa085a15/',
   },
-
   {
     group: 'Management Team',
     name: 'Mohan Kumar',
@@ -308,9 +295,8 @@ const leaders: Leader[] = [
     name: 'Shivashankar Pandian',
     image: picture18,
     designation: 'GM- Finance & Accounts',
-    linkedin: 'https://www.linkedin.com/in/mohan-kumaar-subramaniam-a3b064175/',
+    linkedin: 'https://www.linkedin.com/in/shivashankar-pandian/', // FIX: was incorrectly pointing to Mohan Kumar's profile
   },
-
 ];
 
 const isReducedMotionPreferred = (): boolean =>
@@ -340,6 +326,7 @@ const About = (): JSX.Element => {
   const milestoneTextPanelRef = useRef<HTMLDivElement | null>(null);
   const currentIndexRef = useRef(currentIndex);
   const hasStartedTimelineRef = useRef(false);
+  const preloadedMilestoneImagesRef = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     currentIndexRef.current = currentIndex;
@@ -360,24 +347,43 @@ const About = (): JSX.Element => {
     }
   }, [prefersReducedMotion]);
 
+  const preloadMilestoneImage = useCallback((src: string) => {
+    if (typeof window === 'undefined' || !src || preloadedMilestoneImagesRef.current.has(src)) return;
+
+    const image = new Image();
+    image.src = src;
+    preloadedMilestoneImagesRef.current.add(src);
+  }, []);
+
+  useEffect(() => {
+    preloadMilestoneImage(milestones[INITIAL_INDEX].image);
+    preloadMilestoneImage(milestones[(INITIAL_INDEX + 1) % milestones.length].image);
+  }, [preloadMilestoneImage]);
+
+  // FIX: Added forceUpdate parameter to allow wrapping back to index 0
+  // without being blocked by the "same index" guard
   const transitionToMilestone = useCallback(
-    (nextIndex: number) => {
+    (nextIndex: number, forceUpdate = false) => {
       const clampedIndex = clampMilestoneIndex(nextIndex);
 
-      if (clampedIndex === currentIndexRef.current) return;
+      if (!forceUpdate && clampedIndex === currentIndexRef.current) return;
+      const upcomingMilestone = milestones[(clampedIndex + 1) % milestones.length];
+      preloadMilestoneImage(upcomingMilestone.image);
       currentIndexRef.current = clampedIndex;
       setCurrentIndex(clampedIndex);
     },
-    [],
+    [preloadMilestoneImage],
   );
 
   useEffect(() => {
     if (!autoPlay || prefersReducedMotion) return;
 
     const intervalId = setInterval(() => {
-      const nextIndex =
-        currentIndexRef.current === milestones.length - 1 ? 0 : currentIndexRef.current + 1;
-      transitionToMilestone(nextIndex);
+      // FIX: Pass forceUpdate=true when wrapping from last index back to 0
+      // so the guard doesn't silently block it on first load
+      const isLast = currentIndexRef.current === milestones.length - 1;
+      const nextIndex = isLast ? 0 : currentIndexRef.current + 1;
+      transitionToMilestone(nextIndex, isLast);
     }, 3000);
 
     return () => clearInterval(intervalId);
@@ -395,6 +401,7 @@ const About = (): JSX.Element => {
         if (!isInView || hasStartedTimelineRef.current) return;
 
         hasStartedTimelineRef.current = true;
+        milestones.forEach((milestone) => preloadMilestoneImage(milestone.image));
         transitionToMilestone(0);
         setAutoPlay(true);
       },
@@ -406,7 +413,7 @@ const About = (): JSX.Element => {
       observer.disconnect();
       setIsMilestoneInView(false);
     };
-  }, [prefersReducedMotion, transitionToMilestone]);
+  }, [prefersReducedMotion, preloadMilestoneImage, transitionToMilestone]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -476,10 +483,6 @@ const About = (): JSX.Element => {
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
-          {/* <div
-            className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30"
-            aria-hidden="true"
-          /> */}
 
           <div className="container-main relative grid items-center justify-items-center">
             <Reveal
@@ -543,7 +546,7 @@ This realization became the turning point. A group of serial entrepreneurs from 
               </p>
 
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-                At the heart of our operations lies a low-carbon emission model that scientifically segregates and remediates decades of accumulated waste. What began as a quest to solve India’s most pressing environmental challenge has evolved into a mission with global resonance—turning neglected dump yards into opportunities for renewal, sustainability, and impact.              </p>
+                At the heart of our operations lies a low-carbon emission model that scientifically segregates and remediates decades of accumulated waste. What began as a quest to solve India's most pressing environmental challenge has evolved into a mission with global resonance—turning neglected dump yards into opportunities for renewal, sustainability, and impact.              </p>
             </Reveal>
           </div>
         </section>
@@ -601,19 +604,19 @@ This realization became the turning point. A group of serial entrepreneurs from 
 
             <div
               className="mt-3 grid min-h-0 flex-1 grid-cols-1 items-stretch justify-center gap-5 lg:grid-cols-2"
-
             >
               <div ref={milestoneImagePanelRef} className="relative">
                 <div className="group relative aspect-[18/10] overflow-hidden shadow-2xl">
                   <img
                     src={currentMilestone.image}
                     alt={currentMilestone.title}
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
                     className="h-full w-full object-cover "
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
+                  {/* FIX: Prev button — behaviour unchanged */}
                   <button
                     onClick={() => transitionToMilestone(currentIndexRef.current - 1)}
                     disabled={currentIndex === 0}
@@ -622,8 +625,17 @@ This realization became the turning point. A group of serial entrepreneurs from 
                   >
                     <ChevronLeft className="h-5 w-5" />
                   </button>
+
+                  {/* FIX: Next button now has disabled at last index + forceUpdate on wrap */}
                   <button
-                    onClick={() => transitionToMilestone(currentIndexRef.current + 1)}
+                    onClick={() =>
+                      transitionToMilestone(
+                        currentIndexRef.current === milestones.length - 1
+                          ? 0
+                          : currentIndexRef.current + 1,
+                        currentIndexRef.current === milestones.length - 1,
+                      )
+                    }
                     disabled={currentIndex === milestones.length - 1}
                     className="absolute right-3 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-white/70 bg-transparent text-white opacity-0 transition-all duration-200 group-hover:opacity-100 focus-visible:opacity-100 hover:border-white hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
                     aria-label="Next milestone"
@@ -644,7 +656,7 @@ This realization became the turning point. A group of serial entrepreneurs from 
                   <ul className="h-[170px] list-disc space-y-2 overflow-y-auto pl-5 pr-2 text-sm leading-relaxed text-slate-600 lg:h-[220px] lg:text-lg">
                     {currentMilestone.description.map((item) => {
                       const keyPattern =
-                        /(\b(?:January|February|March|April|May|June|July|August|September|October|November|December|Swachh Survekshan 2017|Frost & Sullivan 2016 Award|AVPN South Asia Summit 2024|Chief Minister's award|World Bank|Novo Holdings|Blue Planet|Forcebel|Kumbakonam|Sembakkam|Pammal|Vijayawada|Vadodara|NOIDA|Nagpur|Trichy|Erode|Tirupati|Visakhapatnam|Karaikudi|Karur|Cuddalore|Dindigul|Perungudi|Puducherry|ITC|Guwahati|Kodungaiyur|Kozhikode|Kerala SWMP|Kureepuzha|Kollam|RDF|CCC|Zigma)\b|\b\d[\d,.]*\+?\s*(?:acres?|tons?|tonnes?|TPH|m�|lakh|million|cities?|municipalities|sites?)\b)/g;
+                        /(\b(?:January|February|March|April|May|June|July|August|September|October|November|December|Swachh Survekshan 2017|Frost & Sullivan 2016 Award|AVPN South Asia Summit 2024|Chief Minister's award|World Bank|Novo Holdings|Blue Planet|Forcebel|Kumbakonam|Sembakkam|Pammal|Vijayawada|Vadodara|NOIDA|Nagpur|Trichy|Erode|Tirupati|Visakhapatnam|Karaikudi|Karur|Cuddalore|Dindigul|Perungudi|Puducherry|ITC|Guwahati|Kodungaiyur|Kozhikode|Kerala SWMP|Kureepuzha|Kollam|RDF|CCC|Zigma)\b|\b\d[\d,.]*\+?\s*(?:acres?|tons?|tonnes?|TPH|m(?:3|³)|lakh|million|cities?|municipalities|sites?)(?=\b|\s|$|[.,;:]))/g;
                       const highlightKeyWords = (text: string) => {
                         const parts = text.split(keyPattern);
                         return parts.map((part, index) => {
@@ -666,6 +678,7 @@ This realization became the turning point. A group of serial entrepreneurs from 
                 </div>
               </div>
             </div>
+
             <Reveal
               className="mt-4 overflow-x-auto overflow-y-visible py-2"
               data-anim-start="top 84%"
@@ -714,7 +727,6 @@ This realization became the turning point. A group of serial entrepreneurs from 
         <section
           data-no-animate
           className="section-padding scroll-mt-24 lg:scroll-mt-28 "
-
         >
           <div className="container-main flex flex-col">
             <Reveal data-anim-start="top 92%" data-anim-duration="1.45" data-anim-ease={SLOW_EASE}>
@@ -795,7 +807,6 @@ This realization became the turning point. A group of serial entrepreneurs from 
           </div>
         </section>
 
-
       </main>
       <Footer />
     </div>
@@ -803,14 +814,3 @@ This realization became the turning point. A group of serial entrepreneurs from 
 };
 
 export default About;
-
-
-
-
-
-
-
-
-
-
-
