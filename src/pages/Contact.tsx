@@ -76,22 +76,46 @@ const Contact = () => {
 
     setIsSubmitting(true);
     try {
-      // Template variables used by the EmailJS admin template
+      const submittedName = formData.name.trim() || "Not provided";
+      const submittedEmail = formData.email.trim();
+      const submittedPhone = formData.phone.trim() || "Not provided";
+      const submittedSubject = formData.subject.trim();
+      const submittedMessage = formData.message.trim();
+
+      // Send canonical keys + common alias keys to avoid template-key mismatch issues.
       const templateParams = {
-        name: formData.name.trim() || "Not provided",
-        email: formData.email.trim(),
-        phone: formData.phone.trim() || "Not provided",
-        subject: formData.subject.trim(),
-        message: formData.message.trim(),
+        name: submittedName,
+        email: submittedEmail,
+        phone: submittedPhone,
+        subject: submittedSubject,
+        message: submittedMessage,
+        from_name: submittedName,
+        from_email: submittedEmail,
+        from_phone: submittedPhone,
+        from_subject: submittedSubject,
+        from_message: submittedMessage,
+        user_name: submittedName,
+        user_email: submittedEmail,
+        user_phone: submittedPhone,
+        user_subject: submittedSubject,
+        user_message: submittedMessage,
         to_email: "creative@zigma.in",
-        reply_to: formData.email.trim(),
+        reply_to: submittedEmail,
       };
+
+      if (import.meta.env.DEV) {
+        console.log("[Contact] EmailJS payload", {
+          serviceId: EMAILJS_SERVICE_ID,
+          templateId: EMAILJS_TEMPLATE_ID,
+          templateParams,
+        });
+      }
 
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         templateParams,
-        EMAILJS_PUBLIC_KEY
+        { publicKey: EMAILJS_PUBLIC_KEY }
       );
 
       toast.success("Thank you for your message! We'll get back to you soon.");

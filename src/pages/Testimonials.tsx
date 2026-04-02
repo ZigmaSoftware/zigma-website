@@ -34,12 +34,6 @@ import mrGagandeepSinghBediImg from "@/assets/Testimonials/Mr. Gagandeep Singh B
 import mrManojJoshiImg from "@/assets/Testimonials/Mr. Manoj Joshi, IAS.jpg";
 import mrJusticePJyothimaniImg from "@/assets/Testimonials/Mr. Justice P Jyothimani.jpg";
 import mrJusticeAdiImg from "@/assets/Testimonials/Mr. Justice Adi.jpg";
-import videoOne from "@/assets/Testimonials/video 1.mp4";
-import videoTwo from "@/assets/Testimonials/video 2.mp4";
-import videoThree from "@/assets/Testimonials/video 3.mp4";
-import pictureOne from "@/assets/Testimonials/social proof/Picture1.png";
-import pictureTwo from "@/assets/Testimonials/social proof/Picture2.png";
-import pictureThree from "@/assets/Testimonials/social proof/Picture3.png";
 import socialImg1 from "@/assets/Testimonials/social proof/social.jpg";
 import socialImg2 from "@/assets/Testimonials/social proof/social2.png";
 import socialImg3 from "@/assets/Testimonials/social proof/social3.png";
@@ -103,6 +97,56 @@ interface WallCard {
 }
 
 type LoadState = "idle" | "loading" | "done";
+
+const YOUTUBE_PATTERNS: RegExp[] = [
+  /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([A-Za-z0-9_-]{11})/i,
+  /(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]{11})/i,
+  /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?(?:.*&)?v=([A-Za-z0-9_-]{11})/i,
+  /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([A-Za-z0-9_-]{11})/i,
+];
+
+const getYouTubeId = (source: string): string | null => {
+  for (const pattern of YOUTUBE_PATTERNS) {
+    const match = source.match(pattern);
+    if (match?.[1]) return match[1];
+  }
+  return null;
+};
+
+const isYouTubeSource = (source: string): boolean => getYouTubeId(source) !== null;
+
+const getYouTubeThumbnail = (source: string): string => {
+  const id = getYouTubeId(source);
+  return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : "";
+};
+
+const getYouTubeEmbedUrl = (source: string): string | null => {
+  const id = getYouTubeId(source);
+  return id
+    ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`
+    : null;
+};
+
+const createYouTubeVideo = (
+  src: string,
+  title: string,
+  desc: string,
+  label: string,
+  duration: string,
+  dotColor: string,
+  options?: { featured?: boolean; badge?: string }
+): Video => ({
+  src,
+  poster: getYouTubeThumbnail(src),
+  label,
+  duration,
+  title,
+  desc,
+  author: "YouTube Coverage",
+  dotColor,
+  featured: options?.featured ?? false,
+  badge: options?.badge,
+});
 
 /* Data*/
 const SLIDES: Slide[] = [
@@ -228,41 +272,132 @@ const SLIDES: Slide[] = [
 ];
 
 const VIDEOS: Video[] = [
-  {
-    src: videoOne,
-    poster: pictureOne,
-    label: "Site Visit",
-    duration: "Video 1",
-    title: "Transformation At Scale",
-    desc: "Field insights and outcomes from leadership visits to Zigma project sites.",
-    author: "Zigma Testimonials",
-    dotColor: "#10B981",
-    featured: false,
-  },
-  {
-    src: videoTwo,
-    poster: pictureTwo,
-    label: "Featured Story",
-    duration: "Video 2",
-    title: "Partners Speak",
-    desc: "A featured testimonial compilation from key government and industry stakeholders.",
-    author: "Zigma Testimonials",
-    dotColor: "#34D399",
-    featured: true,
-    badge: "Featured",
-  },
-  {
-    src: videoThree,
-    poster: pictureThree,
-    label: "Project Story",
-    duration: "Video 3",
-    title: "Waste To Value",
-    desc: "Ground-level view of remediation progress and circular-economy impact.",
-    author: "Zigma Testimonials",
-    dotColor: "#059669",
-    featured: false,
-  },
+  createYouTubeVideo(
+    "https://youtu.be/TLXCtngKo6U",
+    "Zigma: Transforming Waste into Value (Amrita TV)",
+    "Amrita TV feature on Zigma's waste-to-value transformation.",
+    "TV Feature",
+    "Clip 01",
+    "#10B981",
+    { featured: true, badge: "Featured" }
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/hHqRdoo5Cn0",
+    "Integrated Waste Management Initiative (Andhra Cluster)",
+    "Integrated waste-management execution across the Andhra cluster.",
+    "Project Update",
+    "Clip 02",
+    "#34D399"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/XUia9pKBCq8",
+    "Zigma: Andhra Cluster - Large-Scale Waste Transformation",
+    "Large-scale transformation story from Andhra cluster operations.",
+    "Andhra Cluster",
+    "Clip 03",
+    "#059669"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/rrlmAHF2J3k",
+    "Andhra Pradesh Cluster Development Programme - Field Report",
+    "Ground-level field report from the Andhra Pradesh cluster development programme.",
+    "Field Report",
+    "Clip 04",
+    "#047857"
+  ),
+  createYouTubeVideo(
+    "https://youtube.com/shorts/wtwIxpW18wI",
+    "Andhra Pradesh Chief Minister - Speech / Press Byte",
+    "Press byte coverage from the Andhra Pradesh Chief Minister event.",
+    "Press Byte",
+    "Short 01",
+    "#0F766E",
+    { badge: "Short" }
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/cIlPFcl874s",
+    "ANI Vijayawada Inauguration",
+    "ANI coverage from Vijayawada inauguration activity.",
+    "News Coverage",
+    "Clip 05",
+    "#10B981"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/cbNVz0H8qaI",
+    "Zigma & Anna University: Soil Transformation and Scientific Validation Initiative",
+    "Scientific validation initiative in collaboration with Anna University.",
+    "Research",
+    "Clip 06",
+    "#34D399"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/psbedFJNN4w",
+    "BSF Club FM Radio",
+    "Radio feature discussing Zigma's project outcomes and impact.",
+    "Radio Feature",
+    "Clip 07",
+    "#059669"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/i9TVKl-eVDc",
+    "CNBC TV18 News",
+    "Business news coverage of Zigma's project work and scale.",
+    "Business News",
+    "Clip 08",
+    "#047857"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/vngSQHFCjM4",
+    "Cuddalore Puthiyathalaimurai",
+    "Regional media coverage from Cuddalore operations.",
+    "Regional News",
+    "Clip 09",
+    "#0F766E"
+  ),
+  createYouTubeVideo(
+    "https://youtube.com/shorts/VJcVc7TKYN8",
+    "Andhra Cluster Shorts Update",
+    "Short-format update from Andhra cluster execution.",
+    "Project Short",
+    "Short 02",
+    "#10B981",
+    { badge: "Short" }
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/qe2Bt-AjaiQ",
+    "Zigma: Building Sustainable Urban India",
+    "Sustainability-focused overview of urban transformation work.",
+    "Brand Story",
+    "Clip 10",
+    "#34D399"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/bxv2ZCh-3T8",
+    "Zigma: Smart Solutions for Cleaner Cities - Erode Malai Murasu News",
+    "Erode media coverage featuring smart solutions for cleaner cities.",
+    "Regional News",
+    "Clip 11",
+    "#059669"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/LMRHIdbetAE",
+    "Erode MLA Visit",
+    "On-site coverage from the Erode MLA visit.",
+    "Site Visit",
+    "Clip 12",
+    "#047857"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/-E0jiZUUKd4",
+    "ETV News Vijayawada",
+    "ETV News coverage from Vijayawada project updates.",
+    "News Coverage",
+    "Clip 13",
+    "#0F766E"
+  ),
 ];
+
+const DEFAULT_VIDEO: Video = VIDEOS.find((video) => video.featured) ?? VIDEOS[0];
 
 const STATS: Stat[] = [
   {
@@ -687,15 +822,24 @@ const Testimonials: FC = () => {
 
   /* Video modal */
   const [videoOpen, setVideoOpen] = useState<boolean>(false);
-  const [selectedVideo, setSelectedVideo] = useState<Video>(VIDEOS[0]);
+  const [selectedVideo, setSelectedVideo] = useState<Video>(DEFAULT_VIDEO);
   const [videoThumbs, setVideoThumbs] = useState<Record<string, string>>({});
+  const selectedVideoEmbedUrl = getYouTubeEmbedUrl(selectedVideo.src);
+
+  const openVideoModal = (video: Video): void => {
+    setSelectedVideo(video);
+    setVideoOpen(true);
+  };
 
   useEffect(() => {
     let active = true;
 
     const loadThumbs = async (): Promise<void> => {
+      const localVideos = VIDEOS.filter((video) => !isYouTubeSource(video.src));
+      if (!localVideos.length) return;
+
       const entries = await Promise.all(
-        VIDEOS.map(async (video) => [
+        localVideos.map(async (video) => [
           video.src,
           await captureVideoThumbnail(video.src),
         ] as const)
@@ -925,10 +1069,11 @@ const Testimonials: FC = () => {
           </div>
         </section>
 
-        {/* â•â•â•â•â•â•â•â• VIDEO TESTIMONIALS â•â•â•â•â•â•â•â• */}
+        {/* VIDEO TESTIMONIALS */}
         <section className="relative overflow-hidden bg-muted/30">
           <div className="pointer-events-none absolute -right-32 -top-40 h-96 w-96 rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-3xl" />
-          <div className="container-main section-padding text-center">
+          <div className="pointer-events-none absolute -left-32 bottom-10 h-80 w-80 rounded-full bg-gradient-to-br from-emerald-400/20 to-transparent blur-3xl" />
+          <div className="container-main py-14 text-center md:py-16">
 
           <Reveal className="inline-flex items-center gap-2">
             <span className="text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
@@ -943,57 +1088,43 @@ const Testimonials: FC = () => {
           </Reveal>
 
           <Reveal className="mt-3">
-            <p className="mt-4 text-base lg:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
               Watch real interviews with our partners and clients
             </p>
           </Reveal>
 
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {VIDEOS.map((v: Video, i: number) => (
-              <Reveal key={i} className="group">
-                <div
-                  className="overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:-translate-y-1.5 hover:shadow-xl cursor-pointer"
-                  onClick={() => {
-                    setSelectedVideo(v);
-                    setVideoOpen(true);
-                  }}
-                >
-                  <div
-                    className={cn(
-                      "relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700",
-                      v.featured ? "h-64" : "h-48"
-                    )}
+          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {VIDEOS.map((video: Video) => (
+              <Reveal key={video.src} className="h-full">
+                <article className="h-full overflow-hidden rounded-xl border border-border bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                  <button
+                    type="button"
+                    onClick={() => openVideoModal(video)}
+                    className="group flex h-full w-full flex-col text-left"
+                    aria-label={`Play ${video.title}`}
                   >
-                    <img
-                      src={videoThumbs[v.src] ?? v.poster}
-                      alt={v.title}
-                      className="absolute inset-0 h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/30" />
-
-                    <button
-                      className={cn(
-                        "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-primary/100/90 transition-all hover:scale-110",
-                        v.featured ? "h-16 w-16" : "h-14 w-14"
-                      )}
-                      aria-label="Play video"
-                    >
-                      <Play
-                        size={v.featured ? 36 : 28}
-                        fill="white"
-                        className="ml-1"
+                    <div className="relative aspect-video overflow-hidden">
+                      <img
+                        src={videoThumbs[video.src] ?? video.poster}
+                        alt={video.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                    </button>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
+                      <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-black/35 text-white backdrop-blur transition-transform group-hover:scale-105">
+                        <Play size={18} fill="currentColor" className="ml-0.5" />
+                      </span>
+                    </div>
 
-                  </div>
-
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-foreground group-hover:text-primary">
-                      {v.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted-foreground">{v.desc}</p>
-                  </div>
-                </div>
+                    <div className="flex h-[108px] flex-col p-4 sm:h-[116px]">
+                      <h3 className="min-h-[2.75rem] line-clamp-2 text-sm font-semibold text-foreground sm:text-base">
+                        {video.title}
+                      </h3>
+                      <p className="mt-1 min-h-[2.25rem] line-clamp-2 text-xs text-muted-foreground sm:text-sm">
+                        {video.desc}
+                      </p>
+                    </div>
+                  </button>
+                </article>
               </Reveal>
             ))}
           </div>
@@ -1018,14 +1149,27 @@ const Testimonials: FC = () => {
                 <X size={20} />
               </button>
               <div className="aspect-video w-full bg-black">
-                <video
-                  key={selectedVideo.src}
-                  src={selectedVideo.src}
-                  controls
-                  autoPlay
-                  playsInline
-                  className="h-full w-full"
-                />
+                {selectedVideoEmbedUrl ? (
+                  <iframe
+                    key={selectedVideo.src}
+                    src={selectedVideoEmbedUrl}
+                    title={selectedVideo.title}
+                    className="h-full w-full"
+                    frameBorder={0}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                ) : (
+                  <video
+                    key={selectedVideo.src}
+                    src={selectedVideo.src}
+                    controls
+                    autoPlay
+                    playsInline
+                    className="h-full w-full"
+                  />
+                )}
               </div>
             </div>
           </div>

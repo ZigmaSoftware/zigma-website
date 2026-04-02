@@ -8,7 +8,8 @@ import landfillManagement from "@/assets/windrow.jpg";
 import wetWaste from "@/assets/fresh waste.jpg";
 import herobg from "@/assets/website/hero/noida-present-hero.jpg";
 import machine from "@/assets/services/machinery.png";
-import iot from "@/assets/services/WB.png";
+import iotImage from "@/assets/services/WB.png";
+import iotLogo from "@/assets/services/IOT.png";
 import bsflsolar from "@/assets/solarr.jpg.jpeg";
 import servicesDropdownLogo from "@/assets/services/zigma_blueplanet_logo.png";
 import zigflyLogo from "@/assets/services/zigfly.png";
@@ -86,7 +87,7 @@ const navItems: NavItem[] = [
       {
         name: "IOT Systems for Waste Management",
         path: "/services#iot",
-        image: iot,
+        image: iotImage,
       },
       {
         name: "Integrated Alternative Fuel Solutions",
@@ -371,16 +372,22 @@ const Header = () => {
                     <div key={`row-${rowIndex}`} className={`grid ${megaGridCols} gap-4`}>
                       {row.map((sub) => {
                         const isServicesMenu = activeMegaMenuItem.name === "Services";
-                        const isWasteTechService =
-                          sub.name === "Machinery Sales & Rentals" ||
+                        const isIotService =
                           sub.name === "IOT Systems for Waste Management";
+                        const isWasteTechService =
+                          sub.name === "Machinery Sales & Rentals";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo
+                            : isIotService
+                              ? iotLogo
                             : isWasteTechService
                               ? wasteTechLogo
-                            : servicesDropdownLogo;
+                              : servicesDropdownLogo;
 
+                        // Add this helper near the top (outside component) or replace the placeholder.
+                        const cn = (...classes: Array<string | undefined | null | false>): string =>
+                          classes.filter(Boolean).join(" ");
                         return (
                           <Link
                             key={sub.name}
@@ -395,12 +402,19 @@ const Header = () => {
                             >
                               {isServicesMenu ? (
                                 <>
-                                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 transition-opacity duration-300 group-hover:opacity-0">
+                                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/7y0 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-0">
                                     <img
                                       src={serviceCardLogo}
                                       alt=""
                                       aria-hidden="true"
-                                      className={`w-auto object-contain mix-blend-multiply ${isWasteTechService ? "h-6" : "h-10"}`}
+                                      className={cn(
+                                        "w-auto object-contain transition-transform duration-300",
+                                        isIotService
+                                          ? "h-9 scale-[1.22] drop-shadow-md"
+                                          : isWasteTechService
+                                            ? "h-6 mix-blend-multiply"
+                                            : "h-10 mix-blend-multiply"
+                                      )}
                                       loading="lazy"
                                     />
                                   </div>
@@ -552,16 +566,21 @@ const Header = () => {
                     <div key={`row-${rowIndex}`} className={`grid ${megaGridCols} gap-4`}>
                       {row.map((sub) => {
                         const isServicesMenu = activeMegaMenuItem.name === "Services";
-                        const isWasteTechService =
-                          sub.name === "Machinery Sales & Rentals" ||
+                        const isIotService =
                           sub.name === "IOT Systems for Waste Management";
+                        const isWasteTechService =
+                          sub.name === "Machinery Sales & Rentals";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo
+                            : isIotService
+                              ? iotLogo
                             : isWasteTechService
                               ? wasteTechLogo
-                            : servicesDropdownLogo;
+                              : servicesDropdownLogo;
 
+                        const cn = (...classes: Array<string | undefined | null | false>): string =>
+                          classes.filter(Boolean).join(" ");
                         return (
                           <Link
                             key={sub.name}
@@ -576,12 +595,19 @@ const Header = () => {
                             >
                               {isServicesMenu ? (
                                 <>
-                                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/10 transition-opacity duration-300 group-hover:opacity-0">
+                                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-0">
                                     <img
                                       src={serviceCardLogo}
                                       alt=""
                                       aria-hidden="true"
-                                      className={`w-auto object-contain mix-blend-multiply ${isWasteTechService ? "h-6" : "h-10"}`}
+                                      className={cn(
+                                        "w-auto object-contain transition-transform duration-300",
+                                        isIotService
+                                          ? "h-9 scale-[1.22] drop-shadow-md"
+                                          : isWasteTechService
+                                            ? "h-6 mix-blend-multiply"
+                                            : "h-10 mix-blend-multiply"
+                                      )}
                                       loading="lazy"
                                     />
                                   </div>

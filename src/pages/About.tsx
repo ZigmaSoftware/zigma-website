@@ -31,7 +31,7 @@ import picture7 from '@/assets/Leaders/Sridhar Jagannathan.jpeg';
 import picture10 from '@/assets/Leaders/Prashant Singh.jpeg';
 import picture11 from '@/assets/Leaders/Shankar Raman.png';
 import picture13 from '@/assets/Leaders/Varun Boralkar.png';
-import picture14 from '@/assets/website/Mr. Maran.png';
+import picture14 from '@/assets/Leaders/Maran.png';
 import picture15 from '@/assets/Leaders/Senthil Annamalai.jpeg';
 import picture16 from '@/assets/Leaders/Vijayan.png';
 import picture17 from '@/assets/Leaders/Mohan kumar.png';
@@ -57,6 +57,8 @@ const INPUT_CLASS =
   'w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-700';
 const NAV_BUTTON_CLASS =
   'flex h-9 w-9 items-center justify-center rounded-full border-2 border-slate-300 transition-all hover:border-green-700 hover:text-green-700 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-900 lg:h-10 lg:w-10';
+const ABOUT_VIDEO_EMBED_URL =
+  'https://www.youtube.com/embed/0zmdFARwHsA?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=0zmdFARwHsA&rel=0&modestbranding=1&playsinline=1&vq=hd1080';
 
 interface Milestone {
   year: number;
@@ -218,11 +220,11 @@ const leaders: Leader[] = [
     name: 'Anand Thangaraj',
     image: picture3,
     designation: 'Director',
-    linkedin: 'https://www.linkedin.com/in/anand-thangaraj-9b1a8614a/',
+    linkedin: 'https://www.linkedin.com/in/anand-thangaraj-b421b8400/',
   },
   {
     group: 'Promoters and CoFounders',
-    name: 'K.P Mutharasu',
+    name: 'K P Mutharasu',
     image: picture2,
     designation: ' Promoter & Co- Founder',
     linkedin: 'https://www.linkedin.com/in/mutharasu-k-p-125b2546/',
@@ -232,7 +234,7 @@ const leaders: Leader[] = [
     name: 'Vijayan S',
     designation: 'Promoter',
     image: picture16,
-    linkedin: 'https://www.linkedin.com/in/vijayan-s/', // FIX: was incorrectly pointing to Anand Thangaraj's profile
+    // linkedin: 'https://www.linkedin.com/in/vijayan-s/', / / FIX: was incorrectly pointing to Anand Thangaraj's profile
   },
   {
     group: 'Promoters and CoFounders',
@@ -259,8 +261,9 @@ const leaders: Leader[] = [
   {
     group: 'Management Team',
     name: 'Maran V',
+    image: picture14,
     designation: 'Vice President - Research & Product  Development',
-    linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
+    // linkedin: 'https://www.linkedin.com/in/maaran-9b1a8614a/',
   },
   {
     group: 'Management Team',
@@ -271,7 +274,7 @@ const leaders: Leader[] = [
   },
   {
     group: 'Management Team',
-    name: 'Shankar Raman CV',
+    name: 'Shankar Raman C V',
     image: picture11,
     designation: 'Vice President - Business Development',
     linkedin: 'https://www.linkedin.com/in/shankar-raman-c-v-64528611/',
@@ -287,14 +290,14 @@ const leaders: Leader[] = [
     group: 'Management Team',
     name: 'Mohan Kumar',
     image: picture17,
-    designation: 'GM - AFR',
+    designation: 'General Manager - Resource Recovery & Revenue',
     linkedin: 'https://www.linkedin.com/in/mohan-kumaar-subramaniam-a3b064175/',
   },
   {
     group: 'Management Team',
     name: 'Shivashankar Pandian',
     image: picture18,
-    designation: 'GM- Finance & Accounts',
+    designation: 'General Manager - Finance & Accounts',
     linkedin: 'https://www.linkedin.com/in/shivashankar-pandian/', // FIX: was incorrectly pointing to Mohan Kumar's profile
   },
 ];
@@ -721,6 +724,22 @@ This realization became the turning point. A group of serial entrepreneurs from 
                 })}
               </div>
             </Reveal>
+          </div>
+        </section>
+
+        <section data-no-animate className="scroll-mt-24 lg:scroll-mt-28">
+          <div className="group relative mx-auto w-full overflow-hidden border border-border shadow-xl">
+            <div className="relative w-full pt-[56.25%]">
+              <iframe
+                src={ABOUT_VIDEO_EMBED_URL}
+                title="Zigma corporate video"
+                className="absolute inset-0 h-full w-full"
+                frameBorder={0}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
           </div>
         </section>
 
