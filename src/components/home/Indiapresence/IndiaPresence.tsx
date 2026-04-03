@@ -26,7 +26,9 @@ const IndiaPresence: React.FC = () => {
 
   const currentState = selectedState || activeState;
   const currentData = currentState ? stateData[currentState] : null;
-  const isTamilNadu = currentData?.id === "tamil-nadu";
+  const useTwoColumnLocations =
+    currentData?.id === "tamil-nadu" ||
+    currentData?.id === "andhra-pradesh";
   const districtEntries = currentData?.districts ?? [];
   const taggedLandfillLocations = dedupe(
     districtEntries
@@ -162,7 +164,7 @@ const IndiaPresence: React.FC = () => {
                   {landfillLocations.length > 0 ? (
                     <div>
                       <p className="text-sm font-semibold text-foreground mb-1">Landfill Mining Project</p>
-                      <ul className={isTamilNadu ? "grid grid-cols-2 gap-x-4 gap-y-1" : "space-y-1"}>
+                      <ul className={useTwoColumnLocations ? "grid grid-cols-2 gap-x-4 gap-y-1" : "space-y-1"}>
                         {landfillLocations.map((location) => (
                           <li key={location} className="flex items-start gap-2 text-sm text-foreground leading-snug">
                             <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />

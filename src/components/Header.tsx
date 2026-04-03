@@ -14,7 +14,7 @@ import bsflsolar from "@/assets/solarr.jpg.jpeg";
 import servicesDropdownLogo from "@/assets/services/zigma_blueplanet_logo.png";
 import zigflyLogo from "@/assets/services/zigfly.png";
 import wasteTechLogo from "@/assets/services/logo-wastetech.png";
-import productRdf from "@/assets/services/Refuse-Derived Fuel.png";
+import productRdf from "@/assets/services/Refuse-Derived Fuel.jpeg";
 import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
 import productBioEarth from "@/assets/website/goodearth.jpg";
 import productInertStones from "@/assets/website/stone.jpg";
@@ -23,7 +23,7 @@ import productGlass from "@/assets/website/glass.jpg";
 import productIron from "@/assets/website/Ferrous.jpg";
 import productFurniture from "@/assets/website/hero/Furnitures.png";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
-import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpg";
+import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import epr from "@/assets/services/EPR.png";
 // import 
 
@@ -125,13 +125,13 @@ const navItems: NavItem[] = [
     ],
   },
 
-  { name: "Projects", path: "/project-showcase" ,
-  dropdown: [
-    { name: "Completed Projects", path: "/completedprojects" },
-    { name: "Ongoing Projects", path: "/ongoingprojects" },
+  { name: "Projects", path: "/projects" ,
+  // dropdown: [
+  //   { name: "Completed Projects", path: "/projects?tab=completed" },
+  //   { name: "Ongoing Projects", path: "/projects?tab=ongoing" },
     
   
-  ],
+  // ],
   },
 
   {
@@ -402,7 +402,7 @@ const Header = () => {
                             >
                               {isServicesMenu ? (
                                 <>
-                                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/7y0 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-0">
+                                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-0">
                                     <img
                                       src={serviceCardLogo}
                                       alt=""

@@ -10,7 +10,7 @@ import product2 from "@/assets/website/stone.jpg";
 import product3 from "@/assets/website/soil.jpg";
 import product4 from "@/assets/website/glass.jpg";
 import product5 from "@/assets/website/Ferrous.jpg";
-import productRdf from "@/assets/services/Refuse-Derived Fuel.png";
+import productRdf from "@/assets/services/Refuse-Derived Fuel.jpeg";
 import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
 import img4 from "@/assets/website/hero/Furnitures.png";
 import larva from "@/assets/website/larva.jpeg";

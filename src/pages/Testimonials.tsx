@@ -67,7 +67,6 @@ interface Video {
   author: string;
   dotColor: string;
   featured: boolean;
-  badge?: string;
 }
 
 type StatIconType = "globe" | "leaf" | "star" | "zap" | "home" | "award";
@@ -134,7 +133,7 @@ const createYouTubeVideo = (
   label: string,
   duration: string,
   dotColor: string,
-  options?: { featured?: boolean; badge?: string }
+  options?: { featured?: boolean }
 ): Video => ({
   src,
   poster: getYouTubeThumbnail(src),
@@ -145,7 +144,6 @@ const createYouTubeVideo = (
   author: "YouTube Coverage",
   dotColor,
   featured: options?.featured ?? false,
-  badge: options?.badge,
 });
 
 /* Data*/
@@ -273,127 +271,157 @@ const SLIDES: Slide[] = [
 
 const VIDEOS: Video[] = [
   createYouTubeVideo(
-    "https://youtu.be/TLXCtngKo6U",
-    "Zigma: Transforming Waste into Value (Amrita TV)",
-    "Amrita TV feature on Zigma's waste-to-value transformation.",
-    "TV Feature",
+    "https://youtu.be/z1vAN67LceY",
+    "ETV1 News in Vijayawada About Zigma",
+    "ETV1 media coverage from Vijayawada on Zigma's waste-management execution.",
+    "News Coverage",
     "Clip 01",
     "#10B981",
-    { featured: true, badge: "Featured" }
+    { featured: true }
   ),
   createYouTubeVideo(
-    "https://youtu.be/hHqRdoo5Cn0",
-    "Integrated Waste Management Initiative (Andhra Cluster)",
-    "Integrated waste-management execution across the Andhra cluster.",
-    "Project Update",
+    "https://youtu.be/TXKcIaF9pd8",
+    "ETV2 News in Vijayawada About Zigma",
+    "ETV2 coverage highlighting project impact in Vijayawada.",
+    "News Coverage",
     "Clip 02",
     "#34D399"
   ),
   createYouTubeVideo(
-    "https://youtu.be/XUia9pKBCq8",
-    "Zigma: Andhra Cluster - Large-Scale Waste Transformation",
-    "Large-scale transformation story from Andhra cluster operations.",
-    "Andhra Cluster",
-    "Clip 03",
+    "https://youtube.com/shorts/EoBgMZxZfCY?feature=share",
+    "Fadnavis Speech",
+    "Short-format clip featuring Fadnavis speech coverage.",
+    "Speech",
+    "Short 01",
     "#059669"
   ),
   createYouTubeVideo(
-    "https://youtu.be/rrlmAHF2J3k",
-    "Andhra Pradesh Cluster Development Programme - Field Report",
-    "Ground-level field report from the Andhra Pradesh cluster development programme.",
-    "Field Report",
+    "https://youtu.be/PjObYFsdPdM",
+    "India Ahead News - Perungudi, Chennai",
+    "India Ahead segment from the Perungudi biomining site in Chennai.",
+    "News Coverage",
     "Clip 04",
     "#047857"
   ),
   createYouTubeVideo(
-    "https://youtube.com/shorts/wtwIxpW18wI",
-    "Andhra Pradesh Chief Minister - Speech / Press Byte",
-    "Press byte coverage from the Andhra Pradesh Chief Minister event.",
-    "Press Byte",
-    "Short 01",
-    "#0F766E",
-    { badge: "Short" }
+    "https://youtu.be/Up1AqUe_WNY",
+    "Kerala Assembly M.B. Rajesh Speech",
+    "Assembly speech coverage featuring Kerala project context.",
+    "Speech",
+    "Clip 05",
+    "#0F766E"
   ),
   createYouTubeVideo(
-    "https://youtu.be/cIlPFcl874s",
-    "ANI Vijayawada Inauguration",
-    "ANI coverage from Vijayawada inauguration activity.",
-    "News Coverage",
-    "Clip 05",
+    "https://youtube.com/shorts/UI8hQ8kOxBc?feature=share",
+    "Mr. M.V. Govindan Speech About Kollam Project",
+    "Short-format update on Kollam project remarks by Mr. M.V. Govindan.",
+    "Speech",
+    "Short 02",
     "#10B981"
   ),
   createYouTubeVideo(
-    "https://youtu.be/cbNVz0H8qaI",
-    "Zigma & Anna University: Soil Transformation and Scientific Validation Initiative",
-    "Scientific validation initiative in collaboration with Anna University.",
-    "Research",
+    "https://youtu.be/7TDticQmcUo",
+    "Makarpura News",
+    "Regional media coverage from Makarpura project updates.",
+    "News Coverage",
     "Clip 06",
     "#34D399"
   ),
   createYouTubeVideo(
-    "https://youtu.be/psbedFJNN4w",
-    "BSF Club FM Radio",
-    "Radio feature discussing Zigma's project outcomes and impact.",
-    "Radio Feature",
-    "Clip 07",
+    "https://youtube.com/shorts/Nx8zopG8hE0?feature=share",
+    "Master Govindan Speech",
+    "Short clip featuring Master Govindan speaking about project impact.",
+    "Speech",
+    "Short 03",
     "#059669"
   ),
   createYouTubeVideo(
-    "https://youtu.be/i9TVKl-eVDc",
-    "CNBC TV18 News",
-    "Business news coverage of Zigma's project work and scale.",
-    "Business News",
-    "Clip 08",
+    "https://youtu.be/ANbNtukLBj0",
+    "MoHUA Stakeholder Consultation Workshop on Legacy Waste Remediation",
+    "Workshop coverage on remediation of legacy waste dumpsites.",
+    "Workshop",
+    "Clip 07",
     "#047857"
   ),
   createYouTubeVideo(
-    "https://youtu.be/vngSQHFCjM4",
-    "Cuddalore Puthiyathalaimurai",
-    "Regional media coverage from Cuddalore operations.",
-    "Regional News",
-    "Clip 09",
+    "https://youtu.be/kE5W3w9ao6M",
+    "Interviews at Nagpur Municipal Corporation",
+    "On-ground interviews about Zigma's process at Nagpur Municipal Corporation.",
+    "Interview",
+    "Clip 08",
     "#0F766E"
   ),
   createYouTubeVideo(
-    "https://youtube.com/shorts/VJcVc7TKYN8",
-    "Andhra Cluster Shorts Update",
-    "Short-format update from Andhra cluster execution.",
-    "Project Short",
-    "Short 02",
-    "#10B981",
-    { badge: "Short" }
+    "https://youtu.be/J6OCSlODxLw",
+    "Media Interaction on Swachh Survekshan 2021 Awards for Noida Authority",
+    "Media interaction coverage around the Swachh Survekshan 2021 awards.",
+    "Media Interaction",
+    "Clip 09",
+    "#10B981"
   ),
   createYouTubeVideo(
-    "https://youtu.be/qe2Bt-AjaiQ",
-    "Zigma: Building Sustainable Urban India",
-    "Sustainability-focused overview of urban transformation work.",
-    "Brand Story",
+    "https://youtu.be/fVxg5_qDIKI",
+    "NOIDA Smart City Video About Zigma Waste Process",
+    "Smart City coverage of Zigma's waste processing approach in Noida.",
+    "Smart City",
     "Clip 10",
     "#34D399"
   ),
   createYouTubeVideo(
-    "https://youtu.be/bxv2ZCh-3T8",
-    "Zigma: Smart Solutions for Cleaner Cities - Erode Malai Murasu News",
-    "Erode media coverage featuring smart solutions for cleaner cities.",
-    "Regional News",
+    "https://youtu.be/MY8ycv7Tr-M",
+    "NOIDA Tweet Video About Dumpsite Waste Process",
+    "Official update on dumpsite waste processing outcomes.",
+    "Official Update",
     "Clip 11",
     "#059669"
   ),
   createYouTubeVideo(
-    "https://youtu.be/LMRHIdbetAE",
-    "Erode MLA Visit",
-    "On-site coverage from the Erode MLA visit.",
-    "Site Visit",
+    "https://youtube.com/shorts/gpWX9jRLmoE",
+    "Noida Tweet Sector 54 About MSW Wastes",
+    "Sector 54-focused Noida update on MSW waste handling and remediation.",
+    "Official Update",
     "Clip 12",
     "#047857"
   ),
   createYouTubeVideo(
-    "https://youtu.be/-E0jiZUUKd4",
-    "ETV News Vijayawada",
-    "ETV News coverage from Vijayawada project updates.",
+    "https://youtu.be/0WscPowKp60",
+    "Perungudi Biomining Project on Polimer News",
+    "Polimer News feature on Perungudi biomining project execution.",
     "News Coverage",
     "Clip 13",
     "#0F766E"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/Vav1K4thRYY",
+    "NDTV News on Perungudi Dumpyard Transformation",
+    "NDTV report on Perungudi dumpyard conversion into green lung space.",
+    "News Coverage",
+    "Clip 14",
+    "#10B981"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/erVRarDVMno",
+    "News18 on Vairapalayam, Erode Site",
+    "News18 coverage of the Vairapalayam biomining site in Erode.",
+    "News Coverage",
+    "Clip 15",
+    "#34D399"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/aOtNnkAUo0o",
+    "Sun TV on Waste Removal Through Biomining in Perungudi",
+    "Sun TV segment on biomining-based waste removal in Perungudi.",
+    "News Coverage",
+    "Clip 16",
+    "#059669"
+  ),
+  createYouTubeVideo(
+    "https://youtu.be/x9E-7rT6KC8",
+    "Perungudi Thanthi TV News on Biomining Waste Management",
+    "Thanthi TV coverage on the impact of biomining in waste management.",
+    "News Coverage",
+    "Clip 17",
+    "#047857"
   ),
 ];
 
@@ -1095,7 +1123,7 @@ const Testimonials: FC = () => {
 
           <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {VIDEOS.map((video: Video) => (
-              <Reveal key={video.src} className="h-full">
+              <Reveal key={`${video.src}-${video.title}`} className="h-full">
                 <article className="h-full overflow-hidden rounded-xl border border-border bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                   <button
                     type="button"
@@ -1115,13 +1143,10 @@ const Testimonials: FC = () => {
                       </span>
                     </div>
 
-                    <div className="flex h-[108px] flex-col p-4 sm:h-[116px]">
-                      <h3 className="min-h-[2.75rem] line-clamp-2 text-sm font-semibold text-foreground sm:text-base">
+                    <div className="flex h-[88px] items-center p-4 sm:h-[92px]">
+                      <h3 className="line-clamp-2 text-sm font-semibold text-foreground sm:text-base">
                         {video.title}
                       </h3>
-                      <p className="mt-1 min-h-[2.25rem] line-clamp-2 text-xs text-muted-foreground sm:text-sm">
-                        {video.desc}
-                      </p>
                     </div>
                   </button>
                 </article>

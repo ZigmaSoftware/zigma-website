@@ -635,11 +635,24 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
 };
 
 // -- Main Page --------------------------------------------------
-const OngoingProjects: React.FC = () => {
+interface OngoingProjectsProps {
+  hideLayout?: boolean;
+  showTabSwitcher?: boolean;
+  activeTab?: 'completed' | 'ongoing';
+  onTabChange?: (tab: 'completed' | 'ongoing') => void;
+}
+
+const OngoingProjects: React.FC<OngoingProjectsProps> = ({
+  hideLayout = false,
+  showTabSwitcher = false,
+  activeTab = 'ongoing',
+  onTabChange,
+}) => {
   const STATES = Array.from(new Set(ONGOING_PROJECTS.map(p => p.state)));
   const [selectedState, setSelectedState] = useState(STATES[0] || '');
   const filteredProjects = ONGOING_PROJECTS.filter(p => p.state === selectedState);
   const [modalId, setModalId] = useState<number | null>(null);
+  const stateNavTopClass = "top-[64px]";
 
   const activeProject = modalId !== null ? ONGOING_PROJECTS.find(p => p.id === modalId) ?? null : null;
 
@@ -662,12 +675,11 @@ const OngoingProjects: React.FC = () => {
         @keyframes barShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
       `}</style>
 
-      <Header />
+      {!hideLayout && <Header />}
       {/* State Filter */}
-      <nav className="sticky top-[64px]  p-2 pt-4 overflow-hidden border-y border-border bg-background/95 backdrop-blur z-40">
-        <div className="max-w-[1400px] mx-auto px-[5%] py-2 flex justify-center">
-
-          <div className="flex flex-wrap justify-center gap-2">
+      <nav className={`sticky ${stateNavTopClass} p-2 pt-4 overflow-hidden border-y border-border bg-background/95 backdrop-blur z-40`}>
+        <div className="max-w-[1400px] mx-auto px-[5%] py-2 flex flex-wrap items-center gap-3">
+          <div className={`flex flex-wrap gap-2 ${showTabSwitcher ? "flex-1 justify-center md:justify-start" : "justify-center w-full"}`}>
             {STATES.map((state) => (
               <button
                 key={state}
@@ -682,6 +694,38 @@ const OngoingProjects: React.FC = () => {
             ))}
           </div>
 
+          {showTabSwitcher && (
+            <div className="relative ml-auto inline-grid grid-cols-2 rounded-full border border-border bg-muted/60 p-1">
+              <span
+                aria-hidden="true"
+                className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-primary shadow-sm transition-transform duration-300 ease-out ${
+                  activeTab === 'ongoing' ? 'translate-x-full' : 'translate-x-0'
+                }`}
+              />
+              <button
+                type="button"
+                onClick={() => onTabChange?.('completed')}
+                className={`relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
+                  activeTab === 'completed'
+                    ? "text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Completed
+              </button>
+              <button
+                type="button"
+                onClick={() => onTabChange?.('ongoing')}
+                className={`relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
+                  activeTab === 'ongoing'
+                    ? "text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Ongoing
+              </button>
+            </div>
+          )}
         </div>
       </nav>
 
@@ -703,11 +747,9 @@ const OngoingProjects: React.FC = () => {
         <ProjectModal project={activeProject} onClose={() => setModalId(null)} />
       )}
 
-      <Footer />
+      {!hideLayout && <Footer />}
     </div>
   );
 };
 
 export default OngoingProjects;
-
-

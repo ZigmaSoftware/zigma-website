@@ -9,7 +9,7 @@ import bsflWaste from "@/assets/solarr.jpg.jpeg";
 import machinery from "@/assets/services/machinery.png";
 import iotWaste from "@/assets/services/WB.png";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
-import industrialWaste from "@/assets/services/Industrial & Commercial Waste Solutions.jpg";
+import industrialWaste from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import eprService from "@/assets/services/EPR.png";
 
 const services = [

@@ -185,6 +185,58 @@ const inferYear = (fileName: string): number | null => {
   return Number.isNaN(yearSuffix) ? null : 2000 + yearSuffix;
 };
 
+const inferSortTimestamp = (fileName: string): number => {
+  const normalized = fileName.toLowerCase();
+
+  // Prefer numeric timestamp prefixes (e.g. 1752667989_...)
+  const prefixMatch = normalized.match(/^(\d{10,13})_/);
+  if (prefixMatch) {
+    const raw = Number(prefixMatch[1]);
+    return prefixMatch[1].length === 13 ? raw : raw * 1000;
+  }
+
+  // Fallback: infer month + year from filename text
+  const monthMap: Record<string, number> = {
+    january: 0,
+    jan: 0,
+    february: 1,
+    feb: 1,
+    march: 2,
+    mar: 2,
+    april: 3,
+    apr: 3,
+    may: 4,
+    june: 5,
+    jun: 5,
+    july: 6,
+    jul: 6,
+    august: 7,
+    aug: 7,
+    september: 8,
+    sept: 8,
+    sep: 8,
+    october: 9,
+    oct: 9,
+    november: 10,
+    nov: 10,
+    december: 11,
+    dec: 11,
+  };
+
+  const monthPattern = new RegExp(`\\b(${Object.keys(monthMap).join("|")})\\b`, "i");
+  const monthMatch = normalized.match(monthPattern);
+  const yearMatch = normalized.match(/(?:19|20)\d{2}/);
+
+  if (monthMatch && yearMatch) {
+    const month = monthMap[monthMatch[1].toLowerCase()];
+    const year = Number(yearMatch[0]);
+    return Date.UTC(year, month, 1);
+  }
+
+  const yearOnly = inferYear(fileName);
+  return yearOnly ? Date.UTC(yearOnly, 0, 1) : 0;
+};
+
 const buildFallbackTitle = (fileName: string): string =>
   fileName
     .replace(/\.pdf$/i, "")
@@ -213,12 +265,7 @@ const publications: Publication[] = Object.entries(publicationFiles)
       coverImageUrl: publicationCoverByBaseName[withoutExtension(fileName)],
     };
   })
-  .sort((a, b) => {
-    if (a.year === b.year) return a.title.localeCompare(b.title);
-    if (a.year === null) return 1;
-    if (b.year === null) return -1;
-    return b.year - a.year;
-  });
+  .sort((a, b) => inferSortTimestamp(b.fileName) - inferSortTimestamp(a.fileName));
 
 const Publications = () => {
   const filteredPublications = publications.filter(
@@ -295,7 +342,7 @@ const Publications = () => {
                         openPublication(publication.fileUrl);
                       }
                     }}
-                    className="group flex h-[500px] w-full max-w-[340px] cursor-pointer flex-col overflow-hidden border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                    className="group flex h-[470px] w-full max-w-[340px] cursor-pointer flex-col overflow-hidden border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="h-[470px] w-full overflow-hidden">
                       {publication.coverImageUrl ? (
@@ -310,11 +357,6 @@ const Publications = () => {
                           <FileText size={36} aria-hidden="true" />
                         </div>
                       )}
-                    </div>
-                    <div className="flex flex-1 items-center border-t border-slate-200 px-4 py-3">
-                      <p className="line-clamp-2 text-base font-semibold leading-snug text-slate-800">
-                        {publication.title}
-                      </p>
                     </div>
                   </article>
                 ))}

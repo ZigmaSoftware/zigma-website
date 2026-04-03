@@ -3,12 +3,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import Projects from "./pages/Projects";
 import ScrollToTop from "@/components/ScrollToTop";
 import SmoothScrollProvider from "@/components/animation/SmoothScrollProvider";
-import ongoingprojects from "./pages/OngoingProjects";
-import OngoingProjects from "./pages/OngoingProjects";
 import Newsletters from "./pages/Newsletters";
 // import Facilities from "./pages/Facilities";
 // import StackedCards from "./components/ui/StackedCards";
@@ -29,7 +27,7 @@ const CareersApply = lazy(() => import("./pages/CareersApply"));
 const Media = lazy(() => import("./pages/Media"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const People = lazy(() => import("./pages/People"));
-const CompletedProjects = lazy(() => import("./pages/CompletedProjects"));
+const Projects = lazy(() => import("./pages/Projects"));
 const WasteManagementShowcase = lazy(() => import("./pages/WasteManagementShowcase"));
 const GovernancePolicies = lazy(() => import("./pages/GovernancePolicies"));
 const Policies = lazy(() => import("./pages/Policies"));
@@ -65,7 +63,8 @@ const App = () => (
               <Route path="/awards" element={<Awards />} />
               <Route path="/services" element={<Services />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/ongoingprojects" element={<OngoingProjects />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/ongoingprojects" element={<Navigate to="/projects?tab=ongoing" replace />} />
               <Route path="/projects/:id" element={<ProjectDetail />} />
               <Route path="/products" element={<Products />} />
               <Route path="/careers" element={<Careers />} />
@@ -75,7 +74,7 @@ const App = () => (
               <Route path="/newsletters" element={<Newsletters />} />
               <Route path="*" element={<NotFound />} />
               <Route path="/people" element={<People />} />
-              <Route path="/completedprojects" element={<CompletedProjects />} />
+              <Route path="/completedprojects" element={<Navigate to="/projects?tab=completed" replace />} />
               {/* <Route path="/stacked-cards" element={<StackedCards />} /> */}
 
               <Route path="/waste-management-showcase" element={<WasteManagementShowcase />} />
