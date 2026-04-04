@@ -128,7 +128,7 @@ const navItems: NavItem[] = [
   { name: "Projects", path: "/projects" ,
   dropdown: [
     { name: " Landfill Mining", path: "/projects" },
-    { name: "BSFL Organic Waste", path: "/projects" },
+    { name: "BSFL Organic Waste", path: "/projects?category=bsfl-organic-waste" },
     { name: "Integrated AF Projects", path: "/projects" },
     
   

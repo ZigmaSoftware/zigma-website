@@ -4,13 +4,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CompletedProjects from "@/pages/CompletedProjects";
 import OngoingProjects from "@/pages/OngoingProjects";
+import BSFLorganicwaste from "@/components/projects/BSFLorganicwaste";
 
 type ProjectTab = "completed" | "ongoing";
 
 const Projects: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const tabParam = searchParams.get("tab");
+  const categoryParam = searchParams.get("category");
   const activeTab: ProjectTab = tabParam === "ongoing" ? "ongoing" : "completed";
+  const showBSFLOrganicWaste = categoryParam === "bsfl-organic-waste";
 
   const setTab = (tab: ProjectTab) => {
     setSearchParams({ tab });
@@ -20,7 +23,11 @@ const Projects: React.FC = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      {activeTab === "completed" ? (
+      {showBSFLOrganicWaste ? (
+        <main className="max-w-[1400px] mx-auto px-[5%] py-10">
+          <BSFLorganicwaste />
+        </main>
+      ) : activeTab === "completed" ? (
         <CompletedProjects
           hideLayout
           showTabSwitcher
