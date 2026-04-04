@@ -103,99 +103,914 @@ interface InteractiveMetric {
 const PLACEHOLDER_IMAGE =
   'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23e2e8f0"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23475569" font-family="Arial,sans-serif" font-size="40"></text></svg>';
 
-const createCompletedProject = (
-  id: number,
-  title: string,
-  state: string,
-  beforeImage: string = PLACEHOLDER_IMAGE,
-  afterImage: string = PLACEHOLDER_IMAGE,
-): Project => ({
-  id,
-  title,
-  subtitle: "Project Completed",
-  state,
-  desc: `${title} legacy waste project.`,
-  project: "Project status: Project Completed.",
-  focus: "Legacy waste remediation and site stabilization completed.",
-  outcome: "Status: Completed.",
-  metrics: [],
-  waste: 0,
-  land: 0,
-  co2: 0,
-  beforeImage,
-  afterImage,
-});
+interface CompletedProjectSheetRow {
+  title: string;
+  state: string;
+  waste: number | string | null;
+  land: number | string | null;
+  co2: number | string | null;
+  start: string | null;
+  end: string | null;
+  credibility: string | null;
+}
 
-const PROJECTS: Project[] = [
-  // Andhra Pradesh
-  createCompletedProject(1, "Tirupati", "Andhra Pradesh", P10b, P10a),
-  createCompletedProject(2, "Vijayawada", "Andhra Pradesh", P6b, P6a),
-  createCompletedProject(3, "Vizag (Phase-1)", "Andhra Pradesh"),
-  createCompletedProject(4, "Vizag New (Phase-2)", "Andhra Pradesh"),
-  createCompletedProject(5, "GVMC Vizag (Phase-3)", "Andhra Pradesh"),
-  createCompletedProject(6, "Vizag SAC (Phase-4)", "Andhra Pradesh"),
-  createCompletedProject(7, "Madanapalle", "Andhra Pradesh"),
-  createCompletedProject(8, "kuppam", "Andhra Pradesh"),
-  createCompletedProject(9, "TTD -Tirumala", "Andhra Pradesh"),
-  createCompletedProject(10, "CTO - B.Kothakota", "Andhra Pradesh"),
-  createCompletedProject(11, "CTO - Punganur", "Andhra Pradesh"),
-  createCompletedProject(12, "CTO - Palmaner", "Andhra Pradesh"),
-  createCompletedProject(13, "TPY - Sullurupeta", "Andhra Pradesh"),
-  createCompletedProject(14, "TPY - Puttur", "Andhra Pradesh"),
-  createCompletedProject(15, "TPY - Nagari", "Andhra Pradesh"),
-  createCompletedProject(16, "TPY - VENGATAGIRI", "Andhra Pradesh"),
-  createCompletedProject(17, "GDR - Atmakur", "Andhra Pradesh"),
-  createCompletedProject(18, "GDR-Naidupet", "Andhra Pradesh"),
-  createCompletedProject(19, "ATP-Gooty", "Andhra Pradesh"),
-
-  // Tamil Nadu
-  createCompletedProject(20, "Chidambaram", "Tamil Nadu", P11b, P11a),
-  createCompletedProject(21, "Cuddalore", "Tamil Nadu", p16b, p16a),
-  createCompletedProject(22, "Dindigul", "Tamil Nadu", p22b, p22a),
-  createCompletedProject(23, "Karaikudi", "Tamil Nadu", P13b, P13a),
-  createCompletedProject(24, "Karur", "Tamil Nadu", P14b, P14a),
-  createCompletedProject(25, "Kumbakonam", "Tamil Nadu", P1b, P1a),
-  createCompletedProject(26, "Pallavaram", "Tamil Nadu", P12b, P12a),
-  createCompletedProject(27, "Pammal", "Tamil Nadu", P8b, P8a),
-  createCompletedProject(28, "Perungudi Package-3", "Tamil Nadu", p19b, p19a),
-  createCompletedProject(29, "Perungudi Package-4", "Tamil Nadu"),
-  createCompletedProject(30, "Perungudi Package-5", "Tamil Nadu"),
-  createCompletedProject(31, "Poonamalle", "Tamil Nadu", P5b, P5a),
-  createCompletedProject(32, "Sembakkam", "Tamil Nadu", P2b, P2a),
-  createCompletedProject(33, "Tambaram", "Tamil Nadu", P15b, P15a),
-  createCompletedProject(34, "Trichy", "Tamil Nadu", p23b, p23a),
-  createCompletedProject(35, "Trichy New", "Tamil Nadu", p24b, p24a),
-  createCompletedProject(36, "ITC", "Tamil Nadu"),
-  createCompletedProject(37, "Sathya Sub", "Tamil Nadu"),
-  createCompletedProject(38, "Vairapalayam", "Tamil Nadu", P7b, P7a),
-  createCompletedProject(39, "Vendipalayam", "Tamil Nadu"),
-  createCompletedProject(40, "Muthusamy Colony", "Tamil Nadu", p20b, p20a),
-  createCompletedProject(41, "Pudukkottai (Keeramangalam)", "Tamil Nadu"),
-  createCompletedProject(42, "Trichy phase 3", "Tamil Nadu"),
-
-  // Kerala
-  createCompletedProject(43, "Kollam", "Kerala", p17b, p17a),
-
-  // Gujarat
-  createCompletedProject(44, "Makkarpura", "Gujarat", p25b, p25a),
-  createCompletedProject(45, "Vadodara", "Gujarat", P4b, P4a),
-
-  // Maharashtra
-  createCompletedProject(46, "Nagpur", "Maharashtra", p26b, p26a),
-  createCompletedProject(47, "Nagpur Smart City", "Maharashtra"),
-
-  // Uttar Pradesh
-  createCompletedProject(48, "Noida-54", "Uttar Pradesh", P3b, P3a),
-  createCompletedProject(49, "Noida-145 Old", "Uttar Pradesh", P9b, P9a),
-  createCompletedProject(50, "Noida -New", "Uttar Pradesh", p27b, p27a),
-
-  // Puducherry
-  createCompletedProject(51, "Pondy", "Puducheery", p28b, p28a),
-  createCompletedProject(52, "Pondy -2", "Puducheery"),
-
-  // Haryana
-  createCompletedProject(53, "Gurugram", "Haryana"),
+const SHEET3_COMPLETED_ROWS: CompletedProjectSheetRow[] = [
+  {
+    title: "Kumbakonam",
+    state: "Tamilnadu",
+    waste: 231782,
+    land: 12,
+    co2: 160509.035,
+    start: "18.05.2015",
+    end: "6-2-2019",
+    credibility: "Featured in the Swacch Bharath Mission Best Practises 2016. Visited by the Supreme Court Panel for Solid Waste Management. First Project in India executed in an Integrated Model with Zero residues. The project got featured in the Centre for Science and Environment's \"Clean it Right- Dumpsite Management in India\"",
+  },
+  {
+    title: "Sembakkam",
+    state: "Tamilnadu",
+    waste: 38624,
+    land: 4,
+    co2: 26747.12,
+    start: "16.08.2017",
+    end: "7-2-2019",
+    credibility: "Project executed on the banks of Sembakkam lake which ultimately drain to Pallikaranai Marshland- a RAMSAR site. ",
+  },
+  {
+    title: "Pammal",
+    state: "Tamilnadu",
+    waste: 59175,
+    land: 4,
+    co2: 40978.6875,
+    start: "20.08.2018",
+    end: "21-1-2020",
+    credibility: null,
+  },
+  {
+    title: "Vijayawada",
+    state: "Andhra Pradesh",
+    waste: 305890,
+    land: 45,
+    co2: 211828.825,
+    start: "26.06.2018",
+    end: "6-7-2020",
+    credibility: "The largest dumpsite recovering project executed in the state of Andhra Pradesh in terms of land reclaimed. The project got featured in \"Towards Lakshya Zero dumpsite- collection of case studies\" released by GIZ- Germany in association with Swacch Bharath Mission. The recovered land helped build houses for BPL families under the JNNURM project, a construction and demolition waste facility, a plastic waste management facility, a farmer's market and a children's park. The project also bagged the Skoch Silver Award in waste management. The project got featured in the Centre for Science and Environment's \"Clean it Right- Dumpsite Management in India\". The project got featured in the Centre for Science and Environment's toolkit on Legacy Waste Management and Dumpsite Remediation to support SBM 2.0.",
+  },
+  {
+    title: "Atladara- Vadodara",
+    state: "Gujarat",
+    waste: 375000,
+    land: 19,
+    co2: 259687.5,
+    start: "16.07.2018",
+    end: "26-12-2020",
+    credibility: "The project was monitored by NGT as the dumpsite leachate was leaking to adjoining river Vishwamitri, a fragile river which houses over 400 Indian Marsh Crocodiles \"mugger\" protected under Indian Wildlife (Protection) Act- 1972. The project got featured in \"Towards Lakshya Zero dumpsite- collection of case studies\" released by GIZ- Germany in association with Swacch Bharath Mission. The project got featured in the Centre for Science and Environment's toolkit on Legacy Waste Management and Dumpsite Remediation to support SBM 2.0.",
+  },
+  {
+    title: "Sector 145 NOIDA",
+    state: "Uttar Pradesh",
+    waste: 742535,
+    land: 8.2,
+    co2: 514205.4875,
+    start: "09.12.2018",
+    end: "27-11-2022",
+    credibility: "The dumping ground has been transformed into a thriving \"Waste to Wealth\" wetland park which bagged the 2019, Smart City Awards for the best Urban Development Project bestowed by the Indian Ministry for Housing and Urban Affairs. The project got featured in \"Towards Lakshya Zero dumpsite- collection of case studies\" released by GIZ- Germany in association with Swacch Bharath Mission. The project got featured in the Centre for Science and Environment's toolkit on Legacy Waste Management and Dumpsite Remediation to support SBM 2.0.",
+  },
+  {
+    title: "Sector 54NOIDA",
+    state: "Uttar Pradesh",
+    waste: 99665,
+    land: 25.75,
+    co2: 69018.0125,
+    start: "09.12.2018",
+    end: "30-12-2020",
+    credibility: "The dumping ground has been transformed into a thriving \"Waste to Wealth\" wetland park which bagged the 2019, Smart City Awards for the best Urban Development Project bestowed by the Indian Ministry for Housing and Urban Affairs. The project got featured in \"Towards Lakshya Zero dumpsite- collection of case studies\" released by GIZ- Germany in association with Swacch Bharath Mission. The project got featured in the Centre for Science and Environment's toolkit on Legacy Waste Management and Dumpsite Remediation to support SBM 2.0.",
+  },
+  {
+    title: "Poonamallee",
+    state: "Tamilnadu",
+    waste: 30932.14,
+    land: 2,
+    co2: 21420.50695,
+    start: "4.02.2019",
+    end: "31-1-2020",
+    credibility: null,
+  },
+  {
+    title: "Pallavapuram",
+    state: "Tamilnadu",
+    waste: 108000,
+    land: 5.25,
+    co2: 74790,
+    start: "21.01.2020",
+    end: "17-9-2021",
+    credibility: null,
+  },
+  {
+    title: "Chidambaram",
+    state: "Tamilnadu",
+    waste: 52000,
+    land: 4.2,
+    co2: 36010,
+    start: "19.04.2019",
+    end: "29-3-2021",
+    credibility: null,
+  },
+  {
+    title: "Tambaram",
+    state: "Tamilnadu",
+    waste: 150494,
+    land: 7,
+    co2: 104217.095,
+    start: "16.08.2019",
+    end: "24-12-2020",
+    credibility: null,
+  },
+  {
+    title: "Tirupati",
+    state: "Andhra Pradesh",
+    waste: 217500,
+    land: 26,
+    co2: 150618.75,
+    start: "16.08.2019",
+    end: "31-12-2021",
+    credibility: "This project bagged first place in the Sanitation category at the India Smart Cities Awards Contest (ISAC) 2020 for its innovation in waste management. The project also got featured in the Landfill Mining Advisory released by the Indian Ministry for Housing and Urban Affairs in 2020. The project got featured in \"Towards Lakshya Zero dumpsite- collection of case studies\" released by GIZ- Germany in association with Swacch Bharath Mission.",
+  },
+  {
+    title: "Nagpur- Phase 1",
+    state: "Maharashtra",
+    waste: 1000000,
+    land: 43,
+    co2: 692500,
+    start: "24.10.2019",
+    end: "15-2-2023",
+    credibility: "The project is the largest project executed in the state of Maharastra till date in terms of the land reclaimed. The reclaimed land houses a state of the art Bio-methanation facility, a thriving miyawaki forest, a construction and demolition waste management facility and a Nandgram project to house aboondoned cattle. The project got featured in \"Towards Lakshya Zero dumpsite- collection of case studies\" released by GIZ- Germany in association with Swacch Bharath Mission.",
+  },
+  {
+    title: "Tiruchirapalli- Phase 1",
+    state: "Tamilnadu",
+    waste: 760000,
+    land: 40,
+    co2: 526300,
+    start: "24.01.2020",
+    end: "31-3-2022",
+    credibility: "The project got featured in \"Towards Lakshya Zero dumpsite- collection of case studies\" released by GIZ- Germany in association with Swacch Bharath Mission.",
+  },
+  {
+    title: "Vairapalayam- Erode",
+    state: "Tamilnadu",
+    waste: 125974,
+    land: 7,
+    co2: 87236.995,
+    start: "16.09.2019",
+    end: "24-11-2022",
+    credibility: "This project bagged first place in the Sanitation category at the India Smart Cities Awards Contest (ISAC) 2020 for its best performance. The project was monitored by the Hon. National Green Tribunal as it was executed on the banks of River Cauvery wherein the dumpsite's leachate was overflowing into the river which is primary source of drinking water to millions. ",
+  },
+  {
+    title: "Vendipalayam- Erode",
+    state: "Tamilnadu",
+    waste: 549026,
+    land: 17.3,
+    co2: 380200.505,
+    start: "21.01.2022",
+    end: "24-11-2022",
+    credibility: null,
+  },
+  {
+    title: "Karaikudi",
+    state: "Tamilnadu",
+    waste: 112000,
+    land: 14,
+    co2: 77560,
+    start: "07.02.2020",
+    end: "8-9-2021",
+    credibility: null,
+  },
+  {
+    title: "Karur",
+    state: "Tamilnadu",
+    waste: 141731,
+    land: 15,
+    co2: 98148.7175,
+    start: "22.02.2020",
+    end: "31-3-2021",
+    credibility: null,
+  },
+  {
+    title: "Kamiyanpettai- Cuddalore",
+    state: "Tamilnadu",
+    waste: 77000,
+    land: 3.6,
+    co2: 53322.5,
+    start: "20.08.2021",
+    end: "20-04-2022",
+    credibility: null,
+  },
+  {
+    title: "Panchayankuppam- Cuddalore",
+    state: "Tamilnadu",
+    waste: 25000,
+    land: 1.92,
+    co2: 17312.5,
+    start: "20.08.2021",
+    end: "20-04-2022",
+    credibility: null,
+  },
+  {
+    title: "Dindigul",
+    state: "Tamilnadu",
+    waste: 200000,
+    land: 10,
+    co2: 138500,
+    start: "28.07.2020",
+    end: "25-4-2022",
+    credibility: null,
+  },
+  {
+    title: "Visakhapatnam- Phase 1",
+    state: "Andhra Pradesh",
+    waste: 250000,
+    land: 20,
+    co2: 173125,
+    start: "30.12.2020",
+    end: "1-8-2022",
+    credibility: null,
+  },
+  {
+    title: "Makarpura- Vadodara- Phase 1",
+    state: "Gujarat",
+    waste: 500000,
+    land: 19,
+    co2: 346250,
+    start: "10.02.2021",
+    end: "24-12-2023",
+    credibility: null,
+  },
+  {
+    title: "Perungudi- Chennai",
+    state: "Tamilnadu",
+    waste: 1730584.23,
+    land: 94.31,
+    co2: 1198429.5792750001,
+    start: "12.10.2021",
+    end: "31-9-2024",
+    credibility: "The project was executed on the fragile RAMSAR Pallikaranai Marshland reclaiming the largest area of 92 acres in South India. The project upon completion also hosted the AVPN Summit 2025 Workshop with delegates from 25 countries attending, the first of its kind event hosted in a reclaimed dumpsite. ",
+  },
+  {
+    title: "Puducherry",
+    state: "Puducherry",
+    waste: 901989,
+    land: 19.1,
+    co2: 624627.3825,
+    start: "31.12.2021",
+    end: "30-4-2023",
+    credibility: null,
+  },
+  {
+    title: "Kollam",
+    state: "Keralam",
+    waste: 104906.87,
+    land: 15.8,
+    co2: 72648.00747499999,
+    start: "12.07.2021",
+    end: "18-3-2023",
+    credibility: "The project was executed on the banks of RAMSAR denoted Ashtamudi lake and was the first integrated landfill mining project executed in the state of Kerala. The project featured in the best practises case studies identified by the Kerala State Pollution Control Board. ",
+  },
+  {
+    title: "Nagpur- Phase 2",
+    state: "Maharashtra",
+    waste: 600000,
+    land: 20.5,
+    co2: 415500,
+    start: "20.09.2021",
+    end: "10-2-2024",
+    credibility: null,
+  },
+  {
+    title: "Tiruchirapalli- Phase 2",
+    state: "Tamilnadu",
+    waste: 349285,
+    land: 10,
+    co2: 241879.8625,
+    start: "22.07.2022",
+    end: "15-4-2024",
+    credibility: null,
+  },
+  {
+    title: "Paschim Boragaon- Guwahati",
+    state: "Assam",
+    waste: 1500000,
+    land: 15.73,
+    co2: 1038750,
+    start: "10.06.2022",
+    end: "20-9-2026",
+    credibility: "The project was executed on the banks of Deepor Beel which is a RAMSAR identified site and is the largest landfill mining project executed in the state till date. The project is monitored by the Hon. National Green Tribunal.",
+  },
+  {
+    title: "ITC- Coimbatore",
+    state: "Tamilnadu",
+    waste: 225000,
+    land: 7.49,
+    co2: 155812.5,
+    start: "08.09.2022",
+    end: "28-2-2024",
+    credibility: "The project was monitored by the Tamilnadu Pollution Control Board. ",
+  },
+  {
+    title: "Visakhapatnam- Phase 2",
+    state: "Andhra Pradesh",
+    waste: 435000,
+    land: 20.75,
+    co2: 301237.5,
+    start: "12.01.2023",
+    end: "31-3-2024",
+    credibility: null,
+  },
+  {
+    title: "Gurugram",
+    state: "Haryana",
+    waste: 200000,
+    land: 15.73,
+    co2: 138500,
+    start: "25.02.2023",
+    end: "27-7-2024",
+    credibility: null,
+  },
+  {
+    title: "Keeramangalam",
+    state: "Tamilnadu",
+    waste: 1552,
+    land: 1.7,
+    co2: 1074.76,
+    start: "30.06.2023",
+    end: "31-08-2023",
+    credibility: null,
+  },
+  {
+    title: "Kochi",
+    state: "Kerala",
+    waste: 821250,
+    land: "Not applicable",
+    co2: 568715.625,
+    start: "14.09.2023",
+    end: "14-9-2026",
+    credibility: null,
+  },
+  {
+    title: "Tirupati Tirumala Devasthanams",
+    state: "Andhra Pradesh",
+    waste: 200000,
+    land: 7,
+    co2: 138500,
+    start: "14.02.2024",
+    end: "11-4-2024",
+    credibility: "The project as executed amidst the Sri Venkateswara National Park, located in the Seshachalam hills, a 353-507 sq km protected area known for its biodiversity, deep valleys, waterfalls and home to rare flora like Red Sanders and wildlife such as sloth bears, elephants, and over 175 bird species.",
+  },
+  {
+    title: "Nagpur- Phase 3",
+    state: "Maharashtra",
+    waste: 1500000,
+    land: 11.17,
+    co2: 1038750,
+    start: "21.02.2024",
+    end: "15-9-2026",
+    credibility: null,
+  },
+  {
+    title: "Makarpura- Vadodara- Phase 2",
+    state: "Gujarat",
+    waste: 500000,
+    land: 8.67,
+    co2: 346250,
+    start: "01.01.2024",
+    end: "15-7-2025",
+    credibility: null,
+  },
+  {
+    title: "Kodungaiyur- Chennai",
+    state: "Tamilnadu",
+    waste: 4403088.41,
+    land: null,
+    co2: 3049138.723925,
+    start: "12.02.2024",
+    end: "12-2-2026",
+    credibility: "Upon completion, the project would be India's largest landfill mining project executed in terms of land reclaimed. ",
+  },
+  {
+    title: "Visakhapatnam- Phase 3",
+    state: "Andhra Pradesh",
+    waste: 251000,
+    land: 12,
+    co2: 173817.5,
+    start: "12.02.2024",
+    end: "12-2-2026",
+    credibility: "13.09.2024",
+  },
+  {
+    title: "Visakhapatnam- Phase 4",
+    state: "Andhra Pradesh",
+    waste: 201400,
+    land: 5,
+    co2: 139469.5,
+    start: "12-03-2025",
+    end: "22-09-2025",
+    credibility: null,
+  },
+  {
+    title: "Allipuram- Nellore",
+    state: "Andhra Pradesh",
+    waste: 34037.4,
+    land: 22.26,
+    co2: 23570.8995,
+    start: "24-02-2025",
+    end: "06-11-2025",
+    credibility: "The project received the Chief Minister's Award for best performing Bio-mining company in the state. ",
+  },
+  {
+    title: "Dhontali- Nellore",
+    state: "Andhra Pradesh",
+    waste: 590442.38,
+    land: 7.15,
+    co2: 408881.34815,
+    start: "24-02-2025",
+    end: "Ongoing",
+    credibility: "The project received the Chief Minister's Award for best performing Bio-mining company in the state. ",
+  },
+  {
+    title: "B.Kothakota",
+    state: "Andhra Pradesh",
+    waste: 3816.99,
+    land: 8.86,
+    co2: 2643.265575,
+    start: "29-03-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Chittoor",
+    state: "Andhra Pradesh",
+    waste: 260526.6,
+    land: 21.717,
+    co2: 180414.6705,
+    start: "29-03-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Kuppam",
+    state: "Andhra Pradesh",
+    waste: 20018.32,
+    land: 0.6,
+    co2: 13862.686599999999,
+    start: "29-03-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Madanapalle",
+    state: "Andhra Pradesh",
+    waste: 36505.15,
+    land: 27.52,
+    co2: 25279.816375,
+    start: "29-03-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Palamaneru",
+    state: "Andhra Pradesh",
+    waste: 16515.32,
+    land: 8.97,
+    co2: 11436.8591,
+    start: "29-03-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Punganur",
+    state: "Andhra Pradesh",
+    waste: 45623.8,
+    land: 10.25,
+    co2: 31594.481500000005,
+    start: "29-03-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Nagari",
+    state: "Andhra Pradesh",
+    waste: 14451.71,
+    land: 8.46,
+    co2: 10007.809174999999,
+    start: "03-04-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Puttur",
+    state: "Andhra Pradesh",
+    waste: 28022.46,
+    land: 3.16,
+    co2: 19405.55355,
+    start: "03-04-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Srikalahasti",
+    state: "Andhra Pradesh",
+    waste: 118528.04,
+    land: 21.08,
+    co2: 82080.6677,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Sullurpet",
+    state: "Andhra Pradesh",
+    waste: 48316.46,
+    land: 3.21,
+    co2: 33459.14855,
+    start: "03-04-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Venkatagiri",
+    state: "Andhra Pradesh",
+    waste: 20845.97,
+    land: 7.41,
+    co2: 14435.834225000002,
+    start: "03-04-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Anantapur",
+    state: "Andhra Pradesh",
+    waste: 168285,
+    land: 10.21,
+    co2: 116537.3625,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Gooty",
+    state: "Andhra Pradesh",
+    waste: 4563,
+    land: 9.3,
+    co2: 3159.8775,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Guntakal",
+    state: "Andhra Pradesh",
+    waste: 20000,
+    land: 25,
+    co2: 13850,
+    start: "03-04-2025",
+    end: "01-12-2025",
+    credibility: null,
+  },
+  {
+    title: "Rayadurgam",
+    state: "Andhra Pradesh",
+    waste: 108876,
+    land: 12.32,
+    co2: 75396.63,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Alluru",
+    state: "Andhra Pradesh",
+    waste: 2099.52,
+    land: 1.32,
+    co2: 1453.9176,
+    start: "03-04-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Atmakur(N)",
+    state: "Andhra Pradesh",
+    waste: 16004.81,
+    land: 9.3,
+    co2: 11083.330924999998,
+    start: "03-04-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Buchireddypalem",
+    state: "Andhra Pradesh",
+    waste: 6030,
+    land: 2.77,
+    co2: 4175.775,
+    start: "03-04-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Gudur(N)",
+    state: "Andhra Pradesh",
+    waste: 62501.47,
+    land: 5.79,
+    co2: 43282.267975,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Kavali",
+    state: "Andhra Pradesh",
+    waste: 33536,
+    land: 5.93,
+    co2: 23223.68,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Naidupet",
+    state: "Andhra Pradesh",
+    waste: 4186.06,
+    land: 6.29,
+    co2: 2898.84655,
+    start: "03-04-2025",
+    end: "02-10-2025",
+    credibility: null,
+  },
+  {
+    title: "Visakhapatnam- Phase 5",
+    state: "Andhra Pradesh",
+    waste: 300000,
+    land: null,
+    co2: 207750,
+    start: "11-11-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Tiruchirapalli- Phase 3",
+    state: "Tamilnadu",
+    waste: 617716,
+    land: null,
+    co2: 427768.33,
+    start: "19-12-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Kozhikode",
+    state: "Keralam",
+    waste: 200966,
+    land: null,
+    co2: 139168.955,
+    start: "12-01-2026",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Athipattu- Chennai",
+    state: "Tamilnadu",
+    waste: 72043,
+    land: null,
+    co2: 49889.7775,
+    start: "22-12-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Nagpur- Phase 4",
+    state: "Maharashtra",
+    waste: 480000,
+    land: null,
+    co2: 332400,
+    start: "05-02-2026",
+    end: "Ongoing",
+    credibility: null,
+  },
 ];
+
+const STATE_NORMALIZATION_MAP: Record<string, string> = {
+  tamilnadu: 'Tamil Nadu',
+  keralam: 'Kerala',
+  kerala: 'Kerala',
+  puducherry: 'Puducherry',
+  'andhra pradesh': 'Andhra Pradesh',
+  gujarat: 'Gujarat',
+  maharashtra: 'Maharashtra',
+  haryana: 'Haryana',
+  assam: 'Assam',
+  'uttar pradesh': 'Uttar Pradesh',
+};
+
+const normalizeState = (value: string) => {
+  const key = value.trim().toLowerCase();
+  return STATE_NORMALIZATION_MAP[key] ?? value.trim();
+};
+
+const buildScopeKey = (title: string, state: string) =>
+  `${title.trim().toLowerCase()}|${state.trim().toLowerCase()}`;
+
+const OFFICIAL_SCOPE_BY_KEY: Record<string, string> = {
+  "kumbakonam|tamilnadu": "Revamping and Clearing of Existing Dumped Municipal Solid Waste in Thepperamanallur Compost Yard using Bio-Mining technolgy",
+  "sembakkam|tamilnadu": "Removal of Legacy Waste Dumped (Approximately 32,000 cu.m) on the Banks of Sembakkam Lake Throught Bio-Mining Process",
+  "pammal|tamilnadu": "Removal of Legacy Waste Dumped (Approximately 51,500 cu.m) on private land (Survey No. 150, 152 & 153) Throught Bio-Mining Process on design, Build, Own and operate (DBOO) Concept.",
+  "vijayawada|andhra pradesh": "Vijayawada Municipal Corporation- Engineering- Remediation of existing MSW dumpsite of Ajithsingh Nagar Through Bio-Mining process in Vijayawada Municipal Corporation on Design- Build- Operate(DBO)",
+  "atladara- vadodara|gujarat": "Remediation of Legacy waste located at Atladara utilizing various methodologies/ technologies confirming SWM Rule 2016 Swachh Bharat Mission Guidelines, Mahatma Gandhi, Swahhata Mission Guidelines and as per the guidelines of Hon. National Green Tribunal",
+  "sector 145 noida|uttar pradesh": "Dumpsite Remediation of Municipal Solid waste at NOIDA",
+  "sector 54noida|uttar pradesh": "Dumpsite Remediation of Municipal Solid waste at NOIDA",
+  "poonamallee|tamilnadu": "Removal of Legacy waste dumped (Approximately 25,500 cu.m) At parivakkam Dumpyard through Bio-Mining process",
+  "pallavapuram|tamilnadu": "Removal of Legacy waste dumped at Periya Eri through Bio-Mining process",
+  "chidambaram|tamilnadu": "Revamping of Dumpsite (approximately 52,000 cu.m) through Bio- Mining process on Design, Build, Own and Operate Concept",
+  "tambaram|tamilnadu": "Removal of Legacy Waste Dumped at Kanndapalyam Dump Yard through Bio-Mining",
+  "tirupati|andhra pradesh": "Solid Waste Management project - Remediation of Exosting MSW Dumpsite at Ramapuram through Bio-Mining Process under implementation of the Smart City Mission in tirupati",
+  "nagpur- phase 1|maharashtra": "Remediation/ Bio-Mining of Existing Landfill / Stabilised windrows located at Bhandewadi.",
+  "tiruchirapalli- phase 1|tamilnadu": "Reclamation of Existing dump yard at Ariyamangalam Through Bio-Mining process",
+  "vairapalayam- erode|tamilnadu": "Revamping of existing Dumped Garbage (Approximately 5,60,000 cu.m) at Vendipalayam and Vairapalayam dumpyard Through Bio-Mining process on DBFOO Concept",
+  "vendipalayam- erode|tamilnadu": "Disposal of Additional Legacy Waste dumped in vendipalayam compost yard by Biomining processes(Approx. 1,15,000 Cubic Meter)",
+  "karaikudi|tamilnadu": "Removing of dump site through Bio-Mining to recover the land at Devakottai Road compost yard in Karaikudi Municipality",
+  "karur|tamilnadu": "Removing the Legacy Waste Dumped in the Compost yard through Bio-Mining Process at Karur Municipality",
+  "kamiyanpettai- cuddalore|tamilnadu": "Revamping of Dumpsite Through Bio Mining to recover the land at Kamiyanpettai and Panchayankuppam Compost yard in Cuddalore Municipality",
+  "panchayankuppam- cuddalore|tamilnadu": "Revamping of Dumpsite Through Bio Mining to recover the land at Kamiyanpettai and Panchayankuppam Compost yard in Cuddalore Municipality",
+  "dindigul|tamilnadu": "Removal of Legacy Waste 200000 Cu.m through Bio mining process to Reclaim the existing site at Murugabavanam in Dindigul City Municipal Corporation",
+  "visakhapatnam- phase 1|andhra pradesh": "Remediation of existing MSW dumpsite at Kapulappada Dumping Site through Bio-Mining Process in Greater Visakhapatnam Municipal Corporation on “Design-Build-Operate (DBO)",
+  "makarpura- vadodara- phase 1|gujarat": "Biomining of the Legacy waste at Existing Landfill site located at R.S.346 Makarpura Landfill Site using scientific methods for Vadodara Municipal Corporation",
+  "perungudi- chennai|tamilnadu": "Reclamation of Perungudi Dumping Ground through Bio-Mining",
+  "puducherry|puducherry": "Disposal of legacy waste from the existing Kurumbapet dumping site, through Bioremediation & Bio-mining means with complete reclamation of the dumpsite land in compliance with Solid Waste Management (Management & Handling) Rules 2016 on Design, Build, Finance, Own and Operate model",
+  "kollam|keralam": "Bio-Mining and Scientific Closure of Legacy Wastes at the Dumpsite in Kureepuzha, Kollam",
+  "nagpur- phase 2|maharashtra": "Bio-mining of existing old dumped waste at Bhandewadi, Nagpur",
+  "tiruchirapalli- phase 2|tamilnadu": "Implementation of Bio-remediation (Phase - II) Process for disposal of existing Legacy Solid Waste in Ariyamangalam Compost Yard at Triruchirappalli City Corporation",
+  "paschim boragaon- guwahati|assam": "Landfill Mining of Boragaon Dumpsite at Guwahati as per CPCB Guideline for Legacy Waste Disposal",
+  "itc- coimbatore|tamilnadu": "Excavation, Segregation & Processing and Disposal of Legacy Plastic Waste at Kovai",
+  "visakhapatnam- phase 2|andhra pradesh": "Remediation of existing MSW dumpsite at Kapulappada Dumping Site through Bio-Mining Process in Greater Visakhapatnam Municipal Corporation on “Design-Build-Operate (DBO)",
+  "gurugram|haryana": "Remediation and reclamation of exisiting dump site at Bandahwari",
+  "keeramangalam|tamilnadu": "Solid Waste Management \"Revamping of Dump Site through Bio-Mining to recover the land at Compost Yard in Keeramangalam Town Panchayat",
+  "kochi|kerala": "BIODEGRADABLE WASTE PROCESSING PLANT USING BLACK SOLDIER FLY (BSF)",
+  "tirupati tirumala devasthanams|andhra pradesh": "Processing and disposal of the Legacy Municipal Solid Waste near Kakulamanutippa, Tirumala through Bio-Remediation & Bio-Mining as in whereis basis",
+  "nagpur- phase 3|maharashtra": "Remediation of Landfill site through bio-mining of Legacy waste, Disposal of excavated material and Reclamation of Land at Bhandewadi, Landfill Site, Nagpur.",
+  "makarpura- vadodara- phase 2|gujarat": "Processing aof waste located at R.S. No. 346 Makarpura using scientific method conforming to SWM Rules 2016",
+  "kodungaiyur- chennai|tamilnadu": "Reclamation of Kodungaiyur Dumping Ground through Bio Mining",
+  "visakhapatnam- phase 3|andhra pradesh": "Remediation of balance dump site at Kapuluppada, Visakhapatnam though bio-mining process in GVMC (Phase-3)",
+  "visakhapatnam- phase 4|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Greater Visakhapatnam Municipal Corporation (Phase-4) with near-Zero residues”.",
+  "allipuram- nellore|andhra pradesh": "The work of \"Legacy Waste Land Reclamation though Bio-remediation and Bio-mining in Nellore Municipal Corporation with near-Zero residues\". Allipuram and Donthali",
+  "dhontali- nellore|andhra pradesh": "The work of \"Legacy Waste Land Reclamation though Bio-remediation and Bio-mining in Nellore Municipal Corporation with near-Zero residues\". Allipuram and Donthali",
+  "b.kothakota|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Chittoor Cluster (6 ULB’s) with near-Zero residues”.",
+  "chittoor|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Chittoor Cluster (6 ULB’s) with near-Zero residues”.",
+  "kuppam|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Chittoor Cluster (6 ULB’s) with near-Zero residues”.",
+  "madanapalle|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Chittoor Cluster (6 ULB’s) with near-Zero residues”.",
+  "palamaneru|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Chittoor Cluster (6 ULB’s) with near-Zero residues”.",
+  "punganur|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Chittoor Cluster (6 ULB’s) with near-Zero residues”.",
+  "nagari|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Tirupati Cluster (6 ULBs) with near-Zero residues”.",
+  "puttur|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Tirupati Cluster (6 ULBs) with near-Zero residues”.",
+  "srikalahasti|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Tirupati Cluster (6 ULBs) with near-Zero residues”.",
+  "sullurpet|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Tirupati Cluster (6 ULBs) with near-Zero residues”.",
+  "venkatagiri|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Tirupati Cluster (6 ULBs) with near-Zero residues”.",
+  "anantapur|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Anantapur Cluster (6 ULBs) with near-Zero residues”.",
+  "gooty|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Anantapur Cluster (6 ULBs) with near-Zero residues”.",
+  "guntakal|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Anantapur Cluster (6 ULBs) with near-Zero residues”.",
+  "rayadurgam|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Anantapur Cluster (6 ULBs) with near-Zero residues”.",
+  "alluru|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Nellore Cluster (6 ULB’s) with near-Zero residues”.",
+  "atmakur(n)|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Nellore Cluster (6 ULB’s) with near-Zero residues”.",
+  "buchireddypalem|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Nellore Cluster (6 ULB’s) with near-Zero residues”.",
+  "gudur(n)|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Nellore Cluster (6 ULB’s) with near-Zero residues”.",
+  "kavali|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Nellore Cluster (6 ULB’s) with near-Zero residues”.",
+  "naidupet|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Nellore Cluster (6 ULB’s) with near-Zero residues”.",
+  "visakhapatnam- phase 5|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Greater Visakhapatnam Municipal Corporation Additional Quantity with near zero residues\"",
+  "tiruchirapalli- phase 3|tamilnadu": "Remediation of Legacy Waste through Bio-mining Process (Phase III) at Ariyamangalam Compost Yard, Tiruchirappalli Municipal Corporation",
+  "kozhikode|keralam": "Biomining and Bioremediation of Legacy Waste Dumpsite at Njeliyanparambu Kozhikode Kerala",
+  "athipattu- chennai|tamilnadu": "Reclamation additional quantity of Attipattu Dumpsite through Biomining technology process",
+  "nagpur- phase 4|maharashtra": "Remediation of Landfill site through bio-mining of Legacy waste, Disposal of excavated material and Reclamation of Land at Bhandewadi, Landfill Site, Nagpur",
+};
+
+const normalizeProjectKey = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+    .replace(/\s+/g, ' ');
+
+const toNumber = (value: number | string | null): number => {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value === 'string') {
+    const normalized = value.replace(/,/g, '').trim();
+    const parsed = Number(normalized);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+  return 0;
+};
+
+const isDateLikeMarker = (value: string) =>
+  /^\d{1,2}[./-]\d{1,2}[./-]\d{2,4}$/.test(value.trim());
+
+const splitCredibilityMarkers = (value: string | null): string[] => {
+  if (!value) return [];
+  const normalized = value.replace(/\s+/g, ' ').trim();
+  if (!normalized || isDateLikeMarker(normalized)) return [];
+
+  const abbreviationMap = new Map<string, string>([
+    ['Hon.', 'Hon<dot>'],
+    ['Mr.', 'Mr<dot>'],
+    ['Mrs.', 'Mrs<dot>'],
+    ['Ms.', 'Ms<dot>'],
+    ['Dr.', 'Dr<dot>'],
+    ['Prof.', 'Prof<dot>'],
+  ]);
+
+  let safeText = normalized;
+  abbreviationMap.forEach((token, abbr) => {
+    safeText = safeText.split(abbr).join(token);
+  });
+
+  return safeText
+    .split(/\.(?=\s+[A-Z"(])/)
+    .map((entry) =>
+      entry
+        .replace(/<dot>/g, '.')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/[.;]+$/, ''),
+    )
+    .filter((entry) => entry.length > 0 && !isDateLikeMarker(entry));
+};
+
+const formatMetricNumber = (value: number, digits = 2) =>
+  value > 0
+    ? value.toLocaleString('en-IN', { maximumFractionDigits: digits })
+    : 'Not reported';
+
+const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: string }> = {
+  [normalizeProjectKey('Kumbakonam')]: { beforeImage: P1b, afterImage: P1a },
+  [normalizeProjectKey('Sembakkam')]: { beforeImage: P2b, afterImage: P2a },
+  [normalizeProjectKey('Sector 54NOIDA')]: { beforeImage: P3b, afterImage: P3a },
+  [normalizeProjectKey('Atladara- Vadodara')]: { beforeImage: P4b, afterImage: P4a },
+  [normalizeProjectKey('Poonamallee')]: { beforeImage: P5b, afterImage: P5a },
+  [normalizeProjectKey('Vijayawada')]: { beforeImage: P6b, afterImage: P6a },
+  // [normalizeProjectKey('Vairapalayam- Erode')]: { beforeImage: P7b, afterImage: P7a },
+  [normalizeProjectKey('Pammal')]: { beforeImage: P8b, afterImage: P8a },
+  [normalizeProjectKey('Sector 145 NOIDA')]: { beforeImage: P9b, afterImage: P9a },
+  [normalizeProjectKey('Tirupati')]: { beforeImage: P10b, afterImage: P10a },
+  [normalizeProjectKey('Chidambaram')]: { beforeImage: P11b, afterImage: P11a },
+  [normalizeProjectKey('Pallavapuram')]: { beforeImage: P12b, afterImage: P12a },
+  [normalizeProjectKey('Karaikudi')]: { beforeImage: P13b, afterImage: P13a },
+  [normalizeProjectKey('Karur')]: { beforeImage: P14b, afterImage: P14a },
+  // [normalizeProjectKey('Tambaram')]: { beforeImage: P15b, afterImage: P15a },
+  // [normalizeProjectKey('Panchayankuppam- Cuddalore')]: { beforeImage: p16b, afterImage: p16a },  
+  [normalizeProjectKey('Kollam')]: { beforeImage: p17b, afterImage: p17a },
+  // [normalizeProjectKey('Paschim Boragaon- Guwahati')]: { beforeImage: p18b, afterImage: p18a },
+  // [normalizeProjectKey('Perungudi- Chennai')]: { beforeImage: p19b, afterImage: p19a },
+  [normalizeProjectKey('Muthusamy Colony')]: { beforeImage: p20b, afterImage: p20a },
+  // [normalizeProjectKey('Kamiyanpettai- Cuddalore')]: { beforeImage: p21b, afterImage: p21a },
+  [normalizeProjectKey('Dindigul')]: { beforeImage: p22b, afterImage: p22a },
+  // [normalizeProjectKey('Tiruchirapalli- Phase 1')]: { beforeImage: p23b, afterImage: p23a },
+  // [normalizeProjectKey('Tiruchirapalli- Phase 2')]: { beforeImage: p24b, afterImage: p24a },
+  // [normalizeProjectKey('Makarpura- Vadodara- Phase 1')]: { beforeImage: p25b, afterImage: p25a },
+  [normalizeProjectKey('Nagpur- Phase 1')]: { beforeImage: p26b, afterImage: p26a },
+  // [normalizeProjectKey('Puducherry')]: { beforeImage: p28b, afterImage: p28a },
+  [normalizeProjectKey('Noida -New')]: { beforeImage: p27b, afterImage: p27a },
+};
+
+const resolveProjectImages = (title: string) =>
+  IMAGE_LOOKUP[normalizeProjectKey(title)] ?? { beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE };
+
+const toCompletedProject = (row: CompletedProjectSheetRow, id: number): Project => {
+  const title = row.title.trim();
+  const state = normalizeState(row.state);
+  const waste = toNumber(row.waste);
+  const land = toNumber(row.land);
+  const co2 = toNumber(row.co2);
+  const periodStart = row.start?.trim() || 'Not available';
+  const periodEnd = row.end?.trim() || 'Not available';
+  const markers = splitCredibilityMarkers(row.credibility);
+  const images = resolveProjectImages(title);
+  const officialScope = OFFICIAL_SCOPE_BY_KEY[buildScopeKey(title, row.state)]?.trim();
+
+  return {
+    id,
+    title,
+    subtitle: 'Project Completed',
+    state,
+    desc: officialScope || `${title} legacy waste remediation project in ${state}.`,
+    project: `Waste processed: ${formatMetricNumber(waste, 2)} m3. Land reclaimed: ${formatMetricNumber(land, 2)} acres.`,
+    focus: `Project timeline: ${periodStart} to ${periodEnd}.`,
+    outcome: `CO2 mitigated: ${formatMetricNumber(co2, 3)} MT.`,
+    metrics: markers,
+    waste,
+    land,
+    co2,
+    beforeImage: images.beforeImage,
+    afterImage: images.afterImage,
+  };
+};
+
+const PROJECTS: Project[] = SHEET3_COMPLETED_ROWS.map((row, index) => toCompletedProject(row, index + 1));
 
 // -- Counter hook -----------------------------------------------
 const PROJECT_LIMITS = PROJECTS.reduce(
@@ -285,12 +1100,12 @@ const buildInteractiveMetrics = (project: Project): InteractiveMetric[] => {
     },
     {
       key: 'recovery',
-      label: 'Recovery Rate',
+      label: 'Project Status',
       railValue: project.metrics[1] ?? leadMetric,
       eyebrow: 'Efficiency',
-      title: 'Material Recovery Rate',
-      displayValue: project.metrics.length > 0 ? '78.4' : '-',
-      unit: 'PERCENT OF TOTAL WASTE',
+      title: 'Project Status',
+      displayValue: project.subtitle.includes('Completed') ? '100%' : status,
+      unit: 'CURRENT PROJECT STAGE',
       status: project.metrics.length > 0 ? 'Above Benchmark' : status,
       progress: project.metrics.length > 0 ? 78 : 0,
       details: [
@@ -487,7 +1302,15 @@ const ProjectCard: React.FC<{
 
                 {/* <p className="text-[0.68rem] tracking-[0.2em] uppercase font-semibold text-primary mb-2">{currentMetric.eyebrow}</p> */}
                 <h3 className="text-2xl font-semibold text-foreground leading-tight mb-4">{currentMetric.title}</h3>
-                <p className="text-6xl font-semibold leading-none text-primary mb-1">{currentMetric.displayValue}</p>            
+                <p
+                  className={`font-semibold text-primary mb-1 break-words ${
+                    /[A-Za-z]/.test(currentMetric.displayValue)
+                      ? 'text-3xl md:text-4xl leading-tight'
+                      : 'text-5xl md:text-6xl leading-none'
+                  }`}
+                >
+                  {currentMetric.displayValue}
+                </p>
                 <p className="text-sm tracking-[0.18em] text-muted-foreground">{currentMetric.unit}</p>
 
                 <div className="mt-6 pt-5 border-t border-border space-y-3">
@@ -517,7 +1340,7 @@ const ProjectCard: React.FC<{
           </div>
         </div>
 
-        <div className="flex flex-col border-t lg:border-t-0 border-border bg-card lg:w-[15=8%] lg:border-l">
+        <div className="flex flex-col border-t lg:border-t-0 border-border bg-card lg:w-[15.8%] lg:border-l">
           <div className="p-5 border-b border-border">
             <p className="text-lg font-semibold text-muted-foreground">Project Metrics</p>
             {/* <h4 className="text-2xl text-foreground font-medium mt-1">Impact Summary</h4> */}
@@ -565,7 +1388,7 @@ const ProjectCard: React.FC<{
               onClick={() => onViewDetails(project.id)}
               className="w-full rounded-xl border border-primary text-primary font-semibold py-3 px-4 hover:bg-primary hover:text-primary-foreground transition-colors"
             >
-              View Full Report
+              Credibility Markers
             </button>
           </div>
         </div>
@@ -620,6 +1443,19 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
         <div className="overflow-y-auto px-6 py-5 lg:px-8">
           <p className="text-slate-600 leading-relaxed mb-6 text-[0.95rem]">{project.desc}</p>
 
+          {project.metrics.length > 0 && (
+            <div className="border-t border-slate-100 pt-5 mb-6">
+              <p className="text-[0.75rem]  tracking-widest font-bold text-slate-400 mb-3">Credibility Markers</p>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {project.metrics.map((m, i) => (
+                  <li key={i} className="bg-green-50 border-l-4 border-green-600 rounded-lg px-4 py-3 text-[0.85rem] font-medium text-slate-700 leading-snug">
+                    {m}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {[
               { label: 'Project', value: project.project },
@@ -632,19 +1468,6 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
               </div>
             ))}
           </div>
-
-          {project.metrics.length > 0 && (
-            <div className="border-t border-slate-100 pt-5">
-              <p className="text-[0.75rem]  tracking-widest font-bold text-slate-400 mb-3">Key Metrics</p>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {project.metrics.map((m, i) => (
-                  <li key={i} className="bg-green-50 border-l-4 border-green-600 rounded-lg px-4 py-3 text-[0.85rem] font-medium text-slate-700 leading-snug">
-                    {m}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       </div>
     </div>

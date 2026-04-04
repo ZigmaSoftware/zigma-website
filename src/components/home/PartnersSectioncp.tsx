@@ -99,7 +99,7 @@ const PartnersSection = () => {
           </p>
 
           <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-            Partnerships with <span className="text-primary">Cement Plants</span>
+            Partnerships with <span className="text-primary">Cement Producers</span>
           </h2>
           <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-center text-sm md:text-lg  ">
                 We convert legacy waste into high-calorific RDF for co-processing in cement kilns, reducing landfill burden and fossil fuel dependency while advancing measurable decarbonization outcomes.

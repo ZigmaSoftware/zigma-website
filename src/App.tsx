@@ -50,7 +50,12 @@ const App = () => (
       <Toaster />
       <Sonner />
       <SmoothScrollProvider>
-        <BrowserRouter>
+        <BrowserRouter
+          future={{
+            v7_startTransition: true,
+            v7_relativeSplatPath: true,
+          }}
+        >
           <ScrollToTop />
           <Suspense fallback={null}>
             <ScrollAnimator />

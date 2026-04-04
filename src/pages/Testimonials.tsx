@@ -28,6 +28,7 @@ import mrDurgaShankarMishraImg from "@/assets/Testimonials/Mr. Durga Shankar Mis
 import drTarjindarSinghDhindsaImg from "@/assets/Testimonials/Dr. Tarjindar Singh Dhindsa.png";
 import msRAPriyangaImg from "@/assets/Testimonials/Ms. R A Priyanga, IAS.png";
 import mrAmolSAwateImg from "@/assets/Testimonials/Mr. Amol S. Awate, IAS.png";
+import msMehakJainIasImg from "@/assets/Testimonials/Ms. Mehak Jain, IAS.png";
 import drJRadhakrishnanImg from "@/assets/Testimonials/Dr. J. Radhakrishnan, IAS.png";
 import mrPSwaroopImg from "@/assets/Testimonials/Mr. P. Swaroop, IAS.png";
 import mrGagandeepSinghBediImg from "@/assets/Testimonials/Mr. Gagandeep Singh Bedi, IAS.png";
@@ -152,7 +153,7 @@ const SLIDES: Slide[] = [
     text: "Take a tour of #Kumbakonm and learn about the bio-mining.",
     image: mrVenkaihNaiduImg,
     name: "Mr. Venkaih Naidu",
-    role: "Former Minister for Urban Development, Govt. of India",
+    role: "Former Minister for Urban Development, Govt. of India, Former Vice President of India.",
     tag: "India",
   },
   {
@@ -166,35 +167,42 @@ const SLIDES: Slide[] = [
     text: "Extremely impressed by the process going on in remediating the legacy waste, my best wishes.",
     image: mrDurgaShankarMishraImg,
     name: "Mr. Durga Shankar Mishra",
-    role: "Secretary, Ministry of Housing and Urban Affairs (MoHUA), Govt. of India",
+    role: "Former Secretary, Ministry of Housing and Urban Affairs (MoHUA), Govt. of India",
     tag: "India",
   },
   {
     text: "Excellent facility & infrastructure created with the potential to have a solid-free city.",
     image: drTarjindarSinghDhindsaImg,
     name: "Dr. Tarjindar Singh Dhindsa",
-    role: "Deputy Executive Director, Dalmia Cement",
+    role: "Former Deputy Executive Director, Dalmia Cements Limited",
     tag: "India",
   },
   {
     text: "Had a great experience learning the hardships involved in waste clearance. Good luck & continue the great work.",
     image: msRAPriyangaImg,
     name: "Ms. R A Priyanga, IAS",
-    role: "Assistant Collector, Dindigul District",
+    role: "Former Assistant Collector, Dindigul District",
     tag: "Tamil Nadu",
   },
   {
     text: "Well-organized and well-maintained SWM plant.",
     image: mrAmolSAwateImg,
     name: "Mr. Amol S. Awate, IAS",
-    role: "Sub Divisional Magistrate, Dwarka, Gujarat",
+    role: "Former Sub Divisional Magistrate, Dwarka, Gujarat",
+    tag: "Gujarat",
+  },
+  {
+    text: "A well-functioning mechanized plant. Waste to wealth being realized for real.",
+    image: msMehakJainIasImg,
+    name: "Ms. Mehak Jain, IAS",
+    role: "Former Deputy Collector, Rajkot City-2 Office",
     tag: "Gujarat",
   },
   {
     text: "Amazed to see the work addressing legacy waste issues.",
     image: drJRadhakrishnanImg,
     name: "Dr. J. Radhakrishnan, IAS",
-    role: "Commissioner, Greater Chennai Corporation (GCC), Tamil Nadu",
+    role: "Former Commissioner, Greater Chennai Corporation (GCC), Tamil Nadu",
     tag: "Tamil Nadu",
   },
   {
@@ -208,21 +216,21 @@ const SLIDES: Slide[] = [
     text: "Today visited the dump yard at Atladara and witnessed a massive transformation from garbage dump to a processed plant. Seventeen acres of valuable land have been preserved and reclaimed. Good work.",
     image: mrPSwaroopImg,
     name: "Mr. P. Swaroop, IAS",
-    role: "Municipal Commissioner, Vadodara",
+    role: "Former Municipal Commissioner, Vadodara",
     tag: "Gujarat",
   },
   {
     text: "Had the experience of visiting the site. It is a great learning experience. The project is going as per schedule, aiming for completion by December 2022. Suggested creating a booklet for officials of other municipalities and preparing a time-lapse video.",
     image: drVIraiAnduImg,
     name: "Dr. V. Irai Andu, IAS",
-    role: "Chief Secretary to the Government of Tamil Nadu",
+    role: "Former Chief Secretary to the Government of Tamil Nadu",
     tag: "Tamil Nadu",
   },
   {
     text: "Happy to see the initial works starting here, wish to see a quick starting of the project and continuation of the good work already done by Zigma in other cities.",
     image: mrGagandeepSinghBediImg,
     name: "Mr. Gagandeep Singh Bedi, IAS",
-    role: "Commissioner, Greater Chennai Corporation (GCC)",
+    role: "Former Commissioner, Greater Chennai Corporation (GCC)",
     tag: "Tamil Nadu",
   },
   {
@@ -243,7 +251,7 @@ const SLIDES: Slide[] = [
     text: "I was astonished to see that the TN Municipal Administration department along with Zigma are able to implement bio-mining projects while still other states are in the conceptualization stage.",
     image: mrJusticePJyothimaniImg,
     name: "Mr. Justice P Jyothimani",
-    role: "Chairman, South Zone NGT",
+    role: "Chairman, South Zone, Hon. National Green Tribunal",
     tag: "India",
   },
   {
@@ -257,7 +265,7 @@ const SLIDES: Slide[] = [
     text: "Very impressive. Would love to see progress in few years' time here.",
     image: mrJusticeAdiImg,
     name: "Mr. Justice Adi",
-    role: "Head, Karnataka NGT SWM Monitoring Committee",
+    role: "Head, SWM Monitoring Committee, Hon. National Green Tribunal, Karnataka",
     tag: "India",
   },
   {
@@ -269,161 +277,306 @@ const SLIDES: Slide[] = [
   },
 ];
 
-const VIDEOS: Video[] = [
-  createYouTubeVideo(
-    "https://youtu.be/z1vAN67LceY",
-    "ETV1 News in Vijayawada About Zigma",
-    "ETV1 media coverage from Vijayawada on Zigma's waste-management execution.",
-    "News Coverage",
-    "Clip 01",
-    "#10B981",
-    { featured: true }
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/TXKcIaF9pd8",
-    "ETV2 News in Vijayawada About Zigma",
-    "ETV2 coverage highlighting project impact in Vijayawada.",
-    "News Coverage",
-    "Clip 02",
-    "#34D399"
-  ),
-  createYouTubeVideo(
-    "https://youtube.com/shorts/EoBgMZxZfCY?feature=share",
-    "Fadnavis Speech",
-    "Short-format clip featuring Fadnavis speech coverage.",
-    "Speech",
-    "Short 01",
-    "#059669"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/PjObYFsdPdM",
-    "India Ahead News - Perungudi, Chennai",
-    "India Ahead segment from the Perungudi biomining site in Chennai.",
-    "News Coverage",
-    "Clip 04",
-    "#047857"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/Up1AqUe_WNY",
-    "Kerala Assembly M.B. Rajesh Speech",
-    "Assembly speech coverage featuring Kerala project context.",
-    "Speech",
-    "Clip 05",
-    "#0F766E"
-  ),
-  createYouTubeVideo(
-    "https://youtube.com/shorts/UI8hQ8kOxBc?feature=share",
-    "Mr. M.V. Govindan Speech About Kollam Project",
-    "Short-format update on Kollam project remarks by Mr. M.V. Govindan.",
-    "Speech",
-    "Short 02",
-    "#10B981"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/7TDticQmcUo",
-    "Makarpura News",
-    "Regional media coverage from Makarpura project updates.",
-    "News Coverage",
-    "Clip 06",
-    "#34D399"
-  ),
-  createYouTubeVideo(
-    "https://youtube.com/shorts/Nx8zopG8hE0?feature=share",
-    "Master Govindan Speech",
-    "Short clip featuring Master Govindan speaking about project impact.",
-    "Speech",
-    "Short 03",
-    "#059669"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/ANbNtukLBj0",
-    "MoHUA Stakeholder Consultation Workshop on Legacy Waste Remediation",
-    "Workshop coverage on remediation of legacy waste dumpsites.",
-    "Workshop",
-    "Clip 07",
-    "#047857"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/kE5W3w9ao6M",
-    "Interviews at Nagpur Municipal Corporation",
-    "On-ground interviews about Zigma's process at Nagpur Municipal Corporation.",
-    "Interview",
-    "Clip 08",
-    "#0F766E"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/J6OCSlODxLw",
-    "Media Interaction on Swachh Survekshan 2021 Awards for Noida Authority",
-    "Media interaction coverage around the Swachh Survekshan 2021 awards.",
-    "Media Interaction",
-    "Clip 09",
-    "#10B981"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/fVxg5_qDIKI",
-    "NOIDA Smart City Video About Zigma Waste Process",
-    "Smart City coverage of Zigma's waste processing approach in Noida.",
-    "Smart City",
-    "Clip 10",
-    "#34D399"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/MY8ycv7Tr-M",
-    "NOIDA Tweet Video About Dumpsite Waste Process",
-    "Official update on dumpsite waste processing outcomes.",
-    "Official Update",
-    "Clip 11",
-    "#059669"
-  ),
-  createYouTubeVideo(
-    "https://youtube.com/shorts/gpWX9jRLmoE",
-    "Noida Tweet Sector 54 About MSW Wastes",
-    "Sector 54-focused Noida update on MSW waste handling and remediation.",
-    "Official Update",
-    "Clip 12",
-    "#047857"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/0WscPowKp60",
-    "Perungudi Biomining Project on Polimer News",
-    "Polimer News feature on Perungudi biomining project execution.",
-    "News Coverage",
-    "Clip 13",
-    "#0F766E"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/Vav1K4thRYY",
-    "NDTV News on Perungudi Dumpyard Transformation",
-    "NDTV report on Perungudi dumpyard conversion into green lung space.",
-    "News Coverage",
-    "Clip 14",
-    "#10B981"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/erVRarDVMno",
-    "News18 on Vairapalayam, Erode Site",
-    "News18 coverage of the Vairapalayam biomining site in Erode.",
-    "News Coverage",
-    "Clip 15",
-    "#34D399"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/aOtNnkAUo0o",
-    "Sun TV on Waste Removal Through Biomining in Perungudi",
-    "Sun TV segment on biomining-based waste removal in Perungudi.",
-    "News Coverage",
-    "Clip 16",
-    "#059669"
-  ),
-  createYouTubeVideo(
-    "https://youtu.be/x9E-7rT6KC8",
-    "Perungudi Thanthi TV News on Biomining Waste Management",
-    "Thanthi TV coverage on the impact of biomining in waste management.",
-    "News Coverage",
-    "Clip 17",
-    "#047857"
-  ),
+const VIDEO_COLORS = ["#10B981", "#34D399", "#059669", "#047857", "#0F766E"] as const;
+
+type VideoSeed = {
+  src: string;
+  title: string;
+  label: string;
+  featured?: boolean;
+};
+
+const VIDEO_SEEDS: VideoSeed[] = [
+  // Batch 1
+  {
+    src: "https://youtu.be/TLXCtngKo6U",
+    title: "Zigma: Transforming Waste into Value (Amrita TV)",
+    label: "TV Feature",
+    featured: true,
+  },
+  {
+    src: "https://youtu.be/hHqRdoo5Cn0",
+    title: "Integrated Waste Management Initiative (Andhra Cluster)",
+    label: "Project Update",
+  },
+  {
+    src: "https://youtu.be/XUia9pKBCq8",
+    title: "Zigma: Andhra Cluster - Large-Scale Waste Transformation",
+    label: "Andhra Cluster",
+  },
+  {
+    src: "https://youtu.be/rrlmAHF2J3k",
+    title: "Andhra Pradesh Cluster Development Programme - Field Report",
+    label: "Field Report",
+  },
+  {
+    src: "https://youtube.com/shorts/wtwIxpW18wI",
+    title: "Andhra Pradesh Chief Minister - Speech / Press Byte",
+    label: "Press Byte",
+  },
+  {
+    src: "https://youtu.be/cIlPFcl874s",
+    title: "ANI Vijayawada Inauguration",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/cbNVz0H8qaI",
+    title: "Zigma and Anna University: Soil Transformation and Scientific Validation Initiative",
+    label: "Research",
+  },
+  {
+    src: "https://youtu.be/psbedFJNN4w",
+    title: "BSF Club FM Radio",
+    label: "Radio Feature",
+  },
+  {
+    src: "https://youtu.be/i9TVKl-eVDc",
+    title: "CNBC TV18 News",
+    label: "Business News",
+  },
+  {
+    src: "https://youtu.be/vngSQHFCjM4",
+    title: "Cuddalore Puthiyathalaimurai",
+    label: "Regional News",
+  },
+  {
+    src: "https://youtube.com/shorts/VJcVc7TKYN8",
+    title: "Andhra Cluster Shorts Update",
+    label: "Project Short",
+  },
+  {
+    src: "https://youtu.be/qe2Bt-AjaiQ",
+    title: "Zigma: Building Sustainable Urban India",
+    label: "Brand Story",
+  },
+  {
+    src: "https://youtu.be/bxv2ZCh-3T8",
+    title: "Zigma: Smart Solutions for Cleaner Cities (Erode Malai Murasu News)",
+    label: "Regional News",
+  },
+  {
+    src: "https://youtu.be/LMRHIdbetAE",
+    title: "Erode MLA Visit",
+    label: "Site Visit",
+  },
+  {
+    src: "https://youtu.be/-E0jiZUUKd4",
+    title: "ETV News Vijayawada",
+    label: "News Coverage",
+  },
+
+  // Batch 2
+  {
+    src: "https://youtu.be/z1vAN67LceY",
+    title: "ETV1 News in Vijayawada About Zigma",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/TXKcIaF9pd8",
+    title: "ETV2 News in Vijayawada About Zigma",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtube.com/shorts/EoBgMZxZfCY?feature=share",
+    title: "Fadnavis Speech",
+    label: "Speech",
+  },
+  {
+    src: "https://youtu.be/PjObYFsdPdM",
+    title: "India Ahead News - Perungudi, Chennai",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/Up1AqUe_WNY",
+    title: "Kerala Assembly M.B. Rajesh Speech",
+    label: "Speech",
+  },
+  {
+    src: "https://youtube.com/shorts/UI8hQ8kOxBc?feature=share",
+    title: "Mr. M.V. Govindan Speech About Kollam Project",
+    label: "Speech",
+  },
+  {
+    src: "https://youtu.be/7TDticQmcUo",
+    title: "Makarpura News",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtube.com/shorts/Nx8zopG8hE0?feature=share",
+    title: "Master Govindan Speech",
+    label: "Speech",
+  },
+  {
+    src: "https://youtu.be/ANbNtukLBj0",
+    title: "MoHUA Stakeholder Consultation Workshop on Remediation of Legacy Waste Dumpsites",
+    label: "Workshop",
+  },
+  {
+    src: "https://youtu.be/kE5W3w9ao6M",
+    title: "Interviews About Zigma at Nagpur Municipal Corporation",
+    label: "Interview",
+  },
+  {
+    src: "https://youtu.be/J6OCSlODxLw",
+    title: "Media Interaction on Swachh Survekshan 2021 Awards for Noida Authority",
+    label: "Media Interaction",
+  },
+  {
+    src: "https://youtu.be/fVxg5_qDIKI",
+    title: "NOIDA Smart City Video About Zigma Waste Process",
+    label: "Smart City",
+  },
+  {
+    src: "https://youtu.be/MY8ycv7Tr-M",
+    title: "NOIDA Tweet Video About Dumpsite Waste Process",
+    label: "Official Update",
+  },
+  {
+    src: "https://youtube.com/shorts/gpWX9jRLmoE",
+    title: "Noida Tweet Sector 54 About MSW Wastes",
+    label: "Official Update",
+  },
+  {
+    src: "https://youtu.be/0WscPowKp60",
+    title: "Perungudi Biomining Project on Polimer News Channel",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/Vav1K4thRYY",
+    title: "NDTV News About Perungudi Dumpyard Turning Into a New Lung Space",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/erVRarDVMno",
+    title: "News18 on the Vairapalayam Erode Site",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/aOtNnkAUo0o",
+    title: "Sun TV News About Waste Removal Through Biomining in Perungudi",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/x9E-7rT6KC8",
+    title: "Perungudi Thanthi TV News on Biomining Waste Management",
+    label: "News Coverage",
+  },
+
+  // Batch 3
+  {
+    src: "https://youtu.be/X5ehvOddWTU",
+    title: "Polimer News: 30 Years of Dump Waste Into a Park",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/HkrcBU3r84o",
+    title: "SBM Kumbakonam News",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/zTt7luCoN2A",
+    title: "SBM Module English News: Facts and Figures",
+    label: "Module",
+  },
+  {
+    src: "https://youtu.be/ErzUrWzBe4U",
+    title: "SBM Module Hindi News: Facts and Figures",
+    label: "Module",
+  },
+  {
+    src: "https://youtu.be/3J3p_MSsB0k",
+    title: "Sun TV Erode on Vairapalayam Dump Site to Prevent Cauvery Pollution",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/-BPYW6cfHAk",
+    title: "TEN NEWS Interview at Noida Sector 54",
+    label: "Interview",
+  },
+  {
+    src: "https://youtu.be/c8gh5kWmaAY",
+    title: "TTD and DRDO Visit News",
+    label: "Site Visit",
+  },
+  {
+    src: "https://youtu.be/pDVwHbMWX9k",
+    title: "TTD Chairman Visit News",
+    label: "Site Visit",
+  },
+  {
+    src: "https://youtu.be/SMS3u-Zt5_g",
+    title: "Remediation of Existing Dump Site at Ajitsinghnagar Vijayawada",
+    label: "Project Update",
+  },
+  {
+    src: "https://youtu.be/b9HtinCyoXE",
+    title: "Vijayawada ABN News About the Dump Site Remediation",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/howdJTR0IqQ",
+    title: "Vijayawada ABN Minister Visit News",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/2PkOQRJyvzQ",
+    title: "Vijayawada Inauguration ETV News",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/OjCMiJvDLeg",
+    title: "Vijayawada MC About Biomining",
+    label: "Municipal Update",
+  },
+  {
+    src: "https://youtu.be/0jSDIE-WYFc",
+    title: "Vizag ETV News",
+    label: "News Coverage",
+  },
+  {
+    src: "https://youtu.be/C631gB_SMOY",
+    title: "Speech by the Minister of Sustainability and Environment in Perungudi, Chennai",
+    label: "Speech",
+  },
+  {
+    src: "https://youtu.be/bMfHysHGKoM",
+    title: "Zigma Presentation in Malaysia",
+    label: "Presentation",
+  },
+  {
+    src: "https://youtube.com/shorts/kW7trzGqFEo?feature=share",
+    title: "Smart Resource Utilization",
+    label: "Project Short",
+  },
+  {
+    src: "https://youtube.com/shorts/KzeIh0AlkzU?feature=share",
+    title: "M.B. Rajesh Speech About Zigma in the Kerala Legislative Assembly",
+    label: "Speech",
+  },
+  {
+    src: "https://youtube.com/shorts/EcvK0E6opYQ?feature=share",
+    title: "Factory Visit in Guwahati",
+    label: "Site Visit",
+  },
+ 
 ];
+
+const VIDEOS: Video[] = VIDEO_SEEDS.map((seed, index) => {
+  const order = index + 1;
+  const durationLabel = seed.src.includes("/shorts/")
+    ? `Short ${String(order).padStart(2, "0")}`
+    : `Clip ${String(order).padStart(2, "0")}`;
+
+  return createYouTubeVideo(
+    seed.src,
+    seed.title,
+    seed.title,
+    seed.label,
+    durationLabel,
+    VIDEO_COLORS[index % VIDEO_COLORS.length],
+    { featured: seed.featured }
+  );
+});
 
 const DEFAULT_VIDEO: Video = VIDEOS.find((video) => video.featured) ?? VIDEOS[0];
 
@@ -1042,9 +1195,9 @@ const Testimonials: FC = () => {
                           <div className="mt-1 text-lg tracking-wider text-amber-400">
                             {"\u2605\u2605\u2605\u2605\u2605"}
                           </div>
-                          <div className="mt-2 w-fit   pl-1  text-sm font-semibold text-primary">
+                          {/* <div className="mt-2 w-fit   pl-1  text-sm font-semibold text-primary">
                             {s.tag}
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -1200,8 +1353,8 @@ const Testimonials: FC = () => {
           </div>
         )}
 
-        {/* â•â•â•â•â•â•â•â• SOCIAL PROOF WALL â•â•â•â•â•â•â•â• */}
-        <section className="section-padding">
+        {/* ════════ SOCIAL PROOF WALL ════════ */}
+        {/* <section className="section-padding">
           <div className="container-main text-center">
           <Reveal className="inline-flex items-center gap-2">
             <span className="text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
@@ -1256,7 +1409,7 @@ const Testimonials: FC = () => {
             </button>
           </div>
           </div>
-        </section>
+        </section> */}
       </main>
       <Footer />
     </div>
@@ -1264,6 +1417,7 @@ const Testimonials: FC = () => {
 };
 
 export default Testimonials;
+
 
 
 

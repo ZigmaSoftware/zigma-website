@@ -18,27 +18,27 @@ const Index = () => {
   const [showDeferredSections, setShowDeferredSections] = useState(false);
 
   useEffect(() => {
-    let timeoutId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
     let idleId: number | undefined;
 
     const reveal = () => setShowDeferredSections(true);
 
-    if ("requestIdleCallback" in window) {
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
       idleId = (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(
         reveal,
         { timeout: 1200 },
       );
     } else {
-      timeoutId = window.setTimeout(reveal, 450);
+      timeoutId = setTimeout(reveal, 450);
     }
 
     return () => {
-      if (idleId !== undefined && "cancelIdleCallback" in window) {
+      if (idleId !== undefined && typeof window !== "undefined" && "cancelIdleCallback" in window) {
         (
           window as Window & { cancelIdleCallback: (id: number) => void }
         ).cancelIdleCallback(idleId);
       }
-      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
     };
   }, []);
 

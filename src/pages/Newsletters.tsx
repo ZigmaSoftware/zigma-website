@@ -142,9 +142,9 @@ const Newsletters = () => {
                         openNewsletter(newsletter.fileUrl);
                       }
                     }}
-                    className="group flex h-[500px] w-full max-w-[340px] cursor-pointer flex-col overflow-hidden border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                    className="group flex h-[470px] w-full max-w-[340px] cursor-pointer flex-col overflow-hidden border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                   >
-                    <div className="h-[470px] w-full overflow-hidden">
+                    <div className="h-full w-full overflow-hidden">
                       {newsletter.coverImageUrl ? (
                         <img
                           src={newsletter.coverImageUrl}
@@ -158,11 +158,11 @@ const Newsletters = () => {
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-1 items-center border-t border-slate-200 px-4 py-3">
+                    {/* <div className="flex flex-1 items-center border-t border-slate-200 px-4 py-3">
                       <p className="line-clamp-2 text-base font-semibold leading-snug text-slate-800">
                         {newsletter.title}
                       </p>
-                    </div>
+                    </div> */}
                   </article>
                 ))}
               </div>

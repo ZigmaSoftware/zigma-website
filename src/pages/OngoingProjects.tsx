@@ -41,207 +41,273 @@ interface InteractiveMetric {
 // -- Data -------------------------------------------------------
 const PLACEHOLDER_IMAGE =
   'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23e2e8f0"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23475569" font-family="Arial,sans-serif" font-size="40"></text></svg>';
-const P1b = PLACEHOLDER_IMAGE; const P1a = PLACEHOLDER_IMAGE;
-const P2b = PLACEHOLDER_IMAGE; const P2a = PLACEHOLDER_IMAGE;
-const P3b = PLACEHOLDER_IMAGE; const P3a = PLACEHOLDER_IMAGE;
-const P4b = PLACEHOLDER_IMAGE; const P4a = PLACEHOLDER_IMAGE;
-const P5b = PLACEHOLDER_IMAGE; const P5a = PLACEHOLDER_IMAGE;
-const P6b = PLACEHOLDER_IMAGE; const P6a = PLACEHOLDER_IMAGE;
-const P7b = PLACEHOLDER_IMAGE; const P7a = PLACEHOLDER_IMAGE;
-const P8b = PLACEHOLDER_IMAGE; const P8a = PLACEHOLDER_IMAGE;
-const P9b = PLACEHOLDER_IMAGE; const P9a = PLACEHOLDER_IMAGE;
-const P10b = PLACEHOLDER_IMAGE; const P10a = PLACEHOLDER_IMAGE;
-const P11b = PLACEHOLDER_IMAGE; const P11a = PLACEHOLDER_IMAGE;
-const P12b = PLACEHOLDER_IMAGE; const P12a = PLACEHOLDER_IMAGE;
-const P13b = PLACEHOLDER_IMAGE; const P13a = PLACEHOLDER_IMAGE;
-const P14b = PLACEHOLDER_IMAGE; const P14a = PLACEHOLDER_IMAGE;
-const P15b = PLACEHOLDER_IMAGE; const P15a = PLACEHOLDER_IMAGE;
 
-const PROJECTS: Project[] = [
-  { id: 1, title: "Kumbakonam", subtitle: "Dumpsite Reclamation Project", state: "Tamil Nadu", desc: "Kumbakonam dumpsite reclamation project.", project: "Quantity: 2,31,782 cubic meter. Area reclaimed: 12 acres.", focus: "Project period: December 2015 - March 2018. Quantity of RDF disposed (MT): 22,586.", outcome: "CO2 mitigated by processing the legacy waste (MT): 1,16,280.", metrics: ["CO2 mitigated per square meter (MT): 2.39", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 3,794", "Carbon sequestered by 1.43 lakh acres of US forests in one year", "GHG emissions avoided by 33 wind turbines running for a year", "Carbon emissions from 26,720 gasoline powered-passenger vehicles driven for one year"], waste: 231782, land: 12, co2: 116280, beforeImage: P1b, afterImage: P1a },
-  { id: 2, title: "Sembakkam Lake", subtitle: "Dumpsite Reclamation Project", state: "Tamil Nadu", desc: "Sembakkam Lake dumpsite reclamation project.", project: "Quantity: 38,026 cubic meter. Area reclaimed: 4 acres.", focus: "Project period: August 2017 - August 2018. Quantity of RDF disposed (MT): 7,316.", outcome: "CO2 mitigated by processing the legacy waste (MT): 15,823.", metrics: ["CO2 mitigated per square meter (MT): 0.98", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 1,229", "Carbon sequestered by 20,335 acres of US forests in one year", "GHG emissions avoided by 5 wind turbines running for a year", "Carbon emissions from 3,795 gasoline powered-passenger vehicles driven for one year"], waste: 38026, land: 4, co2: 15823, beforeImage: P2b, afterImage: P2a },
-  { id: 3, title: "Noida Sector 54", subtitle: "Community Development Projects", state: "Uttar Pradesh", desc: "Award-winning project under the National Green Tribunal. Converted a neglected dumping ground into a state-of-the-art wetland area now frequented by thousands of visitors.", project: "Quantity: 99,665 metric tonnes. Area reclaimed: 4 acres.", focus: "Project period: December 2018 � July 2019. Quantity of RDF disposed: 15,498 metric tonnes.", outcome: "CO2 mitigated by processing the legacy waste: 68,698 metric tonnes.", metrics: ["CO2 mitigated per square metre: 4.26 metric tonnes", "CO2 mitigated by using RDF as alternate fuel resource: 2,604 metric tonnes", "Area of US forests carbon sequestered: 85,351 acres", "GHG emissions avoided: Running 20 wind turbines for a year", "Carbon emissions from 15,927 gasoline-powered passenger vehicles driven for one year"], waste: 99665, land: 4, co2: 68698, beforeImage: P3b, afterImage: P3a },
-  { id: 4, title: "Vadodara-Atladara", subtitle: "Dumpsite Reclamation Project", state: "Gujarat", desc: "Removed the pollution source from the landfill on the banks of the Vishwamitri River, preserving the habitat of critically endangered gharials � an IUCN-protected species.", project: "Quantity: 4,21,187 cubic metres. Area reclaimed: 10.5 acres.", focus: "Project period: July 2018 � February 2021. Quantity of RDF disposed: 58,897 metric tonnes.", outcome: "CO2 mitigated by processing the legacy waste: 2,91,462 metric tonnes.", metrics: ["CO2 mitigated per square metre: 6.86 metric tonnes", "CO2 mitigated by using RDF as alternate fuel resource: 9,895 metric tonnes", "Area of US forests carbon sequestered in one year: 3.59 lakh acres", "GHG emissions avoided: Running 84 wind turbines for a year", "Carbon emissions from 67,061 gasoline-powered passenger vehicles driven for one year"], waste: 421187, land: 10.5, co2: 291462, beforeImage: P4b, afterImage: P4a },
-  { id: 5, title: "Poonamallee", subtitle: "Dumpsite Reclamation Project", state: "Tamil Nadu", desc: "Poonamallee dumpsite reclamation project.", project: "Quantity: 30,930 cubic meter. Area reclaimed: 3 acres.", focus: "Project period: July 2018 - September 2019. Quantity of RDF disposed (MT): 6,034.", outcome: "CO2 mitigated by processing the legacy waste (MT): 14,823.", metrics: ["CO2 mitigated per square meter (MT): 1.22", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 1,014", "Carbon sequestered by 18,886 acres of US forests in one year", "GHG emissions avoided by 4 wind turbines running for a year", "Carbon emissions from 3,524 gasoline powered-passenger vehicles"], waste: 30930, land: 3, co2: 14823, beforeImage: P5b, afterImage: P5a },
-  { id: 6, title: "Vijayawada-Ajitsingh Nagar", subtitle: "Community Development Projects", state: "Andhra Pradesh", desc: "Reclaimed India's largest dump site spanning 45 acres. Over 2,500 apartments previously unoccupied were allocated to low-income groups through a slum rehabilitation programme.", project: "Quantity: 3,05,897 cubic metres. Area reclaimed: 45 acres.", focus: "Project period: July 2018 � July 2020. Quantity of RDF disposed: 47,178 metric tonnes.", outcome: "CO2 mitigated by processing the legacy waste: 2,11,681 metric tonnes.", metrics: ["CO2 mitigated by using RDF as alternate fuel resource: 7,926 tonnes", "Area of US forests carbon sequestered in one year: 2.61 lakh acres", "GHG emissions avoided: Running 61 wind turbines for a year", "Carbon emissions from 48,869 gasoline-powered passenger vehicles driven for one year"], waste: 305897, land: 45, co2: 211681, beforeImage: P6b, afterImage: P6a },
-  { id: 7, title: "Erode-Vairapalayam", subtitle: "Dumpsite Reclamation Project", state: "Tamil Nadu", desc: "Reclaimed a 7-acre dumpsite on the banks of the Cauvery river. Now transformed into a Miyawaki forest. Winner of the prestigious Smart City award.", project: "Quantity: 1,25,092 cubic metres. Area reclaimed: 7 acres.", focus: "Project period: September 2019 � August 2021. Quantity of RDF disposed: 8,719 metric tonnes.", outcome: "CO2 mitigated by processing the legacy waste: 91,009 metric tonnes.", metrics: ["CO2 mitigated per square metre: 3.21 metric tonnes", "CO2 mitigated by using RDF as alternate fuel resource: 1,465 metric tonnes", "Area of US forests carbon sequestered in one year: 1.1 lakh acres", "GHG emissions avoided: Running 26 wind turbines for a year", "Carbon emissions from 20,578 gasoline-powered passenger vehicles driven for one year"], waste: 125092, land: 7, co2: 91009, beforeImage: P7b, afterImage: P7a },
-  { id: 8, title: "Pammal", subtitle: "Dumpsite Reclamation Project", state: "Tamil Nadu", desc: "Pammal dumpsite reclamation project.", project: "Quantity: 59,175 cubic meter. Area reclaimed: 2.4 acres.", focus: "Project period: August 2018 - August 2020. Quantity of RDF disposed (MT): 6,682.", outcome: "CO2 mitigated by processing the legacy waste (MT): 34,801.", metrics: ["CO2 mitigated per square meter (MT): 3.58", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 1,123", "Carbon sequestered by 42,840 acres of US forests in one year", "GHG emissions avoided by 10 wind turbines running for a year", "Carbon emissions from 7,994 gasoline powered-passenger vehicles"], waste: 59175, land: 2.4, co2: 34801, beforeImage: P8b, afterImage: P8a },
-  { id: 9, title: "Noida Sector 145A", subtitle: "Dumpsite Reclamation Project", state: "Uttar Pradesh", desc: "Noida Sector 145 A dumpsite reclamation project.", project: "Quantity: 1,02,837 cubic meter. Area reclaimed: 6.2 acres.", focus: "Project period: July 2019 - August 2020. Quantity of RDF disposed (MT): 10,259.", outcome: "CO2 mitigated by processing the legacy waste (MT): 71,163.", metrics: ["CO2 mitigated per square meter (MT): 2.8", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 1,724", "Carbon sequestered by 86,919 acres of US forests in one year", "GHG emissions avoided by 20 wind turbines running for a year", "Carbon emissions from 16,220 gasoline powered-passenger vehicles driven for one year"], waste: 102837, land: 6.2, co2: 71163, beforeImage: P9b, afterImage: P9a },
-  { id: 10, title: "Tirupathi", subtitle: "Surface Stabilization", state: "Andhra Pradesh", desc: "Stabilized the surface by leveling and clearing, reducing runoff issues.", project: "Surface stabilization and cleanup.", focus: "Leveling, drainage pathing, cleanup.", outcome: "Stable surface with reduced runoff.", metrics: [], waste: 0, land: 0, co2: 0, beforeImage: P10b, afterImage: P10a },
-  { id: 11, title: "Chidambaram", subtitle: "Dumpsite Reclamation Project", state: "Tamil Nadu", desc: "Chidambaram dumpsite reclamation project.", project: "Quantity: 52,000 cubic meter. Area reclaimed: 4 acres.", focus: "Project period: April 2019 - March 2021. Quantity of RDF disposed (MT): 4,804.", outcome: "CO2 mitigated by processing the legacy waste: 30,634.", metrics: ["CO2 mitigated per square meter (MT): 1.89", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 807", "Carbon sequestered by 37,494 acres of US forests in one year", "GHG emissions avoided by 9 wind turbines running for a year", "Carbon emissions from 6,997 gasoline powered-passenger vehicles driven for one year"], waste: 52000, land: 4, co2: 30634, beforeImage: P11b, afterImage: P11a },
-  { id: 12, title: "Pallavaram", subtitle: "Dumpsite Reclamation Project", state: "Tamil Nadu", desc: "Pallavaram dumpsite reclamation project.", project: "Quantity: 1,08,000 cubic meter. Area reclaimed: 5 acres.", focus: "Project period: Jan 2020 - Sept 2021. Quantity of RDF disposed (MT): 13,271.", outcome: "CO2 mitigated by processing the legacy waste (MT): 49,809.", metrics: ["CO2 mitigated per square meter (MT): 2.46", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 2,230", "Carbon sequestered by 62,057 acres of US forests in one year", "GHG emissions avoided by 15 wind turbines running for a year", "Carbon emissions from 11,580 gasoline powered-passenger vehicles driven for one year"], waste: 108000, land: 5, co2: 49809, beforeImage: P12b, afterImage: P12a },
-  { id: 13, title: "Karaikudi", subtitle: "Dumpsite Reclamation Project", state: "Tamil Nadu", desc: "Karaikudi dumpsite reclamation project.", project: "Quantity: 1,35,635 cubic meter. Area reclaimed: 13.75 acres.", focus: "Project period: Feb 2020 - Sept 2021. Quantity of RDF disposed (MT): 15,796.", outcome: "CO2 mitigated by processing the legacy waste (MT): 81,381.", metrics: ["CO2 mitigated per square meter (MT): 1.46", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 2,654", "Carbon sequestered by 1 lakh acres of US forests in one year", "GHG emissions avoided by 23 wind turbines running for a year", "Carbon emissions from 18,700 gasoline powered-passenger vehicles driven for one year"], waste: 135635, land: 13.75, co2: 81381, beforeImage: P13b, afterImage: P13a },
-  { id: 14, title: "Karur", subtitle: "Dumpsite Reclamation Project", state: "Tamil Nadu", desc: "Karur dumpsite reclamation project.", project: "Quantity: 1,37,394 cubic meter. Area reclaimed: 15 acres.", focus: "Project period: February 2020 - March 2021. Quantity of RDF disposed (MT): 6,586.", outcome: "CO2 mitigated by processing the legacy waste (MT): 90,461.", metrics: ["CO2 mitigated per square meter (MT): 1.49", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 1,106", "Carbon sequestered by 1.09 lakh acres of US forests in one year", "GHG emissions avoided by 26 wind turbines running for a year", "Carbon emissions from 20,376 gasoline powered-passenger vehicles driven for one year"], waste: 137394, land: 15, co2: 90461, beforeImage: P14b, afterImage: P14a },
-  { id: 15, title: "Tambaram-Kannadapalayam", subtitle: "Dumpsite Reclamation Project", state: "Tamil Nadu", desc: "Tambaram-Kannadapalayam dumpsite reclamation project.", project: "Quantity: 1,50,494 cubic meter. Area reclaimed: 5 acres.", focus: "Project period: August 2019 - June 2022. Quantity of RDF disposed (MT): 24,841.", outcome: "CO2 mitigated by processing the legacy waste (MT): 1,18,362.", metrics: ["CO2 mitigated per square meter (MT): 5.85", "CO2 mitigated by using RDF as Alternate Fuel Resource (MT): 4,173", "Carbon sequestered by 1.46 lakh acres of US forests in one year", "GHG emissions avoided by 34 wind turbines running for a year", "Carbon emissions from 27,268 gasoline powered-passenger vehicles driven for one year"], waste: 150494, land: 5, co2: 118362, beforeImage: P15b, afterImage: P15a },
-  { id: 16, title: "Vizag", subtitle: "Project Completed", state: "Andhra Pradesh", desc: "Vizag legacy waste project.", project: "Quantity: 250,046 tons. Area reclaimed: 25 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 48,143.", outcome: "Category: AP.", metrics: [], waste: 250046, land: 25, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 17, title: "Vizag New", subtitle: "Project Completed", state: "Andhra Pradesh", desc: "Vizag New legacy waste project.", project: "Quantity: 435,057 tons. Area reclaimed: 10 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 94,725.", outcome: "Category: AP.", metrics: [], waste: 435057, land: 10, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 18, title: "GVMC Vizag", subtitle: "Project Under Progress", state: "Andhra Pradesh", desc: "GVMC Vizag legacy waste project.", project: "Quantity: 246,939 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 42,045.", outcome: "Category: AP.", metrics: [], waste: 246939, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 19, title: "Cuddalore", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Cuddalore legacy waste project.", project: "Quantity: 98,941 tons. Area reclaimed: 10 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 13,551.", outcome: "Category: TN.", metrics: [], waste: 98941, land: 10, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 20, title: "Dindigul", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Dindigul legacy waste project.", project: "Quantity: 190,088 tons. Area reclaimed: 10 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 14,963.", outcome: "Category: TN.", metrics: [], waste: 190088, land: 10, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 21, title: "Perungudi Package-3", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Perungudi Package-3 legacy waste project.", project: "Quantity: 489,150 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 111,672.", outcome: "Category: TN.", metrics: [], waste: 489150, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 22, title: "Perungudi Package-4", subtitle: "Project Under Progress", state: "Tamil Nadu", desc: "Perungudi Package-4 legacy waste project.", project: "Quantity: 453,829 tons. Area reclaimed: 90 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 98,934.", outcome: "Category: TN.", metrics: [], waste: 453829, land: 90, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 23, title: "Perungudi Package-5", subtitle: "Project Under Progress", state: "Tamil Nadu", desc: "Perungudi Package-5 legacy waste project.", project: "Quantity: 443,576 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 100,649.", outcome: "Category: TN.", metrics: [], waste: 443576, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 24, title: "Trichy", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Trichy legacy waste project.", project: "Quantity: 619,925 tons. Area reclaimed: 38 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 97,386.", outcome: "Category: TN.", metrics: [], waste: 619925, land: 38, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 25, title: "Trichy New", subtitle: "Project Under Progress", state: "Tamil Nadu", desc: "Trichy New legacy waste project.", project: "Quantity: 289,621 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 95,786.", outcome: "Category: TN.", metrics: [], waste: 289621, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 26, title: "ITC", subtitle: "Project Under Progress", state: "Tamil Nadu", desc: "ITC legacy waste project.", project: "Quantity: 225,000 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 17,958.", outcome: "Category: TN.", metrics: [], waste: 225000, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 27, title: "Sathya Sub", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Sathya Sub legacy waste project.", project: "Quantity: 25,097 tons. Area reclaimed: 6.2 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 1,917.", outcome: "Category: TN.", metrics: [], waste: 25097, land: 6.2, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 28, title: "Vendipalayam", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Vendipalayam legacy waste project.", project: "Quantity: 575,960 tons. Area reclaimed: 20 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 70,739.", outcome: "Category: TN.", metrics: [], waste: 575960, land: 20, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 29, title: "Muthusamy Colony", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Muthusamy Colony legacy waste project.", project: "Quantity: 18,819 tons. Area reclaimed: 3 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 1,613.", outcome: "Category: TN.", metrics: [], waste: 18819, land: 3, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 30, title: "KDG-PG1", subtitle: "Project Under Progress", state: "Tamil Nadu", desc: "KDG-PG1 legacy waste project.", project: "Quantity: 11,384 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 350.", outcome: "Category: TN.", metrics: [], waste: 11384, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 31, title: "KDG-PG3", subtitle: "Project Under Progress", state: "Tamil Nadu", desc: "KDG-PG3 legacy waste project.", project: "Quantity: 15,697 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 910.", outcome: "Category: TN.", metrics: [], waste: 15697, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 32, title: "Kollam", subtitle: "Project Completed", state: "Kerala", desc: "Kollam legacy waste project.", project: "Quantity: 92,605 tons. Area reclaimed: 4 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 13,522.", outcome: "Category: Kerala.", metrics: [], waste: 92605, land: 4, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 33, title: "Makkarpura", subtitle: "Project Completed", state: "Gujarat", desc: "Makkarpura legacy waste project.", project: "Quantity: 515,097 tons. Area reclaimed: 2 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 105,892.", outcome: "Category: Gujarat.", metrics: [], waste: 515097, land: 2, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 34, title: "Makkarpura-New", subtitle: "Project Under Progress", state: "Gujarat", desc: "Makkarpura-New legacy waste project.", project: "Quantity: 265,085 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 44,821.", outcome: "Category: Gujarat.", metrics: [], waste: 265085, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 35, title: "Nagpur", subtitle: "Project Completed", state: "Maharashtra", desc: "Nagpur legacy waste project.", project: "Quantity: 1,000,698 tons. Area reclaimed: 53 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 88,868.", outcome: "Category: MH.", metrics: [], waste: 1000698, land: 53, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 36, title: "Nagpur Smart City", subtitle: "Project Completed", state: "Maharashtra", desc: "Nagpur Smart City legacy waste project.", project: "Quantity: 600,015 tons. Area reclaimed: 8 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 122,423.", outcome: "Category: MH.", metrics: [], waste: 600015, land: 8, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 37, title: "NMC-Project 2", subtitle: "Project Under Progress", state: "Maharashtra", desc: "NMC-Project 2 legacy waste project.", project: "Quantity: 266,371 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 30,340.", outcome: "Category: MH.", metrics: [], waste: 266371, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 38, title: "Noida-145 Old", subtitle: "Project Completed", state: "Uttar Pradesh", desc: "Noida-145 Old legacy waste project.", project: "Quantity: 102,838 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 10,259.", outcome: "Category: UP.", metrics: [], waste: 102838, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 39, title: "Noida-New", subtitle: "Project Completed", state: "Uttar Pradesh", desc: "Noida-New legacy waste project.", project: "Quantity: 612,511 tons. Area reclaimed: 5 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 154,994.", outcome: "Category: UP.", metrics: [], waste: 612511, land: 5, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 40, title: "Pondy", subtitle: "Project Under Progress", state: "Puducherry", desc: "Pondy legacy waste project.", project: "Quantity: 553,135 tons. Area reclaimed: 11 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 139,468.", outcome: "Category: Pondy.", metrics: [], waste: 553135, land: 11, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 41, title: "Pondy-2", subtitle: "Project Under Progress", state: "Puducherry", desc: "Pondy-2 legacy waste project.", project: "Quantity: 349,345 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 0.", outcome: "Category: Pondy.", metrics: [], waste: 349345, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 42, title: "Guwahati", subtitle: "Project Under Progress", state: "Assam", desc: "Guwahati legacy waste project.", project: "Quantity: 410,907 tons. Area reclaimed: 2 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 117,158.", outcome: "Category: Assam.", metrics: [], waste: 410907, land: 2, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 43, title: "Gurugram", subtitle: "Project Under Progress", state: "Haryana", desc: "Gurugram legacy waste project.", project: "Quantity: 200,185 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 57,259.", outcome: "Category: Haryana.", metrics: [], waste: 200185, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 44, title: "TTD-Tirumala", subtitle: "Project Under Progress", state: "Andhra Pradesh", desc: "TTD-Tirumala legacy waste project.", project: "Quantity: 182,881 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 8,175.", outcome: "Category: AP.", metrics: [], waste: 182881, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
-  { id: 45, title: "Pudukkottai", subtitle: "Project Completed", state: "Tamil Nadu", desc: "Pudukkottai legacy waste project.", project: "Quantity: 1,552 tons. Area reclaimed: 0 acres.", focus: "Project status: Project Completed. Quantity of RDF disposed (tons): 272.", outcome: "Category: TN.", metrics: [], waste: 1552, land: 0, co2: 0, beforeImage: PLACEHOLDER_IMAGE, afterImage: PLACEHOLDER_IMAGE },
+interface OngoingProjectSheetRow {
+  title: string;
+  state: string;
+  waste: number | string | null;
+  land: number | string | null;
+  co2: number | string | null;
+  start: string | null;
+  end: string | null;
+  credibility: string | null;
+}
+
+const SHEET3_ONGOING_ROWS: OngoingProjectSheetRow[] = [
+  {
+    title: "Dhontali- Nellore",
+    state: "Andhra Pradesh",
+    waste: 590442.38,
+    land: 7.15,
+    co2: 408881.34815,
+    start: "24-02-2025",
+    end: "Ongoing",
+    credibility: "The project received the Chief Minister's Award for best performing Bio-mining company in the state. ",
+  },
+  {
+    title: "Chittoor",
+    state: "Andhra Pradesh",
+    waste: 260526.6,
+    land: 21.717,
+    co2: 180414.6705,
+    start: "29-03-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Srikalahasti",
+    state: "Andhra Pradesh",
+    waste: 118528.04,
+    land: 21.08,
+    co2: 82080.6677,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Anantapur",
+    state: "Andhra Pradesh",
+    waste: 168285,
+    land: 10.21,
+    co2: 116537.3625,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Gooty",
+    state: "Andhra Pradesh",
+    waste: 4563,
+    land: 9.3,
+    co2: 3159.8775,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Rayadurgam",
+    state: "Andhra Pradesh",
+    waste: 108876,
+    land: 12.32,
+    co2: 75396.63,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Gudur(N)",
+    state: "Andhra Pradesh",
+    waste: 62501.47,
+    land: 5.79,
+    co2: 43282.267975,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Kavali",
+    state: "Andhra Pradesh",
+    waste: 33536,
+    land: 5.93,
+    co2: 23223.68,
+    start: "03-04-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Visakhapatnam- Phase 5",
+    state: "Andhra Pradesh",
+    waste: 300000,
+    land: null,
+    co2: 207750,
+    start: "11-11-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Tiruchirapalli- Phase 3",
+    state: "Tamilnadu",
+    waste: 617716,
+    land: null,
+    co2: 427768.33,
+    start: "19-12-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Kozhikode",
+    state: "Keralam",
+    waste: 200966,
+    land: null,
+    co2: 139168.955,
+    start: "12-01-2026",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Athipattu- Chennai",
+    state: "Tamilnadu",
+    waste: 72043,
+    land: null,
+    co2: 49889.7775,
+    start: "22-12-2025",
+    end: "Ongoing",
+    credibility: null,
+  },
+  {
+    title: "Nagpur- Phase 4",
+    state: "Maharashtra",
+    waste: 480000,
+    land: null,
+    co2: 332400,
+    start: "05-02-2026",
+    end: "Ongoing",
+    credibility: null,
+  },
 ];
 
-const ONGOING_TITLES = [
-  "Vizag New",
-  "GVMC Vizag",
-  "Makkarpura-New",
-  "Perungudi Package-4",
-  "Perungudi Package-5",
-  "Trichy New",
-  "ITC",
-  "Nagpur Smart City",
-  "NMC-Project 2",
-  "Pondy-2",
-  "Guwahati",
-  "Gurugram",
-  "TTD-Tirumala",
-  "KDG-PG1",
-  "KDG-PG3",
-] as const;
-
-const ONGOING_OVERRIDES: Record<string, Partial<Project>> = {
-  "Vizag New": {
-    subtitle: "Project Under Progress",
-    project: "Quantity: 435,057 tons. Area reclaimed: 10 acres.",
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 94,725.",
-    outcome: "Category: AP.",
-    waste: 435057,
-    land: 10,
-  },
-  "GVMC Vizag": {
-    title: "GVMC-Vizag",
-    subtitle: "Project Under Progress",
-    project: "Quantity: 246,939 tons. Area reclaimed: 0 acres.",
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 42,045.",
-    outcome: "Category: AP.",
-    waste: 246939,
-    land: 0,
-  },
-  "Makkarpura-New": {
-    title: "Makarpura-New",
-    subtitle: "Project Under Progress",
-    project: "Quantity: 265,085 tons. Area reclaimed: 0 acres.",
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 44,821.",
-    outcome: "Category: Gujarat.",
-    waste: 265085,
-    land: 0,
-  },
-  "Perungudi Package-4": {
-    subtitle: "Project Under Progress",
-    project: "Area to be reclaimed: 22.36 acres. Order quantity: 552,321 cu.m.",
-    focus: "Processed quantity: 453,829 tons. RDF disposed quantity: 98,934 tons.",
-    waste: 453829,
-    land: 22.36,
-  },
-  "Perungudi Package-5": {
-    subtitle: "Project Under Progress",
-    project: "Area to be reclaimed: 38.31 acres. Order quantity: 587,130 cu.m.",
-    focus: "Processed quantity: 443,576 tons. RDF disposed quantity: 100,649 tons.",
-    waste: 443576,
-    land: 38.31,
-  },
-  "Trichy New": {
-    subtitle: "Project Under Progress",
-    waste: 289621,
-    land: 0,
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 95,786.",
-  },
-  ITC: {
-    subtitle: "Project Under Progress",
-    waste: 225000,
-    land: 0,
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 17,958.",
-  },
-  "Nagpur Smart City": {
-    subtitle: "Project Under Progress",
-    waste: 600015,
-    land: 8,
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 122,423.",
-  },
-  "NMC-Project 2": {
-    subtitle: "Project Under Progress",
-    waste: 266371,
-    land: 0,
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 30,340.",
-  },
-  "Pondy-2": {
-    subtitle: "Project Under Progress",
-    waste: 349345,
-    land: 0,
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 0.",
-  },
-  Guwahati: {
-    subtitle: "Project Under Progress",
-    project: "Area to be reclaimed: 40 acres. Order quantity: 150,000 MT.",
-    focus: "Processed quantity: 410,907 tons. RDF disposed quantity: 117,158 tons.",
-    waste: 410907,
-    land: 40,
-  },
-  Gurugram: {
-    subtitle: "Project Under Progress",
-    project: "Order quantity: 200,000 MT.",
-    focus: "Processed quantity: 200,185 tons. RDF disposed quantity: 57,259 tons.",
-    waste: 200185,
-    land: 0,
-  },
-  "TTD-Tirumala": {
-    title: "TTD -Tirumala",
-    subtitle: "Project Under Progress",
-    waste: 182881,
-    land: 0,
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 8,175.",
-  },
-  "KDG-PG1": {
-    subtitle: "Project Under Progress",
-    waste: 11384,
-    land: 0,
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 350.",
-  },
-  "KDG-PG3": {
-    subtitle: "Project Under Progress",
-    waste: 15697,
-    land: 0,
-    focus: "Project status: Project Under Progress. Quantity of RDF disposed (tons): 910.",
-  },
+const STATE_NORMALIZATION_MAP: Record<string, string> = {
+  tamilnadu: 'Tamil Nadu',
+  keralam: 'Kerala',
+  kerala: 'Kerala',
+  puducherry: 'Puducherry',
+  'andhra pradesh': 'Andhra Pradesh',
+  gujarat: 'Gujarat',
+  maharashtra: 'Maharashtra',
+  haryana: 'Haryana',
+  assam: 'Assam',
+  'uttar pradesh': 'Uttar Pradesh',
 };
 
-const ONGOING_PROJECTS: Project[] = PROJECTS
-  .filter((project) => ONGOING_TITLES.includes(project.title as (typeof ONGOING_TITLES)[number]))
-  .map((project) => ({
-    ...project,
-    ...(ONGOING_OVERRIDES[project.title] ?? {}),
-  }));
+const normalizeState = (value: string) => {
+  const key = value.trim().toLowerCase();
+  return STATE_NORMALIZATION_MAP[key] ?? value.trim();
+};
 
-// -- Counter hook -----------------------------------------------
+const buildScopeKey = (title: string, state: string) =>
+  `${title.trim().toLowerCase()}|${state.trim().toLowerCase()}`;
+
+const OFFICIAL_SCOPE_BY_KEY: Record<string, string> = {
+  "dhontali- nellore|andhra pradesh": "The work of \"Legacy Waste Land Reclamation though Bio-remediation and Bio-mining in Nellore Municipal Corporation with near-Zero residues\". Allipuram and Donthali",
+  "chittoor|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Chittoor Cluster (6 ULB’s) with near-Zero residues”.",
+  "srikalahasti|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Tirupati Cluster (6 ULBs) with near-Zero residues”.",
+  "anantapur|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Anantapur Cluster (6 ULBs) with near-Zero residues”.",
+  "gooty|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Anantapur Cluster (6 ULBs) with near-Zero residues”.",
+  "rayadurgam|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Anantapur Cluster (6 ULBs) with near-Zero residues”.",
+  "gudur(n)|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Nellore Cluster (6 ULB’s) with near-Zero residues”.",
+  "kavali|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Nellore Cluster (6 ULB’s) with near-Zero residues”.",
+  "visakhapatnam- phase 5|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Greater Visakhapatnam Municipal Corporation Additional Quantity with near zero residues\"",
+  "tiruchirapalli- phase 3|tamilnadu": "Remediation of Legacy Waste through Bio-mining Process (Phase III) at Ariyamangalam Compost Yard, Tiruchirappalli Municipal Corporation",
+  "kozhikode|keralam": "Biomining and Bioremediation of Legacy Waste Dumpsite at Njeliyanparambu Kozhikode Kerala",
+  "athipattu- chennai|tamilnadu": "Reclamation additional quantity of Attipattu Dumpsite through Biomining technology process",
+  "nagpur- phase 4|maharashtra": "Remediation of Landfill site through bio-mining of Legacy waste, Disposal of excavated material and Reclamation of Land at Bhandewadi, Landfill Site, Nagpur",
+};
+
+const toNumber = (value: number | string | null): number => {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value === 'string') {
+    const normalized = value.replace(/,/g, '').trim();
+    const parsed = Number(normalized);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+  return 0;
+};
+
+const isDateLikeMarker = (value: string) =>
+  /^\d{1,2}[./-]\d{1,2}[./-]\d{2,4}$/.test(value.trim());
+
+const splitCredibilityMarkers = (value: string | null): string[] => {
+  if (!value) return [];
+  const normalized = value.replace(/\s+/g, ' ').trim();
+  if (!normalized || isDateLikeMarker(normalized)) return [];
+
+  const abbreviationMap = new Map<string, string>([
+    ['Hon.', 'Hon<dot>'],
+    ['Mr.', 'Mr<dot>'],
+    ['Mrs.', 'Mrs<dot>'],
+    ['Ms.', 'Ms<dot>'],
+    ['Dr.', 'Dr<dot>'],
+    ['Prof.', 'Prof<dot>'],
+  ]);
+
+  let safeText = normalized;
+  abbreviationMap.forEach((token, abbr) => {
+    safeText = safeText.replaceAll(abbr, token);
+  });
+
+  return safeText
+    .split(/\.(?=\s+[A-Z"(])/)
+    .map((entry) =>
+      entry
+        .replace(/<dot>/g, '.')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/[.;]+$/, ''),
+    )
+    .filter((entry) => entry.length > 0 && !isDateLikeMarker(entry));
+};
+
+const formatMetricNumber = (value: number, digits = 2) =>
+  value > 0
+    ? value.toLocaleString('en-IN', { maximumFractionDigits: digits })
+    : 'Not reported';
+
+const toOngoingProject = (row: OngoingProjectSheetRow, id: number): Project => {
+  const title = row.title.trim();
+  const state = normalizeState(row.state);
+  const waste = toNumber(row.waste);
+  const land = toNumber(row.land);
+  const co2 = toNumber(row.co2);
+  const periodStart = row.start?.trim() || 'Not available';
+  const periodEnd = row.end?.trim() || 'Ongoing';
+  const markers = splitCredibilityMarkers(row.credibility);
+  const officialScope = OFFICIAL_SCOPE_BY_KEY[buildScopeKey(title, row.state)]?.trim();
+
+  return {
+    id,
+    title,
+    subtitle: 'Project Under Progress',
+    state,
+    desc: officialScope || `${title} legacy waste remediation project in ${state}.`,
+    project: `Waste processed: ${formatMetricNumber(waste, 2)} m3. Land reclaimed: ${formatMetricNumber(land, 2)} acres.`,
+    focus: `Project timeline: ${periodStart} to ${periodEnd}.`,
+    outcome: `CO2 mitigated: ${formatMetricNumber(co2, 3)} MT.`,
+    metrics: markers,
+    waste,
+    land,
+    co2,
+    beforeImage: PLACEHOLDER_IMAGE,
+    afterImage: PLACEHOLDER_IMAGE,
+  };
+};
+
+const ONGOING_PROJECTS: Project[] = SHEET3_ONGOING_ROWS.map((row, index) => toOngoingProject(row, index + 1));
+
 const PROJECT_LIMITS = ONGOING_PROJECTS.reduce(
-  (acc, p) => ({
-    waste: Math.max(acc.waste, p.waste),
-    land: Math.max(acc.land, p.land),
-    co2: Math.max(acc.co2, p.co2),
+  (limits, project) => ({
+    waste: Math.max(limits.waste, project.waste, 1),
+    land: Math.max(limits.land, project.land, 1),
+    co2: Math.max(limits.co2, project.co2, 1),
   }),
   { waste: 1, land: 1, co2: 1 },
 );
@@ -324,12 +390,12 @@ const buildInteractiveMetrics = (project: Project): InteractiveMetric[] => {
     },
     {
       key: 'recovery',
-      label: 'Recovery Rate',
+      label: 'Project Status',
       railValue: project.metrics[1] ?? leadMetric,
       eyebrow: 'Efficiency',
-      title: 'Material Recovery Rate',
-      displayValue: project.metrics.length > 0 ? '78.4' : '-',
-      unit: 'PERCENT OF TOTAL WASTE',
+      title: 'Project Status',
+      displayValue: project.subtitle.includes('Completed') ? '100%' : status,
+      unit: 'CURRENT PROJECT STAGE',
       status: project.metrics.length > 0 ? 'Above Benchmark' : status,
       progress: project.metrics.length > 0 ? 78 : 0,
       details: [
@@ -470,7 +536,15 @@ const ProjectCard: React.FC<{
 
                 {/* <p className="text-[0.68rem] tracking-[0.2em] uppercase font-semibold text-primary mb-2">{currentMetric.eyebrow}</p> */}
                 <h3 className="text-2xl font-semibold text-foreground leading-tight mb-4">{currentMetric.title}</h3>
-                <p className="text-6xl font-semibold leading-none text-primary mb-1">{currentMetric.displayValue}</p>            
+                <p
+                  className={`font-semibold text-primary mb-1 break-words ${
+                    /[A-Za-z]/.test(currentMetric.displayValue)
+                      ? 'text-3xl md:text-4xl leading-tight'
+                      : 'text-5xl md:text-6xl leading-none'
+                  }`}
+                >
+                  {currentMetric.displayValue}
+                </p>
                 <p className="text-sm tracking-[0.18em] text-muted-foreground">{currentMetric.unit}</p>
 
                 <div className="mt-6 pt-5 border-t border-border space-y-3">
@@ -500,7 +574,7 @@ const ProjectCard: React.FC<{
           </div>
         </div>
 
-        <div className="flex flex-col border-t lg:border-t-0 border-border bg-card lg:w-[15=8%] lg:border-l">
+        <div className="flex flex-col border-t lg:border-t-0 border-border bg-card lg:w-[15.8%] lg:border-l">
           <div className="p-5 border-b border-border">
             <p className="text-lg font-semibold text-muted-foreground">Project Metrics</p>
             {/* <h4 className="text-2xl text-foreground font-medium mt-1">Impact Summary</h4> */}
@@ -548,7 +622,7 @@ const ProjectCard: React.FC<{
               onClick={() => onViewDetails(project.id)}
               className="w-full rounded-xl border border-primary text-primary font-semibold py-3 px-4 hover:bg-primary hover:text-primary-foreground transition-colors"
             >
-              View Full Report
+              Credibility Markers
             </button>
           </div>
         </div>
@@ -603,6 +677,19 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
         <div className="overflow-y-auto px-6 py-5 lg:px-8">
           <p className="text-slate-600 leading-relaxed mb-6 text-[0.95rem]">{project.desc}</p>
 
+          {project.metrics.length > 0 && (
+            <div className="border-t border-slate-100 pt-5 mb-6">
+              <p className="text-[0.75rem]  tracking-widest font-bold text-slate-400 mb-3">Credibility Markers</p>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {project.metrics.map((m, i) => (
+                  <li key={i} className="bg-green-50 border-l-4 border-green-600 rounded-lg px-4 py-3 text-[0.85rem] font-medium text-slate-700 leading-snug">
+                    {m}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {[
               { label: 'Project', value: project.project },
@@ -615,19 +702,6 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
               </div>
             ))}
           </div>
-
-          {project.metrics.length > 0 && (
-            <div className="border-t border-slate-100 pt-5">
-              <p className="text-[0.75rem]  tracking-widest font-bold text-slate-400 mb-3">Key Metrics</p>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {project.metrics.map((m, i) => (
-                  <li key={i} className="bg-green-50 border-l-4 border-green-600 rounded-lg px-4 py-3 text-[0.85rem] font-medium text-slate-700 leading-snug">
-                    {m}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       </div>
     </div>
@@ -650,7 +724,9 @@ const OngoingProjects: React.FC<OngoingProjectsProps> = ({
 }) => {
   const STATES = Array.from(new Set(ONGOING_PROJECTS.map(p => p.state)));
   const [selectedState, setSelectedState] = useState(STATES[0] || '');
-  const filteredProjects = ONGOING_PROJECTS.filter(p => p.state === selectedState);
+  const filteredProjects = selectedState
+    ? ONGOING_PROJECTS.filter(p => p.state === selectedState)
+    : ONGOING_PROJECTS;
   const [modalId, setModalId] = useState<number | null>(null);
   const stateNavTopClass = "top-[64px]";
 
@@ -659,6 +735,13 @@ const OngoingProjects: React.FC<OngoingProjectsProps> = ({
   const handleStateSelect = useCallback((state: string) => {
     setSelectedState(state);
   }, []);
+
+  useEffect(() => {
+    if (!STATES.length) return;
+    if (!selectedState || !STATES.includes(selectedState)) {
+      setSelectedState(STATES[0]);
+    }
+  }, [STATES, selectedState]);
 
   useEffect(() => {
     const firstProject = filteredProjects[0];
@@ -731,15 +814,21 @@ const OngoingProjects: React.FC<OngoingProjectsProps> = ({
 
       {/* Projects list */}
       <main className="max-w-[1400px] mx-auto px-[5%] pb-24 flex flex-col gap-20">
-        {filteredProjects.map((p, i) => (
-          <ProjectCard
-            key={p.id}
-            project={p}
-            index={i}
-            total={filteredProjects.length}
-            onViewDetails={id => setModalId(id)}
-          />
-        ))}
+        {filteredProjects.length > 0 ? (
+          filteredProjects.map((p, i) => (
+            <ProjectCard
+              key={p.id}
+              project={p}
+              index={i}
+              total={filteredProjects.length}
+              onViewDetails={id => setModalId(id)}
+            />
+          ))
+        ) : (
+          <div className="rounded-xl border border-border bg-card p-8 text-center text-muted-foreground">
+            No ongoing projects found for the selected state.
+          </div>
+        )}
       </main>
 
       {/* Modal */}

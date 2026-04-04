@@ -537,7 +537,7 @@ const About = (): JSX.Element => {
                 Our Company
               </div>
               <h2 className="mt-3 text-3xl font-bold leading-tight text-foreground md:text-4xl">
-                Zigma Global Environ <span className="text-primary">Solutions Pvt Ltd.</span>
+                Zigma Global Environ <span className="text-primary">Solutions</span>
               </h2>
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
                 In 2015, while exploring various waste streams, our founders discovered a stark reality: India had no solution for its growing legacy waste crisis. Open dump yards across the country were overflowing with decades of mismanaged municipal solid waste, and the nation was grappling with the absence of a clear, scientific pathway to address it.
