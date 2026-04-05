@@ -36,11 +36,7 @@ export const buildInteractiveMetrics = (
       unit: 'CUBIC METERS',
       status,
       progress: Math.min(100, Math.round((project.waste / limits.waste) * 100)),
-      details: [
-        { label: 'Project', value: project.project },
-        { label: 'Location', value: `${project.title}, ${project.state}` },
-        { label: 'Impact', value: leadMetric },
-      ],
+      details: [],
     },
     {
       key: 'land',
@@ -52,11 +48,7 @@ export const buildInteractiveMetrics = (
       unit: 'ACRES RESTORED',
       status,
       progress: Math.min(100, Math.round((project.land / limits.land) * 100)),
-      details: [
-        { label: 'Outcome', value: project.outcome },
-        { label: 'Focus', value: project.focus },
-        { label: 'Project Type', value: project.subtitle },
-      ],
+      details: [],
     },
     {
       key: 'co2',
@@ -68,11 +60,7 @@ export const buildInteractiveMetrics = (
       unit: 'METRIC TONS',
       status,
       progress: Math.min(100, Math.round((project.co2 / limits.co2) * 100)),
-      details: [
-        { label: 'Outcome', value: project.outcome },
-        { label: 'Description', value: project.desc },
-        { label: 'Benchmark', value: leadMetric },
-      ],
+      details: [],
     },
     {
       key: 'timeline',
@@ -80,14 +68,12 @@ export const buildInteractiveMetrics = (
       railValue: project.focus.split('.').slice(0, 1).join('.').trim() || 'Schedule available',
       eyebrow: 'Timeline',
       title: 'Project Timeline',
-      displayValue: project.subtitle.includes('Completed') ? '100' : '72',
+      displayValue: project.subtitle.includes('Completed') ? '100%' : '72%',
       unit: 'SCHEDULE PROGRESS (%)',
       status,
       progress: project.subtitle.includes('Completed') ? 100 : 72,
       details: [
-        { label: 'Focus', value: project.focus },
-        { label: 'Project', value: project.project },
-        { label: 'Status', value: project.subtitle },
+        { label: 'Timeline', value: project.focus },
       ],
     },
     {
@@ -100,11 +86,9 @@ export const buildInteractiveMetrics = (
       unit: 'CURRENT PROJECT STAGE',
       status: project.metrics.length > 0 ? 'Above Benchmark' : status,
       progress: project.metrics.length > 0 ? 78 : 0,
-      details: [
-        { label: 'Key Metric', value: project.metrics[0] ?? project.outcome },
-        { label: 'Reference', value: project.metrics[1] ?? project.project },
-        { label: 'Project', value: project.title },
-      ],
+      details: project.subtitle.includes('Completed')
+        ? [{ label: 'Status', value: 'Project Completed' }]
+        : [],
     },
   ];
 };

@@ -65,7 +65,7 @@ const METRICS: MetricItem[] = [
   },
   {
     id: 'egg-capacity',
-    title: 'Egg Capacity',
+    title: 'Egg Production Capacity',
     description: 'Daily egg production capacity.',
     value: '4',
     unit: 'KGS / DAY',
@@ -88,7 +88,7 @@ const FOCUS_SECTIONS: FocusSection[] = [
     description: 'Waste intake: 50 tons/day | Land area: 3.4 acres',
     image: pic1,
     metricId: 'waste-intake',
-    bottomLabel: 'Our Plant',
+    bottomLabel: 'Aerial view',
   },
   {
     id: 'operations',
@@ -104,7 +104,7 @@ const FOCUS_SECTIONS: FocusSection[] = [
     description: 'Technology deployed: Pit type BSFL process',
     image: pic3,
     metricId: 'technology',
-    bottomLabel: 'Processing',
+    bottomLabel: 'Harvesting',
   },
   {
     id: 'production-status',
@@ -112,12 +112,11 @@ const FOCUS_SECTIONS: FocusSection[] = [
     description: 'Egg production capacity: 4 kgs/day | Project status: Ongoing',
     image: pic4,
     metricId: 'project-status',
-    bottomLabel: 'Solar Dry',
+    bottomLabel: 'Solar drying',
   },
 ];
 
 const BSFLorganicwaste: React.FC = () => {
-  const [hoveredMetric, setHoveredMetric] = useState<string | null>(null);
   const [selectedMetric, setSelectedMetric] = useState<string | null>(null);
   const [hoveredSection, setHoveredSection] = useState<string | null>(null);
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
@@ -125,7 +124,7 @@ const BSFLorganicwaste: React.FC = () => {
   const [autoIndex, setAutoIndex] = useState(0);
 
   const shouldAutoPlay =
-    !hoveredSection && !selectedSection && !hoveredMetric && !selectedMetric;
+    !hoveredSection && !selectedSection && !selectedMetric;
   const autoSectionId = shouldAutoPlay ? FOCUS_SECTIONS[autoIndex]?.id ?? null : null;
   const effectiveHoveredSection = hoveredSection ?? autoSectionId;
 
@@ -144,19 +143,18 @@ const BSFLorganicwaste: React.FC = () => {
     FOCUS_SECTIONS[0];
 
   const currentMetric =
-    METRICS.find((metric) => metric.id === hoveredMetric) ??
     METRICS.find((metric) => metric.id === selectedMetric) ??
     METRICS[0];
 
-  const currentImage = effectiveHoveredSection ? activeSection.image : (hoveredMetric ? currentMetric.image : activeSection.image);
+  const currentImage = effectiveHoveredSection ? activeSection.image : currentMetric.image;
 
   return (
     <article id="bsfl-organic-waste" className="flex flex-col gap-4">
       <div className="flex text-left gap-2 flex-col md:flex-row md:items-center">
-        <h2 className="text-3xl leading-tight text-slate-900 font-bold">Brahmapuram - Kochi, Keralam</h2>
+        <h2 className="text-3xl leading-tight text-slate-900 font-bold">Brahmapuram - Kochi, keralamm</h2>
         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
-          Kerala
+          keralam
         </span>
       </div>
 
@@ -170,7 +168,7 @@ const BSFLorganicwaste: React.FC = () => {
             src={currentImage}
             alt="BSFL organic waste project"
             className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 ${
-              hoveredMetric || effectiveHoveredSection ? 'scale-105' : ''
+              effectiveHoveredSection ? 'scale-105' : ''
             }`}
           />
           <div className="absolute left-5 top-5 z-30 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[0.72rem] font-bold tracking-widest bg-orange-400/90 border border-orange-200/70 text-white shadow-lg shadow-orange-900/30 backdrop-blur-sm">
@@ -215,39 +213,35 @@ const BSFLorganicwaste: React.FC = () => {
         </div>
 
         <div
-          className={`overflow-hidden border-t border-border transition-[max-height,opacity,transform] duration-500 lg:absolute lg:inset-y-0 lg:right-0 lg:z-20 lg:w-[36%] lg:border-l ${
+          className={`overflow-hidden border-t border-border transition-[max-height,opacity,transform] duration-500 lg:absolute lg:top-4 lg:right-4 lg:bottom-auto lg:z-30 lg:w-[30%] lg:rounded-xl lg:border ${
             detailsOpen
-              ? 'max-h-[650px] opacity-100 translate-y-0 lg:max-h-none lg:translate-x-0'
-              : 'max-h-0 opacity-0 -translate-y-2 lg:max-h-none lg:translate-x-5 lg:translate-y-0 lg:pointer-events-none'
+              ? 'max-h-[320px] opacity-100 translate-y-0 lg:max-h-[320px] lg:translate-x-0'
+              : 'max-h-0 opacity-0 -translate-y-2 lg:max-h-0 lg:translate-x-5 lg:translate-y-0 lg:pointer-events-none'
           }`}
           aria-hidden={!detailsOpen}
         >
-          <div className="h-full p-6 text-foreground bg-background/95 backdrop-blur-sm relative">
+          <div className="p-4 md:p-5 text-foreground bg-background/95 backdrop-blur-sm relative">
             <button
               type="button"
               onClick={() => setDetailsOpen(false)}
               aria-label="Collapse metric details"
-              className="absolute right-4 top-4 h-9 w-9 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/60 transition-colors"
+              className="absolute right-3 top-3 h-8 w-8 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/60 transition-colors"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="mx-auto"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
             </button>
 
-            <h3 className="text-2xl font-semibold text-foreground leading-tight mb-4">{currentMetric.title}</h3>
+            <h3 className="text-xl font-semibold text-foreground leading-tight mb-2 pr-10">{currentMetric.title}</h3>
             <p
               className={`font-semibold text-primary mb-1 break-words ${
                 /[A-Za-z]/.test(currentMetric.value)
-                  ? 'text-3xl md:text-4xl leading-tight'
-                  : 'text-5xl md:text-6xl leading-none'
+                  ? 'text-2xl md:text-3xl leading-tight'
+                  : 'text-4xl md:text-5xl leading-none'
               }`}
             >
               {currentMetric.value}
             </p>
-            <p className="text-sm tracking-[0.18em] text-muted-foreground">{currentMetric.unit}</p>
+            <p className="text-xs tracking-[0.16em] text-muted-foreground">{currentMetric.unit}</p>
 
-            <div className="mt-6 pt-5 border-t border-border space-y-3">
-              <p className="text-foreground">Brahmapuram- Kochi, Keralam</p>
-              <p className="text-foreground">{currentMetric.description}</p>
-            </div>
           </div>
         </div>
       </div>
@@ -265,20 +259,18 @@ const BSFLorganicwaste: React.FC = () => {
                 key={item.id}
                 type="button"
                 aria-pressed={isActive}
-                onMouseEnter={() => setHoveredMetric(item.id)}
-                onMouseLeave={() => setHoveredMetric(null)}
                 onClick={() => {
                   setSelectedMetric(item.id);
                   setDetailsOpen(true);
                 }}
                 className={`group border-b h-20 border-border text-left px-5 py-4 transition-colors ${
-                  isActive ? 'bg-primary/10' : 'hover:bg-muted/40'
+                  isActive ? 'bg-primary/10' : ''
                 }`}
               >
                 <div className="flex items-center justify-between gap-3">
                   <span className={`text-base ${isActive ? 'text-foreground' : 'text-muted-foreground'}`}>{item.title}</span>
                   <svg
-                    className="h-4 w-4 text-muted-foreground group-hover:text-foreground"
+                    className="h-4 w-4 text-muted-foreground"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"

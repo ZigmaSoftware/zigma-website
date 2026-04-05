@@ -37,7 +37,7 @@ const presenceLocations: PresenceLocation[] = [
     labelSide: "right",
   },
   {
-    name: "Kerala",
+    name: "keralam",
     lat: 6.2,
     lng: 71.2,
     ongoing: 2,

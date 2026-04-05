@@ -13,7 +13,7 @@ const svgIdToStateId: Record<string, string> = {
   hp: "himachal-pradesh",
   jh: "jharkhand",
   ka: "karnataka",
-  kl: "kerala",
+  kl: "keralam",
   mp: "madhya-pradesh",
   mh: "maharashtra",
   or: "odisha",
@@ -37,7 +37,7 @@ const interactiveStateIds = new Set(Object.keys(stateData));
 // Manually defined center coordinates for each state (calibrated to viewBox 0 0 612 696)
 const stateCentroids: Record<string, { x: number; y: number }> = {
   "tamil-nadu": { x: 210, y: 610 },
-  "kerala": { x: 165, y: 600 },
+  "keralam": { x: 165, y: 600 },
   "andhra-pradesh": { x: 250, y: 495 },
   "gujarat": { x: 95, y: 340 },
   "maharashtra": { x: 155, y: 440 },

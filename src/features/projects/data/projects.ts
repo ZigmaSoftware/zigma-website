@@ -313,13 +313,13 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
   },
   {
     title: "Kollam",
-    state: "Keralam",
+    state: "keralamm",
     waste: 104906.87,
     land: 15.8,
     co2: 72648.00747499999,
     start: "12.07.2021",
     end: "18-3-2023",
-    credibility: "The project was executed on the banks of RAMSAR denoted Ashtamudi lake and was the first integrated landfill mining project executed in the state of Kerala. The project featured in the best practises case studies identified by the Kerala State Pollution Control Board. ",
+    credibility: "The project was executed on the banks of RAMSAR denoted Ashtamudi lake and was the first integrated landfill mining project executed in the state of keralam. The project featured in the best practises case studies identified by the keralam State Pollution Control Board. ",
     status: 'completed',
   },
   {
@@ -401,7 +401,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
   },
   {
     title: "Kochi",
-    state: "Kerala",
+    state: "keralam",
     waste: 821250,
     land: "Not applicable",
     co2: 568715.625,
@@ -605,7 +605,7 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
   },
   {
     title: "Kozhikode",
-    state: "Keralam",
+    state: "keralamm",
     waste: 200966,
     land: null,
     co2: 139168.955,

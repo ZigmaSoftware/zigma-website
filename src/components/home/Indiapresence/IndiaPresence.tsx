@@ -177,7 +177,7 @@ const IndiaPresence: React.FC = () => {
 
                   {bsflLocations.length > 0 ? (
                     <div>
-                      <p className="text-sm font-semibold text-foreground mb-1">BSFL Project</p>
+                      <p className="text-sm font-semibold text-foreground mb-1">BSFL Organic Waste Project</p>
                       <ul className="space-y-1">
                         {bsflLocations.map((location) => (
                           <li key={location} className="flex items-start gap-2 text-sm text-foreground leading-snug">

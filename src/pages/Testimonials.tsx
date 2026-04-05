@@ -388,7 +388,7 @@ const VIDEO_SEEDS: VideoSeed[] = [
   },
   {
     src: "https://youtu.be/Up1AqUe_WNY",
-    title: "Kerala Assembly M.B. Rajesh Speech",
+    title: "keralam Assembly M.B. Rajesh Speech",
     label: "Speech",
   },
   {
@@ -550,7 +550,7 @@ const VIDEO_SEEDS: VideoSeed[] = [
   },
   {
     src: "https://youtube.com/shorts/KzeIh0AlkzU?feature=share",
-    title: "M.B. Rajesh Speech About Zigma in the Kerala Legislative Assembly",
+    title: "M.B. Rajesh Speech About Zigma in the keralam Legislative Assembly",
     label: "Speech",
   },
   {

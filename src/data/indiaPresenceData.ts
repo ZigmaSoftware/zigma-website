@@ -40,14 +40,19 @@ export const stateData: Record<string, StateData> = {
       "Keeramangalam",
     ],
   },
-  kerala: {
-    id: "kerala",
-    name: "Kerala",
+  keralam: {
+    id: "keralam",
+    name: "keralam",
     ongoing: 2,
     completed: 4,
     description: "Sustainable waste management projects.",
     landfillMining: "Kollam",
-    districts: ["Kollam", "Kochi", "Kozhikode"],
+    bsflProject: "Kochi",
+    districts: [
+      "Kollam - Landfill Mining Project",
+      "Kozhikode - Landfill Mining Project",
+      "Kochi - BSFL Organic Waste Project",
+    ],
   },
   "andhra-pradesh": {
     id: "andhra-pradesh",
