@@ -145,7 +145,7 @@ const SHEET3_ONGOING_ROWS: OngoingProjectSheetRow[] = [
     credibility: null,
   },
   {
-    title: "Tiruchirapalli- Phase 3",
+    title: "Tiruchirappalli- Phase 3",
     state: "Tamilnadu",
     waste: 617716,
     land: null,
@@ -156,7 +156,7 @@ const SHEET3_ONGOING_ROWS: OngoingProjectSheetRow[] = [
   },
   {
     title: "Kozhikode",
-    state: "keralamm",
+    state: "Keralam",
     waste: 200966,
     land: null,
     co2: 139168.955,
@@ -188,8 +188,8 @@ const SHEET3_ONGOING_ROWS: OngoingProjectSheetRow[] = [
 
 const STATE_NORMALIZATION_MAP: Record<string, string> = {
   tamilnadu: 'Tamil Nadu',
-  keralamm: 'keralam',
-  keralam: 'keralam',
+  Keralam: 'Keralam',
+  Keralam: 'Keralam',
   puducherry: 'Puducherry',
   'andhra pradesh': 'Andhra Pradesh',
   gujarat: 'Gujarat',
@@ -217,8 +217,8 @@ const OFFICIAL_SCOPE_BY_KEY: Record<string, string> = {
   "gudur(n)|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Nellore Cluster (6 ULB’s) with near-Zero residues”.",
   "kavali|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Nellore Cluster (6 ULB’s) with near-Zero residues”.",
   "visakhapatnam- phase 5|andhra pradesh": "The Work of “Legacy Waste Land Reclamation through Bio-remediation and Bio-mining in Greater Visakhapatnam Municipal Corporation Additional Quantity with near zero residues\"",
-  "tiruchirapalli- phase 3|tamilnadu": "Remediation of Legacy Waste through Bio-mining Process (Phase III) at Ariyamangalam Compost Yard, Tiruchirappalli Municipal Corporation",
-  "kozhikode|keralamm": "Biomining and Bioremediation of Legacy Waste Dumpsite at Njeliyanparambu Kozhikode keralam",
+  "Tiruchirappalli- phase 3|tamilnadu": "Remediation of Legacy Waste through Bio-mining Process (Phase III) at Ariyamangalam Compost Yard, Tiruchirappalli Municipal Corporation",
+  "kozhikode|Keralam": "Biomining and Bioremediation of Legacy Waste Dumpsite at Njeliyanparambu Kozhikode Keralam",
   "athipattu- chennai|tamilnadu": "Reclamation additional quantity of Attipattu Dumpsite through Biomining technology process",
   "nagpur- phase 4|maharashtra": "Remediation of Landfill site through bio-mining of Legacy waste, Disposal of excavated material and Reclamation of Land at Bhandewadi, Landfill Site, Nagpur",
 };

@@ -151,15 +151,15 @@ const BSFLorganicwaste: React.FC = () => {
   return (
     <article id="bsfl-organic-waste" className="flex flex-col gap-4">
       <div className="flex text-left gap-2 flex-col md:flex-row md:items-center">
-        <h2 className="text-3xl leading-tight text-slate-900 font-bold">Brahmapuram - Kochi, keralamm</h2>
+        <h2 className="text-3xl leading-tight text-slate-900 font-bold">Brahmapuram - Kochi, Keralam</h2>
         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
-          keralam
+          Keralam
         </span>
       </div>
 
       <div
-        className="flex flex-col lg:flex-row bg-card rounded-2xl overflow-hidden relative border border-border"
+        className="flex flex-col lg:flex-row lg:h-[520px] bg-card rounded-2xl overflow-hidden relative border border-border"
         style={{ boxShadow: '0 16px 44px rgba(0,0,0,0.18)' }}
       >
       <div className="relative min-h-[520px] lg:flex-1 bg-black">
@@ -171,10 +171,7 @@ const BSFLorganicwaste: React.FC = () => {
               effectiveHoveredSection ? 'scale-105' : ''
             }`}
           />
-          <div className="absolute left-5 top-5 z-30 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[0.72rem] font-bold tracking-widest bg-orange-400/90 border border-orange-200/70 text-white shadow-lg shadow-orange-900/30 backdrop-blur-sm">
-            <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
-            Plant Running
-          </div>
+        
         </div>
 
         <div className="relative h-full flex z-20">
@@ -246,12 +243,12 @@ const BSFLorganicwaste: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-col border-t lg:border-t-0 border-border bg-card lg:w-[18%] lg:border-l">
+      <div className="flex flex-col border-t lg:border-t-0 border-border bg-card lg:w-[18%] lg:h-full lg:border-l">
         <div className="p-5 border-b border-border">
           <p className="text-lg font-semibold text-muted-foreground">Project Metrics</p>
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col lg:flex-1 lg:min-h-0 lg:overflow-y-auto">
           {METRICS.map((item) => {
             const isActive = item.id === selectedMetric;
             return (

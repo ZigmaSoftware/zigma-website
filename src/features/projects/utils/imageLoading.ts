@@ -46,8 +46,8 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     afterImage: getProjectImageByFileName('noida after.png'),
   },
   [normalizeProjectKey('Atladara- Vadodara')]: {
-    beforeImage: getProjectImageByFileName('VADODARA - ATLADAR  before.png'),
-    afterImage: getProjectImageByFileName('VADODARA - ATLADAR  after.png'),
+    beforeImage: getProjectImageByFileName('Atladara before.jpeg'),
+    afterImage: getProjectImageByFileName('Atladara - after.jpeg'),
   },
   [normalizeProjectKey('Poonamallee')]: {
     beforeImage: getProjectImageByFileName('poonamallee before.png'),
@@ -93,13 +93,21 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('karur before.png'),
     afterImage: getProjectImageByFileName('karur after.png'),
   },
+  [normalizeProjectKey('Pachayankuppam- Cuddalore')]: {
+    beforeImage: getProjectImageByFileName('Pachayankuppam - Cuddalore - before.jpeg'),
+    afterImage: getProjectImageByFileName('Pachayankuppam - Cuddalore -after.jpeg'),
+  },
   [normalizeProjectKey('Kollam')]: {
-    beforeImage: getProjectImageByFileName('KOLLAM - KUREEPUZHA before.png'),
-    afterImage: getProjectImageByFileName('KOLLAM - KUREEPUZHA  after.png'),
+    beforeImage: getProjectImageByFileName('Kollam-Before.jpg'),
+    afterImage: getProjectImageByFileName('Kollam-After.jpg'),
+  },
+  [normalizeProjectKey('Puducherry')]: {
+    beforeImage: getProjectImageByFileName('Puducherry-Before..jpg'),
+    afterImage: getProjectImageByFileName('Puducherry-After.jpg'),
   },
   [normalizeProjectKey('Muthusamy Colony')]: {
-    beforeImage: getProjectImageByFileName('muthusamy colony before.png'),
-    afterImage: getProjectImageByFileName('muthusamy colony after.png'),
+    beforeImage: getProjectImageByFileName('Erode- Muthusamy colony - before.jpeg'),
+    afterImage: getProjectImageByFileName('Erode - Muthusamy colony - after.jpeg'),
   },
   [normalizeProjectKey('Dindigul')]: {
     beforeImage: getProjectImageByFileName('Dindigul-Before.jpg'),
@@ -108,6 +116,14 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
   [normalizeProjectKey('Nagpur- Phase 1')]: {
     beforeImage: getProjectImageByFileName('Nagpur Bhandewadi-before.jpg'),
     afterImage: getProjectImageByFileName('Nagpur Bhandewadi-After.png'),
+  },
+  [normalizeProjectKey('Tiruchirappalli- Phase 1')]: {
+    beforeImage: getProjectImageByFileName('Tiruchirappalli phase 1 - before.jpeg'),
+    afterImage: getProjectImageByFileName('Tiruchirappalli phase 1 - after.jpeg'),
+  },
+  [normalizeProjectKey('Tiruchirappalli- Phase 2')]: {
+    beforeImage: getProjectImageByFileName('Trichy Phase 2 before.jpeg'),
+    afterImage: getProjectImageByFileName('Trichy Phase 2 after.jpeg'),
   },
   [normalizeProjectKey('Visakhapatnam- Phase 1')]: {
     beforeImage: getProjectImageByFileName('Vizag-Phase 1-Before.jpeg'),
@@ -120,6 +136,10 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
   [normalizeProjectKey('Visakhapatnam- Phase 3')]: {
     beforeImage: getProjectImageByFileName('Vizag-Phase 3-Before.jpeg'),
     afterImage: getProjectImageByFileName('Vizag-Phase 3-After.jpeg'),
+  },
+  [normalizeProjectKey('Visakhapatnam- Phase 4')]: {
+    beforeImage: getProjectImageByFileName('Vizag-Phase 4-Before.jpeg'),
+    afterImage: getProjectImageByFileName('Vizag Phase 4 after.jpeg'),
   },
 };
 

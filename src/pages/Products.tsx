@@ -14,6 +14,7 @@ import productRdf from "@/assets/services/Refuse-Derived Fuel.jpeg";
 import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
 import img4 from "@/assets/website/hero/Furnitures.png";
 import larva from "@/assets/website/larva.jpeg";
+import furnitureCataloguePdf from "@/assets/Products/UNICEIL -WPE -Master Catalogue-2026.pdf";
 
 import bg1 from "@/assets/background-1.png"; 
 
@@ -289,12 +290,21 @@ const Products = () => {
                       </div>
                     </div>
 
-                    <Button asChild className="group">
-                      <Link to="/contact">
-                        Enquire Now
-                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </Button>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <Button asChild className="group">
+                        <Link to="/contact">
+                          Enquire Now
+                          <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </Button>
+                      {product.name === "Recycled Furniture" ? (
+                        <Button asChild variant="outline">
+                          <a href={furnitureCataloguePdf} target="_blank" rel="noopener noreferrer">
+                            View 
+                          </a>
+                        </Button>
+                      ) : null}
+                    </div>
                   </div>
                 </Reveal>
               ))}

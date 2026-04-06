@@ -4,8 +4,7 @@
 
 export const STATE_NORMALIZATION_MAP: Record<string, string> = {
   tamilnadu: 'Tamil Nadu',
-  keralamm: 'keralam',
-  keralam: 'keralam',
+  Keralam: 'Keralam',
   puducherry: 'Puducherry',
   'andhra pradesh': 'Andhra Pradesh',
   gujarat: 'Gujarat',

@@ -1,7 +1,7 @@
 /**
  * Project data and transformations
  */
-import { Project, ProjectSheetRow, ProjectStatus } from '../types';
+import { Project, ProjectSheetRow } from '../types';
 import {
   formatMetricNumber,
   toNumber,
@@ -20,6 +20,31 @@ import { OFFICIAL_SCOPE_BY_KEY } from './scopes';
 interface ProjectSheetRowWithStatus extends ProjectSheetRow {
   status: 'completed' | 'ongoing';
 }
+
+const formatTimelineDate = (input: string | null | undefined): string => {
+  const raw = input?.trim();
+  if (!raw) return 'Not available';
+  if (/ongoing/i.test(raw)) return 'Ongoing';
+
+  const parts = raw.split(/[.-]/).map((part) => part.trim());
+  if (parts.length !== 3) return raw;
+
+  const [day, month, year] = parts;
+  if (!day || !month || !year) return raw;
+
+  const dayNum = Number(day);
+  const monthNum = Number(month);
+  const yearNum = Number(year);
+
+  if (!Number.isFinite(dayNum) || !Number.isFinite(monthNum) || !Number.isFinite(yearNum)) {
+    return raw;
+  }
+
+  const dd = String(dayNum).padStart(2, '0');
+  const mm = String(monthNum).padStart(2, '0');
+  const yyyy = String(yearNum).padStart(4, '0');
+  return `${dd}.${mm}.${yyyy}`;
+};
 
 /**
  * Completed projects data
@@ -180,7 +205,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Tiruchirapalli- Phase 1",
+    title: "Tiruchirappalli- Phase 1",
     state: "Tamilnadu",
     waste: 760000,
     land: 40,
@@ -235,7 +260,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Kamiyanpettai- Cuddalore",
+    title: "Kammiyampettai- Cuddalore",
     state: "Tamilnadu",
     waste: 77000,
     land: 3.6,
@@ -246,7 +271,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Panchayankuppam- Cuddalore",
+    title: " Pachayankuppam- Cuddalore",
     state: "Tamilnadu",
     waste: 25000,
     land: 1.92,
@@ -313,13 +338,13 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
   },
   {
     title: "Kollam",
-    state: "keralamm",
+    state: "Keralam",
     waste: 104906.87,
     land: 15.8,
     co2: 72648.00747499999,
     start: "12.07.2021",
     end: "18-3-2023",
-    credibility: "The project was executed on the banks of RAMSAR denoted Ashtamudi lake and was the first integrated landfill mining project executed in the state of keralam. The project featured in the best practises case studies identified by the keralam State Pollution Control Board. ",
+    credibility: "The project was executed on the banks of RAMSAR denoted Ashtamudi lake and was the first integrated landfill mining project executed in the state of Keralam. The project featured in the best practises case studies identified by the Keralam State Pollution Control Board. ",
     status: 'completed',
   },
   {
@@ -334,7 +359,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Tiruchirapalli- Phase 2",
+    title: "Tiruchirappalli- Phase 2",
     state: "Tamilnadu",
     waste: 349285,
     land: 10,
@@ -401,7 +426,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
   },
   {
     title: "Kochi",
-    state: "keralam",
+    state: "Keralam",
     waste: 821250,
     land: "Not applicable",
     co2: 568715.625,
@@ -593,7 +618,7 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'ongoing',
   },
   {
-    title: "Tiruchirapalli- Phase 3",
+    title: "Tiruchirappalli- Phase 3",
     state: "Tamilnadu",
     waste: 617716,
     land: null,
@@ -605,7 +630,7 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
   },
   {
     title: "Kozhikode",
-    state: "keralamm",
+    state: "Keralam",
     waste: 200966,
     land: null,
     co2: 139168.955,
@@ -644,17 +669,17 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
 const transformRowToProject = (
   row: ProjectSheetRowWithStatus,
   id: number,
-  isCompleted: boolean,
 ): Project => {
   const title = row.title.trim();
   const state = normalizeState(row.state);
   const waste = toNumber(row.waste);
   const land = toNumber(row.land);
   const co2 = toNumber(row.co2);
-  const periodStart = row.start?.trim() || 'Not available';
-  const periodEnd = row.end?.trim() || 'Ongoing';
+  const periodStart = formatTimelineDate(row.start);
+  const periodEnd = formatTimelineDate(row.end);
   const markers = splitCredibilityMarkers(row.credibility);
   const officialScope = OFFICIAL_SCOPE_BY_KEY[buildScopeKey(title, row.state)]?.trim();
+  const isCompleted = row.status === 'completed';
 
   const isCompletelyFinished = isCompleted && row.end !== 'Ongoing' && !row.end?.includes('Ongoing');
   const images = isCompletelyFinished ? resolveProjectImages(title) : { beforeImage: getPlaceholderImage(), afterImage: getPlaceholderImage() };
@@ -663,10 +688,11 @@ const transformRowToProject = (
     id,
     title,
     subtitle: isCompleted ? 'Project Completed' : 'Project Under Progress',
+    status: row.status,
     state,
     desc: officialScope || `${title} legacy waste remediation project in ${state}.`,
     project: `Waste processed: ${formatMetricNumber(waste, 2)} m3. Land reclaimed: ${formatMetricNumber(land, 2)} acres.`,
-    focus: `Project timeline: ${periodStart} to ${periodEnd}.`,
+    focus: `Project timeline: ${periodStart} - ${periodEnd}.`,
     outcome: `CO2 mitigated: ${formatMetricNumber(co2, 3)} MT.`,
     metrics: markers,
     waste,
@@ -677,18 +703,21 @@ const transformRowToProject = (
   };
 };
 
+const mapRowsToProjects = (rows: ProjectSheetRowWithStatus[], startId = 1): Project[] =>
+  rows.map((row, idx) => transformRowToProject(row, startId + idx));
+
 /**
  * Get all completed projects
  */
 export const getCompletedProjects = (): Project[] => {
-  return COMPLETED_ROWS.map((row, idx) => transformRowToProject(row, idx + 1, true));
+  return mapRowsToProjects(COMPLETED_ROWS, 1);
 };
 
 /**
  * Get all ongoing projects
  */
 export const getOngoingProjects = (): Project[] => {
-  return ONGOING_ROWS.map((row, idx) => transformRowToProject(row, idx + 1, false));
+  return mapRowsToProjects(ONGOING_ROWS, 1);
 };
 
 /**
@@ -696,6 +725,6 @@ export const getOngoingProjects = (): Project[] => {
  */
 export const getAllProjects = (): Project[] => {
   const completed = getCompletedProjects();
-  const ongoing = getOngoingProjects();
+  const ongoing = mapRowsToProjects(ONGOING_ROWS, completed.length + 1);
   return [...completed, ...ongoing];
 };

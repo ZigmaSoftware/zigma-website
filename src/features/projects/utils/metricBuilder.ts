@@ -18,12 +18,12 @@ export const buildInteractiveMetrics = (
   project: Project,
   limits: ProjectLimits,
 ): InteractiveMetric[] => {
-  const status = project.subtitle.includes('Under Progress')
-    ? 'In Progress'
-    : project.subtitle.includes('Completed')
-      ? 'Completed'
-      : 'Active';
-  const leadMetric = project.metrics[0] ?? project.outcome;
+  const status = project.status === 'ongoing' ? 'Ongoing' : 'Completed';
+  const timeline = (project.focus || '')
+    .replace(/^Project timeline:\s*/i, '')
+    .replace(/\.$/, '')
+    .replace(/\s*-\s*/g, ' - ')
+    .trim();
 
   return [
     {
@@ -63,32 +63,18 @@ export const buildInteractiveMetrics = (
       details: [],
     },
     {
-      key: 'timeline',
-      label: 'Project Timeline',
-      railValue: project.focus.split('.').slice(0, 1).join('.').trim() || 'Schedule available',
-      eyebrow: 'Timeline',
-      title: 'Project Timeline',
-      displayValue: project.subtitle.includes('Completed') ? '100%' : '72%',
-      unit: 'SCHEDULE PROGRESS (%)',
-      status,
-      progress: project.subtitle.includes('Completed') ? 100 : 72,
-      details: [
-        { label: 'Timeline', value: project.focus },
-      ],
-    },
-    {
       key: 'recovery',
       label: 'Project Status',
-      railValue: project.metrics[1] ?? leadMetric,
+      railValue: timeline,
       eyebrow: 'Efficiency',
       title: 'Project Status',
-      displayValue: project.subtitle.includes('Completed') ? '100%' : status,
+      displayValue: status,
       unit: 'CURRENT PROJECT STAGE',
-      status: project.metrics.length > 0 ? 'Above Benchmark' : status,
-      progress: project.metrics.length > 0 ? 78 : 0,
-      details: project.subtitle.includes('Completed')
-        ? [{ label: 'Status', value: 'Project Completed' }]
-        : [],
+      status,
+      progress: project.status === 'completed' ? 100 : 72,
+      details: [
+        { label: 'Project Timeline', value: timeline || 'Not available' },
+      ],
     },
   ];
 };

@@ -27,6 +27,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   }, [project, onClose]);
 
   if (!project) return null;
+  const displayTitle = project.title.replace(/\s*-\s*/g, ' - ');
 
   return (
     <div
@@ -44,9 +45,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
       >
         {/* Modal header */}
         <div className="sticky top-0 z-10 flex items-start justify-between gap-4 px-6 pt-6 pb-4 bg-white border-b border-slate-100 lg:px-8">
-          <div>
-            <p className="text-[0.7rem] font-bold text-slate-400 mb-1">{project.subtitle}</p>
-            <h3 className="text-xl font-bold text-slate-900">{project.title}</h3>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <h3 className="text-3xl leading-none font-bold text-slate-900">{displayTitle}</h3>
+            <span className="inline-flex items-center gap-1.5 text-lg font-semibold text-slate-600">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              {project.state}
+            </span>
           </div>
           <button
             type="button"
@@ -70,43 +77,33 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
         {/* Modal body */}
         <div className="overflow-y-auto px-6 py-5 lg:px-8">
-          <p className="text-slate-600 leading-relaxed mb-6 text-[0.95rem]">{project.desc}</p>
+          <section className="mb-6 rounded-xl border border-slate-200 bg-slate-50 px-5 py-4">
+            <p className="text-[0.72rem] font-semibold tracking-[0.14em] uppercase text-slate-500 mb-2">
+              Project Brief
+            </p>
+            <p className="text-slate-700 leading-relaxed text-[1.06rem]">{project.desc}</p>
+          </section>
 
-          {project.metrics.length > 0 && (
+          {project.metrics.length > 0 ? (
             <div className="border-t border-slate-100 pt-5 mb-6">
-              <p className="text-[0.75rem] tracking-widest font-bold text-slate-400 mb-3">
+              <p className="text-[0.8rem] tracking-[0.14em] font-semibold uppercase text-slate-600 mb-3">
                 Credibility Markers
               </p>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <ul className="space-y-3">
                 {project.metrics.map((m, i) => (
                   <li
                     key={i}
-                    className="bg-green-50 border-l-4 border-green-600 rounded-lg px-4 py-3 text-[0.85rem] font-medium text-slate-700 leading-snug"
+                    className="bg-green-50 border-l-4 border-green-600 rounded-lg px-4 py-3 text-md font-medium text-slate-800 leading-snug"
                   >
                     {m}
                   </li>
                 ))}
               </ul>
             </div>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            {[
-              { label: 'Project', value: project.project },
-              { label: 'Focus', value: project.focus },
-              { label: 'Outcome', value: project.outcome },
-            ].map(({ label, value }) => (
-              <div
-                key={label}
-                className="bg-slate-50 border border-slate-100 rounded-xl p-4 transition-all duration-200 hover:border-green-400 hover:-translate-y-1"
-              >
-                <p className="text-sm tracking-widest font-bold text-slate-400 mb-2">{label}</p>
-                <p className="text-lg font-medium text-slate-800 leading-relaxed">{value}</p>
-              </div>
-            ))}
-          </div>
+          ) : null}
         </div>
       </div>
     </div>
   );
 };
+

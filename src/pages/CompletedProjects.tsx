@@ -7,22 +7,16 @@ import {
   StateFilter,
 } from '@/features/projects/components';
 import { useProjectFilter } from '@/features/projects/hooks/useProjectFilter';
-import { getCompletedProjects } from '@/features/projects/data/projects';
+import { getAllProjects } from '@/features/projects/data/projects';
 
 interface CompletedProjectsProps {
   hideLayout?: boolean;
-  showTabSwitcher?: boolean;
-  activeTab?: 'completed' | 'ongoing';
-  onTabChange?: (tab: 'completed' | 'ongoing') => void;
 }
 
 const CompletedProjects: React.FC<CompletedProjectsProps> = ({
   hideLayout = false,
-  showTabSwitcher = false,
-  activeTab = 'completed',
-  onTabChange,
 }) => {
-  const projects = getCompletedProjects();
+  const projects = getAllProjects();
   const { states, selectedState, filteredProjects, handleStateSelect } = useProjectFilter(projects);
   const [modalId, setModalId] = useState<number | null>(null);
 
@@ -42,9 +36,6 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
         states={states}
         selectedState={selectedState}
         onStateSelect={handleStateSelect}
-        showTabSwitcher={showTabSwitcher}
-        activeTab={activeTab}
-        onTabChange={onTabChange}
       />
 
       {/* Projects list */}
@@ -57,7 +48,7 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
             total={filteredProjects.length}
             onViewDetails={(id) => setModalId(id)}
             allProjects={projects}
-            isComparison={true}
+            isComparison={p.status === 'completed'}
           />
         ))}
       </main>

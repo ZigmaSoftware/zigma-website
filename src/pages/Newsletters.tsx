@@ -10,7 +10,8 @@ type Newsletter = {
   fileName: string;
   fileUrl: string;
   coverImageUrl?: string;
-  year: number | null;
+  year: number;
+  month: number;
 };
 
 const newsletterFiles = import.meta.glob("../assets/Newsletters/*.pdf", {
@@ -38,6 +39,55 @@ const inferYear = (fileName: string): number | null => {
   return null;
 };
 
+const MONTH_INDEX: Record<string, number> = {
+  january: 0,
+  jan: 0,
+  february: 1,
+  feb: 1,
+  march: 2,
+  mar: 2,
+  april: 3,
+  apr: 3,
+  may: 4,
+  june: 5,
+  jun: 5,
+  july: 6,
+  jul: 6,
+  august: 7,
+  aug: 7,
+  september: 8,
+  sep: 8,
+  sept: 8,
+  october: 9,
+  oct: 9,
+  november: 10,
+  nov: 10,
+  december: 11,
+  dec: 11,
+};
+
+const inferYearMonth = (fileName: string): { year: number; month: number } => {
+  const monthMatch = fileName.match(
+    /\b(january|jan|february|feb|march|mar|april|apr|may|june|jun|july|jul|august|aug|september|sept|sep|october|oct|november|nov|december|dec)\b/i,
+  );
+  let year = inferYear(fileName);
+
+  // Some filenames have a unix-prefix but no visible year in title text.
+  // Use prefix year only as fallback, never as primary ordering signal.
+  if (year === null) {
+    const unixPrefix = fileName.match(/^(\d{10})_/);
+    if (unixPrefix) {
+      const timestamp = Number(unixPrefix[1]);
+      if (Number.isFinite(timestamp)) {
+        year = new Date(timestamp * 1000).getUTCFullYear();
+      }
+    }
+  }
+
+  const month = monthMatch ? MONTH_INDEX[monthMatch[1].toLowerCase()] : -1;
+  return { year: year ?? 0, month };
+};
+
 const formatNewsletterTitle = (fileName: string): string =>
   fileName
     .replace(/\.pdf$/i, "")
@@ -62,17 +112,17 @@ const newsletters: Newsletter[] = Object.entries(newsletterFiles)
       title: formatNewsletterTitle(fileName),
       fileName,
       fileUrl,
-      year: inferYear(fileName),
+      ...inferYearMonth(fileName),
       coverImageUrl: coverByBaseName[withoutExtension(fileName)],
     };
   })
   .filter((newsletter) => newsletter.coverImageUrl)
   .sort((a, b) => {
-    if (a.year === b.year) return a.title.localeCompare(b.title);
-    if (a.year === null) return 1;
-    if (b.year === null) return -1;
-    return b.year - a.year;
-  });
+    if (a.year !== b.year) return b.year - a.year;
+    if (a.month !== b.month) return b.month - a.month;
+    return a.title.localeCompare(b.title);
+  })
+  .slice(0, 4);
 
 const Newsletters = () => {
   const openNewsletter = (fileUrl: string) => {
@@ -129,7 +179,7 @@ const Newsletters = () => {
                 No newsletters available right now.
               </div>
             ) : (
-              <div className="grid justify-items-center gap-y-10 md:grid-cols-2 xl:grid-cols-2">
+              <div className="grid justify-items-center gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
                 {newsletters.map((newsletter) => (
                   <article
                     key={newsletter.id}

@@ -20,7 +20,7 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
   if (!isComparison) {
     // For ongoing projects, just show the image with status badge
     return (
-      <div className="relative flex-1 min-h-[500px] h-full w-full overflow-hidden select-none bg-slate-950">
+      <div className="relative flex-1 min-h-[520px] h-full w-full overflow-hidden select-none bg-slate-950">
         <img
           src={beforeSrc}
           alt="Project"
@@ -42,7 +42,7 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
   // Comparison mode with slider
   return (
     <div
-      className="relative flex-1 min-h-[500px] h-full w-full cursor-pointer overflow-hidden select-none bg-slate-950"
+      className="relative flex-1 min-h-[520px] h-full w-full cursor-pointer overflow-hidden select-none bg-slate-950"
       onClick={() => setRevealed((r) => !r)}
     >
       {/* After panel (base) */}

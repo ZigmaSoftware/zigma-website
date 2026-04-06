@@ -16,6 +16,7 @@ import bsflsolarr from "@/assets/solarr.jpg.jpeg";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import epr from "@/assets/services/EPR.png";
+import iwmsPdf from "@/assets/services/IWMS ZIGMA v2.pdf";
 import Servicescp from "./Servicescp";
 
 
@@ -378,9 +379,18 @@ const Services = () => {
                               ))}
                             </ul>
                           ) : null}
-                          <Button asChild className="w-28">
-                            <Link to="/contact">Enquire Now</Link>
-                          </Button>
+                          <div className="flex flex-wrap items-center gap-3">
+                            <Button asChild className="w-28">
+                              <Link to="/contact">Enquire Now</Link>
+                            </Button>
+                            {service.id === "iot-waste-management" ? (
+                              <Button asChild variant="outline">
+                                <a href={iwmsPdf} target="_blank" rel="noopener noreferrer">
+                                  View PDF
+                                </a>
+                              </Button>
+                            ) : null}
+                          </div>
                         </div>
                       </>
                     );

@@ -7,6 +7,7 @@ export interface Project {
   id: number;
   title: string;
   subtitle: string;
+  status: 'completed' | 'ongoing';
   state: string;
   desc: string;
   project: string;
@@ -21,7 +22,7 @@ export interface Project {
 }
 
 /** Metric types available for projects */
-export type MetricKey = 'waste' | 'land' | 'co2' | 'timeline' | 'recovery';
+export type MetricKey = 'waste' | 'land' | 'co2' | 'recovery';
 
 /** Interactive metric displayed in project card details */
 export interface InteractiveMetric {

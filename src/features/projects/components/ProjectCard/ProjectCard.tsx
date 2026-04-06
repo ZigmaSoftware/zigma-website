@@ -30,6 +30,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const [activeMetric, setActiveMetric] = useState<MetricKey | null>(null);
 
   const currentMetric = metricItems.find((item) => item.key === activeMetric);
+  const displayTitle = project.title.replace(/\s*-\s*/g, ' - ');
 
   const metaRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -81,7 +82,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               'opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0ms, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0ms',
           }}
         >
-          <h2 className="text-3xl leading-tight text-slate-900 font-bold">{project.title}</h2>
+          <h2 className="text-3xl leading-tight text-slate-900 font-bold">{displayTitle}</h2>
         </div>
         <div
           style={{
@@ -103,7 +104,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
       <div
         ref={cardRef}
-        className="flex flex-col lg:flex-row bg-card rounded-2xl overflow-hidden relative border border-border"
+        className="flex flex-col lg:flex-row lg:h-[520px] bg-card rounded-2xl overflow-hidden relative border border-border"
         style={{
           boxShadow: '0 16px 44px rgba(0,0,0,0.18)',
           opacity: cardRevealed ? 1 : 0,
@@ -112,7 +113,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             'opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 300ms, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 300ms',
         }}
       >
-        <div className="relative min-h-[500px] lg:flex-1">
+        <div className="relative min-h-[520px] lg:flex-1">
           <ComparisonSlider
             beforeSrc={project.beforeImage}
             afterSrc={project.afterImage}
@@ -120,15 +121,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           />
 
           <div
-            className={`overflow-hidden border-t border-border transition-[max-height,opacity,transform] duration-500 lg:absolute lg:inset-y-0 lg:right-0 lg:z-20 lg:w-[30%] lg:border-l ${
+            className={`overflow-hidden border-t border-border transition-[max-height,opacity,transform] duration-500 lg:absolute lg:top-4 lg:right-4 lg:bottom-auto lg:z-30 lg:w-[30%] lg:rounded-xl lg:border ${
               detailsOpen
-                ? 'max-h-[650px] opacity-100 translate-y-0 lg:max-h-none lg:translate-x-0'
-                : 'max-h-0 opacity-0 -translate-y-2 lg:max-h-none lg:translate-x-5 lg:translate-y-0 lg:pointer-events-none'
+                ? 'max-h-[360px] opacity-100 translate-y-0 lg:max-h-none lg:translate-x-0'
+                : 'max-h-0 opacity-0 -translate-y-2 lg:max-h-0 lg:translate-x-5 lg:translate-y-0 lg:pointer-events-none'
             }`}
             aria-hidden={!detailsOpen}
           >
             {currentMetric && (
-              <div className="h-full p-6 text-foreground bg-background/95 backdrop-blur-sm relative">
+              <div className="p-4 md:p-5 text-foreground bg-background/95 backdrop-blur-sm relative">
                 <button
                   type="button"
                   onClick={() => {
@@ -158,18 +159,19 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 <p
                   className={`font-semibold text-primary mb-1 break-words ${
                     /[A-Za-z]/.test(currentMetric.displayValue)
-                      ? 'text-3xl md:text-4xl leading-tight'
-                      : 'text-5xl md:text-6xl leading-none'
+                      ? 'text-2xl md:text-3xl leading-tight'
+                      : 'text-4xl md:text-5xl leading-none'
                   }`}
                 >
                   {currentMetric.displayValue}
                 </p>
                 <p className="text-sm tracking-[0.18em] text-muted-foreground">{currentMetric.unit}</p>
 
-                <div className="mt-6 pt-5 border-t border-border space-y-3">
+                <div className="mt-5 pt-4 border-t border-border space-y-4">
                   {currentMetric.details.map((item) => (
                     <div key={item.label}>
-                      <span className="text-foreground text-right">{item.value}</span>
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">{item.label}</p>
+                      <p className="text-foreground leading-relaxed break-words">{item.value}</p>
                     </div>
                   ))}
                 </div>
@@ -178,12 +180,12 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
         </div>
 
-        <div className="flex flex-col border-t lg:border-t-0 border-border bg-card lg:w-[15.8%] lg:border-l">
+        <div className="flex flex-col border-t lg:border-t-0 border-border bg-card lg:w-[15.8%] lg:h-full lg:border-l">
           <div className="p-5 border-b border-border">
             <p className="text-lg font-semibold text-muted-foreground">Project Metrics</p>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col lg:flex-1 lg:min-h-0 lg:overflow-y-auto">
             {metricItems.map((item) => {
               const isActive = item.key === activeMetric;
               return (
@@ -239,3 +241,4 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     </article>
   );
 };
+
