@@ -661,6 +661,17 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     credibility: null,
     status: 'ongoing',
   },
+  {
+    title: "Belortol guwahati",
+    state: "Assam",
+    waste: 450000,
+    land: 5,
+    co2: 311625,
+    start: "Not available",
+    end: "Ongoing",
+    credibility: null,
+    status: 'ongoing',
+  },
 ];
 
 /**
@@ -681,8 +692,18 @@ const transformRowToProject = (
   const officialScope = OFFICIAL_SCOPE_BY_KEY[buildScopeKey(title, row.state)]?.trim();
   const isCompleted = row.status === 'completed';
 
+  const resolvedImages = resolveProjectImages(title);
   const isCompletelyFinished = isCompleted && row.end !== 'Ongoing' && !row.end?.includes('Ongoing');
-  const images = isCompletelyFinished ? resolveProjectImages(title) : { beforeImage: getPlaceholderImage(), afterImage: getPlaceholderImage() };
+  const images = isCompletelyFinished
+    ? resolvedImages
+    : {
+        beforeImage: resolvedImages.beforeImage !== getPlaceholderImage()
+          ? resolvedImages.beforeImage
+          : getPlaceholderImage(),
+        afterImage: resolvedImages.afterImage !== getPlaceholderImage()
+          ? resolvedImages.afterImage
+          : getPlaceholderImage(),
+      };
 
   return {
     id,

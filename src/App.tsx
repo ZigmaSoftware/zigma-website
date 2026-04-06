@@ -28,6 +28,7 @@ const Media = lazy(() => import("./pages/Media"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const People = lazy(() => import("./pages/People"));
 const Projects = lazy(() => import("./pages/Projects"));
+const ProjectsGallery = lazy(() => import("./pages/ProjectsGallery"));
 const WasteManagementShowcase = lazy(() => import("./pages/WasteManagementShowcase"));
 const GovernancePolicies = lazy(() => import("./pages/GovernancePolicies"));
 const Policies = lazy(() => import("./pages/Policies"));
@@ -69,6 +70,7 @@ const App = () => (
               <Route path="/services" element={<Services />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/gallery" element={<ProjectsGallery />} />
               <Route path="/ongoingprojects" element={<Navigate to="/projects?tab=ongoing" replace />} />
               <Route path="/projects/:id" element={<ProjectDetail />} />
               <Route path="/products" element={<Products />} />

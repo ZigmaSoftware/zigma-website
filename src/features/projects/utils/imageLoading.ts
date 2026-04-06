@@ -7,7 +7,7 @@ const PLACEHOLDER_IMAGE =
   'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23e2e8f0"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23475569" font-family="Arial,sans-serif" font-size="40"></text></svg>';
 
 const PROJECT_IMAGE_MODULES = import.meta.glob(
-  '../../../assets/before after projects/*.{png,jpg,jpeg,PNG,JPG,JPEG}',
+  '../../../assets/before after projects/**/*.{png,jpg,jpeg,PNG,JPG,JPEG}',
   {
     eager: true,
     import: 'default',
@@ -140,6 +140,10 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
   [normalizeProjectKey('Visakhapatnam- Phase 4')]: {
     beforeImage: getProjectImageByFileName('Vizag-Phase 4-Before.jpeg'),
     afterImage: getProjectImageByFileName('Vizag Phase 4 after.jpeg'),
+  },
+  [normalizeProjectKey('Belortol guwahati')]: {
+    beforeImage: getProjectImageByFileName('Belortol.jpeg'),
+    afterImage: getProjectImageByFileName('Belortol.jpeg'),
   },
 };
 

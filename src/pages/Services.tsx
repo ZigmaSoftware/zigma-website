@@ -16,7 +16,9 @@ import bsflsolarr from "@/assets/solarr.jpg.jpeg";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import epr from "@/assets/services/EPR.png";
+import recycledFurniture from "@/assets/website/hero/Furnitures.png";
 import iwmsPdf from "@/assets/services/IWMS ZIGMA v2.pdf";
+import uniceilCataloguePdf from "@/assets/Products/UNICEIL -WPE -Master Catalogue-2026.pdf";
 import Servicescp from "./Servicescp";
 
 
@@ -100,6 +102,16 @@ const EMPHASIS_MAP: Record<string, string[]> = {
     "end-of-life management",
     "plastic waste collection and sorting operations",
     "digital traceability and real-time reporting",
+  ],
+  "recycled-furniture": [
+    "recycled materials",
+    "durable and stylish designs",
+    "eco-friendly production",
+    "customizable options",
+    "home furniture",
+    "office furniture",
+    "outdoor furniture",
+    "commercial spaces",
   ],
 };
 
@@ -258,6 +270,21 @@ const services = [
       
     ],
   },
+  {
+    id: "recycled-furniture",
+    title: "UNICEIL WPE Products",
+    eyebrow: "From Waste to Wealth, Responsibly.",
+    image: recycledFurniture,
+    description:
+      "UNICEIL WPE range blends recycled material sustainability with architectural-grade performance. Engineered for exterior and high-use applications, the profiles offer high weather resistance, anti-slip behavior, termite and biological resistance, and long-term dimensional stability with low maintenance.",
+    features: [
+      "100% recyclable, eco-friendly WPE material for responsible construction.",
+      "High durability with weather, moisture, termite, algae, and fungi resistance.",
+      "Anti-slip and mechanically stable profiles suitable for demanding outdoor use.",
+      "EN 15534-aligned tested performance with strong moisture and water absorption results.",
+      "Applications: Facade, Decking, Exterior Seating, Gates, Railing, Fencing, and Kiosk structures.",
+    ],
+  },
 
 ];
 
@@ -387,6 +414,13 @@ const Services = () => {
                               <Button asChild variant="outline">
                                 <a href={iwmsPdf} target="_blank" rel="noopener noreferrer">
                                   View PDF
+                                </a>
+                              </Button>
+                            ) : null}
+                            {service.id === "recycled-furniture" ? (
+                              <Button asChild variant="outline">
+                                <a href={uniceilCataloguePdf} target="_blank" rel="noopener noreferrer">
+                                  View
                                 </a>
                               </Button>
                             ) : null}

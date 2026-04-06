@@ -25,6 +25,7 @@ import productFurniture from "@/assets/website/hero/Furnitures.png";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import epr from "@/assets/services/EPR.png";
+import uniceilLogo from "@/assets/Products/uniceil_transparent.png";
 // import 
 
 
@@ -104,6 +105,11 @@ const navItems: NavItem[] = [
         path: "/services#epr",
         image: epr,
       },
+      {
+        name: "UNICEIL WPE Products",
+        path: "/services#recycled-furniture",
+        image: productFurniture,
+      },
       
 
     ],
@@ -130,6 +136,7 @@ const navItems: NavItem[] = [
     { name: " Landfill Mining", path: "/projects" },
     { name: "BSFL Organic Waste", path: "/projects?category=bsfl-organic-waste" },
     { name: "Integrated AF Projects", path: "/projects?category=integrated-af-projects" },
+    { name: "Projects Gallery", path: "/projects/gallery" },
     
   
   ],
@@ -378,11 +385,15 @@ const Header = () => {
                           sub.name === "IOT Systems for Waste Management";
                         const isWasteTechService =
                           sub.name === "Machinery Sales & Rentals";
+                        const isUniceilService =
+                          sub.name === "UNICEIL WPE Products";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo
                             : isIotService
                               ? iotLogo
+                            : isUniceilService
+                              ? uniceilLogo
                             : isWasteTechService
                               ? wasteTechLogo
                               : servicesDropdownLogo;
@@ -572,11 +583,15 @@ const Header = () => {
                           sub.name === "IOT Systems for Waste Management";
                         const isWasteTechService =
                           sub.name === "Machinery Sales & Rentals";
+                        const isUniceilService =
+                          sub.name === "UNICEIL WPE Products";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo
                             : isIotService
                               ? iotLogo
+                            : isUniceilService
+                              ? uniceilLogo
                             : isWasteTechService
                               ? wasteTechLogo
                               : servicesDropdownLogo;

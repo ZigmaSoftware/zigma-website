@@ -1,7 +1,7 @@
 import { FileText } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import heroBg from "@/assets/website/news_bg.jpeg";
+import heroBg from "@/assets/website/hero/Newsletter-bg.png";
 import sectionBg from "@/assets/background-1.png";
 
 type Newsletter = {
@@ -32,6 +32,11 @@ const toFileName = (filePath: string): string =>
 
 const withoutExtension = (name: string): string =>
   name.replace(/\.[^/.]+$/, "");
+
+const toMatchKey = (name: string): string =>
+  withoutExtension(name)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
 
 const inferYear = (fileName: string): number | null => {
   const fullYearMatch = fileName.match(/(?:19|20)\d{2}/);
@@ -98,7 +103,7 @@ const formatNewsletterTitle = (fileName: string): string =>
 
 const coverByBaseName = Object.fromEntries(
   Object.entries(newsletterCoverFiles).map(([path, coverUrl]) => [
-    withoutExtension(toFileName(path)),
+    toMatchKey(toFileName(path)),
     coverUrl,
   ]),
 ) as Record<string, string>;
@@ -113,7 +118,7 @@ const newsletters: Newsletter[] = Object.entries(newsletterFiles)
       fileName,
       fileUrl,
       ...inferYearMonth(fileName),
-      coverImageUrl: coverByBaseName[withoutExtension(fileName)],
+      coverImageUrl: coverByBaseName[toMatchKey(fileName)],
     };
   })
   .filter((newsletter) => newsletter.coverImageUrl)
@@ -121,8 +126,7 @@ const newsletters: Newsletter[] = Object.entries(newsletterFiles)
     if (a.year !== b.year) return b.year - a.year;
     if (a.month !== b.month) return b.month - a.month;
     return a.title.localeCompare(b.title);
-  })
-  .slice(0, 4);
+  });
 
 const Newsletters = () => {
   const openNewsletter = (fileUrl: string) => {
@@ -140,11 +144,11 @@ const Newsletters = () => {
             style={{ backgroundImage: `url(${heroBg})` }}
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-          <div
+          {/* <div className="absolute inset-0 bg-black/50" aria-hidden="true" /> */}
+          {/* <div
             className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/35"
             aria-hidden="true"
-          />
+          /> */}
 
           <div className="container-main relative grid items-center justify-items-center text-center">
             <p className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium">

@@ -5,7 +5,7 @@ import bharathiImg3 from "@/assets/Integrated AF Projects/Bharathi-VICAT Facilit
 import bharathiImg4 from "@/assets/Integrated AF Projects/Bharathi-VICAT Facility/DJI_20250419112744_0138_D.jpg";
 import sripathiImg1 from "@/assets/Integrated AF Projects/Sripathi Paper Mills Facility/DJI_0015.jpg";
 import sripathiImg2 from "@/assets/Integrated AF Projects/Sripathi Paper Mills Facility/DJI_0046.jpg";
-import sripathiImg3 from "@/assets/Integrated AF Projects/Sripathi Paper Mills Facility/DJI_0066.jpg";
+import sripathiImg3 from "@/assets/Integrated AF Projects/Sripathi Paper Mills Facility/image.png";
 import sripathiImg4 from "@/assets/Integrated AF Projects/Sripathi Paper Mills Facility/DJI_0071.jpg";
 
 interface MetricItem {
@@ -37,7 +37,7 @@ interface Facility {
 const FACILITIES: Facility[] = [
   {
     id: "bharathi-vicat",
-    title: "Bharathi-VICAT",
+    title: "Bharathi - VICAT",
     state: "Andhra Pradesh",
     metrics: [
       {

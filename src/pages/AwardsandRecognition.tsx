@@ -17,7 +17,7 @@ import Award11 from "@/assets/Awards/award11.png";
 import Award12 from "@/assets/Awards/award12_Swachha Andhra.png";
 
 // import  Awardvd from "@/assets/Awards/Swachh Andhra Award 2025.mp4";
-import awdbg from "@/assets/Awards/awd_bg.jpeg";
+import awdbg from "@/assets/website/hero/award-bg.jpeg";
 
 type Award = {
   id: string;
@@ -219,7 +219,7 @@ export default function AwardsandRecognition(): JSX.Element {
             src={awdbg}
             alt="Awards background"
           />
-          <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+          {/* <div className="absolute inset-0 bg-black/45" aria-hidden="true" /> */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
 
           <div className="container-main relative grid items-center justify-items-center text-center">

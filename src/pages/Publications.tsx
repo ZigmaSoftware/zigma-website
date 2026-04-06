@@ -1,7 +1,7 @@
 import { FileText } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import heroBg from "@/assets/website/news_bg.jpeg";
+import heroBg from "@/assets/publications/Publications-hero.png";
 import sectionBg from "@/assets/background-1.png";
 
 type Publication = {
@@ -284,10 +284,10 @@ const Publications = () => {
         <section className="relative min-h-[100vh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
           <div
             className="absolute inset-0 h-full w-full bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroBg})` }}
             aria-hidden="true"
+            style={{ backgroundImage: `url(${heroBg})` }}            
           />
-          <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+          {/* <div className="absolute inset-0 bg-black/50" aria-hidden="true" /> */}
           <div
             className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/35"
             aria-hidden="true"
