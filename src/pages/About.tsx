@@ -16,7 +16,7 @@ import img4 from '@/assets/before after projects/chidambaram after.png';
 import img5 from '@/assets/before after projects/SEMBAKKAM LAKE  after.png';
 import img6 from '@/assets/before after projects/karaikudi after.png';
 import img7 from '@/assets/before after projects/VIJAYAWADA-AJITSINGH NAGAR after.png';
-import img8 from '@/assets/website/NOIDA present.png';
+import img8 from '@/assets/website/noida present.png';
 import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/website/hero/controll room.png';
 import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
