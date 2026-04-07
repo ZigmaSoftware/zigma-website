@@ -26,9 +26,6 @@ const IndiaPresence: React.FC = () => {
 
   const currentState = selectedState || activeState;
   const currentData = currentState ? stateData[currentState] : null;
-  const useTwoColumnLocations =
-    currentData?.id === "tamil-nadu" ||
-    currentData?.id === "andhra-pradesh";
   const districtEntries = currentData?.districts ?? [];
   const taggedLandfillLocations = dedupe(
     districtEntries
@@ -57,7 +54,7 @@ const IndiaPresence: React.FC = () => {
         if (parts.length < 2) return normalizeLocationName(district);
         const projectName = parts.slice(1).join(" - ").toLowerCase();
         if (projectName.includes("landfill mining") || projectName.includes("bsfl")) return "";
-        return normalizeLocationName(parts[0]);
+        return district.trim();
       }),
   );
   const landfillLocations =
@@ -114,15 +111,15 @@ const IndiaPresence: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl  mx-auto grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] gap-8 items-center">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[200px_minmax(500px,800px)_300px] gap-6 items-start lg:justify-center">
         {/* State Tabs - Left */}
-        <div>
-          <div className="flex lg:flex-col flex-wrap gap-1">
+        <div className="lg:w-[220px]">
+          <div className="flex lg:flex-col flex-wrap gap-0.5">
             {stateList.map((state) => (
               <button
                 key={state.id}
                 onClick={() => handleTabClick(state.id)}
-                className={`text-left text-lg px-3 py-2 rounded-sm border border-transparent transition-all duration-200 font-medium
+                className={`text-left text-sm lg:text-base px-2.5 py-1 rounded-sm border border-transparent transition-all duration-200 font-medium leading-tight
                   ${currentState === state.id
                     ? "bg-primary/15 text-primary border border-primary/25"
                     : "text-foreground hover:bg-secondary"
@@ -135,8 +132,8 @@ const IndiaPresence: React.FC = () => {
         </div>
 
         {/* Map - Center */}
-        <div className="flex items-center justify-center">
-          <div className="w-full max-w-lg mx-auto">
+        <div className="flex items-center justify-center self-start">
+          <div className="w-full max-w-[520px] mx-auto">
             <IndiaMapSVG
               activeState={currentState}
               onStateHover={handleStateHover}
@@ -146,27 +143,27 @@ const IndiaPresence: React.FC = () => {
         </div>
 
         {/* Data Card - Right */}
-        <div className="flex flex-col justify-start">
+        <div className="flex flex-col justify-start lg:pt-1">
           {currentData ? (
             <div
               key={currentData.id}
-              className="bg-card border border-border rounded-sm p-6 shadow-sm animate-lift-in"
+              className="bg-card border border-border rounded-sm p-5 shadow-sm animate-lift-in"
             >
-              <div className="flex items-center gap-3 mb-5">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="w-1 h-8 bg-accent rounded-full" />
-                <h2 className="text-xl font-bold text-foreground">
+                <h2 className="text-lg font-bold text-foreground">
                   {currentData.name}
                 </h2>
               </div>
 
               {landfillLocations.length > 0 || bsflLocations.length > 0 ? (
-                <div className="mt-4 space-y-3">
+                <div className="mt-3 space-y-2.5">
                   {landfillLocations.length > 0 ? (
                     <div>
                       <p className="text-sm font-semibold text-foreground mb-1">Landfill Mining Project</p>
-                      <ul className={useTwoColumnLocations ? "grid grid-cols-2 gap-x-4 gap-y-1" : "space-y-1"}>
+                      <ul className="space-y-0.5">
                         {landfillLocations.map((location) => (
-                          <li key={location} className="flex items-start gap-2 text-sm text-foreground leading-snug">
+                          <li key={location} className="flex items-start gap-2 text-sm text-foreground leading-normal">
                             <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
                             {location}
                           </li>
@@ -178,9 +175,9 @@ const IndiaPresence: React.FC = () => {
                   {bsflLocations.length > 0 ? (
                     <div>
                       <p className="text-sm font-semibold text-foreground mb-1">BSFL Organic Waste Project</p>
-                      <ul className="space-y-1">
+                      <ul className="space-y-0.5">
                         {bsflLocations.map((location) => (
-                          <li key={location} className="flex items-start gap-2 text-sm text-foreground leading-snug">
+                          <li key={location} className="flex items-start gap-2 text-sm text-foreground leading-normal">
                             <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
                             {location}
                           </li>

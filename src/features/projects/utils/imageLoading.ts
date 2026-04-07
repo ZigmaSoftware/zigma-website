@@ -109,6 +109,10 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('Erode- Muthusamy colony - before.jpeg'),
     afterImage: getProjectImageByFileName('Erode - Muthusamy colony - after.jpeg'),
   },
+  [normalizeProjectKey('Muthusamy Colony- Erode')]: {
+    beforeImage: getProjectImageByFileName('Erode- Muthusamy colony - before.jpeg'),
+    afterImage: getProjectImageByFileName('Erode - Muthusamy colony - after.jpeg'),
+  },
   [normalizeProjectKey('Dindigul')]: {
     beforeImage: getProjectImageByFileName('Dindigul-Before.jpg'),
     afterImage: getProjectImageByFileName('Dindigul-After.jpg'),

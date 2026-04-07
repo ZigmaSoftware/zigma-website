@@ -106,7 +106,7 @@ const navItems: NavItem[] = [
         image: epr,
       },
       {
-        name: "UNICEIL WPE Products",
+        name: "UNICEIL",
         path: "/services#recycled-furniture",
         image: productFurniture,
       },
@@ -136,7 +136,7 @@ const navItems: NavItem[] = [
     { name: " Landfill Mining", path: "/projects" },
     { name: "BSFL Organic Waste", path: "/projects?category=bsfl-organic-waste" },
     { name: "Integrated AF Projects", path: "/projects?category=integrated-af-projects" },
-    { name: "Projects Gallery", path: "/projects/gallery" },
+    { name: "Waste Plastics Extrusion Projects", path: "/projects/gallery" },
     
   
   ],
@@ -386,7 +386,7 @@ const Header = () => {
                         const isWasteTechService =
                           sub.name === "Machinery Sales & Rentals";
                         const isUniceilService =
-                          sub.name === "UNICEIL WPE Products";
+                          sub.name === "UNICEIL";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo
@@ -584,7 +584,7 @@ const Header = () => {
                         const isWasteTechService =
                           sub.name === "Machinery Sales & Rentals";
                         const isUniceilService =
-                          sub.name === "UNICEIL WPE Products";
+                          sub.name === "UNICEIL";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo
