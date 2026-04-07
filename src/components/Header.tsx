@@ -6,7 +6,7 @@ import logo from "@/assets/zigma_blueplanet_logo.png";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
 import landfillManagement from "@/assets/windrow.jpg";
 import wetWaste from "@/assets/fresh waste.jpg";
-import herobg from "@/assets/website/hero/NOIDA-present-hero.jpg";
+import herobg from "@/assets/website/hero/noida-present-hero.jpg";
 import machine from "@/assets/services/machinery.png";
 import iotImage from "@/assets/services/WB.png";
 import iotLogo from "@/assets/services/IOT.png";
