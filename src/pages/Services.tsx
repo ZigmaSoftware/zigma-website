@@ -9,7 +9,7 @@ import { Check } from "lucide-react";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
 import landfillManagement from "@/assets/windrow.jpg";
 import wetWaste from "@/assets/fresh waste.jpg";
-import herobg from "@/assets/services/kumbakonam.png";
+import herobg from "@/assets/website/hero/Pdgclose.jpg";
 import machine from "@/assets/services/machinery.png";
 import iot from "@/assets/services/WB.png";
 import bsflsolarr from "@/assets/solarr.jpg.jpeg";
@@ -272,11 +272,11 @@ const services = [
   },
   {
     id: "recycled-furniture",
-    title: "UNICEIL",
+    title: "Waste Plastics Extrusion",
     eyebrow: "From Waste to Wealth, Responsibly.",
     image: recycledFurniture,
     description:
-      "UNICEIL WPE range blends recycled material sustainability with architectural-grade performance. Engineered for exterior and high-use applications, the profiles offer high weather resistance, anti-slip behavior, termite and biological resistance, and long-term dimensional stability with low maintenance.",
+      "WPE range blends recycled material sustainability with architectural-grade performance. Engineered for exterior and high-use applications, the profiles offer high weather resistance, anti-slip behavior, termite and biological resistance, and long-term dimensional stability with low maintenance.",
     features: [
       "100% recyclable, eco-friendly WPE material for responsible construction.",
       "High durability with weather, moisture, termite, algae, and fungi resistance.",
@@ -306,7 +306,7 @@ const Services = () => {
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-black/15" aria-hidden="true" />
-          {/* <div className="absolute inset-0 from-black/35 via-black/45 to-black/30" aria-hidden="true" /> */}
+          <div className="absolute inset-0 from-black/35 via-black/45 to-black/80" aria-hidden="true" />
 
           <div className="container-main relative grid items-center justify-items-center pt-28 text-center">
             <Reveal
@@ -420,7 +420,7 @@ const Services = () => {
                             {service.id === "recycled-furniture" ? (
                               <Button asChild variant="outline">
                                 <a href={uniceilCataloguePdf} target="_blank" rel="noopener noreferrer">
-                                  View
+                                  Know more
                                 </a>
                               </Button>
                             ) : null}

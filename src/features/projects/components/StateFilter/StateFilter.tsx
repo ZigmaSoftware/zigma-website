@@ -7,6 +7,9 @@ interface StateFilterProps {
   showTabSwitcher?: boolean;
   activeTab?: 'completed' | 'ongoing';
   onTabChange?: (tab: 'completed' | 'ongoing') => void;
+  showPrivateTab?: boolean;
+  isPrivateActive?: boolean;
+  onPrivateTabClick?: () => void;
 }
 
 /**
@@ -19,21 +22,22 @@ export const StateFilter: React.FC<StateFilterProps> = ({
   showTabSwitcher = false,
   activeTab = 'completed',
   onTabChange,
+  showPrivateTab = false,
+  isPrivateActive = false,
+  onPrivateTabClick,
 }) => {
   return (
     <nav className="sticky top-[64px] p-2 pt-4 overflow-hidden border-y border-border bg-background/95 backdrop-blur z-40">
       <div className="max-w-[1400px] mx-auto px-[5%] py-2 flex flex-wrap items-center gap-3">
         <div
-          className={`flex flex-wrap gap-2 ${
-            showTabSwitcher ? 'flex-1 justify-center md:justify-start' : 'justify-center w-full'
-          }`}
+          className="flex flex-1 flex-wrap gap-2 justify-center md:justify-start"
         >
           {states.map((state) => (
             <button
               key={state}
               onClick={() => onStateSelect(state)}
               className={`shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
-                selectedState === state
+                !isPrivateActive && selectedState === state
                   ? 'border-primary bg-primary text-primary-foreground'
                   : 'border-border bg-muted text-muted-foreground hover:bg-muted/70'
               }`}
@@ -43,38 +47,53 @@ export const StateFilter: React.FC<StateFilterProps> = ({
           ))}
         </div>
 
-        {showTabSwitcher && (
-          <div className="relative ml-auto inline-grid grid-cols-2 rounded-full border border-border bg-muted/60 p-1">
-            <span
-              aria-hidden="true"
-              className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-primary shadow-sm transition-transform duration-300 ease-out ${
-                activeTab === 'ongoing' ? 'translate-x-full' : 'translate-x-0'
-              }`}
-            />
+        <div className="ml-auto flex items-center gap-2">
+          {showTabSwitcher && (
+            <div className="relative inline-grid grid-cols-2 rounded-full border border-border bg-muted/60 p-1">
+              <span
+                aria-hidden="true"
+                className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-primary shadow-sm transition-transform duration-300 ease-out ${
+                  activeTab === 'ongoing' ? 'translate-x-full' : 'translate-x-0'
+                }`}
+              />
+              <button
+                type="button"
+                onClick={() => onTabChange?.('completed')}
+                className={`relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
+                  activeTab === 'completed'
+                    ? 'text-primary-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Completed
+              </button>
+              <button
+                type="button"
+                onClick={() => onTabChange?.('ongoing')}
+                className={`relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
+                  activeTab === 'ongoing'
+                    ? 'text-primary-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Ongoing
+              </button>
+            </div>
+          )}
+          {showPrivateTab && (
             <button
               type="button"
-              onClick={() => onTabChange?.('completed')}
-              className={`relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
-                activeTab === 'completed'
-                  ? 'text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
+              onClick={onPrivateTabClick}
+              className={`shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
+                isPrivateActive
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'border-border bg-muted text-muted-foreground hover:bg-muted/70'
               }`}
             >
-              Completed
+              Private Projects
             </button>
-            <button
-              type="button"
-              onClick={() => onTabChange?.('ongoing')}
-              className={`relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
-                activeTab === 'ongoing'
-                  ? 'text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              Ongoing
-            </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </nav>
   );

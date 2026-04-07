@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import {
@@ -19,8 +19,23 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
   const projects = getAllProjects();
   const { states, selectedState, filteredProjects, handleStateSelect } = useProjectFilter(projects);
   const [modalId, setModalId] = useState<number | null>(null);
+  const [isPrivateView, setIsPrivateView] = useState(false);
 
-  const activeProject = modalId !== null ? projects.find((p) => p.id === modalId) ?? null : null;
+  const privateProjectTitles = useMemo(
+    () => new Set(['Tirupati Tirumala Devasthanams', 'ITC Coimbatore']),
+    [],
+  );
+  const privateProjects = useMemo(
+    () => projects.filter((p) => privateProjectTitles.has(p.title)),
+    [projects, privateProjectTitles],
+  );
+  const publicFilteredProjects = useMemo(
+    () => filteredProjects.filter((p) => !privateProjectTitles.has(p.title)),
+    [filteredProjects, privateProjectTitles],
+  );
+  const displayProjects = isPrivateView ? privateProjects : publicFilteredProjects;
+
+  const activeProject = modalId !== null ? displayProjects.find((p) => p.id === modalId) ?? null : null;
 
   return (
     <div className="min-h-screen bg-background">
@@ -35,17 +50,23 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
       <StateFilter
         states={states}
         selectedState={selectedState}
-        onStateSelect={handleStateSelect}
+        onStateSelect={(state) => {
+          setIsPrivateView(false);
+          handleStateSelect(state);
+        }}
+        showPrivateTab
+        isPrivateActive={isPrivateView}
+        onPrivateTabClick={() => setIsPrivateView((prev) => !prev)}
       />
 
       {/* Projects list */}
       <main className="max-w-[1400px] mx-auto px-[5%] pb-24 flex flex-col gap-20">
-        {filteredProjects.map((p, i) => (
+        {displayProjects.map((p, i) => (
           <ProjectCard
             key={p.id}
             project={p}
             index={i}
-            total={filteredProjects.length}
+            total={displayProjects.length}
             onViewDetails={(id) => setModalId(id)}
             allProjects={projects}
             isComparison={p.status === 'completed'}
