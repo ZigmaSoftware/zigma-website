@@ -42,7 +42,7 @@ import milestone2017 from '@/assets/milestone/Chandrababu naidu handing over Vij
 import milestone2018 from '@/assets/milestone/Nitin gadkari foundation laying for nagpur.jpeg';
 import milestone2020 from '@/assets/milestone/blueplanet investing in Zigma.jpg';
 import milestone2021 from '@/assets/milestone/Perungudi plant inauguration.png';
-import milestone2022 from '@/assets/milestone/Guwahati before.jpg';
+import milestone2022 from '@/assets/milestone/Guwahati-before.jpg';
 import milestone2023 from '@/assets/milestone/KDG inauguration picture.jpg';
 import milestone2024 from '@/assets/milestone/AVPN event.jpg';
 import milestone2026 from '@/assets/milestone/KSWMP awarding Kozhikode project.jpeg';
