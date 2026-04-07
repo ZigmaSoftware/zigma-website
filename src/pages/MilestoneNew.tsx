@@ -8,7 +8,7 @@ import img4 from "@/assets/completed_project.jpg";
 import img5 from "@/assets/website/Erode,Vairapalayam.png";
 import img6 from "@/assets/website/Kumbakonam.png";
 import img7 from "@/assets/website/Picture2.png";
-import img8 from "@/assets/website/Noida.png";
+import img8 from "@/assets/website/NOIDA.png";
 import img9 from "@/assets/website/image ewd.png";
 import img10 from "@/assets/website/image ewd.png";
 import img11 from "@/assets/website/image site.png";

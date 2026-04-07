@@ -47,7 +47,7 @@ const getStateAndType = (name: string): { state: Exclude<StateCode, "all">; type
 
   if (tamilNadu.has(lower)) return { state: "TN" };
 
-  const other = new Set(["gurugram", "guwahati", "puduchery", "puducherry"]);
+  const other = new Set(["gurugram", "Guwahati", "puduchery", "puducherry"]);
   if (other.has(lower)) return { state: "Other" };
 
   return { state: "AP" };

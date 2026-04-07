@@ -418,7 +418,7 @@ const VIDEO_SEEDS: VideoSeed[] = [
   },
   {
     src: "https://youtu.be/J6OCSlODxLw",
-    title: "Media Interaction on Swachh Survekshan 2021 Awards for Noida Authority",
+    title: "Media Interaction on Swachh Survekshan 2021 Awards for NOIDA Authority",
     label: "Media Interaction",
   },
   {
@@ -433,7 +433,7 @@ const VIDEO_SEEDS: VideoSeed[] = [
   },
   {
     src: "https://youtube.com/shorts/gpWX9jRLmoE",
-    title: "Noida Tweet Sector 54 About MSW Wastes",
+    title: "NOIDA Tweet Sector 54 About MSW Wastes",
     label: "Official Update",
   },
   {
@@ -490,7 +490,7 @@ const VIDEO_SEEDS: VideoSeed[] = [
   },
   {
     src: "https://youtu.be/-BPYW6cfHAk",
-    title: "TEN NEWS Interview at Noida Sector 54",
+    title: "TEN NEWS Interview at NOIDA Sector 54",
     label: "Interview",
   },
   {

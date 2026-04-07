@@ -42,8 +42,8 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     afterImage: getProjectImageByFileName('SEMBAKKAM LAKE  after.png'),
   },
   [normalizeProjectKey('Sector 54 NOIDA')]: {
-    beforeImage: getProjectImageByFileName('noida before.png'),
-    afterImage: getProjectImageByFileName('noida after.png'),
+    beforeImage: getProjectImageByFileName('NOIDA before.png'),
+    afterImage: getProjectImageByFileName('NOIDA after.png'),
   },
   [normalizeProjectKey('Atladara- Vadodara')]: {
     beforeImage: getProjectImageByFileName('Atladara before.jpeg'),
@@ -66,12 +66,12 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     afterImage: getProjectImageByFileName('pammal after.png'),
   },
   [normalizeProjectKey('Sector 145 NOIDA Phase 1')]: {
-    beforeImage: getProjectImageByFileName('noida sector 145- before (1).png'),
-    afterImage: getProjectImageByFileName('noida sector 145 after.png'),
+    beforeImage: getProjectImageByFileName('NOIDA sector 145- before (1).png'),
+    afterImage: getProjectImageByFileName('NOIDA sector 145 after.png'),
   },
   [normalizeProjectKey('Sector 145 NOIDA Phase 2')]: {
-    beforeImage: getProjectImageByFileName('Noida S-145 Site B-Before.jpg'),
-    afterImage: getProjectImageByFileName('Noida S-145 Site B-After.jpg'),
+    beforeImage: getProjectImageByFileName('NOIDA S-145 Site B-Before.jpg'),
+    afterImage: getProjectImageByFileName('NOIDA S-145 Site B-After.jpg'),
   },
   [normalizeProjectKey('Tirupati')]: {
     beforeImage: getProjectImageByFileName('tirupathi before.png'),
@@ -141,7 +141,7 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('Vizag-Phase 4-Before.jpeg'),
     afterImage: getProjectImageByFileName('Vizag Phase 4 after.jpeg'),
   },
-  [normalizeProjectKey('Belortol guwahati')]: {
+  [normalizeProjectKey('Belortol Guwahati')]: {
     beforeImage: getProjectImageByFileName('Belortol.jpeg'),
     afterImage: getProjectImageByFileName('Belortol.jpeg'),
   },

@@ -8,7 +8,7 @@
 // import faci3 from "@/assets/faci_3.png"
 // import faci4 from "@/assets/faci_4.png"
 // import faci5 from "@/assets/faci_5.png"
-// import faci6 from "@/assets/website/noida present.png"
+// import faci6 from "@/assets/website/NOIDA present.png"
 // // import faci12 from "@/assets/pic1.jpeg"
 
 // import faci_off1 from

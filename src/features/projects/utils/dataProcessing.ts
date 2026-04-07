@@ -7,7 +7,6 @@ import { isDateLikeMarker } from './formatting';
 export const STATE_NORMALIZATION_MAP: Record<string, string> = {
   tamilnadu: 'Tamil Nadu',
   Keralam: 'Keralam',
-  Keralam: 'Keralam',
   puducherry: 'Puducherry',
   'andhra pradesh': 'Andhra Pradesh',
   gujarat: 'Gujarat',

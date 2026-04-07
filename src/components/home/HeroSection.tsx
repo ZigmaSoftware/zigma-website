@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import ScrollToTop from "@/components/ScrollToTop";
 // import Container from "./Container";
 
-import img1 from "@/assets/website/hero/noida-present-hero.jpg";
+import img1 from "@/assets/website/hero/NOIDA-present-hero.jpg";
 import img2 from "@/assets/website/hero/landfill-mining-hero.jpg";
 import img3 from "@/assets/website/hero/Pdgclose.jpg";
 import img4 from "@/assets/website/hero/Furnitures.png";

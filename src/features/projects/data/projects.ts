@@ -662,7 +662,7 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'ongoing',
   },
   {
-    title: "Belortol guwahati",
+    title: "Belortol Guwahati",
     state: "Assam",
     waste: 450000,
     land: 5,

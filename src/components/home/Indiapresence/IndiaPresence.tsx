@@ -5,7 +5,7 @@ import { stateData, legendItems } from "@/data/indiaPresenceData";
 const normalizeLocationName = (name: string) => {
   const trimmed = name.trim();
 
-  if (/^Noida-/i.test(trimmed)) return "Noida";
+  if (/^NOIDA-/i.test(trimmed)) return "NOIDA";
   if (/^Makkarpura/i.test(trimmed)) return "Makkarpura";
   if (/^Perungudi Package-/i.test(trimmed)) return "Perungudi";
   if (/^Vizag New$/i.test(trimmed) || /^GVMC Vizag$/i.test(trimmed)) return "Vizag";

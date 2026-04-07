@@ -2,8 +2,8 @@
 // import KumbakonamAfter from "@/assets/Before - After/1 kumbakonam_A.jpg";
 // import SembakkamBefore from "@/assets/Before - After/2 sembakam_B.jpg";
 // import SembakkamAfter from "@/assets/Before - After/2 sembakam_A.jpg";
-// import Noida54Before from "@/assets/Before - After/3 noida_B.jpg";
-// import Noida54After from "@/assets/Before - After/3 noid_A.jpg";
+// import NOIDA54Before from "@/assets/Before - After/3 NOIDA_B.jpg";
+// import NOIDA54After from "@/assets/Before - After/3 noid_A.jpg";
 // import AtladaraBefore from "@/assets/Before - After/4 atladara_B.jpg";
 // import AtladaraAfter from "@/assets/Before - After/4 atladara_A.jpg";
 // import PoonamalleeBefore from "@/assets/Before - After/5 poonamallee_B.jpg";
@@ -14,8 +14,8 @@
 // import VairapalayamAfter from "@/assets/Before - After/7 vairapalayam_A.jpg";
 // import PammalBefore from "@/assets/Before - After/8 pammal_B.jpg";
 // import PammalAfter from "@/assets/Before - After/8 pammal_A.jpg";
-// import Noida145Before from "@/assets/Before - After/9 noida_B.jpg";
-// import Noida145After from "@/assets/Before - After/9 noida_A.jpg";
+// import NOIDA145Before from "@/assets/Before - After/9 NOIDA_B.jpg";
+// import NOIDA145After from "@/assets/Before - After/9 NOIDA_A.jpg";
 // import TirupatiBefore from "@/assets/Before - After/10 tirupathi_B.jpg";
 // import TirupatiAfter from "@/assets/Before - After/10 tirupathi_A.jpg";
 // import ChidambaramBefore from "@/assets/Before - After/11 chidambaram_B.jpg";
@@ -92,13 +92,13 @@
 //     ],
 //   },
 //   {
-//     id: "noida-sector-54",
+//     id: "NOIDA-sector-54",
 //     index: "03",
-//     name: "Noida Sector 54",
+//     name: "NOIDA Sector 54",
 //     state: "Uttar Pradesh",
 //     type: "Community Development Projects",
-//     beforeImage: Noida54Before,
-//     afterImage: Noida54After,
+//     beforeImage: NOIDA54Before,
+//     afterImage: NOIDA54After,
 //     stats: [
 //       { label: "Waste Processed", value: 99665, unit: "Metric Tonnes", icon: "waste" },
 //       { label: "Land Reclaimed", value: 4, unit: "Acres", icon: "land" },
@@ -212,13 +212,13 @@
 //     ],
 //   },
 //   {
-//     id: "noida-sector-145a",
+//     id: "NOIDA-sector-145a",
 //     index: "09",
-//     name: "Noida Sector 145 A",
+//     name: "NOIDA Sector 145 A",
 //     state: "Uttar Pradesh",
 //     type: "Dump Yard Reclamation",
-//     beforeImage: Noida145Before,
-//     afterImage: Noida145After,
+//     beforeImage: NOIDA145Before,
+//     afterImage: NOIDA145After,
 //     stats: [
 //       { label: "Waste Processed", value: 102837, unit: "Cubic Meters", icon: "waste" },
 //       { label: "Land Reclaimed", value: 6.2, unit: "Acres", icon: "land" },
