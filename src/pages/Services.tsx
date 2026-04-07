@@ -272,7 +272,7 @@ const services = [
   },
   {
     id: "recycled-furniture",
-    title: "UNICEIL WPE Products",
+    title: "UNICEIL",
     eyebrow: "From Waste to Wealth, Responsibly.",
     image: recycledFurniture,
     description:

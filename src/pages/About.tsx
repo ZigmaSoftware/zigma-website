@@ -16,7 +16,7 @@ import img4 from '@/assets/before after projects/chidambaram after.png';
 import img5 from '@/assets/before after projects/SEMBAKKAM LAKE  after.png';
 import img6 from '@/assets/before after projects/karaikudi after.png';
 import img7 from '@/assets/before after projects/VIJAYAWADA-AJITSINGH NAGAR after.png';
-import img8 from '@/assets/website/NOIDA present.png';
+import img8 from '@/assets/website/noida present.png';
 import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/website/hero/controll room.png';
 import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
@@ -42,7 +42,7 @@ import milestone2017 from '@/assets/milestone/Chandrababu naidu handing over Vij
 import milestone2018 from '@/assets/milestone/Nitin gadkari foundation laying for nagpur.jpeg';
 import milestone2020 from '@/assets/milestone/blueplanet investing in Zigma.jpg';
 import milestone2021 from '@/assets/milestone/Perungudi plant inauguration.png';
-import milestone2022 from '@/assets/milestone/Guwahati before.jpg';
+import milestone2022 from '@/assets/milestone/Guwahati-before.jpg';
 import milestone2023 from '@/assets/milestone/KDG inauguration picture.jpg';
 import milestone2024 from '@/assets/milestone/AVPN event.jpg';
 import milestone2026 from '@/assets/milestone/KSWMP awarding Kozhikode project.jpeg';

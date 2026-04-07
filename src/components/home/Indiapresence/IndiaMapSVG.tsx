@@ -134,7 +134,8 @@ const IndiaMapSVG: React.FC<IndiaMapSVGProps> = ({
   return (
     <svg
       viewBox={indiaMapData.viewBox}
-      className="w-full h-full"
+      className="block h-auto w-full"
+      preserveAspectRatio="xMidYMid meet"
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Marker/tooltip animation keyframes */}
