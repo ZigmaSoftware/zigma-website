@@ -7,7 +7,8 @@
  */
 export const formatIndian = (value: number): string => {
   return value.toLocaleString('en-IN', {
-    maximumFractionDigits: value % 1 === 0 ? 0 : 1,
+    minimumFractionDigits: value % 1 === 0 ? 0 : 2,
+    maximumFractionDigits: value % 1 === 0 ? 0 : 3,
   });
 };
 
