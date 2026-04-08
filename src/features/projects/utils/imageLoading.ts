@@ -177,6 +177,10 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('Athipattu-Before.jpeg'),
     afterImage: PLACEHOLDER_IMAGE,
   },
+  [normalizeProjectKey('Paschim Boragaon- Guwahati')]: {
+    beforeImage: getProjectImageByFileName('Guwahati-Before.JPG.jpeg'),
+    afterImage: PLACEHOLDER_IMAGE,
+  },
   [normalizeProjectKey('Belortol Guwahati')]: {
     beforeImage: getProjectImageByFileName('Belortol.jpeg'),
     afterImage: getProjectImageByFileName('Belortol.jpeg'),

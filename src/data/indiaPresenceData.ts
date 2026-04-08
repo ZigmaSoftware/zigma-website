@@ -28,8 +28,9 @@ export const stateData: Record<string, StateData> = {
       "Kodungaiyur - Chennai",
       "Athipattu - Tiruvallur",
       "Vairapalayam - Erode",
-      "Muthusamy Colony - Erode",
       "Vendipalayam - Erode",
+      "Muthusamy Colony - Erode",
+      
       // "Sembakkam - Chennai",
       // "Pammal - Chennai",
       // "Poonamallee - Chennai",
@@ -41,13 +42,20 @@ export const stateData: Record<string, StateData> = {
       "Kammiyampettai - Cuddalore",
       "Pachayankuppam - Cuddalore",
       "Tambaram - Chennai",
-      "Tiruchirappalli",
+      
       "Perungudi - Chennai",
       "Kumbakonam - Thanjavur",
        "Keeramangalam - Pudukkottai",
-      "Karaikudi  - Sivaganga",
+       "Karaikudi  - Sivaganga",
+   
+      
       "Karur",
       "Dindigul",
+      "Tiruchirappalli",
+      "Virudhunagar - Sripathi Paper Mills",
+      "Sivakasi - Sripathi Paper Mills",
+      
+
     ],
   },
   Keralam: {
@@ -73,9 +81,7 @@ export const stateData: Record<string, StateData> = {
     landfillMining: "Vijayawada",
     bsflProject: "Tirupati",
     districts: [
-      "Vijayawada",
-
-      "Visakhapatnam",
+    
       "Allipuram - Nellore",
       "Dhontali - Nellore",
       "B. Kothakota - Chittoor",
@@ -99,6 +105,9 @@ export const stateData: Record<string, StateData> = {
       "Gudur - Nellore",
       "Kavali - Nellore",
       "Nayudupeta - Nellore",
+      
+      "Vijayawada",
+      "Visakhapatnam",
     ],
   },
   gujarat: {

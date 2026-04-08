@@ -123,10 +123,7 @@ const highlightPhrases = (text: string, phrases: string[]): ReactNode => {
   const pattern = new RegExp(`(${unique.map(escapeRegExp).join("|")})`, "g");
   const parts = text.split(pattern);
 
-  return parts.map((part, idx) => {
-    const isMatch = unique.some((phrase) => phrase === part);
-    return isMatch ? <strong key={`${part}-${idx}`}>{part}</strong> : part;
-  });
+  return parts;
 };
 
 const renderFeatureText = (feature: string): ReactNode => {
@@ -134,7 +131,7 @@ const renderFeatureText = (feature: string): ReactNode => {
   if (rest.length === 0) return feature;
   return (
     <>
-      <strong>{head.trim()}:</strong> {rest.join(":").trim()}
+      {head.trim()}: {rest.join(":").trim()}
     </>
   );
 };
