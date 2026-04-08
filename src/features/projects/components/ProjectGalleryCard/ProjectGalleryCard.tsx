@@ -15,12 +15,16 @@ import atladaraBeforeA from '@/assets/before after projects/Atladara - Vadodara/
 import atladaraAfterC from '@/assets/before after projects/Atladara - Vadodara/VADODARA - ATLADAR  after.png';
 import atladaraBeforeB from '@/assets/before after projects/Atladara - Vadodara/VADODARA-ATLADARbefor.jpeg';
 import atladaraAfterD from '@/assets/before after projects/Atladara - Vadodara/WhatsApp Image 2026-04-05 at 14.42.05.jpeg';
+import kdgPackage1Before from '@/assets/before after projects/ongoing/Kdg/KDG-Package1-Before.jpeg';
+import kdgPackage3Before from '@/assets/before after projects/ongoing/Kdg/KDG-Package3-Before.jpeg';
+import kdgPackage4Before from '@/assets/before after projects/ongoing/Kdg/KDG-Package4-Before.jpeg';
+import kdgPackage6Before from '@/assets/before after projects/ongoing/Kdg/KDG-Package6-Before.jpeg';
 
 interface ProjectGalleryCardProps {
   onViewDetails?: () => void;
   variant?: ProjectGalleryVariant;
 }
-export type ProjectGalleryVariant = 'nagpur-phase-2' | 'atladara-vadodara';
+export type ProjectGalleryVariant = 'nagpur-phase-2' | 'atladara-vadodara' | 'kodungaiyur-chennai';
 
 interface GalleryMetric {
   key: MetricKey;
@@ -28,6 +32,7 @@ interface GalleryMetric {
   title: string;
   value: string;
   unit: string;
+  details?: Array<{ label: string; value: string }>;
 }
 
 interface GalleryTile {
@@ -36,6 +41,7 @@ interface GalleryTile {
   afterImage: string;
   label: string;
   metricKey: MetricKey;
+  landValue?: string;
   isComparison?: boolean;
   showOngoingBadge?: boolean;
 }
@@ -50,19 +56,48 @@ const GALLERY_CONFIG: Record<
     metrics: [
       { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '600,000', unit: 'TONS' },
       { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '20.5', unit: 'ACRES' },
-      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '415,500', unit: 'TCO2e' },
-      { key: 'recovery', label: 'Project Duration', title: 'Project Duration', value: '2Y 4M 21D', unit: 'DURATION' },
+      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '415,500', unit: 'METRIC TONS' },
+      {
+        key: 'recovery',
+        label: 'Project Status',
+        title: 'Project Status',
+        value: 'Completed',
+        unit: 'CURRENT PROJECT STAGE',
+        details: [{ label: 'Project Timeline', value: '20.09.2021 - 10.02.2024' }],
+      },
     ],
     tiles: [
-      { id: 'tile-1', beforeImage: nseZoneBBefore, afterImage: nseZoneBAfter, label: 'Zone 1', metricKey: 'waste' },
-      { id: 'tile-2', beforeImage: nseZoneCBefore, afterImage: nseZoneCAfter, label: 'Zone 2', metricKey: 'land' },
-      { id: 'tile-3', beforeImage: nseZoneEBefore, afterImage: nseZoneEAfter, label: 'Zone 3', metricKey: 'co2' },
+      {
+        id: 'tile-1',
+        beforeImage: nseZoneBBefore,
+        afterImage: nseZoneBAfter,
+        label: 'Zone 1',
+        metricKey: 'waste',
+        landValue: '8.8',
+      },
+      {
+        id: 'tile-2',
+        beforeImage: nseZoneCBefore,
+        afterImage: nseZoneCAfter,
+        label: 'Zone 2',
+        metricKey: 'land',
+        landValue: '6.5',
+      },
+      {
+        id: 'tile-3',
+        beforeImage: nseZoneEBefore,
+        afterImage: nseZoneEAfter,
+        label: 'Zone 3',
+        metricKey: 'co2',
+        landValue: '2',
+      },
       {
         id: 'tile-4',
         beforeImage: nseZoneFBefore,
         afterImage: nseZoneFAfter,
         label: 'Zone 4',
         metricKey: 'recovery',
+        landValue: '8.5',
       },
     ],
   },
@@ -72,8 +107,15 @@ const GALLERY_CONFIG: Record<
     metrics: [
       { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '375,000', unit: 'TONS' },
       { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '19', unit: 'ACRES' },
-      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '259,687.5', unit: 'TCO2e' },
-      { key: 'recovery', label: 'Project Duration', title: 'Project Duration', value: '2Y 5M 10D', unit: 'DURATION' },
+      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '259,687.5', unit: 'METRIC TONS' },
+      {
+        key: 'recovery',
+        label: 'Project Status',
+        title: 'Project Status',
+        value: 'Completed',
+        unit: 'CURRENT PROJECT STAGE',
+        details: [{ label: 'Project Timeline', value: '16.07.2018 - 26.12.2020' }],
+      },
     ],
     tiles: [
       { id: 'tile-1', beforeImage: atladaraBeforeA, afterImage: atladaraAfterA, label: 'Zone 1', metricKey: 'waste' },
@@ -87,6 +129,61 @@ const GALLERY_CONFIG: Record<
         metricKey: 'recovery',
         isComparison: false,
         showOngoingBadge: false,
+      },
+    ],
+  },
+  'kodungaiyur-chennai': {
+    title: 'Kodungaiyur - Chennai',
+    state: 'Tamilnadu',
+    metrics: [
+      { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '4,403,088.41', unit: 'TONS' },
+      { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '--', unit: 'ACRES' },
+      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '3,049,138.72', unit: 'METRIC TONS' },
+      {
+        key: 'recovery',
+        label: 'Project Status',
+        title: 'Project Status',
+        value: 'Ongoing',
+        unit: 'CURRENT PROJECT STAGE',
+        details: [{ label: 'Project Timeline', value: '12.02.2024 - 12.02.2026' }],
+      },
+    ],
+    tiles: [
+      {
+        id: 'tile-1',
+        beforeImage: kdgPackage1Before,
+        afterImage: kdgPackage1Before,
+        label: 'Package 1',
+        metricKey: 'waste',
+        isComparison: false,
+        showOngoingBadge: true,
+      },
+      {
+        id: 'tile-2',
+        beforeImage: kdgPackage3Before,
+        afterImage: kdgPackage3Before,
+        label: 'Package 3',
+        metricKey: 'land',
+        isComparison: false,
+        showOngoingBadge: true,
+      },
+      {
+        id: 'tile-3',
+        beforeImage: kdgPackage4Before,
+        afterImage: kdgPackage4Before,
+        label: 'Package 4',
+        metricKey: 'co2',
+        isComparison: false,
+        showOngoingBadge: true,
+      },
+      {
+        id: 'tile-4',
+        beforeImage: kdgPackage6Before,
+        afterImage: kdgPackage6Before,
+        label: 'Package 6',
+        metricKey: 'recovery',
+        isComparison: false,
+        showOngoingBadge: true,
       },
     ],
   },
@@ -113,6 +210,10 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
   );
   const isComparison = currentTile.isComparison ?? true;
   const showOngoingBadge = currentTile.showOngoingBadge ?? true;
+  const metricDisplayValue =
+    variant === 'nagpur-phase-2' && activeMetric === 'land' && currentTile.landValue
+      ? currentTile.landValue
+      : currentMetric.value;
 
   return (
     <article className="flex flex-col gap-4">
@@ -209,8 +310,26 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
                 </svg>
               </button>
               <h3 className="text-lg font-semibold text-foreground pr-10">{currentMetric.title}</h3>
-              <p className="mt-2 font-semibold text-primary text-4xl leading-none">{currentMetric.value}</p>
+              <p
+                className={`mt-2 font-semibold text-primary break-words ${
+                  /[A-Za-z]/.test(metricDisplayValue)
+                    ? 'text-4xl leading-tight'
+                    : 'text-4xl leading-none'
+                }`}
+              >
+                {metricDisplayValue}
+              </p>
               <p className="text-xs tracking-[0.16em] text-muted-foreground mt-1">{currentMetric.unit}</p>
+              {currentMetric.details && currentMetric.details.length > 0 ? (
+                <div className="mt-5 pt-4 border-t border-border space-y-4">
+                  {currentMetric.details.map((item) => (
+                    <div key={item.label}>
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">{item.label}</p>
+                      <p className="text-foreground leading-relaxed break-words">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
           )}
         </div>
@@ -260,10 +379,14 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
             <button
               type="button"
               onClick={onViewDetails}
-              disabled
-              className="w-full rounded-xl border border-primary/40 text-primary/50 font-semibold py-3 px-4 cursor-not-allowed"
+              disabled={!onViewDetails}
+              className={`w-full rounded-xl border font-semibold py-3 px-4 transition-colors ${
+                onViewDetails
+                  ? 'border-primary text-primary hover:bg-primary hover:text-primary-foreground'
+                  : 'border-primary/40 text-primary/50 cursor-not-allowed'
+              }`}
             >
-              Placeholder Card
+              Credibility Markers
             </button>
           </div>
         </aside>

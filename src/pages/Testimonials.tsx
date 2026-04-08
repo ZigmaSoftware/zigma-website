@@ -45,7 +45,7 @@ import socialImg7 from "@/assets/Testimonials/social proof/social7.png";
 import socialImg8 from "@/assets/Testimonials/social proof/social8.png";
 import socialImg9 from "@/assets/Testimonials/social proof/social9.png";
 import socialImg10 from "@/assets/Testimonials/social proof/social10.png";
-import bg from "@/assets/website/hero/Testimonials-bg.png";
+import bg from "@/assets/website/hero/Testimonials-bg.jpg";
 
 
 /*TYPES*/

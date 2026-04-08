@@ -20,6 +20,18 @@ const normalizeLocationName = (name: string) => {
 
 const dedupe = (items: string[]) => Array.from(new Set(items.filter((item) => item.length > 0)));
 type ProjectBucket = "landfill" | "bsfl" | "untagged";
+const emphasizedLocations = new Set([
+  "karur",
+  "dindigul",
+  "tiruchirappalli",
+  "tiruchirapalli",
+  "vijayawada",
+  "visakhapatnam",
+]);
+const foregroundLocations = new Set(["virudhunagar"]);
+
+const isEmphasizedLocation = (site: string) => emphasizedLocations.has(site.trim().toLowerCase());
+const isForegroundLocation = (site: string) => foregroundLocations.has(site.trim().toLowerCase());
 
 interface DistrictRecord {
   site: string;
@@ -72,6 +84,9 @@ const groupByLocation = (records: DistrictRecord[]): LocationGroup[] => {
 
   return Array.from(grouped.entries()).map(([location, sites]) => ({ location, sites }));
 };
+
+const headingStyleLocations = new Set(["sripathi paper mills"]);
+const isHeadingStyleLocation = (location: string) => headingStyleLocations.has(location.trim().toLowerCase());
 
 const IndiaPresence: React.FC = () => {
   const [activeState, setActiveState] = useState<string | null>(null);
@@ -192,15 +207,21 @@ const IndiaPresence: React.FC = () => {
                         {landfillLocations.map((group) => (
                           <div key={group.location} className="mb-3 break-inside-avoid">
                             {group.location !== "Location" ? (
-                              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-0.5">
+                              <p className={isHeadingStyleLocation(group.location)
+                                ? "text-sm font-semibold text-foreground mb-0.5"
+                                : "text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-0.5"}>
                                 {group.location}
                               </p>
                             ) : null}
                             <ul className="space-y-0.5">
                               {group.sites.map((site) => (
                                 <li key={`${group.location}-${site}`} className="flex items-start gap-2 text-sm text-foreground leading-normal">
-                                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
-                                  {site}
+                                  {!isEmphasizedLocation(site) && !isForegroundLocation(site) ? (
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
+                                  ) : null}
+                                  <span className={isForegroundLocation(site) ? "font-semibold text-muted-foreground" : isEmphasizedLocation(site) ? "font-semibold text-muted-foreground" : undefined}>
+                                    {site}
+                                  </span>
                                 </li>
                               ))}
                             </ul>
@@ -217,15 +238,21 @@ const IndiaPresence: React.FC = () => {
                         {bsflLocations.map((group) => (
                           <div key={group.location} className="mb-3 break-inside-avoid">
                             {group.location !== "Location" ? (
-                              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-0.5">
+                              <p className={isHeadingStyleLocation(group.location)
+                                ? "text-sm font-semibold text-foreground mb-0.5"
+                                : "text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-0.5"}>
                                 {group.location}
                               </p>
                             ) : null}
                             <ul className="space-y-0.5">
                               {group.sites.map((site) => (
                                 <li key={`${group.location}-${site}`} className="flex items-start gap-2 text-sm text-foreground leading-normal">
-                                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
-                                  {site}
+                                  {!isEmphasizedLocation(site) && !isForegroundLocation(site) ? (
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
+                                  ) : null}
+                                  <span className={isForegroundLocation(site) ? "font-semibold text-muted-foreground" : isEmphasizedLocation(site) ? "font-semibold text-muted-foreground" : undefined}>
+                                    {site}
+                                  </span>
                                 </li>
                               ))}
                             </ul>
@@ -278,4 +305,5 @@ const IndiaPresence: React.FC = () => {
 };
 
 export default IndiaPresence;
+
 

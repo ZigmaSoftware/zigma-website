@@ -69,14 +69,26 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
             const isNagpurPhase2 = normalizedTitle === 'nagpur- phase 2' || normalizedTitle === 'nagpur - phase 2';
             const isAtladaraVadodara =
               normalizedTitle === 'atladara- vadodara' || normalizedTitle === 'atladara - vadodara';
+            const isKodungaiyurChennai =
+              normalizedTitle === 'kodungaiyur- chennai' || normalizedTitle === 'kodungaiyur - chennai';
             const showNagpurGallery = !isPrivateView && normalizedState === 'maharashtra' && isNagpurPhase2;
             const showAtladaraGallery = !isPrivateView && normalizedState === 'gujarat' && isAtladaraVadodara;
+            const showKodungaiyurGallery =
+              !isPrivateView &&
+              (normalizedState === 'tamilnadu' || normalizedState === 'tamil nadu') &&
+              isKodungaiyurChennai;
 
-            if (showNagpurGallery || showAtladaraGallery) {
+            if (showNagpurGallery || showAtladaraGallery || showKodungaiyurGallery) {
               return (
                 <ProjectGalleryCard
                   key={p.id}
-                  variant={showNagpurGallery ? 'nagpur-phase-2' : 'atladara-vadodara'}
+                  variant={
+                    showNagpurGallery
+                      ? 'nagpur-phase-2'
+                      : showAtladaraGallery
+                        ? 'atladara-vadodara'
+                        : 'kodungaiyur-chennai'
+                  }
                   onViewDetails={() => setModalId(p.id)}
                 />
               );
