@@ -4,6 +4,7 @@ interface ComparisonSliderProps {
   beforeSrc: string;
   afterSrc: string;
   isComparison?: boolean;
+  showOngoingBadge?: boolean;
 }
 
 /**
@@ -13,6 +14,7 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
   beforeSrc,
   afterSrc,
   isComparison = true,
+  showOngoingBadge = true,
 }) => {
   const [revealed, setRevealed] = useState(false);
   const sliderPos = revealed ? '100%' : '15%';
@@ -31,10 +33,12 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
           className="absolute inset-0 pointer-events-none"
           style={{ background: 'linear-gradient(130deg,rgba(0,0,0,.25) 0%,transparent 55%)' }}
         />
-        <span className="absolute left-3 top-3 z-[15] inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[0.72rem] font-bold tracking-widest bg-orange-400/90 border border-orange-200/70 text-white shadow-lg shadow-orange-900/30 backdrop-blur-sm">
-          <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
-          Ongoing
-        </span>
+        {showOngoingBadge && (
+          <span className="absolute left-3 top-3 z-[15] inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[0.72rem] font-bold tracking-widest bg-orange-400/90 border border-orange-200/70 text-white shadow-lg shadow-orange-900/30 backdrop-blur-sm">
+            <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
+            Ongoing
+          </span>
+        )}
       </div>
     );
   }

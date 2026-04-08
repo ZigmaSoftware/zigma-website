@@ -19,6 +19,59 @@ const normalizeLocationName = (name: string) => {
 };
 
 const dedupe = (items: string[]) => Array.from(new Set(items.filter((item) => item.length > 0)));
+type ProjectBucket = "landfill" | "bsfl" | "untagged";
+
+interface DistrictRecord {
+  site: string;
+  location: string;
+  bucket: ProjectBucket;
+}
+
+interface LocationGroup {
+  location: string;
+  sites: string[];
+}
+
+const parseDistrictRecord = (district: string): DistrictRecord => {
+  const raw = district.trim();
+  const parts = raw.split(" - ").map((part) => part.trim()).filter(Boolean);
+  const joined = parts.join(" - ").toLowerCase();
+
+  if (joined.includes("landfill mining")) {
+    const site = normalizeLocationName(parts[0] ?? raw);
+    return { site, location: "Location", bucket: "landfill" };
+  }
+
+  if (joined.includes("bsfl")) {
+    const site = normalizeLocationName(parts[0] ?? raw);
+    return { site, location: "Location", bucket: "bsfl" };
+  }
+
+  if (parts.length >= 2) {
+    return {
+      site: normalizeLocationName(parts[0]),
+      location: parts.slice(1).join(" - "),
+      bucket: "untagged",
+    };
+  }
+
+  const normalized = normalizeLocationName(raw);
+  return { site: normalized, location: "Location", bucket: "untagged" };
+};
+
+const groupByLocation = (records: DistrictRecord[]): LocationGroup[] => {
+  const grouped = new Map<string, string[]>();
+
+  records.forEach((record) => {
+    const existing = grouped.get(record.location) ?? [];
+    if (!existing.includes(record.site)) {
+      existing.push(record.site);
+      grouped.set(record.location, existing);
+    }
+  });
+
+  return Array.from(grouped.entries()).map(([location, sites]) => ({ location, sites }));
+};
 
 const IndiaPresence: React.FC = () => {
   const [activeState, setActiveState] = useState<string | null>(null);
@@ -27,40 +80,14 @@ const IndiaPresence: React.FC = () => {
   const currentState = selectedState || activeState;
   const currentData = currentState ? stateData[currentState] : null;
   const districtEntries = currentData?.districts ?? [];
-  const taggedLandfillLocations = dedupe(
-    districtEntries
-      .map((district) => {
-        const parts = district.split(" - ");
-        if (parts.length < 2) return "";
-        const projectName = parts.slice(1).join(" - ").toLowerCase();
-        if (!projectName.includes("landfill mining")) return "";
-        return normalizeLocationName(parts[0]);
-      }),
-  );
-  const bsflLocations = dedupe(
-    districtEntries
-      .map((district) => {
-        const parts = district.split(" - ");
-        if (parts.length < 2) return "";
-        const projectName = parts.slice(1).join(" - ").toLowerCase();
-        if (!projectName.includes("bsfl")) return "";
-        return normalizeLocationName(parts[0]);
-      }),
-  );
-  const ungroupedLocations = dedupe(
-    districtEntries
-      .map((district) => {
-        const parts = district.split(" - ");
-        if (parts.length < 2) return normalizeLocationName(district);
-        const projectName = parts.slice(1).join(" - ").toLowerCase();
-        if (projectName.includes("landfill mining") || projectName.includes("bsfl")) return "";
-        return district.trim();
-      }),
-  );
-  const landfillLocations =
-    taggedLandfillLocations.length > 0
-      ? taggedLandfillLocations
-      : ungroupedLocations;
+  const parsedDistricts = districtEntries.map(parseDistrictRecord);
+  const taggedLandfill = parsedDistricts.filter((item) => item.bucket === "landfill");
+  const taggedBsfl = parsedDistricts.filter((item) => item.bucket === "bsfl");
+  const untagged = parsedDistricts.filter((item) => item.bucket === "untagged");
+  const landfillRecords = taggedLandfill.length > 0 ? taggedLandfill : untagged;
+  const bsflRecords = taggedBsfl;
+  const landfillLocations = groupByLocation(landfillRecords);
+  const bsflLocations = groupByLocation(bsflRecords);
 
   const stateList = Object.values(stateData);
 
@@ -111,7 +138,7 @@ const IndiaPresence: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[200px_minmax(500px,800px)_300px] gap-6 items-start lg:justify-center">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[200px_minmax(500px,800px)_380px] gap-6 items-start lg:justify-center">
         {/* State Tabs - Left */}
         <div className="lg:w-[220px]">
           <div className="flex lg:flex-col flex-wrap gap-0.5">
@@ -157,32 +184,54 @@ const IndiaPresence: React.FC = () => {
               </div>
 
               {landfillLocations.length > 0 || bsflLocations.length > 0 ? (
-                <div className="mt-3 space-y-2.5">
+                <div className="mt-3 space-y-5">
                   {landfillLocations.length > 0 ? (
                     <div>
-                      <p className="text-sm font-semibold text-foreground mb-1">Landfill Mining Project</p>
-                      <ul className="space-y-0.5">
-                        {landfillLocations.map((location) => (
-                          <li key={location} className="flex items-start gap-2 text-sm text-foreground leading-normal">
-                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
-                            {location}
-                          </li>
+                      <p className="text-sm font-semibold text-foreground mb-2">Landfill Mining Project</p>
+                      <div className="columns-1 gap-8 sm:columns-2">
+                        {landfillLocations.map((group) => (
+                          <div key={group.location} className="mb-3 break-inside-avoid">
+                            {group.location !== "Location" ? (
+                              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-0.5">
+                                {group.location}
+                              </p>
+                            ) : null}
+                            <ul className="space-y-0.5">
+                              {group.sites.map((site) => (
+                                <li key={`${group.location}-${site}`} className="flex items-start gap-2 text-sm text-foreground leading-normal">
+                                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
+                                  {site}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
                   ) : null}
 
                   {bsflLocations.length > 0 ? (
                     <div>
-                      <p className="text-sm font-semibold text-foreground mb-1">BSFL Organic Waste Project</p>
-                      <ul className="space-y-0.5">
-                        {bsflLocations.map((location) => (
-                          <li key={location} className="flex items-start gap-2 text-sm text-foreground leading-normal">
-                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
-                            {location}
-                          </li>
+                      <p className="text-sm font-semibold text-foreground mb-2">BSFL Organic Waste Project</p>
+                      <div className="columns-1 gap-8 sm:columns-2">
+                        {bsflLocations.map((group) => (
+                          <div key={group.location} className="mb-3 break-inside-avoid">
+                            {group.location !== "Location" ? (
+                              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-0.5">
+                                {group.location}
+                              </p>
+                            ) : null}
+                            <ul className="space-y-0.5">
+                              {group.sites.map((site) => (
+                                <li key={`${group.location}-${site}`} className="flex items-start gap-2 text-sm text-foreground leading-normal">
+                                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
+                                  {site}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
                   ) : null}
                 </div>
@@ -229,3 +278,4 @@ const IndiaPresence: React.FC = () => {
 };
 
 export default IndiaPresence;
+

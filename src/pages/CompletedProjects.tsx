@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import {
   ProjectCard,
+  ProjectGalleryCard,
   ProjectModal,
   StateFilter,
 } from '@/features/projects/components';
@@ -36,6 +37,7 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
   const displayProjects = isPrivateView ? privateProjects : publicFilteredProjects;
 
   const activeProject = modalId !== null ? displayProjects.find((p) => p.id === modalId) ?? null : null;
+  const normalizedState = selectedState.trim().toLowerCase();
 
   return (
     <div className="min-h-screen bg-background">
@@ -62,15 +64,36 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
       {/* Projects list */}
       <main className="max-w-[1400px] mx-auto px-[5%] pb-24 flex flex-col gap-20">
         {displayProjects.map((p, i) => (
-          <ProjectCard
-            key={p.id}
-            project={p}
-            index={i}
-            total={displayProjects.length}
-            onViewDetails={(id) => setModalId(id)}
-            allProjects={projects}
-            isComparison={p.status === 'completed'}
-          />
+          (() => {
+            const normalizedTitle = p.title.trim().toLowerCase().replace(/\s+/g, ' ');
+            const isNagpurPhase2 = normalizedTitle === 'nagpur- phase 2' || normalizedTitle === 'nagpur - phase 2';
+            const isAtladaraVadodara =
+              normalizedTitle === 'atladara- vadodara' || normalizedTitle === 'atladara - vadodara';
+            const showNagpurGallery = !isPrivateView && normalizedState === 'maharashtra' && isNagpurPhase2;
+            const showAtladaraGallery = !isPrivateView && normalizedState === 'gujarat' && isAtladaraVadodara;
+
+            if (showNagpurGallery || showAtladaraGallery) {
+              return (
+                <ProjectGalleryCard
+                  key={p.id}
+                  variant={showNagpurGallery ? 'nagpur-phase-2' : 'atladara-vadodara'}
+                  onViewDetails={() => setModalId(p.id)}
+                />
+              );
+            }
+
+            return (
+              <ProjectCard
+                key={p.id}
+                project={p}
+                index={i}
+                total={displayProjects.length}
+                onViewDetails={(id) => setModalId(id)}
+                allProjects={projects}
+                isComparison={p.status === 'completed'}
+              />
+            );
+          })()
         ))}
       </main>
 

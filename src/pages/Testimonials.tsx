@@ -45,7 +45,7 @@ import socialImg7 from "@/assets/Testimonials/social proof/social7.png";
 import socialImg8 from "@/assets/Testimonials/social proof/social8.png";
 import socialImg9 from "@/assets/Testimonials/social proof/social9.png";
 import socialImg10 from "@/assets/Testimonials/social proof/social10.png";
-import bg from "@/assets/Testimonials bg.png";
+import bg from "@/assets/website/hero/Testimonials-bg.png";
 
 
 /*TYPES*/
@@ -1068,7 +1068,7 @@ const Testimonials: FC = () => {
             aria-hidden="true"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+          {/* <div className="absolute inset-0 bg-black/50" aria-hidden="true" /> */}
           {/* <div
             className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/50 to-black/35"
             aria-hidden="true"

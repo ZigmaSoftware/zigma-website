@@ -3,7 +3,7 @@ import { MapPin, Trash2, Factory, Weight, Leaf } from "lucide-react";
 import StatsSectioncp from "./StatsSectioncp";
 
 const stats = [
-  { icon: MapPin, value: 3230, suffix: "+", label: "Land Cleared" },
+  { icon: MapPin, value: 2000, suffix: "+", label: "Land Cleared" },
   { icon: Trash2, value: 600, suffix: "+", label: "Dumpsites Reclaimed" },
   { icon: Factory, value: 250, suffix: "+", label: "RDF Disposed" },
   { icon: Weight, value: 180, suffix: "+", label: "Tons Processed" },
