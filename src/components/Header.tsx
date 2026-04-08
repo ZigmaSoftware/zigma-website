@@ -106,7 +106,7 @@ const navItems: NavItem[] = [
         image: epr,
       },
       {
-        name: "UNICEIL",
+        name: "Waste Plastics Extrusion",
         path: "/services#recycled-furniture",
         image: productFurniture,
       },
@@ -386,7 +386,7 @@ const Header = () => {
                         const isWasteTechService =
                           sub.name === "Machinery Sales & Rentals";
                         const isUniceilService =
-                          sub.name === "UNICEIL";
+                          sub.name === "Waste Plastics Extrusion";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo
@@ -584,7 +584,7 @@ const Header = () => {
                         const isWasteTechService =
                           sub.name === "Machinery Sales & Rentals";
                         const isUniceilService =
-                          sub.name === "UNICEIL";
+                          sub.name === "Waste Plastics Extrusion";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo

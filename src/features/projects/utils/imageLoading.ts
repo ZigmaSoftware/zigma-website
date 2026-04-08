@@ -81,7 +81,7 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('chidambaram before.png'),
     afterImage: getProjectImageByFileName('chidambaram after.png'),
   },
-  [normalizeProjectKey('Pallavapuram')]: {
+  [normalizeProjectKey('Pallavaram')]: {
     beforeImage: getProjectImageByFileName('pallavaram before.jpg'),
     afterImage: getProjectImageByFileName('pallavaram after.png'),
   },
@@ -145,6 +145,38 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('Vizag-Phase 4-Before.jpeg'),
     afterImage: getProjectImageByFileName('Vizag Phase 4 after.jpeg'),
   },
+  [normalizeProjectKey('B. Kothakota')]: {
+    beforeImage: getProjectImageByFileName('B.Kothakota-Before.jpeg'),
+    afterImage: getProjectImageByFileName('B.Kothakota After.jpeg'),
+  },
+  [normalizeProjectKey('Kuppam')]: {
+    beforeImage: getProjectImageByFileName('Kuppam-Before.jpeg'),
+    afterImage: getProjectImageByFileName('Kuppam-After.jpeg'),
+  },
+  [normalizeProjectKey('Madanapalle')]: {
+    beforeImage: getProjectImageByFileName('Madanapalle-Before.jpeg'),
+    afterImage: getProjectImageByFileName('Madanapalle-Afte.jpeg'),
+  },
+  [normalizeProjectKey('Punganur')]: {
+    beforeImage: getProjectImageByFileName('Punganuru-Before.jpeg'),
+    afterImage: getProjectImageByFileName('Punganur-After.jpeg'),
+  },
+  [normalizeProjectKey('Sullurupeta')]: {
+    beforeImage: getProjectImageByFileName('Sulurupeta-Before.jpeg'),
+    afterImage: getProjectImageByFileName('Sullurupeta-Afte.jpeg'),
+  },
+  [normalizeProjectKey('Venkatagiri')]: {
+    beforeImage: getProjectImageByFileName('Venkatagiri-Before.jpeg'),
+    afterImage: getProjectImageByFileName('Venkatagiri-After.jpeg'),
+  },
+  [normalizeProjectKey('Alluru')]: {
+    beforeImage: getProjectImageByFileName('Allur before.jpeg'),
+    afterImage: getProjectImageByFileName('Allur after.jpeg'),
+  },
+  [normalizeProjectKey('Athipattu- Chennai')]: {
+    beforeImage: getProjectImageByFileName('Athipattu-Before.jpeg'),
+    afterImage: PLACEHOLDER_IMAGE,
+  },
   [normalizeProjectKey('Belortol Guwahati')]: {
     beforeImage: getProjectImageByFileName('Belortol.jpeg'),
     afterImage: getProjectImageByFileName('Belortol.jpeg'),
@@ -167,3 +199,4 @@ export const resolveProjectImages = (title: string): { beforeImage: string; afte
 export const getPlaceholderImage = (): string => {
   return PLACEHOLDER_IMAGE;
 };
+

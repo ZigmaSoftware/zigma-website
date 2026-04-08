@@ -1,18 +1,26 @@
 import React, { useMemo, useState } from 'react';
 import { MetricKey } from '../../types';
 import { ComparisonSlider } from '../ComparisonSlider';
-import nseZoneBAfter from '@/assets/Integrated AF Projects/NSE/Zone-B_After_30.12.2022.JPG.jpeg';
-import nseZoneBBefore from '@/assets/Integrated AF Projects/NSE/Zone-B_Before_30.10.2021.jpeg';
-import nseZoneCAfter from '@/assets/Integrated AF Projects/NSE/Zone-C_After_20.02.2024.JPG.jpeg';
-import nseZoneCBefore from '@/assets/Integrated AF Projects/NSE/Zone-C_Before_18.12.2021.JPG.jpeg';
-import nseZoneEAfter from '@/assets/Integrated AF Projects/NSE/Zone-E_After_03.02.2024.JPG.jpeg';
-import nseZoneEBefore from '@/assets/Integrated AF Projects/NSE/Zone-E_Before_24.08.2023.JPG.jpeg';
-import nseZoneFAfter from '@/assets/Integrated AF Projects/NSE/Zone-F_After_10.01.2026.JPG.jpeg';
-import nseZoneFBefore from '@/assets/Integrated AF Projects/NSE/Zone-F_Before_26.06.2021.JPG.jpeg';
+import nseZoneBAfter from '@/assets/Integrated AF Projects/NSE/Zone-1_After_30.12.2022.JPG.jpeg';
+import nseZoneBBefore from '@/assets/Integrated AF Projects/NSE/Zone-1_Before_30.10.2021.jpeg';
+import nseZoneCAfter from '@/assets/Integrated AF Projects/NSE/Zone-2_After_20.02.2024.JPG.jpeg';
+import nseZoneCBefore from '@/assets/Integrated AF Projects/NSE/Zone-2_Before_18.12.2021.JPG.jpeg';
+import nseZoneEAfter from '@/assets/Integrated AF Projects/NSE/Zone-3_After_03.02.2024.JPG.jpeg';
+import nseZoneEBefore from '@/assets/Integrated AF Projects/NSE/Zone-3_Before_24.08.2023.JPG.jpeg';
+import nseZoneFAfter from '@/assets/Integrated AF Projects/NSE/Zone-4_After_10.01.2026.JPG.jpeg';
+import nseZoneFBefore from '@/assets/Integrated AF Projects/NSE/Zone-4_Before_26.06.2021.JPG.jpeg';
+import atladaraAfterA from '@/assets/before after projects/Atladara - Vadodara/Atladara after.jpeg';
+import atladaraAfterB from '@/assets/before after projects/Atladara - Vadodara/Atladara - after.jpeg';
+import atladaraBeforeA from '@/assets/before after projects/Atladara - Vadodara/Atladara before.jpeg';
+import atladaraAfterC from '@/assets/before after projects/Atladara - Vadodara/VADODARA - ATLADAR  after.png';
+import atladaraBeforeB from '@/assets/before after projects/Atladara - Vadodara/VADODARA-ATLADARbefor.jpeg';
+import atladaraAfterD from '@/assets/before after projects/Atladara - Vadodara/WhatsApp Image 2026-04-05 at 14.42.05.jpeg';
 
 interface ProjectGalleryCardProps {
   onViewDetails?: () => void;
+  variant?: ProjectGalleryVariant;
 }
+export type ProjectGalleryVariant = 'nagpur-phase-2' | 'atladara-vadodara';
 
 interface GalleryMetric {
   key: MetricKey;
@@ -28,95 +36,94 @@ interface GalleryTile {
   afterImage: string;
   label: string;
   metricKey: MetricKey;
+  isComparison?: boolean;
+  showOngoingBadge?: boolean;
 }
 
-const METRICS: GalleryMetric[] = [
-  {
-    key: 'waste',
-    label: 'AFR Processing Capacity',
-    title: 'AFR Processing Capacity',
-    value: '--',
-    unit: 'TONS / DAY',
+const GALLERY_CONFIG: Record<
+  ProjectGalleryVariant,
+  { title: string; state: string; metrics: GalleryMetric[]; tiles: GalleryTile[] }
+> = {
+  'nagpur-phase-2': {
+    title: 'Nagpur - Phase 2',
+    state: 'Maharashtra',
+    metrics: [
+      { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '600,000', unit: 'TONS' },
+      { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '20.5', unit: 'ACRES' },
+      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '415,500', unit: 'TCO2e' },
+      { key: 'recovery', label: 'Project Duration', title: 'Project Duration', value: '2Y 4M 21D', unit: 'DURATION' },
+    ],
+    tiles: [
+      { id: 'tile-1', beforeImage: nseZoneBBefore, afterImage: nseZoneBAfter, label: 'Zone 1', metricKey: 'waste' },
+      { id: 'tile-2', beforeImage: nseZoneCBefore, afterImage: nseZoneCAfter, label: 'Zone 2', metricKey: 'land' },
+      { id: 'tile-3', beforeImage: nseZoneEBefore, afterImage: nseZoneEAfter, label: 'Zone 3', metricKey: 'co2' },
+      {
+        id: 'tile-4',
+        beforeImage: nseZoneFBefore,
+        afterImage: nseZoneFAfter,
+        label: 'Zone 4',
+        metricKey: 'recovery',
+      },
+    ],
   },
-  {
-    key: 'land',
-    label: 'People Employed',
-    title: 'People Employed',
-    value: '--',
-    unit: 'PEOPLE',
+  'atladara-vadodara': {
+    title: 'Atladara - Vadodara',
+    state: 'Gujarat',
+    metrics: [
+      { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '375,000', unit: 'TONS' },
+      { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '19', unit: 'ACRES' },
+      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '259,687.5', unit: 'TCO2e' },
+      { key: 'recovery', label: 'Project Duration', title: 'Project Duration', value: '2Y 5M 10D', unit: 'DURATION' },
+    ],
+    tiles: [
+      { id: 'tile-1', beforeImage: atladaraBeforeA, afterImage: atladaraAfterA, label: 'Zone 1', metricKey: 'waste' },
+      { id: 'tile-2', beforeImage: atladaraBeforeB, afterImage: atladaraAfterC, label: 'Zone 2', metricKey: 'land' },
+      { id: 'tile-3', beforeImage: atladaraBeforeA, afterImage: atladaraAfterB, label: 'Zone 3', metricKey: 'co2' },
+      {
+        id: 'tile-4',
+        beforeImage: atladaraAfterD,
+        afterImage: atladaraAfterD,
+        label: 'Zone 4',
+        metricKey: 'recovery',
+        isComparison: false,
+        showOngoingBadge: false,
+      },
+    ],
   },
-  {
-    key: 'co2',
-    label: 'AFR Storage Capacity',
-    title: 'AFR Storage Capacity',
-    value: '--',
-    unit: 'TONS',
-  },
-  {
-    key: 'recovery',
-    label: 'Contract Period',
-    title: 'Contract Period',
-    value: '--',
-    unit: 'YEAR',
-  },
-];
+};
 
-const TILES: GalleryTile[] = [
-  {
-    id: 'tile-1',
-    beforeImage: nseZoneBBefore,
-    afterImage: nseZoneBAfter,
-    label: 'Zone B',
-    metricKey: 'waste',
-  },
-  {
-    id: 'tile-2',
-    beforeImage: nseZoneCBefore,
-    afterImage: nseZoneCAfter,
-    label: 'Zone C',
-    metricKey: 'land',
-  },
-  {
-    id: 'tile-3',
-    beforeImage: nseZoneEBefore,
-    afterImage: nseZoneEAfter,
-    label: 'Zone E',
-    metricKey: 'co2',
-  },
-  {
-    id: 'tile-4',
-    beforeImage: nseZoneFBefore,
-    afterImage: nseZoneFAfter,
-    label: 'Zone F',
-    metricKey: 'recovery',
-  },
-];
-
-export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({ onViewDetails }) => {
+export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
+  onViewDetails,
+  variant = 'nagpur-phase-2',
+}) => {
+  const config = GALLERY_CONFIG[variant];
+  const { title, state, metrics, tiles } = config;
   const [activeMetric, setActiveMetric] = useState<MetricKey>('waste');
   const [activeTileId, setActiveTileId] = useState<string>('tile-1');
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const currentMetric = useMemo(
-    () => METRICS.find((metric) => metric.key === activeMetric) ?? METRICS[0],
-    [activeMetric],
+    () => metrics.find((metric) => metric.key === activeMetric) ?? metrics[0],
+    [activeMetric, metrics],
   );
 
   const currentTile = useMemo(
-    () => TILES.find((tile) => tile.id === activeTileId) ?? TILES[0],
-    [activeTileId],
+    () => tiles.find((tile) => tile.id === activeTileId) ?? tiles[0],
+    [activeTileId, tiles],
   );
+  const isComparison = currentTile.isComparison ?? true;
+  const showOngoingBadge = currentTile.showOngoingBadge ?? true;
 
   return (
     <article className="flex flex-col gap-4">
       <div className="flex text-left gap-2 flex-col md:flex-row md:items-center">
-        <h2 className="text-3xl leading-tight text-slate-900 font-bold">Nagpur - Phase 2</h2>
+        <h2 className="text-3xl leading-tight text-slate-900 font-bold">{title}</h2>
         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
             <circle cx="12" cy="10" r="3" />
           </svg>
-          Maharashtra
+          {state}
         </span>
       </div>
 
@@ -125,10 +132,15 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({ onViewDe
         style={{ boxShadow: '0 16px 44px rgba(0,0,0,0.18)' }}
       >
         <div className="relative min-h-[520px] lg:flex-1 bg-black">
-          <ComparisonSlider beforeSrc={currentTile.beforeImage} afterSrc={currentTile.afterImage} isComparison />
+          <ComparisonSlider
+            beforeSrc={currentTile.beforeImage}
+            afterSrc={currentTile.afterImage}
+            isComparison={isComparison}
+            showOngoingBadge={showOngoingBadge}
+          />
 
           <div className="absolute left-4 right-4 bottom-4 z-20 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {TILES.map((tile) => {
+            {tiles.map((tile) => {
               const isActive = tile.id === activeTileId;
               return (
                 <button
@@ -136,7 +148,8 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({ onViewDe
                   type="button"
                   onClick={() => {
                     setActiveTileId(tile.id);
-                    setActiveMetric(tile.metricKey);
+                    setActiveMetric('land');
+                    setDetailsOpen(true);
                   }}
                   className={`group relative overflow-hidden rounded-md border bg-black/30 transition-all ${
                     isActive
@@ -208,7 +221,7 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({ onViewDe
           </div>
 
           <div className="flex flex-col lg:flex-1 lg:min-h-0 lg:overflow-y-auto">
-            {METRICS.map((metric) => {
+            {metrics.map((metric) => {
               const isActive = metric.key === activeMetric;
               return (
                 <button
@@ -258,4 +271,3 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({ onViewDe
     </article>
   );
 };
-

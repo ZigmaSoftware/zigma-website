@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 
 import bg from "@/assets/background-1.png";
-import picture1 from "@/assets/website/war room.jpeg";
+import picture1 from "@/assets/website/hero/career-bg.jpeg";
 
 import {
   Send,
