@@ -136,7 +136,8 @@ const navItems: NavItem[] = [
     { name: " Landfill Mining", path: "/projects" },
     { name: "BSFL Organic Waste", path: "/projects?category=bsfl-organic-waste" },
     { name: "Integrated AF Projects", path: "/projects?category=integrated-af-projects" },
-    { name: "Waste Plastics Extrusion Projects", path: "/projects/gallery" },
+    // { name: "Waste Plastics Extrusion Projects", path: "/projects/gallery" },
+    { name: "Waste Plastics Extrusion Projects", path: "/projects" },
     
   
   ],
