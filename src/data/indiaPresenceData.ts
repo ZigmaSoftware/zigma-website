@@ -46,14 +46,14 @@ export const stateData: Record<string, StateData> = {
       "Perungudi - Chennai",
       "Kumbakonam - Thanjavur",
        "Keeramangalam - Pudukkottai",
-       "Karaikudi  - Sivaganga",
+       "Karaikudi - Sivaganga",
    
       
-      "Karur",
-      "Dindigul",
-      "Tiruchirappalli",
-      "Virudhunagar - Sripathi Paper Mills",
-      "Sivakasi - Sripathi Paper Mills",
+      "Karur - Karur",
+      "Dindigul - Dindigul",
+      "Tiruchirappalli - Tiruchirappalli",
+      "Sivakasi - Virudhunagar - Integrated Alternative Fuel",
+      "Sulur - Coimbatore - Waste Plastics Extrusion",
       
 
     ],
@@ -67,9 +67,9 @@ export const stateData: Record<string, StateData> = {
     landfillMining: "Kollam",
     bsflProject: "Kochi",
     districts: [
-      "Kollam - Landfill Mining Project",
-      "Kozhikode - Landfill Mining Project",
-      "Kochi - BSFL Organic Waste Project",
+      "Kollam - Kollam - Landfill Mining Project",
+      "Kozhikode - Kozhikode - Landfill Mining Project",
+      "Kochi - Ernakulam - BSFL Organic Waste Project",
     ],
   },
   "andhra-pradesh": {
@@ -87,7 +87,7 @@ export const stateData: Record<string, StateData> = {
       "B. Kothakota - Chittoor",
 
       "Kuppam - Chittoor",
-      "Madanapalle -  Annamayya",
+      "Madanapalle - Annamayya",
       "Palamaneru - Chittoor",
       "Punganur - Chittoor",
       "Nagari - Chittoor",
@@ -106,8 +106,9 @@ export const stateData: Record<string, StateData> = {
       "Kavali - Nellore",
       "Nayudupeta - Nellore",
       
-      "Vijayawada",
-      "Visakhapatnam",
+      "Vijayawada - NTR",
+      "Visakhapatnam - Visakhapatnam",
+      "Kadapa - Kadapa - Integrated Alternative Fuel",
     ],
   },
   gujarat: {
@@ -149,8 +150,8 @@ export const stateData: Record<string, StateData> = {
     description: "Scaling landfill reclamation across key urban centers.",
     landfillMining: "Noida",
     districts: [
-      "  NOIDA -Sector 54",
-      "  NOIDA -Sector 145"
+      "NOIDA - Sector 54 - Gautam Buddha Nagar",
+      "NOIDA - Sector 145 - Gautam Buddha Nagar"
     ],
   },
   haryana: {
@@ -160,7 +161,7 @@ export const stateData: Record<string, StateData> = {
     completed: 0,
     description: "Urban landfill reclamation and waste processing initiatives.",
     landfillMining: "Gurugram",
-    districts: ["Gurugram"],
+    districts: ["Gurugram - Gurugram"],
   },
   puducherry: {
     id: "puducherry",
@@ -169,7 +170,7 @@ export const stateData: Record<string, StateData> = {
     completed: 1,
     description: "Urban landfill reclamation and waste processing initiatives.",
     landfillMining: "Puducherry",
-    districts: ["Puducherry"],
+    districts: ["Puducherry - Puducherry"],
   },
 };
 

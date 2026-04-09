@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef, useCallback, FC } from "react";
+import { useState, useEffect, useRef, useCallback, FC } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -45,7 +45,7 @@ import socialImg7 from "@/assets/Testimonials/social proof/social7.png";
 import socialImg8 from "@/assets/Testimonials/social proof/social8.png";
 import socialImg9 from "@/assets/Testimonials/social proof/social9.png";
 import socialImg10 from "@/assets/Testimonials/social proof/social10.png";
-import bg from "@/assets/website/hero/Testimonials-bg.jpg";
+import bg from "@/assets/website/hero/Testimonials-bg.jpeg";
 
 
 /*TYPES*/
@@ -1296,11 +1296,6 @@ const Testimonials: FC = () => {
                       </span>
                     </div>
 
-                    <div className="flex h-[88px] items-center p-4 sm:h-[92px]">
-                      <h3 className="line-clamp-2 text-sm font-semibold text-foreground sm:text-base">
-                        {video.title}
-                      </h3>
-                    </div>
                   </button>
                 </article>
               </Reveal>
@@ -1353,7 +1348,7 @@ const Testimonials: FC = () => {
           </div>
         )}
 
-        {/* ════════ SOCIAL PROOF WALL ════════ */}
+        {/* -------- SOCIAL PROOF WALL -------- */}
         {/* <section className="section-padding">
           <div className="container-main text-center">
           <Reveal className="inline-flex items-center gap-2">
