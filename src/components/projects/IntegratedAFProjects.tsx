@@ -3,6 +3,7 @@ import bharathiImg1 from "@/assets/Integrated AF Projects/Bharathi-VICAT Facilit
 import bharathiImg2 from "@/assets/Integrated AF Projects/Bharathi-VICAT Facility/DJI_20250419111908_0125_D.jpg";
 import bharathiImg3 from "@/assets/Integrated AF Projects/Bharathi-VICAT Facility/DJI_20250419112400_0131_D.jpg";
 import bharathiImg4 from "@/assets/Integrated AF Projects/Bharathi-VICAT Facility/DJI_20250419112744_0138_D.jpg";
+import bharathiImg5 from "@/assets/website/hero/rdf-plant.jpg.jpeg";
 import sripathiImg1 from "@/assets/Integrated AF Projects/Sripathi Paper Mills Facility/DJI_0015.jpg";
 import sripathiImg2 from "@/assets/Integrated AF Projects/Sripathi Paper Mills Facility/DJI_0046.jpg";
 import sripathiImg3 from "@/assets/Integrated AF Projects/Sripathi Paper Mills Facility/image.png";
@@ -105,6 +106,14 @@ const FACILITIES: Facility[] = [
         image: bharathiImg4,
         metricId: "bharathi-contract",
         bottomLabel: "Contract",
+      },
+      {
+        id: "bharathi-rdf-plant",
+        title: "RDF Plant",
+        description: "Additional view of Bharathi - VICAT facility.",
+        image: bharathiImg5,
+        metricId: "bharathi-contract",
+        bottomLabel: "RDF Plant",
       },
     ],
   },
