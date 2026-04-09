@@ -22,11 +22,31 @@ const PROJECT_IMAGE_BY_FILE_NAME = Object.entries(PROJECT_IMAGE_MODULES).reduce<
   return acc;
 }, {});
 
+const PROJECT_IMAGE_BY_RELATIVE_PATH = Object.entries(PROJECT_IMAGE_MODULES).reduce<
+  Record<string, string>
+>((acc, [path, url]) => {
+  const marker = '/assets/before after projects/';
+  const markerIndex = path.toLowerCase().indexOf(marker);
+  if (markerIndex !== -1) {
+    const relativePath = path.slice(markerIndex + marker.length).toLowerCase();
+    acc[relativePath] = url;
+  }
+  return acc;
+}, {});
+
 /**
  * Get project image by file name
  */
 export const getProjectImageByFileName = (fileName: string): string => {
   return PROJECT_IMAGE_BY_FILE_NAME[fileName.toLowerCase()] ?? PLACEHOLDER_IMAGE;
+};
+
+/**
+ * Get project image by relative path from "assets/before after projects"
+ */
+export const getProjectImageByRelativePath = (relativePath: string): string => {
+  const normalizedPath = relativePath.replace(/\\/g, '/').toLowerCase();
+  return PROJECT_IMAGE_BY_RELATIVE_PATH[normalizedPath] ?? PLACEHOLDER_IMAGE;
 };
 
 /**
@@ -142,8 +162,12 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     afterImage: getProjectImageByFileName('Vizag-Phase 3-After.jpeg'),
   },
   [normalizeProjectKey('Visakhapatnam- Phase 4')]: {
-    beforeImage: getProjectImageByFileName('Vizag-Phase 4-Before.jpeg'),
-    afterImage: getProjectImageByFileName('Vizag Phase 4 after.jpeg'),
+    beforeImage: getProjectImageByRelativePath('ongoing/Visakhapatnam - Phase 4.jpeg'),
+    afterImage: getProjectImageByRelativePath('ongoing/Visakhapatnam - Phase 4.jpeg'),
+  },
+  [normalizeProjectKey('Nagpur- Phase 4')]: {
+    beforeImage: getProjectImageByFileName('Nagpur Bhandewadi-before.jpg'),
+    afterImage: getProjectImageByRelativePath('ongoing/Visakhapatnam - Phase 4.jpeg'),
   },
   [normalizeProjectKey('B. Kothakota')]: {
     beforeImage: getProjectImageByFileName('B.Kothakota-Before.jpeg'),

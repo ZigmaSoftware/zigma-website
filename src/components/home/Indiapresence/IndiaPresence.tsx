@@ -1,111 +1,30 @@
 import React, { useState } from "react";
 import IndiaMapSVG from "./IndiaMapSVG";
 import { stateData, legendItems } from "@/data/indiaPresenceData";
-
-const normalizeLocationName = (name: string) => {
-  const trimmed = name.trim();
-
-  if (/^NOIDA-/i.test(trimmed)) return "NOIDA";
-  if (/^Makkarpura/i.test(trimmed)) return "Makkarpura";
-  if (/^Perungudi Package-/i.test(trimmed)) return "Perungudi";
-  if (/^Vizag New$/i.test(trimmed) || /^GVMC Vizag$/i.test(trimmed)) return "Vizag";
-  if (/^Nagpur Smart City$/i.test(trimmed) || /^NMC-Project/i.test(trimmed)) return "Nagpur";
-  if (/^Pondy/i.test(trimmed)) return "Pondy";
-  if (/^Trichy New$/i.test(trimmed)) return "Trichy";
-  if (/^KDG-PG\d+$/i.test(trimmed)) return "Kodungaiyur";
-  if (/^Erode Muthusamy Colony$/i.test(trimmed)) return "Erode";
-
-  return trimmed;
-};
-
-const dedupe = (items: string[]) => Array.from(new Set(items.filter((item) => item.length > 0)));
-type ProjectBucket = "landfill" | "bsfl" | "untagged";
-const emphasizedLocations = new Set([
-  "karur",
-  "dindigul",
-  "tiruchirappalli",
-  "tiruchirapalli",
-  "vijayawada",
-  "visakhapatnam",
-]);
-const foregroundLocations = new Set(["virudhunagar"]);
-
-const isEmphasizedLocation = (site: string) => emphasizedLocations.has(site.trim().toLowerCase());
-const isForegroundLocation = (site: string) => foregroundLocations.has(site.trim().toLowerCase());
-
-interface DistrictRecord {
-  site: string;
-  location: string;
-  bucket: ProjectBucket;
-}
-
-interface LocationGroup {
-  location: string;
-  sites: string[];
-}
-
-const parseDistrictRecord = (district: string): DistrictRecord => {
-  const raw = district.trim();
-  const parts = raw.split(" - ").map((part) => part.trim()).filter(Boolean);
-  const joined = parts.join(" - ").toLowerCase();
-
-  if (joined.includes("landfill mining")) {
-    const site = normalizeLocationName(parts[0] ?? raw);
-    return { site, location: "Location", bucket: "landfill" };
-  }
-
-  if (joined.includes("bsfl")) {
-    const site = normalizeLocationName(parts[0] ?? raw);
-    return { site, location: "Location", bucket: "bsfl" };
-  }
-
-  if (parts.length >= 2) {
-    return {
-      site: normalizeLocationName(parts[0]),
-      location: parts.slice(1).join(" - "),
-      bucket: "untagged",
-    };
-  }
-
-  const normalized = normalizeLocationName(raw);
-  return { site: normalized, location: "Location", bucket: "untagged" };
-};
-
-const groupByLocation = (records: DistrictRecord[]): LocationGroup[] => {
-  const grouped = new Map<string, string[]>();
-
-  records.forEach((record) => {
-    const existing = grouped.get(record.location) ?? [];
-    if (!existing.includes(record.site)) {
-      existing.push(record.site);
-      grouped.set(record.location, existing);
-    }
-  });
-
-  return Array.from(grouped.entries()).map(([location, sites]) => ({ location, sites }));
-};
-
-const headingStyleLocations = new Set(["sripathi paper mills"]);
-const isHeadingStyleLocation = (location: string) => headingStyleLocations.has(location.trim().toLowerCase());
+import {
+  bucketizeDistricts,
+} from "./indiaPresenceUtils";
+import { ProjectBucketSection } from "./ProjectBucketSection";
 
 const IndiaPresence: React.FC = () => {
   const [activeState, setActiveState] = useState<string | null>(null);
   const [selectedState, setSelectedState] = useState<string | null>(null);
 
+  // ====== COMPUTE DERIVED STATE ======
   const currentState = selectedState || activeState;
   const currentData = currentState ? stateData[currentState] : null;
   const districtEntries = currentData?.districts ?? [];
-  const parsedDistricts = districtEntries.map(parseDistrictRecord);
-  const taggedLandfill = parsedDistricts.filter((item) => item.bucket === "landfill");
-  const taggedBsfl = parsedDistricts.filter((item) => item.bucket === "bsfl");
-  const untagged = parsedDistricts.filter((item) => item.bucket === "untagged");
-  const landfillRecords = taggedLandfill.length > 0 ? taggedLandfill : untagged;
-  const bsflRecords = taggedBsfl;
-  const landfillLocations = groupByLocation(landfillRecords);
-  const bsflLocations = groupByLocation(bsflRecords);
+  const singleColumnBuckets = currentData?.id === "Keralam";
+  const {
+    landfillLocations,
+    bsflLocations,
+    integratedLocations,
+    wastePlasticsExtrusionLocations,
+  } = bucketizeDistricts(districtEntries);
 
   const stateList = Object.values(stateData);
 
+  // ====== EVENT HANDLERS ======
   const handleStateHover = (stateId: string | null) => {
     setActiveState(stateId);
   };
@@ -198,82 +117,36 @@ const IndiaPresence: React.FC = () => {
                 </h2>
               </div>
 
-              {landfillLocations.length > 0 || bsflLocations.length > 0 ? (
+              {landfillLocations.length > 0 ||
+              bsflLocations.length > 0 ||
+              integratedLocations.length > 0 ||
+              wastePlasticsExtrusionLocations.length > 0 ? (
                 <div className="mt-3 space-y-5">
-                  {landfillLocations.length > 0 ? (
-                    <div>
-                      <p className="text-sm font-semibold text-foreground mb-2">Landfill Mining Project</p>
-                      <div className="columns-1 gap-8 sm:columns-2">
-                        {landfillLocations.map((group) => (
-                          <div key={group.location} className="mb-3 break-inside-avoid">
-                            {group.location !== "Location" ? (
-                              <p className={isHeadingStyleLocation(group.location)
-                                ? "text-sm font-semibold text-foreground mb-0.5"
-                                : "text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-0.5"}>
-                                {group.location}
-                              </p>
-                            ) : null}
-                            <ul className="space-y-0.5">
-                              {group.sites.map((site) => (
-                                <li key={`${group.location}-${site}`} className="flex items-start gap-2 text-sm text-foreground leading-normal">
-                                  {!isEmphasizedLocation(site) && !isForegroundLocation(site) ? (
-                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
-                                  ) : null}
-                                  <span className={isForegroundLocation(site) ? "font-semibold text-muted-foreground" : isEmphasizedLocation(site) ? "font-semibold text-muted-foreground" : undefined}>
-                                    {site}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ) : null}
+                  <ProjectBucketSection
+                    title="Landfill Mining"
+                    locations={landfillLocations}
+                    singleColumn={singleColumnBuckets}
+                  />
+                  <ProjectBucketSection
+                    title="BSFL Organic Waste Project"
+                    locations={bsflLocations}
+                    singleColumn={singleColumnBuckets}
+                  />
+                  <ProjectBucketSection
+                    title="Integrated Alternative Fuel"
+                    locations={integratedLocations}
+                    singleColumn={singleColumnBuckets}
+                  />
+                  <ProjectBucketSection
+                    title="Waste Plastics Extrusion"
+                    locations={wastePlasticsExtrusionLocations}
+                    singleColumn={singleColumnBuckets}
+                  />
 
-                  {bsflLocations.length > 0 ? (
-                    <div>
-                      <p className="text-sm font-semibold text-foreground mb-2">BSFL Organic Waste Project</p>
-                      <div className="columns-1 gap-8 sm:columns-2">
-                        {bsflLocations.map((group) => (
-                          <div key={group.location} className="mb-3 break-inside-avoid">
-                            {group.location !== "Location" ? (
-                              <p className={isHeadingStyleLocation(group.location)
-                                ? "text-sm font-semibold text-foreground mb-0.5"
-                                : "text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-0.5"}>
-                                {group.location}
-                              </p>
-                            ) : null}
-                            <ul className="space-y-0.5">
-                              {group.sites.map((site) => (
-                                <li key={`${group.location}-${site}`} className="flex items-start gap-2 text-sm text-foreground leading-normal">
-                                  {!isEmphasizedLocation(site) && !isForegroundLocation(site) ? (
-                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/70" aria-hidden="true" />
-                                  ) : null}
-                                  <span className={isForegroundLocation(site) ? "font-semibold text-muted-foreground" : isEmphasizedLocation(site) ? "font-semibold text-muted-foreground" : undefined}>
-                                    {site}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ) : null}
+                  
+
                 </div>
               ) : null}
-{/* 
-              <div className="flex gap-6">
-                <div>
-                  <p className="text-2xl font-bold text-primary">{currentData.ongoing}</p>
-                  <p className="text-md text-muted-foreground uppercase tracking-wider">Ongoing</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-accent">{currentData.completed}</p>
-                  <p className="text-md text-muted-foreground uppercase tracking-wider">Completed</p>
-                </div>
-              </div> */}
             </div>
           ) : (
             <div className="bg-card border border-border rounded-sm p-6 shadow-sm">

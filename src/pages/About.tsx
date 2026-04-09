@@ -1,5 +1,5 @@
-﻿import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+﻿import { useCallback, useEffect, useRef, useState, } from 'react';
+import { ChevronLeft, ChevronRight, Pause, Play, FileText, Shield, Lock, Users, ArrowUpRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Header from '@/components/Header';
@@ -47,7 +47,13 @@ import milestone2023 from '@/assets/milestone/KDG inauguration picture.jpg';
 import milestone2024 from '@/assets/milestone/AVPN event.jpg';
 import milestone2026 from '@/assets/milestone/KSWMP awarding Kozhikode project.jpeg';
 
+import Pdf1 from '@/assets/Pdf Files/ABAC-AML-Policies-Zigma-Global.pdf';
+import Pdf2 from '@/assets/Pdf Files/Amended_Zigma-Global-Whistle-Blower-Policy-Clean.pdf';
+import Pdf3 from '@/assets/Pdf Files/Zigma-Privacy-Policy.pdf';
+import Pdf4 from '@/assets/Pdf Files/Zigma_PDPA Policy.pdf';
 
+
+ 
 gsap.registerPlugin(ScrollTrigger);
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
@@ -467,6 +473,46 @@ const About = (): JSX.Element => {
 
   const currentMilestone = milestones[currentIndex];
 
+   const policies = [
+    {
+      id: 'abac-aml',
+      title: 'ABAC & AML Policies',
+      description: 'Anti-bribery, anti-corruption, and anti-money laundering framework with governance controls.',
+      updated: 'February 2024',
+      file: Pdf1,
+      icon: Shield,
+      accent: 'from-[hsl(145_63%_32%)] to-[hsl(145_63%_32%)]'
+    },
+    {
+      id: 'whistleblower',
+      title: 'Whistle Blower Policy',
+      description: 'Confidential reporting channels, protection against retaliation, and investigation procedures.',
+      updated: 'October 2025',
+      file: Pdf2,
+      icon: Users,
+      accent: 'from-[hsl(145_63%_32%)] to-[hsl(145_63%_32%)]'
+    },
+    {
+      id: 'privacy',
+      title: 'Privacy Policy',
+      description: 'How we collect, use, and protect personal data across our digital and on-site operations.',
+      updated: 'December 2025',
+      file: Pdf3,
+      icon: Lock,
+      accent: 'from-[hsl(145_63%_32%)] to-[hsl(145_63%_32%)]'
+    },
+    {
+      id: 'pdpa',
+      title: 'PDPA Policy',
+      description: 'Personal Data Protection compliance with strong governance and security controls.',
+      updated: 'September 2025',
+      file: Pdf4,
+      icon: FileText,
+      accent: 'from-[hsl(145_63%_32%)] to-[hsl(145_63%_32%)]'
+    }
+  ];
+
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -825,6 +871,71 @@ This realization became the turning point. A group of serial entrepreneurs from 
             ))}
           </div>
         </section>
+
+         {/* Policies Grid */}
+        <section className=" container-main section-padding">
+          <div className="flex flex-col gap-3 mb-10 ">
+
+
+            <div className="text-center">
+
+              <p className="text-xs md:text-sm uppercase tracking-[0.35em]  text-muted-foreground">
+                Governance Policy Library
+              </p>
+
+              <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                Compliance & Ethical <span className="text-primary">Framework</span>
+
+              </h2>
+              <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-center text-sm md:text-lg  ">
+                Each document is reviewed on a defined cycle and versioned for audit traceability.
+
+              </p>
+            </div>
+          </div>
+
+          <div className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {policies.map((policy) => {
+              const Icon = policy.icon;
+              return (
+                <article
+                  key={policy.id}
+                  className="group flex h-full flex-col rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <div className={`h-1.5 w-full rounded-t-2xl bg-gradient-to-r ${policy.accent}`} />
+                  <div className=" p-6  flex h-full flex-col">
+                    <div className="flex justify-center">
+                      <div className="flex h-12 w-12 items-center justify-center">
+                        <Icon className="w-8 h-8 text-[hsl(145_63%_32%)]" />
+                      </div>
+                    </div>
+                    <h3 className="mt-4 text-lg font-semibold text-foreground text-center">
+                      {policy.title}
+                    </h3>
+                    <p className="mt-3 text-md text-muted-foreground text-center">
+                      {policy.description}
+                    </p>
+
+
+                    <div className="mt-auto pt-6 flex flex-col gap-3">
+
+                      <a
+                        href={policy.file}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-[hsl(145_63%_32%)] hover:text-[hsl(145_63%_32%)]"
+                      >
+                        View
+                        <ArrowUpRight className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
 
       </main>
       <Footer />
