@@ -37,7 +37,7 @@ interface Facility {
 const FACILITIES: Facility[] = [
   {
     id: "bharathi-vicat",
-    title: "Bharathi - VICAT",
+    title: "Bharathi - VICAT- Kadapa",
     state: "Andhra Pradesh",
     metrics: [
       {
@@ -110,7 +110,7 @@ const FACILITIES: Facility[] = [
   },
   {
     id: "sripathi-paper-mills",
-    title: "Sripathi Paper Mills",
+    title: "Sripathi Paper Mills - Sivakasi",
     state: "Tamilnadu",
     metrics: [
       {

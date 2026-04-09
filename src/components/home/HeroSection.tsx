@@ -6,12 +6,12 @@ import ScrollToTop from "@/components/ScrollToTop";
 import img1 from "@/assets/website/hero/noida-present-hero.jpg";
 import img2 from "@/assets/website/hero/landfill-mining-hero.jpg";
 import img3 from "@/assets/website/hero/Pdgclose.jpg";
-import img4 from "@/assets/website/hero/Furnitures.png";
+import img4 from "@/assets/website/hero/wpe-product.jpeg";
 import img5 from "@/assets/services/kumbakonam.png";
 import img6 from "@/assets/website/hero/vairapalayam.png";
 import img7 from "@/assets/website/hero/kdg.png";
-import img8 from "@/assets/website/hero/controll room.png";
-import img9 from "@/assets/website/hero/RDF1.jpeg";
+import img8 from "@/assets/website/hero/war-room.jpeg";
+import img9 from "@/assets/website/hero/rdf-plant.jpg.jpeg";
 // import herobg from "@/assets/services/kumbakonam.png";
 
 
