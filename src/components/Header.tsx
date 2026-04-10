@@ -26,6 +26,7 @@ import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import epr from "@/assets/services/EPR.png";
 import uniceilLogo from "@/assets/Products/uniceil_transparent.png";
+
 // import 
 
 
@@ -148,11 +149,15 @@ const navItems: NavItem[] = [
     name: "News Room",
     path: "/media",
     dropdown: [
-      { name: "In the News", path: "/Media" },
+      { name: "In The News", path: "/newsroom" },
       { name: "Publications", path: "/publications" },
       { name: "Newsletters", path: "/newsletters" },
       { name: "Awards and Recognitions", path: "/AwardsandRecognition" },
-      { name: "Testimonials", path: "/Testimonials" },  
+      { name: "Testimonials", path: "/Testimonials" },
+      // { name: "Newsroom", path: "/newsroom" },
+
+      // { name: "Cascadeslider", path: "/cascadeslider" }, 
+      // { name: "Fullscreenslider", path: "/fullscreenslider" },
     
     ],
   },

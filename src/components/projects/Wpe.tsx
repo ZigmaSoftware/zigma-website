@@ -257,7 +257,7 @@ const Wpe: React.FC = () => {
                     setSelectedMetric(item.id);
                     setDetailsOpen(true);
                   }}
-                  className={`group border-b h-20 border-border text-left px-5 py-4 transition-colors ${
+                  className={`group border-b h-24 border-border text-left px-5 py-4 transition-colors ${
                     isActive ? "bg-primary/10" : ""
                   }`}
                 >
