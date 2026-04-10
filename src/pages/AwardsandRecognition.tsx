@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import FullScreenSlider from "./Fullscreenslider";
 
 import Award1 from "@/assets/Awards/award1.jpg";
 import Award2 from "@/assets/Awards/award2.jpg";
@@ -184,29 +184,6 @@ const metrics: Metric[] = [
 ];
 
 export default function AwardsandRecognition(): JSX.Element {
-  const [activeAward, setActiveAward] = useState<Award | null>(null);
-  const detailsRef = useRef<HTMLElement | null>(null);
-  const detailsImageRef = useRef<HTMLDivElement | null>(null);
-
-  const scrollToAwardDetails = () => {
-    const targetElement = detailsRef.current ?? detailsImageRef.current;
-    if (!targetElement) return;
-
-    const headerElement = document.querySelector("header");
-    const headerOffset = headerElement instanceof HTMLElement ? headerElement.offsetHeight + 12 : 108;
-    const targetY = targetElement.getBoundingClientRect().top + window.scrollY - headerOffset;
-
-    window.scrollTo({
-      top: Math.max(targetY, 0),
-      behavior: "smooth",
-    });
-  };
-
-  const handleCardClick = (award: Award) => {
-    setActiveAward(award);
-    requestAnimationFrame(() => requestAnimationFrame(scrollToAwardDetails));
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <ScrollToTop />
@@ -231,40 +208,7 @@ export default function AwardsandRecognition(): JSX.Element {
           </div>
         </section>
 
-        {activeAward && (
-          <section ref={detailsRef} className="section-padding pt-4 pb-8 md:pt-6 md:pb-10 bg-white scroll-mt-24 lg:scroll-mt-28">
-            <div className="container-main">
-              <div className="text-xs uppercase tracking-[0.26em] text-muted-foreground font-medium">Top Story</div>
-              <h2 className="mt-1 text-xl md:text-2xl font-bold text-foreground">
-                Award <span className="text-primary">Details</span>
-              </h2>
 
-              <div className="mt-3 border border-slate-200 bg-card overflow-hidden">
-                <div className="grid grid-cols-1 lg:grid-cols-2 ">
-                  <div className="flex h-full flex-col justify-center p-4 space-y-4 lg:p-5">
-                    <p className="text-md text-muted-foreground">
-                      {activeAward.org} - {activeAward.year}
-                    </p>
-                    <h3 className="mt-2 text-xl lg:text-2xl font-bold text-foreground leading-snug">
-                      {activeAward.title}
-                    </h3>
-                    <p className="mt-3 text-lg lg:text-lg text-slate-600 leading-relaxed text-justify">
-                      {activeAward.desc}
-                    </p>
-                  </div>
-
-                    <div ref={detailsImageRef} className="relative h-[300px] overflow-hidden bg-white p-2">
-                    <img
-                      src={activeAward.img}
-                      alt={`${activeAward.title} certificate`}
-                      className="w-full h-full object-contain bg-white"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* <section className="section-padding bg-white scroll-mt-24 lg:scroll-mt-28">
           <div className="container-main">
@@ -287,40 +231,25 @@ export default function AwardsandRecognition(): JSX.Element {
           </div>
         </section> */}
 
-        <section className="section-padding bg-gradient-to-br from-slate-50 to-slate-100 scroll-mt-24 lg:scroll-mt-28">
+        {/* Awards Interactive Slider */}
+        <section className="section-padding bg-white scroll-mt-24 lg:scroll-mt-28">
           <div className="container-main">
-            <div>
-              <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Awards Gallery</span>
+            <div className="text-center mb-8">
+              <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Awards Showcase</span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">
-                Certificates And <span className="text-primary">Recognitions</span>
+                Our <span className="text-primary">Achievements</span>
               </h2>
+              <p className="mt-3 text-lg text-slate-600 max-w-2xl mx-auto">
+                Browse through our collection of certifications and industry recognitions
+              </p>
             </div>
-
-            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-2">
-              {awards.map((award) => (
-                <button
-                  key={award.id}
-                  type="button"
-                  className="flex items-center gap-3.5 border border-slate-200 bg-white p-3.5 text-left shadow-sm transition hover:border-primary/40"
-                  onClick={() => handleCardClick(award)}
-                >
-                  <img
-                    src={award.img}
-                    alt={`${award.title} certificate`}
-                    className="h-24 w-28 flex-shrink-0 object-cover"
-                    loading="lazy"
-                  />
-                  <div className="min-w-0">
-                    <h4 className="line-clamp-2 font-semibold text-foreground">{award.title}</h4>
-                    <p className="mt-1 line-clamp-1 text-sm text-slate-500">
-                      {award.org} - {award.year}
-                    </p>
-                  </div>
-                </button>
-              ))}
+            <div className="mt-8">
+              <FullScreenSlider />
             </div>
           </div>
         </section>
+
+
       </main>
 
       <Footer />

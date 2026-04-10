@@ -8,6 +8,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import SmoothScrollProvider from "@/components/animation/SmoothScrollProvider";
 import Newsletters from "./pages/Newsletters";
+import CascadeSlider from "./pages/Cascadeslider";
+import FullScreenSlider from "./pages/Fullscreenslider";
+import Newsroom from "./pages/Newsroom";
 // import Facilities from "./pages/Facilities";
 // import StackedCards from "./components/ui/StackedCards";
 // import Peopledemo1 from "./pages/Peopledemo1";
@@ -96,6 +99,9 @@ const App = () => (
               {/* <Route path="/peopledemo3" element={<Peopledemo3 />} /> */}
               {/* <Route path="/projectsdemo1" element={<Projectsdemo1 />} /> */}
               <Route path="/testimonials" element={<Testimonials />} />
+              <Route path="/cascadeslider" element={<CascadeSlider />} />
+              <Route path="/fullscreenslider" element={<FullScreenSlider />} />
+              <Route path="/newsroom" element={<Newsroom />} />
             </Routes>
           </Suspense>
         </BrowserRouter>

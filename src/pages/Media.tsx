@@ -230,16 +230,13 @@ const Media = () => {
               </div>
             )}
 
-            <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground font-medium">
-                  Visual Archive
-                </p>
-                <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">
-                  Complete News <span className="text-primary">Image Library</span>
-                </h2>
-              </div>
+            <div className="rounded-xl border border-slate-200 bg-white px-5 py-4 shadow-sm md:px-6">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+                In The News
+              </h2>
             </div>
+
+            <div className="mt-6 mb-8" />
 
             <div className="grid gap-3 md:grid-cols-2">
               {visibleGalleryAssets.map((item) => (

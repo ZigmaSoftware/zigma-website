@@ -102,25 +102,24 @@ const Footer = () => {
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
                 {[
-                  "About Us",
-                  "Services",
-                  "Projects",
-                  "Products",
-                  "In the News",
-                  "Publications",
-                  "Testimonials",
-                  "Careers",
-                  "Contact",
-                  "Governance Policies",
-                  "Awards & Recognition",
-                
+                  { label: "About Us", path: "/about" },
+                  { label: "Services", path: "/services" },
+                  { label: "Projects", path: "/projects" },
+                  { label: "Products", path: "/products" },
+                  { label: "In the News", path: "/media" },
+                  { label: "Publications", path: "/publications" },
+                  { label: "Testimonials", path: "/testimonials" },
+                  { label: "Careers", path: "/careers" },
+                  { label: "Contact", path: "/contact" },
+                  { label: "Governance Policies", path: "/governance-policies" },
+                  { label: "Awards and Recognition", path: "/awardsandrecognition" },
                 ].map((link) => (
-                  <li key={link}>
+                  <li key={link.label}>
                     <Link
-                      to={`/${link.toLowerCase().replace(" ", "-")}`}
+                      to={link.path}
                       className="text-foreground/70 hover:text-primary transition-all duration-300 text-md hover:translate-x-1 inline-block"
                     >
-                      {link}
+                      {link.label}
                     </Link>
                   </li>
                 ))}
