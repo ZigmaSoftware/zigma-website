@@ -16,6 +16,7 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/animation/Reveal";
+import VideosCascadeSlider from "@/components/videos/VideosCascadeSlider";
 import { cn } from "@/lib/utils";
 import msJennyBatesImg from "@/assets/Testimonials/Ms. Jenny Bates.png";
 import ministerGraceFuImg from "@/assets/Testimonials/Minister Grace Fu.png";
@@ -949,6 +950,7 @@ const WallCardItem: FC<WallCardProps> = ({ card, delay = 0 }) => (
 const Testimonials: FC = () => {
   /* Slider state */
   const [current, setCurrent] = useState<number>(0);
+  const [videoCascadeIndex, setVideoCascadeIndex] = useState<number>(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const goTo = useCallback((idx: number) => {
@@ -1251,8 +1253,8 @@ const Testimonials: FC = () => {
         </section>
 
         {/* VIDEO TESTIMONIALS */}
-        <section className="relative overflow-hidden bg-muted/30">
-          <div className="pointer-events-none absolute -right-32 -top-40 h-96 w-96 rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-3xl" />
+        <section className="relative overflow-hidden0">
+          <div className="pointer-events-none absolute -right-32 -top-40 h-96 w-96 rounded-full " />
           <div className="pointer-events-none absolute -left-32 bottom-10 h-80 w-80 rounded-full bg-gradient-to-br from-emerald-400/20 to-transparent blur-3xl" />
           <div className="container-main py-14 text-center md:py-16">
 
@@ -1274,33 +1276,25 @@ const Testimonials: FC = () => {
             </p>
           </Reveal>
 
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {VIDEOS.map((video: Video) => (
-              <Reveal key={`${video.src}-${video.title}`} className="h-full">
-                <article className="h-full overflow-hidden rounded-xl border border-border bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
-                  <button
-                    type="button"
-                    onClick={() => openVideoModal(video)}
-                    className="group flex h-full w-full flex-col text-left"
-                    aria-label={`Play ${video.title}`}
-                  >
-                    <div className="relative aspect-video overflow-hidden">
-                      <img
-                        src={videoThumbs[video.src] ?? video.poster}
-                        alt={video.title}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
-                      <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-black/35 text-white backdrop-blur transition-transform group-hover:scale-105">
-                        <Play size={18} fill="currentColor" className="ml-0.5" />
-                      </span>
-                    </div>
-
-                  </button>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal className="mt-8">
+            <VideosCascadeSlider
+              slides={VIDEOS.map((video, index) => ({
+                id: `video-${index}`,
+                title: video.title,
+                label: video.label,
+                poster: video.poster,
+                src: video.src,
+              }))}
+              currentIndex={videoCascadeIndex}
+              onIndexChange={setVideoCascadeIndex}
+              onPlayVideo={(video) => {
+                const matchingVideo = VIDEOS.find(v => v.src === video.src);
+                if (matchingVideo) {
+                  openVideoModal(matchingVideo);
+                }
+              }}
+            />
+          </Reveal>
           </div>
         </section>
 

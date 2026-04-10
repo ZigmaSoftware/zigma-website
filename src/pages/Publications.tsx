@@ -1,8 +1,8 @@
-import { FileText } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import heroBg from "@/assets/publications/Publications-hero.png";
 import sectionBg from "@/assets/background-1.png";
+import { cn } from "@/lib/utils";
 
 type Publication = {
   id: string;
@@ -262,10 +262,119 @@ const publications: Publication[] = Object.entries(publicationFiles)
       year: inferYear(fileName),
       fileName,
       fileUrl,
-      coverImageUrl: publicationCoverByBaseName[withoutExtension(fileName)],
+      coverImageUrl: publicationCoverByBaseName[withoutExtension(fileName)],  
     };
   })
   .sort((a, b) => inferSortTimestamp(b.fileName) - inferSortTimestamp(a.fileName));
+
+interface BookProps {
+  imageUrl: string;
+  index: number;
+  onClick: () => void;
+  title: string;
+}
+
+function Book({ imageUrl, index, onClick, title }: BookProps) {
+  const isEven = index % 2 === 0;
+  const hoverClass = isEven
+    ? "group-hover:-translate-y-[44%] group-hover:skew-x-3 group-hover:-skew-y-3 group-hover:scale-[1.35]"
+    : "group-hover:-translate-y-[44%] group-hover:-skew-x-3 group-hover:skew-y-3 group-hover:scale-[1.35]";
+  const glowHoverClass = isEven
+    ? "group-hover:-translate-y-[44%] group-hover:skew-x-3 group-hover:-skew-y-3 group-hover:scale-[1.28]"
+    : "group-hover:-translate-y-[44%] group-hover:-skew-x-3 group-hover:skew-y-3 group-hover:scale-[1.28]";
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="group relative w-full cursor-pointer"
+      style={{ aspectRatio: "115 / 180" }}
+      aria-label={`Open publication: ${title}`}
+    >
+      <div
+        className={cn(
+          "absolute inset-0 rounded-[3px_1px_1px_3px] bg-cover bg-center",
+          "shadow-[inset_2px_0px_2px_1px_rgba(29,27,27,0.2),_0px_1px_1px_rgba(0,0,0,0.25)]",
+          "transition-transform duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+          hoverClass,
+        )}
+        style={{ backgroundImage: `url("${imageUrl}")` }}
+      />
+
+      <div
+        className={cn(
+          "absolute inset-0 h-[102%] rounded-[3px] bg-cover bg-center -z-10 opacity-70 blur-[10px]",
+          "transition-transform duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+          glowHoverClass,
+        )}
+        style={{ backgroundImage: `url(\"${imageUrl}\")` }}
+      />
+    </button>
+  );
+}
+
+type BookshelfItem = {
+  id: string;
+  imageUrl: string;
+  title: string;
+  onClick: () => void;
+};
+
+const SHELF_COLUMNS = 5;
+
+function Bookshelf({ books }: { books: BookshelfItem[] }) {
+  const paddedBooks: Array<BookshelfItem | null> = [
+    ...books,
+    ...Array(Math.max(0, SHELF_COLUMNS - books.length)).fill(null),
+  ];
+
+  return (
+    <div className="flex items-end justify-center px-4 py-10 md:px-10 md:py-12">
+      <div className="relative flex w-full max-w-5xl flex-col items-center">
+        <div
+          className="relative z-0 grid w-[92%] gap-[6%] pb-[2px]"
+          style={{ gridTemplateColumns: `repeat(${SHELF_COLUMNS}, 1fr)` }}
+        >
+          {paddedBooks.map((book, i) =>
+            book ? (
+              <Book
+                key={book.id}
+                imageUrl={book.imageUrl}
+                index={i}
+                onClick={book.onClick}
+                title={book.title}
+              />
+            ) : (
+              <div
+                key={`shelf-spacer-${i}`}
+                aria-hidden="true"
+                className="w-full opacity-0 pointer-events-none"
+                style={{ aspectRatio: "115 / 180" }}
+              />
+            ),
+          )}
+        </div>
+
+        <div
+          className="relative z-10 h-0 w-full"
+          style={{
+            borderBottom: "16px solid #e0e0e0",
+            borderLeft: "20px solid transparent",
+            borderRight: "20px solid transparent",
+          }}
+        >
+          <div
+            className="absolute -left-5 -right-5 top-4 z-20 h-[26px] bg-neutral-100"
+            style={{
+              boxShadow:
+                "0px -1px 6px rgba(0,0,0,0.05), 0px 4px 16px rgba(0,0,0,0.25)",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const Publications = () => {
   const filteredPublications = publications.filter(
@@ -275,6 +384,14 @@ const Publications = () => {
   const openPublication = (fileUrl: string) => {
     window.open(fileUrl, "_blank", "noopener,noreferrer");
   };
+
+  const chunkSize = SHELF_COLUMNS;
+  const publicationRows = filteredPublications.reduce((rows, publication, index) => {
+    const rowIndex = Math.floor(index / chunkSize);
+    if (!rows[rowIndex]) rows[rowIndex] = [];
+    rows[rowIndex].push(publication);
+    return rows;
+  }, [] as Publication[][]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -313,12 +430,12 @@ const Publications = () => {
           style={{ backgroundImage: `url(${sectionBg})`, backgroundSize: "520px auto" }}
         >
           <div className="container-main">
-            <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
               <div>
                 <p className="text-sm uppercase tracking-[0.28em] text-muted-foreground font-medium">
                   Publication Library
                 </p>
-                <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">
+                <h2 className="mt-2 text-2xl md:text-3xl font-bold text-foreground">
                   Resource <span className="text-primary">Collection</span>
                 </h2>
               </div>
@@ -329,36 +446,17 @@ const Publications = () => {
                 No publications available right now.
               </div>
             ) : (
-              <div className="grid justify-items-center  gap-y-10 md:grid-cols-2 xl:grid-cols-2">
-                {filteredPublications.map((publication) => (
-                  <article
-                    key={publication.id}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => openPublication(publication.fileUrl)}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault();
-                        openPublication(publication.fileUrl);
-                      }
-                    }}
-                    className="group flex h-[470px] w-full max-w-[340px] cursor-pointer flex-col overflow-hidden border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                  >
-                    <div className="h-[470px] w-full overflow-hidden">
-                      {publication.coverImageUrl ? (
-                        <img
-                          src={publication.coverImageUrl}
-                          alt={publication.title}
-                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-slate-100 text-slate-500">
-                          <FileText size={36} aria-hidden="true" />
-                        </div>
-                      )}
-                    </div>
-                  </article>
+              <div className="space-y-10 md:space-y-12">
+                {publicationRows.map((row, rowIdx) => (
+                  <Bookshelf
+                    key={`shelf-row-${rowIdx}`}
+                    books={row.map((publication) => ({
+                      id: publication.id,
+                      imageUrl: publication.coverImageUrl ?? "",
+                      title: publication.title,
+                      onClick: () => openPublication(publication.fileUrl),
+                    }))}
+                  />
                 ))}
               </div>
             )}
