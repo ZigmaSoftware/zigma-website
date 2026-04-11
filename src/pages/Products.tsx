@@ -5,18 +5,18 @@ import Footer from "@/components/Footer";
 import { CheckCircle, ArrowRight, Leaf, Recycle, Building2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import product1 from "@/assets/website/goodearth.jpg";
-import product2 from "@/assets/website/stone.jpg";
-import product3 from "@/assets/website/soil.jpg";
-import product4 from "@/assets/website/glass.jpg";
-import product5 from "@/assets/website/Ferrous.jpg";
+import product1 from "@/assets/Products/goodearth.jpg";
+import product2 from "@/assets/Products/stone.jpg";
+import product3 from "@/assets/Products/soil.jpg";
+import product4 from "@/assets/Products/glass.jpg";
+import product5 from "@/assets/Products/Ferrous.jpg";
 import productRdf from "@/assets/services/Refuse-Derived Fuel.jpeg";
 import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
 import img4 from "@/assets/website/hero/Furnitures.png";
 import larva from "@/assets/website/larva.jpeg";
 import furnitureCataloguePdf from "@/assets/Products/UNICEIL -WPE -Master Catalogue-2026.pdf";
 
-import bg1 from "@/assets/background-1.png"; 
+import bg1 from "@/assets/website/background-1.png"; 
 
 const SLOW_EASE = "power2.out";
 
@@ -173,16 +173,16 @@ const Products = () => {
       <Header />
       <main className="">
         {/* Page Header */}
-        <section className="relative min-h-[100vh] flex items-center overflow-hidden">
+        <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
           <div
             className="absolute inset-0 h-full w-full bg-cover bg-center"
             style={{ backgroundImage: `url(${product1})` }}
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-          {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/35" aria-hidden="true" /> */}
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
 
-          <div className="container-main relative grid items-center justify-items-center pt-28 text-center">
+          <div className="container-main relative grid items-center justify-items-center text-center">
             <Reveal
               className="max-w-3xl mx-auto"
               variant="fade-up"
@@ -190,7 +190,7 @@ const Products = () => {
               data-anim-duration="1.6"
               data-anim-ease={SLOW_EASE}
             >
-              <span className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium  block">
+              <span className="text-sm md:text-base tracking-[0.35em] uppercase text-white/85 font-medium block">
                 Our Products
               </span>
               <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">
@@ -317,8 +317,8 @@ const Products = () => {
           className="section-padding py-20 relative overflow-hidden bg-cover bg-center"
           style={{ backgroundImage: `url(${bg1})` }}
         >
-          <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
 
           <div className="container-main relative z-10 text-center">
             <Reveal data-anim-start="top 92%" data-anim-duration="1.45" data-anim-ease={SLOW_EASE}>
@@ -349,3 +349,4 @@ const Products = () => {
 };
 
 export default Products;
+

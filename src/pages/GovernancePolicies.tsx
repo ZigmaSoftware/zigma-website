@@ -2,7 +2,7 @@ import React from 'react';
 import { FileText, Shield, Lock, Users, ArrowUpRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Herobg from '@/assets/hero_bg_gp.png';
+// import Herobg from '@/assets/hero_bg_gp.png';
 import Pdf1 from '@/assets/Pdf Files/ABAC-AML-Policies-Zigma-Global.pdf';
 import Pdf2 from '@/assets/Pdf Files/Amended_Zigma-Global-Whistle-Blower-Policy-Clean.pdf';
 import Pdf3 from '@/assets/Pdf Files/Zigma-Privacy-Policy.pdf';
@@ -53,15 +53,14 @@ const GovernancePolicies = () => {
       <Header />
       <main className="scroll-pt-24 lg:scroll-pt-28">
         {/* Hero */}
-        <section className="relative min-h-[100svh] box-border pt-20 overflow-hidden bg-[hsl(145_63%_32%)] text-white flex items-center scroll-mt-24 lg:scroll-mt-28">
+        <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 h-full w-full bg-cover bg-center"
             style={{ backgroundImage: `url(${Herobg})` }}
+            aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-black/35" />
-          <div className="absolute inset-0 opacity-25 bg-[linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:28px_28px]" />
-          <div className="absolute -top-24 -right-32 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-          <div className="absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-black/10 blur-3xl" />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
 
           {/* <div className="relative container-main w-full pt-28 pb-20">
             <div className="max-w-4xl">
@@ -75,16 +74,16 @@ const GovernancePolicies = () => {
             </div>
           </div> */}
 
-          <div className="container-main relative grid items-center text-center">
+          <div className="container-main relative grid items-center justify-items-center text-center">
 
-            <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
+            <div className="text-sm md:text-base tracking-[0.35em] uppercase text-white/85 font-medium">
               Governance & Policies
             </div>
-            <h1 className="mt-3 text-5xl md:text-5xl font-bold leading-tight text-white">
+            <h1 className="mt-3 text-5xl md:text-6xl font-bold leading-tight text-white">
               Transparent & Responsible
             </h1>
 
-            <p className="mt-6 text-lg max-w-2xl mx-auto text-white/80 leading-relaxed ">
+            <p className="mt-6 text-lg max-w-2xl mx-auto text-white/90 leading-relaxed">
               We uphold transparent processes, regulatory compliance, and accountable decision-making across all operations.
 
             </p>
@@ -165,3 +164,4 @@ const GovernancePolicies = () => {
 };
 
 export default GovernancePolicies;
+

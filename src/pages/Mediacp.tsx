@@ -324,8 +324,8 @@ const Mediacp = () => {
       <main className="scroll-pt-24">
         <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
           <div className="absolute inset-0 h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${Herobg})` }} aria-hidden="true" />
-          <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
 
           <div className="container-main relative grid items-center justify-items-center text-center">
             <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium">Media Center</div>
@@ -425,3 +425,4 @@ const Mediacp = () => {
 };
 
 export default Mediacp;
+

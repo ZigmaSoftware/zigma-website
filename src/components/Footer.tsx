@@ -111,7 +111,7 @@ const Footer = () => {
                   { label: "Testimonials", path: "/testimonials" },
                   { label: "Careers", path: "/careers" },
                   { label: "Contact", path: "/contact" },
-                  { label: "Governance Policies", path: "/governance-policies" },
+                  { label: "Governance Policies", path: "/about" },
                   { label: "Awards and Recognition", path: "/awardsandrecognition" },
                 ].map((link) => (
                   <li key={link.label}>

@@ -2,33 +2,32 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/zigma_blueplanet_logo.png";
+import logo from "@/assets/website/zigma_blueplanet_logo.png";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
-import landfillManagement from "@/assets/windrow.jpg";
-import wetWaste from "@/assets/fresh waste.jpg";
+import landfillManagement from "@/assets/website/windrow.jpg";
+import wetWaste from "@/assets/services/fresh-waste.jpg";
 import herobg from "@/assets/website/hero/noida-present-hero.jpg";
 import machine from "@/assets/services/machinery.png";
 import iotImage from "@/assets/services/WB.png";
 import iotLogo from "@/assets/services/IOT.png";
-import bsflsolar from "@/assets/solarr.jpg.jpeg";
+import bsflsolar from "@/assets/services/solarr.jpeg";
 import servicesDropdownLogo from "@/assets/services/zigma_blueplanet_logo.png";
 import zigflyLogo from "@/assets/services/zigfly.png";
 import wasteTechLogo from "@/assets/services/logo-wastetech.png";
 import productRdf from "@/assets/services/Refuse-Derived Fuel.jpeg";
 import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
-import productBioEarth from "@/assets/website/goodearth.jpg";
-import productInertStones from "@/assets/website/stone.jpg";
-import productInertSoil from "@/assets/website/soil.jpg";
-import productGlass from "@/assets/website/glass.jpg";
-import productIron from "@/assets/website/Ferrous.jpg";
+import productBioEarth from "@/assets/Products/goodearth.jpg";
+import productInertStones from "@/assets/Products/stone.jpg";
+import productInertSoil from "@/assets/Products/soil.jpg";
+import productGlass from "@/assets/Products/glass.jpg";
+import productIron from "@/assets/Products/Ferrous.jpg";
 import productFurniture from "@/assets/website/hero/Furnitures.png";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import epr from "@/assets/services/EPR.png";
 import uniceilLogo from "@/assets/Products/uniceil_transparent.png";
 
-// import 
-
+  
 
 /* ── Types ─────────────────────────────────────────────────── */
 interface DropdownItem {
@@ -149,7 +148,7 @@ const navItems: NavItem[] = [
     name: "News Room",
     path: "/media",
     dropdown: [
-      { name: "In The News", path: "/newsroom" },
+      { name: "In The News", path: "/newsroom " },
       { name: "Publications", path: "/publications" },
       { name: "Newsletters", path: "/newsletters" },
       { name: "Awards and Recognitions", path: "/AwardsandRecognition" },

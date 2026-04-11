@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import heroBg from "@/assets/publications/Publications-hero.png";
-import sectionBg from "@/assets/background-1.png";
+import sectionBg from "@/assets/website/background-1.png";
 import { cn } from "@/lib/utils";
 
 type Publication = {
@@ -398,21 +398,18 @@ const Publications = () => {
       <Header />
 
       <main className="scroll-pt-24">
-        <section className="relative min-h-[100vh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
+        <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
           <div
             className="absolute inset-0 h-full w-full bg-cover bg-center"
             aria-hidden="true"
             style={{ backgroundImage: `url(${heroBg})` }}            
           />
-          {/* <div className="absolute inset-0 bg-black/50" aria-hidden="true" /> */}
-          <div
-            className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/35"
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
 
           <div className="container-main relative grid items-center justify-items-center text-center">
-            <p className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium">
-              Newsroom
+            <p className="text-sm md:text-base tracking-[0.35em] uppercase text-white/85 font-medium">
+              Publications
             </p>
             <h1 className="mt-3 text-5xl md:text-6xl font-bold leading-tight text-white">
               Publications
@@ -470,3 +467,4 @@ const Publications = () => {
 };
 
 export default Publications;
+

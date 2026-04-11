@@ -172,15 +172,17 @@ const Newsletters = () => {
       <Header />
 
       <main className="scroll-pt-24">
-        <section className="relative min-h-[100vh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
+        <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
           <div
             className="absolute inset-0 h-full w-full bg-cover bg-center"
             style={{ backgroundImage: `url(${heroBg})` }}
             aria-hidden="true"
           />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
 
           <div className="container-main relative grid items-center justify-items-center text-center">
-            <p className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium">
+            <p className="text-sm md:text-base tracking-[0.35em] uppercase text-white/85 font-medium">
               Newsroom
             </p>
             <h1 className="mt-3 text-5xl md:text-6xl font-bold leading-tight text-white">
@@ -268,3 +270,4 @@ const Newsletters = () => {
 };
 
 export default Newsletters;
+

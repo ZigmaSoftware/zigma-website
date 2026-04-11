@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { TrendingUp, BarChart3, Users } from "lucide-react";
-import bg from "@/assets/background-1.png";
+import bg from "@/assets/website/background-1.png";
 // import newyear from "@/assets";
 
 /* --------- Media Import (Images + Videos) --------- */

@@ -1,5 +1,5 @@
 ﻿import { useEffect, useRef, useState } from "react";
-import bgstat from "../../assets/background-1.png";
+import bgstat from "../../assets/website/background-1.png";
 
 const stats = [
   { value: 2000, suffix: "+", label: "Acres Land Cleared" },
@@ -7,7 +7,7 @@ const stats = [
   { value: 2.5, suffix: "M+", label: "Tonnes RDF" },
   { value: 170, suffix: "+", label: "Projects in 15 Countries" },
   { value: 8, suffix: "M+", label: "CO2 Emissions Reduced" },
-  { value: 30000, suffix: "+", label: "MT Daily Waste Pocessing" },
+  { value: 30000, suffix: "+", label: "MT Daily Waste Processing" },
 ];
 
 const StatsSection = () => {
