@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { X } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import VideosCascadeSlider from "@/components/videos/VideosCascadeSlider";
 import heroBg from "@/assets/website/news_bg.jpeg";
-import sectionBg from "@/assets/background-1.png";
+import sectionBg from "@/assets/website/background-1.png";
 
 interface NewsItem {
   id: string;
@@ -10,6 +12,71 @@ interface NewsItem {
   thumbnail: string;
   fullImage: string;
 }
+
+interface FeaturedVideo {
+  id: string;
+  url: string;
+  thumbnail: string;
+  title: string;
+  label: string;
+}
+
+const YOUTUBE_PATTERNS: RegExp[] = [
+  /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([A-Za-z0-9_-]{11})/i,
+  /(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]{11})/i,
+  /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?(?:.*&)?v=([A-Za-z0-9_-]{11})/i,
+  /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([A-Za-z0-9_-]{11})/i,
+];
+
+const getYouTubeId = (source: string): string | null => {
+  for (const pattern of YOUTUBE_PATTERNS) {
+    const match = source.match(pattern);
+    if (match?.[1]) return match[1];
+  }
+  return null;
+};
+
+const getYouTubeThumbnail = (source: string): string => {
+  const id = getYouTubeId(source);
+  return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : "";
+};
+
+const getYouTubeEmbedUrl = (source: string): string | null => {
+  const id = getYouTubeId(source);
+  return id
+    ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`
+    : null;
+};
+
+const FEATURED_VIDEO_LINKS: string[] = [
+  "https://youtu.be/0jSDIE-WYFc",
+  "https://youtu.be/2PkOQRJyvzQ",
+  "https://youtu.be/howdJTR0IqQ",
+  "https://youtu.be/pDVwHbMWX9k",
+  "https://youtu.be/c8gh5kWmaAY",
+  "https://youtu.be/X5ehvOddWTU",
+  "https://youtu.be/x9E-7rT6KC8",
+  "https://youtu.be/aOtNnkAUo0o",
+  "https://youtu.be/erVRarDVMno",
+  "https://youtu.be/Vav1K4thRYY",
+  "https://youtu.be/0WscPowKp60",
+  "https://youtu.be/J6OCSlODxLw",
+  "https://youtu.be/kE5W3w9ao6M",
+  "https://youtu.be/Up1AqUe_WNY",
+  "https://youtu.be/PjObYFsdPdM",
+  "https://youtu.be/TXKcIaF9pd8",
+  "https://youtu.be/z1vAN67LceY",
+  "https://youtu.be/-E0jiZUUKd4",
+  "https://youtu.be/bxv2ZCh-3T8",
+  "https://youtu.be/vngSQHFCjM4",
+  "https://youtu.be/i9TVKl-eVDc",
+  "https://youtu.be/psbedFJNN4w",
+  "https://youtu.be/cIlPFcl874s",
+  "https://youtu.be/rrlmAHF2J3k",
+  "https://youtu.be/XUia9pKBCq8",
+  "https://youtu.be/hHqRdoo5Cn0",
+  "https://youtu.be/TLXCtngKo6U",
+];
 
 const newsAssets = Object.entries(
   import.meta.glob("../assets/News/**/*.{jpg,jpeg,png,JPG,JPEG,PNG}", {
@@ -48,7 +115,7 @@ function NewsCard({ item, onClick }: NewsCardProps) {
           src={item.thumbnail}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-30"
+          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-35 blur-smca"
         />
         <div className="absolute left-0 top-0 z-10 h-full w-12 bg-gradient-to-r from-white/70 to-transparent" />
         <div className="absolute right-0 top-0 z-10 h-full w-12 bg-gradient-to-l from-white/70 to-transparent" />
@@ -116,8 +183,21 @@ function DetailView({ item, onBack, onPrev, onNext }: DetailViewProps) {
 
 export default function Newsroom() {
   const [selectedItem, setSelectedItem] = useState<NewsItem | null>(null);
+  const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [videoOpen, setVideoOpen] = useState(false);
 
   const filtered = NEWS_ITEMS;
+  const featuredVideos: FeaturedVideo[] = FEATURED_VIDEO_LINKS.map((url, index) => ({
+    id: `${index + 1}`,
+    url,
+    thumbnail: getYouTubeThumbnail(url),
+    title: `Media Coverage ${index + 1}`,
+    label: "News Coverage",
+  })).filter((video) => Boolean(video.thumbnail));
+
+  const activeFeaturedVideo = featuredVideos[featuredIndex] ?? featuredVideos[0] ?? null;
+  const selectedVideoEmbedUrl = activeFeaturedVideo ? getYouTubeEmbedUrl(activeFeaturedVideo.url) : null;
+
   const selectedIndex = selectedItem
     ? filtered.findIndex((item) => item.id === selectedItem.id)
     : -1;
@@ -145,9 +225,9 @@ export default function Newsroom() {
             style={{ backgroundImage: `url(${heroBg})` }}
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
           <div
-            className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/30"
+            className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18"
             aria-hidden="true"
           />
 
@@ -163,6 +243,79 @@ export default function Newsroom() {
             </p>
           </div>
         </section>
+
+        {featuredVideos.length > 0 && (
+          <section className="section-padding bg-white">
+            <div className="container-main">
+              <div className="px-1 py-1 text-center md:px-0">
+                <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
+                  Featured Coverage
+                </p>
+                <h2 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+                  Spotlight <span className="text-primary">Stories</span>
+                </h2>
+                <p className="mt-3 max-w-3xl mx-auto text-sm md:text-base text-slate-600">
+                  A quick visual look at key media highlights showcasing our projects, partnerships,
+                  and sustainability milestones.
+                </p>
+              </div>
+
+              <div className="mt-8">
+                <VideosCascadeSlider
+                  slides={featuredVideos.map((video) => ({
+                    id: video.id,
+                    title: video.title,
+                    label: video.label,
+                    poster: video.thumbnail,
+                    src: video.url,
+                  }))}
+                  currentIndex={featuredIndex}
+                  onIndexChange={setFeaturedIndex}
+                  onPlayVideo={(video) => {
+                    const targetIndex = featuredVideos.findIndex((item) => item.url === video.src);
+                    if (targetIndex !== -1) {
+                      setFeaturedIndex(targetIndex);
+                    }
+                    setVideoOpen(true);
+                  }}
+                />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {videoOpen && activeFeaturedVideo && selectedVideoEmbedUrl && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm"
+            onClick={() => setVideoOpen(false)}
+          >
+            <div
+              className="relative w-11/12 max-w-3xl overflow-hidden rounded-2xl bg-gray-900"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setVideoOpen(false)}
+                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+                aria-label="Close modal"
+              >
+                <X size={20} />
+              </button>
+
+              <div className="aspect-video w-full bg-black">
+                <iframe
+                  key={activeFeaturedVideo.url}
+                  src={selectedVideoEmbedUrl}
+                  title={activeFeaturedVideo.title}
+                  className="h-full w-full"
+                  frameBorder={0}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         <section
           className="section-padding bg-top bg-repeat"
@@ -237,3 +390,4 @@ export default function Newsroom() {
     </div>
   );
 }
+

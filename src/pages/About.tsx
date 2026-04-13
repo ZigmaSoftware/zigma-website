@@ -5,9 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/animation/Reveal';
-import bg1 from '@/assets/background-1.png';
+import bg1 from '@/assets/website/background-1.png';
 import hero from '@/assets/website/hero/about-hero.jpg';
-import globeSvg from '@/assets/contact_globe.svg';
+import globeSvg from '@/assets/website/contact_globe.svg';
 
 import img1 from '@/assets/website/Kumbakonam.png';
 import img2 from '@/assets/website/Forcebel.png';
@@ -53,7 +53,7 @@ import Pdf3 from '@/assets/Pdf Files/Zigma-Privacy-Policy.pdf';
 import Pdf4 from '@/assets/Pdf Files/Zigma_PDPA Policy.pdf';
 
 
- 
+
 gsap.registerPlugin(ScrollTrigger);
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
@@ -87,7 +87,7 @@ const milestones: Milestone[] = [
     title: 'The Foundation',
     description: [
       'March: Zigma Global Environ Solutions Pvt. Ltd. was founded.',
-      "May: Awarded the Kumbakonam biomining project for 1.3 lakh m³, India's first ever integrated landfill mining project executed on zero residue methodology.",
+      "May: Awarded the Kumbakonam biomining project for 1.3 lakh m�, India's first ever integrated landfill mining project executed on zero residue methodology.",
       'July: Invited by the Ministry of Urban Development (Govt. of India) to present in workshops for first Swachh Survekshan 2017 for Bio-mining across 500 cities in India.',
     ],
     image: img1,
@@ -473,7 +473,7 @@ const About = (): JSX.Element => {
 
   const currentMilestone = milestones[currentIndex];
 
-   const policies = [
+  const policies = [
     {
       id: 'abac-aml',
       title: 'ABAC & AML Policies',
@@ -531,7 +531,7 @@ const About = (): JSX.Element => {
             fetchPriority="high"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
 
           <div className="container-main relative grid items-center justify-items-center">
             <Reveal
@@ -588,14 +588,14 @@ const About = (): JSX.Element => {
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
                 In 2015, while exploring various waste streams, our founders discovered a stark reality: India had no solution for its growing legacy waste crisis. Open dump yards across the country were overflowing with decades of mismanaged municipal solid waste, and the nation was grappling with the absence of a clear, scientific pathway to address it.
               </p>
-               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-This realization became the turning point. A group of serial entrepreneurs from South India—experienced in steel manufacturing, TMT bars, billets, UPVC profiles, hospitality, and IT infrastructure—saw in this challenge an opportunity to do something truly transformative, not just for communities but for the country at large.              </p>
+              <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
+                This realization became the turning point. A group of serial entrepreneurs from South India - experienced in steel manufacturing, TMT bars, billets, UPVC profiles, hospitality, and IT infrastructure - saw in this challenge an opportunity to do something truly transformative, not just for communities but for the country at large.              </p>
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
                 Determined to find answers, they traveled across Germany, South Africa, Thailand, China, and South Korea, studying how these nations tackled municipal solid waste. Out of this exploration emerged Zigma: a company dedicated to pioneering solutions for legacy waste management.
               </p>
 
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-                At the heart of our operations lies a low-carbon emission model that scientifically segregates and remediates decades of accumulated waste. What began as a quest to solve India's most pressing environmental challenge has evolved into a mission with global resonance—turning neglected dump yards into opportunities for renewal, sustainability, and impact.              </p>
+                At the heart of our operations lies a low-carbon emission model that scientifically segregates and remediates decades of accumulated waste. What began as a quest to solve India's most pressing environmental challenge has evolved into a mission with global resonance - turning neglected dump yards into opportunities for renewal, sustainability, and impact.              </p>
             </Reveal>
           </div>
         </section>
@@ -665,7 +665,7 @@ This realization became the turning point. A group of serial entrepreneurs from 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-                  {/* FIX: Prev button — behaviour unchanged */}
+                  {/* FIX: Prev button � behaviour unchanged */}
                   <button
                     onClick={() => transitionToMilestone(currentIndexRef.current - 1)}
                     disabled={currentIndex === 0}
@@ -705,7 +705,7 @@ This realization became the turning point. A group of serial entrepreneurs from 
                   <ul className="h-[170px] list-disc space-y-2 overflow-y-auto pl-5 pr-2 text-sm leading-relaxed text-slate-600 lg:h-[220px] lg:text-lg">
                     {currentMilestone.description.map((item) => {
                       const keyPattern =
-                        /(\b(?:January|February|March|April|May|June|July|August|September|October|November|December|Swachh Survekshan 2017|Frost & Sullivan 2016 Award|AVPN South Asia Summit 2024|Chief Minister's award|World Bank|Novo Holdings|Blue Planet|Forcebel|Kumbakonam|Sembakkam|Pammal|Vijayawada|Vadodara|NOIDA|Nagpur|Trichy|Erode|Tirupati|Visakhapatnam|Karaikudi|Karur|Cuddalore|Dindigul|Perungudi|Puducherry|ITC|Guwahati|Kodungaiyur|Kozhikode|Keralam SWMP|Kureepuzha|Kollam|RDF|CCC|Zigma)\b|\b\d[\d,.]*\+?\s*(?:acres?|tons?|tonnes?|TPH|m(?:3|³)|lakh|million|cities?|municipalities|sites?)(?=\b|\s|$|[.,;:]))/g;
+                        /(\b(?:January|February|March|April|May|June|July|August|September|October|November|December|Swachh Survekshan 2017|Frost & Sullivan 2016 Award|AVPN South Asia Summit 2024|Chief Minister's award|World Bank|Novo Holdings|Blue Planet|Forcebel|Kumbakonam|Sembakkam|Pammal|Vijayawada|Vadodara|NOIDA|Nagpur|Trichy|Erode|Tirupati|Visakhapatnam|Karaikudi|Karur|Cuddalore|Dindigul|Perungudi|Puducherry|ITC|Guwahati|Kodungaiyur|Kozhikode|Keralam SWMP|Kureepuzha|Kollam|RDF|CCC|Zigma)\b|\b\d[\d,.]*\+?\s*(?:acres?|tons?|tonnes?|TPH|m(?:3|�)|lakh|million|cities?|municipalities|sites?)(?=\b|\s|$|[.,;:]))/g;
                       const highlightKeyWords = (text: string) => {
                         const parts = text.split(keyPattern);
                         return parts.map((part, index) => {
@@ -872,7 +872,7 @@ This realization became the turning point. A group of serial entrepreneurs from 
           </div>
         </section>
 
-         {/* Policies Grid */}
+        {/* Policies Grid */}
         <section className=" container-main section-padding">
           <div className="flex flex-col gap-3 mb-10 ">
 
@@ -944,3 +944,4 @@ This realization became the turning point. A group of serial entrepreneurs from 
 };
 
 export default About;
+

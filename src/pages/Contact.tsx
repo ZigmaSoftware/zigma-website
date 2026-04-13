@@ -14,14 +14,14 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import emailjs from "@emailjs/browser";
-import erode from "@/assets/zigma picture.png";
-import chennai from "@/assets/Chennai.jpg";
-import Delhi from "@/assets/New Delhi.webp";
-import Mumbai from "@/assets/Mumbai.jpg";
-import Pune from "@/assets/pune.jpg";
-import Uk from "@/assets/UK.jpg";
-import Singapore from "@/assets/Singapore.jpg";
-import Malaysia from "@/assets/Malaysia.jpg";
+import erode from "@/assets/website/zigma-picture.png";
+import chennai from "@/assets/website/Chennai.jpg";
+import Delhi from "@/assets/website/New-Delhi.webp";
+import Mumbai from "@/assets/website/Mumbai.jpg";
+import Pune from "@/assets/website/pune.jpg";
+import Uk from "@/assets/website/UK.jpg";
+import Singapore from "@/assets/website/Singapore.jpg";
+import Malaysia from "@/assets/website/Malaysia.jpg";
 
 import Herobg from '@/assets/website/Office Night.jpeg';
 // EmailJS config (replace via .env in production)
@@ -143,8 +143,17 @@ const Contact = () => {
       mapUrl:
         "https://www.google.com/maps/search/?api=1&query=178+Indhu+Nagar+Palayapalayam+Perundurai+Road+Erode+638012",
     },
+     {
+      title: "Chennai, India",
+      image: chennai,
+      address:
+        "No 119, Greenways Towers, 1st Floor, St Mary's Road, Abiramapuram, Chennai - 600018",
+      mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=Greenways+Towers+St+Marys+Road+Abiramapuram+Chennai+600018",
+    },
+
     {
-      title: "New Delhi, India (Corporate Office)",
+      title: "New Delhi, India",
       image: Delhi,
       address:
         "3rd Floor, Unit No. 306, Worldmark 1, Asset Area No. 11, Delhi Aerocity, New Delhi - 110037",
@@ -167,16 +176,9 @@ const Contact = () => {
       mapUrl:
         "https://www.google.com/maps/search/?api=1&query=Kohinoor+World+Towers+Pimpri+Pune+411018",
     },
+   
     {
-      title: "Chennai, India",
-      image: chennai,
-      address:
-        "No 119, Greenways Towers, 1st Floor, St Mary's Road, Abiramapuram, Chennai - 600018",
-      mapUrl:
-        "https://www.google.com/maps/search/?api=1&query=Greenways+Towers+St+Marys+Road+Abiramapuram+Chennai+600018",
-    },
-    {
-      title: "UK",
+      title: "United Kingdom",
       image: Uk,
       address:
         "Crown House, Gretton Brook Road, Earlstrees Industrial Estate, Corby, England NN17 4BA",
@@ -206,26 +208,25 @@ const Contact = () => {
       <main className="scroll-pt-24 lg:scroll-pt-28">
 
 
-        <section className="relative overflow-hidden text-white min-h-[100svh] flex items-center scroll-mt-24 lg:scroll-mt-28">
+        <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
           <div
-            className=" absolute inset-0 bg-cover"
+            className="absolute inset-0 h-full w-full bg-cover bg-center"
             style={{ backgroundImage: `url(${Herobg})` }}
+            aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-black/35" />
-          <div className="absolute inset-0 opacity-25 bg-[linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:28px_28px]" />
-          <div className="absolute -top-24 -right-32 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-          <div className="absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-black/10 blur-3xl" />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
 
-          <div className="relative container-main section-padding text-center">
+          <div className="container-main relative grid items-center justify-items-center text-center">
             <div className="max-w-4xl mx-auto">
-              <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
+              <div className="text-sm md:text-base tracking-[0.35em] uppercase text-white/85 font-medium">
                 Let's Connect
               </div>
 
-              <h1 className="mt-1 text-3xl sm:text-2xl lg:text-5xl font-semibold leading-tight">
+              <h1 className="mt-3 text-5xl md:text-6xl font-bold leading-tight text-white">
                 Talk to Us
               </h1>
-              <p className="mt-6 text-lg max-w-2xl mx-auto text-white/80 leading-relaxed">
+              <p className="mt-6 text-lg max-w-2xl mx-auto text-white/90 leading-relaxed">
                 For business queries, collaboration opportunities, or to understand our sustainable solutions, get in touch with us.</p>
             </div>
           </div>
@@ -429,3 +430,4 @@ const Contact = () => {
 };
 
 export default Contact;
+
