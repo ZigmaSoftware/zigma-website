@@ -7,12 +7,12 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
-import landfillManagement from "@/assets/windrow.jpg";
-import wetWaste from "@/assets/fresh waste.jpg";
+import landfillManagement from "@/assets/website/windrow.jpg";
+import wetWaste from "@/assets/services/fresh-waste.jpg";
 import herobg from "@/assets/website/hero/Pdgclose.jpg";
 import machine from "@/assets/services/machinery.png";
 import iot from "@/assets/services/WB.png";
-import bsflsolarr from "@/assets/solarr.jpg.jpeg";
+import bsflsolarr from "@/assets/services/solarr.jpeg";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import epr from "@/assets/services/EPR.png";
@@ -294,7 +294,7 @@ const Services = () => {
 
       <main>
         {/* Page Header */}
-        <section className="relative min-h-[100vh] flex items-center overflow-hidden">
+        <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
           <img
             src={herobg}
             alt=" Services Hero Background"
@@ -302,10 +302,10 @@ const Services = () => {
             fetchPriority="high"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/15" aria-hidden="true" />
-          <div className="absolute inset-0 from-black/35 via-black/45 to-black/80" aria-hidden="true" />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
 
-          <div className="container-main relative grid items-center justify-items-center pt-28 text-center">
+          <div className="container-main relative grid items-center justify-items-center text-center">
             <Reveal
               className="max-w-3xl mx-auto"
               variant="fade-up"
@@ -313,7 +313,7 @@ const Services = () => {
               data-anim-duration="1.6"
               data-anim-ease={SLOW_EASE}
             >
-              <div className="text-lg tracking-[0.35em] uppercase text-white/85 font-medium ">
+              <div className="text-sm md:text-base tracking-[0.35em] uppercase text-white/85 font-medium">
                 What We Do
               </div>
               <h1 className="text-5xl md:text-5xl font-bold leading-tight text-white mt-3">
@@ -459,3 +459,4 @@ const Services = () => {
 };
 
 export default Services;
+

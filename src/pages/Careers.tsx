@@ -10,7 +10,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import bg from "@/assets/background-1.png";
 import picture1 from "@/assets/website/hero/career-bg.jpeg";
 
 import {
@@ -274,43 +273,46 @@ const Careers = () => {
 
         {/* HERO */}
 
-        <section
-          className="section-padding bg-cover bg-center"
-          style={{ backgroundImage: `url(${bg})` }}
-        >
-          <div className="container-main grid lg:grid-cols-2 items-center gap-10">
+        <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
+          <div
+            className="absolute inset-0 h-full w-full bg-cover bg-center"
+            style={{ backgroundImage: `url(${picture1})` }}
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+          {/* <div
+            className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18"
+            aria-hidden="true"
+          /> */}
 
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                Shape the Future
-              </p>
+          <div className="container-main relative grid items-center justify-items-center text-center">
+            <p className="text-sm md:text-base tracking-[0.35em] uppercase text-white/85 font-medium">
+              Careers
+            </p>
 
-              <h2 className="text-4xl font-semibold mt-3">
-                Build Careers that Drive
-                <span className="text-primary"> Sustainability</span>
-              </h2>
+            <h1 className="mt-3 text-5xl md:text-6xl font-bold leading-tight text-white">
+              Build The Future With Zigma
+            </h1>
 
-              <p className="mt-6 text-lg text-muted-foreground max-w-xl">
-                Join Zigma to build sustainable infrastructure, solve real
-                environmental challenges, and grow with a team focused on
-                engineering excellence and impact.
-              </p>
-            </div>
+            <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-3xl text-center">
+              Join us to solve real environmental challenges, shape sustainable infrastructure, and
+              grow with teams that value engineering quality and measurable impact.
+            </p>
 
-            <div className="relative h-[420px] overflow-hidden shadow-xl [clip-path:polygon(8%_0%,100%_0%,92%_100%,0%_100%)]">
-              <img
-                src={picture1}
-                alt="Zigma Office"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
+            {/* <div className="mt-8">
+              <a
+                href="#job-openings"
+                className="inline-flex items-center rounded-full border border-primary bg-primary px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-primary/90"
+              >
+                View Open Roles
+              </a>
+            </div> */}
           </div>
         </section>
 
         {/* JOB OPENINGS */}
 
-        <section className="section-padding">
+        <section id="job-openings" className="section-padding">
 
           <div className="container-main">
 
@@ -583,4 +585,5 @@ const Careers = () => {
 };
 
 export default Careers;
+
 

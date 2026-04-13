@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
-import indiaMap from "@/assets/map-india.png";
+import indiaMap from "@/assets/website/map-india.png";
 
 const MAP_BOUNDS = {
   north: 36.3,

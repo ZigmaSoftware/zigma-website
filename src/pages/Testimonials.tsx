@@ -288,256 +288,11 @@ type VideoSeed = {
 };
 
 const VIDEO_SEEDS: VideoSeed[] = [
-  // Batch 1
   {
-    src: "https://youtu.be/TLXCtngKo6U",
-    title: "Zigma: Transforming Waste into Value (Amrita TV)",
-    label: "TV Feature",
+    src: "https://youtu.be/OE-IB6rNaP0",
+    title: "Zigma Coverage",
+    label: "Video Feature",
     featured: true,
-  },
-  {
-    src: "https://youtu.be/hHqRdoo5Cn0",
-    title: "Integrated Waste Management Initiative (Andhra Cluster)",
-    label: "Project Update",
-  },
-  {
-    src: "https://youtu.be/XUia9pKBCq8",
-    title: "Zigma: Andhra Cluster - Large-Scale Waste Transformation",
-    label: "Andhra Cluster",
-  },
-  {
-    src: "https://youtu.be/rrlmAHF2J3k",
-    title: "Andhra Pradesh Cluster Development Programme - Field Report",
-    label: "Field Report",
-  },
-  {
-    src: "https://youtube.com/shorts/wtwIxpW18wI",
-    title: "Andhra Pradesh Chief Minister - Speech / Press Byte",
-    label: "Press Byte",
-  },
-  {
-    src: "https://youtu.be/cIlPFcl874s",
-    title: "ANI Vijayawada Inauguration",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/cbNVz0H8qaI",
-    title: "Zigma and Anna University: Soil Transformation and Scientific Validation Initiative",
-    label: "Research",
-  },
-  {
-    src: "https://youtu.be/psbedFJNN4w",
-    title: "BSF Club FM Radio",
-    label: "Radio Feature",
-  },
-  {
-    src: "https://youtu.be/i9TVKl-eVDc",
-    title: "CNBC TV18 News",
-    label: "Business News",
-  },
-  {
-    src: "https://youtu.be/vngSQHFCjM4",
-    title: "Cuddalore Puthiyathalaimurai",
-    label: "Regional News",
-  },
-  {
-    src: "https://youtube.com/shorts/VJcVc7TKYN8",
-    title: "Andhra Cluster Shorts Update",
-    label: "Project Short",
-  },
-  {
-    src: "https://youtu.be/qe2Bt-AjaiQ",
-    title: "Zigma: Building Sustainable Urban India",
-    label: "Brand Story",
-  },
-  {
-    src: "https://youtu.be/bxv2ZCh-3T8",
-    title: "Zigma: Smart Solutions for Cleaner Cities (Erode Malai Murasu News)",
-    label: "Regional News",
-  },
-  {
-    src: "https://youtu.be/LMRHIdbetAE",
-    title: "Erode MLA Visit",
-    label: "Site Visit",
-  },
-  {
-    src: "https://youtu.be/-E0jiZUUKd4",
-    title: "ETV News Vijayawada",
-    label: "News Coverage",
-  },
-
-  // Batch 2
-  {
-    src: "https://youtu.be/z1vAN67LceY",
-    title: "ETV1 News in Vijayawada About Zigma",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/TXKcIaF9pd8",
-    title: "ETV2 News in Vijayawada About Zigma",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtube.com/shorts/EoBgMZxZfCY?feature=share",
-    title: "Fadnavis Speech",
-    label: "Speech",
-  },
-  {
-    src: "https://youtu.be/PjObYFsdPdM",
-    title: "India Ahead News - Perungudi, Chennai",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/Up1AqUe_WNY",
-    title: "Keralam Assembly M.B. Rajesh Speech",
-    label: "Speech",
-  },
-  {
-    src: "https://youtube.com/shorts/UI8hQ8kOxBc?feature=share",
-    title: "Mr. M.V. Govindan Speech About Kollam Project",
-    label: "Speech",
-  },
-  {
-    src: "https://youtu.be/7TDticQmcUo",
-    title: "Makarpura News",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtube.com/shorts/Nx8zopG8hE0?feature=share",
-    title: "Master Govindan Speech",
-    label: "Speech",
-  },
-  {
-    src: "https://youtu.be/ANbNtukLBj0",
-    title: "MoHUA Stakeholder Consultation Workshop on Remediation of Legacy Waste Dumpsites",
-    label: "Workshop",
-  },
-  {
-    src: "https://youtu.be/kE5W3w9ao6M",
-    title: "Interviews About Zigma at Nagpur Municipal Corporation",
-    label: "Interview",
-  },
-  {
-    src: "https://youtu.be/J6OCSlODxLw",
-    title: "Media Interaction on Swachh Survekshan 2021 Awards for NOIDA Authority",
-    label: "Media Interaction",
-  },
-  {
-    src: "https://youtu.be/fVxg5_qDIKI",
-    title: "NOIDA Smart City Video About Zigma Waste Process",
-    label: "Smart City",
-  },
-  {
-    src: "https://youtu.be/MY8ycv7Tr-M",
-    title: "NOIDA Tweet Video About Dumpsite Waste Process",
-    label: "Official Update",
-  },
-  {
-    src: "https://youtube.com/shorts/gpWX9jRLmoE",
-    title: "NOIDA Tweet Sector 54 About MSW Wastes",
-    label: "Official Update",
-  },
-  {
-    src: "https://youtu.be/0WscPowKp60",
-    title: "Perungudi Biomining Project on Polimer News Channel",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/Vav1K4thRYY",
-    title: "NDTV News About Perungudi Dumpyard Turning Into a New Lung Space",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/erVRarDVMno",
-    title: "News18 on the Vairapalayam Erode Site",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/aOtNnkAUo0o",
-    title: "Sun TV News About Waste Removal Through Biomining in Perungudi",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/x9E-7rT6KC8",
-    title: "Perungudi Thanthi TV News on Biomining Waste Management",
-    label: "News Coverage",
-  },
-
-  // Batch 3
-  {
-    src: "https://youtu.be/X5ehvOddWTU",
-    title: "Polimer News: 30 Years of Dump Waste Into a Park",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/HkrcBU3r84o",
-    title: "SBM Kumbakonam News",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/zTt7luCoN2A",
-    title: "SBM Module English News: Facts and Figures",
-    label: "Module",
-  },
-  {
-    src: "https://youtu.be/ErzUrWzBe4U",
-    title: "SBM Module Hindi News: Facts and Figures",
-    label: "Module",
-  },
-  {
-    src: "https://youtu.be/3J3p_MSsB0k",
-    title: "Sun TV Erode on Vairapalayam Dump Site to Prevent Cauvery Pollution",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/-BPYW6cfHAk",
-    title: "TEN NEWS Interview at NOIDA Sector 54",
-    label: "Interview",
-  },
-  {
-    src: "https://youtu.be/c8gh5kWmaAY",
-    title: "TTD and DRDO Visit News",
-    label: "Site Visit",
-  },
-  {
-    src: "https://youtu.be/pDVwHbMWX9k",
-    title: "TTD Chairman Visit News",
-    label: "Site Visit",
-  },
-  {
-    src: "https://youtu.be/SMS3u-Zt5_g",
-    title: "Remediation of Existing Dump Site at Ajitsinghnagar Vijayawada",
-    label: "Project Update",
-  },
-  {
-    src: "https://youtu.be/b9HtinCyoXE",
-    title: "Vijayawada ABN News About the Dump Site Remediation",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/howdJTR0IqQ",
-    title: "Vijayawada ABN Minister Visit News",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/2PkOQRJyvzQ",
-    title: "Vijayawada Inauguration ETV News",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/OjCMiJvDLeg",
-    title: "Vijayawada MC About Biomining",
-    label: "Municipal Update",
-  },
-  {
-    src: "https://youtu.be/0jSDIE-WYFc",
-    title: "Vizag ETV News",
-    label: "News Coverage",
-  },
-  {
-    src: "https://youtu.be/C631gB_SMOY",
-    title: "Speech by the Minister of Sustainability and Environment in Perungudi, Chennai",
-    label: "Speech",
   },
   {
     src: "https://youtu.be/bMfHysHGKoM",
@@ -545,21 +300,30 @@ const VIDEO_SEEDS: VideoSeed[] = [
     label: "Presentation",
   },
   {
-    src: "https://youtube.com/shorts/kW7trzGqFEo?feature=share",
-    title: "Smart Resource Utilization",
-    label: "Project Short",
-  },
-  {
-    src: "https://youtube.com/shorts/KzeIh0AlkzU?feature=share",
-    title: "M.B. Rajesh Speech About Zigma in the Keralam Legislative Assembly",
+    src: "https://youtu.be/C631gB_SMOY",
+    title: "Speech by the Minister of Sustainability and Environment in Perungudi, Chennai",
     label: "Speech",
   },
   {
-    src: "https://youtube.com/shorts/EcvK0E6opYQ?feature=share",
-    title: "Factory Visit in Guwahati",
+    src: "https://youtu.be/-BPYW6cfHAk",
+    title: "Press Meet",
+    label: "Press Meet",
+  },
+  // {
+  //   src: "https://youtu.be/3J3p_MSsB0k",
+  //   title: "Sun TV Erode on Vairapalayam Dump Site to Prevent Cauvery Pollution",
+  //   label: "News Coverage",
+  // },
+  {
+    src: "https://youtu.be/LMRHIdbetAE",
+    title: "Erode MLA Visit",
     label: "Site Visit",
   },
- 
+  {
+    src: "https://youtu.be/cbNVz0H8qaI",
+    title: "Zigma and Anna University: Soil Transformation and Scientific Validation Initiative",
+    label: "Anna University",
+  },
 ];
 
 const VIDEOS: Video[] = VIDEO_SEEDS.map((seed, index) => {
@@ -1062,7 +826,7 @@ const Testimonials: FC = () => {
       <main className="scroll-pt-24">
         <section
           data-no-animate
-          className="relative flex min-h-[90vh] items-center overflow-hidden pt-20"
+          className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28"
         >
           <img
             src={bg}
@@ -1070,15 +834,12 @@ const Testimonials: FC = () => {
             aria-hidden="true"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          {/* <div className="absolute inset-0 bg-black/50" aria-hidden="true" /> */}
-          {/* <div
-            className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/50 to-black/35"
-            aria-hidden="true"
-          /> */}
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
 
-          <div className="container-main relative text-center">
+          <div className="container-main relative grid items-center justify-items-center text-center">
             <Reveal className="mx-auto max-w-3xl">
-              <div className="text-sm font-medium uppercase tracking-[0.35em] text-white/85">
+              <div className="text-sm md:text-base tracking-[0.35em] uppercase text-white/85 font-medium">
                 Testimonials
               </div>
               <h1 className="mt-3 text-4xl font-bold leading-tight text-white md:text-5xl">
@@ -1406,6 +1167,7 @@ const Testimonials: FC = () => {
 };
 
 export default Testimonials;
+
 
 
 
