@@ -27,7 +27,7 @@ import industrial from "@/assets/services/Industrial & Commercial Waste Solution
 import epr from "@/assets/services/EPR.png";
 import uniceilLogo from "@/assets/Products/uniceil_transparent.png";
 
-  
+
 
 /* ── Types ─────────────────────────────────────────────────── */
 interface DropdownItem {
