@@ -12,7 +12,7 @@ import award8 from "../assets/Awards/award8.jpg";
 import award9 from "../assets/Awards/award9.jpg";
 import award10 from "../assets/Awards/award10.jpg";
 import award11 from "../assets/Awards/award11.png";
-import award12 from "../assets/Awards/award12_Swachha Andhra.png";
+import award12 from "../assets/website/hero/award12_Swachha Andhra.png";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

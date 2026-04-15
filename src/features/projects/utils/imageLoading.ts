@@ -197,6 +197,14 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('Allur before.jpeg'),
     afterImage: getProjectImageByFileName('Allur after.jpeg'),
   },
+  [normalizeProjectKey('Anantapur')]: {
+    beforeImage: getProjectImageByRelativePath('ongoing/Anantapur.jpeg'),
+    afterImage: getProjectImageByRelativePath('ongoing/Anantapur.jpeg'),
+  },
+  [normalizeProjectKey('Chittoor')]: {
+    beforeImage: getProjectImageByRelativePath('ongoing/Chittoor.jpeg'),
+    afterImage: getProjectImageByRelativePath('ongoing/Chittoor.jpeg'),
+  },
   [normalizeProjectKey('Athipattu- Chennai')]: {
     beforeImage: getProjectImageByFileName('Athipattu-Before.jpeg'),
     afterImage: PLACEHOLDER_IMAGE,
