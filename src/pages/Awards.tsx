@@ -8,7 +8,7 @@ import Award2 from "@/assets/Awards/award2.jpg";
 import Award3 from "@/assets/Awards/award3.jpg";
 import Award4 from "@/assets/Awards/award4.jpg";
 import Award5 from "@/assets/Awards/award5.jpg";
-import Award6 from "@/assets/Awards/award6.jpg";
+// import Award6 from "@/assets/Awards/award6.jpg";
 import Award7 from "@/assets/Awards/award7.jpg";
 import Award8 from "@/assets/Awards/award8.jpg";
 import Award9 from "@/assets/Awards/award9.jpg";
@@ -16,7 +16,7 @@ import Award10 from "@/assets/Awards/award10.jpg";
 import Award11 from "@/assets/Awards/award11.png";
 import Award12 from "@/assets/Awards/award12_Swachha Andhra.png";
 
-import awdbg from "@/assets/Awards/awd_bg.jpeg";
+// import awdbg from "@/assets/Awards/awd_bg.jpeg";
 type Award = {
   id: string;
   title: string;
@@ -86,16 +86,16 @@ const awards: Award[] = [
     desc:
       "Awarded for participation in Municipalika and CAPEX 2017, the 14th International Exhibition on Smart and Sustainable City Solutions.",
   },
-  {
-    id: "a6",
-    title: "SKOCH Award - Corporate Silver",
-    org: "SKOCH Group",
-    year: 2017,
-    category: "Operations",
-    img: Award6,
-    desc:
-      "Awarded for excellence in municipal solid waste landfill mining and impactful corporate performance.",
-  },
+  // {
+  //   id: "a6",
+  //   title: "SKOCH Award - Corporate Silver",
+  //   org: "SKOCH Group",
+  //   year: 2017,
+  //   category: "Operations",
+  //   img: Award6,
+  //   desc:
+  //     "Awarded for excellence in municipal solid waste landfill mining and impactful corporate performance.",
+  // },
   {
     id: "a7",
     title: "Best Practices Award - Sustainable Waste Management Technology Innovation",
@@ -191,11 +191,11 @@ export default function Awards(): JSX.Element {
 
       <main className="scroll-pt-24">
         <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
-          <img
+          {/* <img
             className="absolute inset-0 h-full w-full object-cover"
             src={awdbg}
             alt="Awards background"
-          />
+          /> */}
           <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
 

@@ -1,187 +1,40 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import FullScreenSlider from "./Fullscreenslider";
-
-import Award1 from "@/assets/Awards/award1.jpg";
-import Award2 from "@/assets/Awards/award2.jpg";
-import Award3 from "@/assets/Awards/award3.jpg";
-import Award4 from "@/assets/Awards/award4.jpg";
-import Award5 from "@/assets/Awards/award5.jpg";
-import Award6 from "@/assets/Awards/award6.jpg";
-import Award7 from "@/assets/Awards/award7.jpg";
-import Award8 from "@/assets/Awards/award8.jpg";
-import Award9 from "@/assets/Awards/award9.jpg";
-import Award10 from "@/assets/Awards/award10.jpg";
-import Award11 from "@/assets/Awards/award11.png";
-import Award12 from "@/assets/Awards/award12_Swachha Andhra.png";
-
-// import  Awardvd from "@/assets/Awards/Swachh Andhra Award 2025.mp4";
+import FullScreenSlider, { type SliderSlide } from "./Fullscreenslider";
 import awdbg from "@/assets/website/hero/award-bg.jpeg";
+const awardImageModules = import.meta.glob(
+  "../assets/Awards/**/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  {
+  eager: true,
+  import: "default",
+});
 
-type Award = {
-  id: string;
-  title: string;
-  org: string;
-  year: number;
-  category: "Sustainability" | "Operations" | "Innovation" | "Corporate";
-  img: string;
-  highlight?: boolean;
-  desc: string;
+const getAwardOrder = (path: string): number => {
+  const fileName = path.split("/").pop() ?? "";
+  const match = fileName.match(/(\d+)/);
+  return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
 };
 
-type Metric = {
-  label: string;
-  value: string;
-  helper: string;
+const toSlideTitle = (path: string, index: number): string => {
+  const fileName = path.split("/").pop() ?? `award-${index + 1}`;
+  const match = fileName.match(/award\s*([0-9]+)/i) ?? fileName.match(/(\d+)/);
+  if (match?.[1]) return `Award\n${match[1]}`;
+
+  const clean = fileName.replace(/\.[^/.]+$/, "").replace(/[_-]+/g, " ").trim();
+  return clean || `Award\n${index + 1}`;
 };
 
-const awards: Award[] = [
-  {
-    id: "a1",
-    title: "Excellence in Managing Municipal Solid Waste",
-    org: "Confederation of Indian Industry (CII)",
-    year: 2020,
-    category: "Corporate",
-    img: Award1,
-    highlight: true,
-    desc:
-      "Awarded for exemplary performance in municipal solid waste (MSW) management and leadership in sustainable waste solutions.",
-  },
-  {
-    id: "a2",
-    title: "Indian Leadership Award for Industrial Development",
-    org: "All India Achievers Foundation",
-    year: 2017,
-    category: "Innovation",
-    img: Award2,
-    desc:
-      "Presented in recognition of leadership and contribution to industrial development at the National Seminar on Individual Achievements and National Development.",
-  },
-  {
-    id: "a3",
-    title: "Trees for Tigers - Bountiful Tree Recognition",
-    org: "Geocycle",
-    year: 2019,
-    category: "Corporate",
-    img: Award3,
-    desc:
-      "Honoured for environmental conservation contribution through the Trees for Tigers initiative near Sariska Tiger Reserve, Alwar, Rajasthan.",
-  },
-  {
-    id: "a4",
-    title: "India Sustainable Waste Management Technology Innovation Award",
-    org: "Frost & Sullivan",
-    year: 2016,
-    category: "Sustainability",
-    img: Award4,
-    desc:
-      "Presented for pioneering innovation in sustainable waste management technologies and excellence in technology-driven environmental solutions.",
-  },
-  {
-    id: "a5",
-    title: "Award for Excellence",
-    org: "Municipalika & CAPEX",
-    year: 2017,
-    category: "Sustainability",
-    img: Award5,
-    desc:
-      "Awarded for participation in Municipalika and CAPEX 2017, the 14th International Exhibition on Smart and Sustainable City Solutions.",
-  },
-  {
-    id: "a6",
-    title: "SKOCH Award - Corporate Silver",
-    org: "SKOCH Group",
-    year: 2017,
-    category: "Operations",
-    img: Award6,
-    desc:
-      "Awarded for excellence in municipal solid waste landfill mining and impactful corporate performance.",
-  },
-  {
-    id: "a7",
-    title: "Best Practices Award - Sustainable Waste Management Technology Innovation",
-    org: "Frost & Sullivan",
-    year: 2016,
-    category: "Sustainability",
-    img: Award7,
-    desc:
-      "Recognized for innovation and best practices in sustainable waste management through advanced scalable technologies.",
-  },
-  {
-    id: "a8",
-    title: "Indian Leadership Award for Industrial Development",
-    org: "All India Achievers Foundation",
-    year: 2017,
-    category: "Sustainability",
-    img: Award8,
-    desc:
-      "Presented to Nagesh Prabhu C., Director - Zigma Global Environ Solutions Pvt. Ltd., for exemplary leadership and industrial impact.",
-  },
-  {
-    id: "a9",
-    title: "Vijayawada Municipal Corporation - Best Performance Awards",
-    org: "Vijayawada Municipal Corporation",
-    year: 2019,
-    category: "Corporate",
-    img: Award9,
-    desc:
-      "Recognized for outstanding organizational and individual performance in municipal services including project leadership excellence.",
-  },
-  {
-    id: "a10",
-    title: "Memento - Appreciation of Participation",
-    org: "Good Governance India Foundation",
-    year: 2017,
-    category: "Operations",
-    img: Award10,
-    desc:
-      "Presented for participation at the 14th International Conference and Exhibition on Smart and Sustainable City Solutions.",
-  },
-  {
-    id: "a11",
-    title: "Green Innovation Award",
-    org: "Services Export Promotion Council (SEPC)",
-    year: 2025,
-    category: "Operations",
-    img: Award11,
-    desc:
-      "Honoured at the National Conclave on Environmental Services for driving green innovation and sustainability-focused solutions.",
-  },
-  {
-    id: "a12",
-    title: "State Level Award",
-    org: "Government of Andhra Pradesh (Swachha Andhra Initiative)",
-    year: 2025,
-    category: "Corporate",
-    img: Award12,
-    desc:
-      "Recognized for outstanding operational performance and service delivery under major municipal solid waste programs.",
-  },
-];
-
-const metrics: Metric[] = [
-  {
-    label: "Total Awards",
-    value: `${awards.length}`,
-    helper: "Across corporate, sustainability, operations, and innovation",
-  },
-  {
-    label: "Years Recognized",
-    value: "2016-2025",
-    helper: "A decade of verified industry recognition",
-  },
-  {
-    label: "Highlighted Wins",
-    value: `${awards.filter((award) => award.highlight).length}`,
-    helper: "Top-tier awards based on peer and program recognition",
-  },
-  {
-    label: "Award Categories",
-    value: "4",
-    helper: "Corporate, sustainability, innovation, and operations",
-  },
-];
+const sliderSlides: SliderSlide[] = Object.entries(awardImageModules)
+  .sort((a, b) => {
+    const orderDiff = getAwardOrder(a[0]) - getAwardOrder(b[0]);
+    return orderDiff !== 0 ? orderDiff : a[0].localeCompare(b[0], undefined, { numeric: true });
+  })
+  .map(([path, src], index) => ({
+    id: index + 1,
+    title: toSlideTitle(path, index),
+    imageUrl: src as string,
+  }));
 
 export default function AwardsandRecognition(): JSX.Element {
   return (
@@ -244,7 +97,7 @@ export default function AwardsandRecognition(): JSX.Element {
               </p>
             </div>
             <div className="mt-8">
-              <FullScreenSlider />
+              <FullScreenSlider slides={sliderSlides} />
             </div>
           </div>
         </section>

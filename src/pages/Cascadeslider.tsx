@@ -5,7 +5,7 @@ import Award2 from "@/assets/Awards/award2.jpg";
 import Award3 from "@/assets/Awards/award3.jpg";
 import Award4 from "@/assets/Awards/award4.jpg";
 import Award5 from "@/assets/Awards/award5.jpg";
-import Award6 from "@/assets/Awards/award6.jpg";
+// import Award6 from "@/assets/Awards/award6.jpg";
 import Award7 from "@/assets/Awards/award7.jpg";
 import Award8 from "@/assets/Awards/award8.jpg";
 import Award9 from "@/assets/Awards/award9.jpg";
@@ -44,12 +44,12 @@ const DEMO_SLIDES: AwardsCascadeSlide[] = [
     subtitle: "",
     imageUrl: Award5,
   },
-  {
-    id: "a6",
-    title: "Award 6",
-    subtitle: "",
-    imageUrl: Award6,
-  },
+  // {
+  //   id: "a6",
+  //   title: "Award 6",
+  //   subtitle: "",
+  //   imageUrl: Award6,
+  // },
   {
     id: "a7",
     title: "Award 7",
