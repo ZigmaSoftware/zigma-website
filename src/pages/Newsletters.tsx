@@ -1,7 +1,7 @@
 import { FileText } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import heroBg from "@/assets/website/hero/Newsletter-bg.png";
+import heroBg from "@/assets/website/hero/newsletter-bg.jpg";
 // import sectionBg from "@/assets/background-1.png";
 
 type Newsletter = {
@@ -179,7 +179,7 @@ const Newsletters = () => {
             aria-hidden="true"
           />
           <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" />
+          {/* <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" /> */}
 
           <div className="container-main relative grid items-center justify-items-center text-center">
             <p className="text-sm md:text-base tracking-[0.35em] uppercase text-white/85 font-medium">

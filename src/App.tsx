@@ -35,7 +35,7 @@ const ProjectsGallery = lazy(() => import("./pages/ProjectsGallery"));
 const WasteManagementShowcase = lazy(() => import("./pages/WasteManagementShowcase"));
 // const GovernancePolicies = lazy(() => import("./pages/GovernancePolicies"));
 const Policies = lazy(() => import("./pages/Policies"));
-const Servicescp = lazy(() => import("./pages/Servicescp"));
+// const Servicescp = lazy(() => import("./pages/Servicescp"));
 const Mediacp = lazy(() => import("./pages/Mediacp"));
 const AwardsandRecognition = lazy(() => import("./pages/AwardsandRecognition"));
 const Publications = lazy(() => import("./pages/Publications"));
@@ -90,7 +90,7 @@ const App = () => (
               <Route path="/waste-management-showcase" element={<WasteManagementShowcase />} />
               {/* <Route path="/governance-policies" element={<GovernancePolicies />} /> */}
               <Route path="/policies" element={<Policies />} />
-              <Route path="/servicescp" element={<Servicescp />} />
+              {/* <Route path="/servicescp" element={<Servicescp />} /> */}
 
               <Route path="/mediacp" element={<Mediacp />} />
               <Route path="/awardsandrecognition" element={<AwardsandRecognition />} />
