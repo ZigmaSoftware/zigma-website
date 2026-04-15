@@ -19,7 +19,7 @@ import img7 from '@/assets/before after projects/VIJAYAWADA-AJITSINGH NAGAR afte
 import img8 from '@/assets/website/noida present.png';
 import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/website/hero/controll room.png';
-import img11 from '@/assets/Awards/award12_Swachha Andhra.png';
+import img11 from '@/assets/website/hero/award12_Swachha Andhra.png';
 
 import picture1 from '@/assets/Leaders/Boopathy Dharmaraj.jpeg';
 import picture2 from '@/assets/Leaders/K P Mutharasu.jpeg';

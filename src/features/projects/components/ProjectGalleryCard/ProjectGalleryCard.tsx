@@ -15,6 +15,16 @@ import atladaraBeforeA from '@/assets/before after projects/Atladara - Vadodara/
 import atladaraAfterC from '@/assets/before after projects/Atladara - Vadodara/VADODARA - ATLADAR  after.png';
 import atladaraBeforeB from '@/assets/before after projects/Atladara - Vadodara/VADODARA-ATLADARbefor.jpeg';
 import atladaraAfterD from '@/assets/before after projects/Atladara - Vadodara/WhatsApp Image 2026-04-05 at 14.42.05.jpeg';
+import vendipalayamAfter from '@/assets/before after projects/vendipalayam/VendipalayemAfter.webp';
+import vendipalayamBefore from '@/assets/before after projects/vendipalayam/VendipalayemBefore.webp';
+import vendipalayamZoneAAfter from '@/assets/before after projects/vendipalayam/Zone-A-After.webp';
+import vendipalayamZoneABefore from '@/assets/before after projects/vendipalayam/Zone-ABefore.webp';
+import vendipalayamZoneBAfter from '@/assets/before after projects/vendipalayam/Zone-B-After.webp';
+import vendipalayamZoneBBefore from '@/assets/before after projects/vendipalayam/Zone-BBefore.webp';
+import vendipalayamZoneCAfter from '@/assets/before after projects/vendipalayam/Zone-C-After.webp';
+import vendipalayamZoneCBefore from '@/assets/before after projects/vendipalayam/Zone-CBefore.webp';
+import vendipalayamZoneDAfter from '@/assets/before after projects/vendipalayam/Zone-DAfter.webp';
+import vendipalayamZoneDBefore from '@/assets/before after projects/vendipalayam/Zone-DBefore.webp';
 import kdgPackage1Before from '@/assets/before after projects/ongoing/Kdg/KDG-Package1-Before.jpeg';
 import kdgPackage3Before from '@/assets/before after projects/ongoing/Kdg/KDG-Package3-Before.jpeg';
 import kdgPackage4Before from '@/assets/before after projects/ongoing/Kdg/KDG-Package4-Before.jpeg';
@@ -24,7 +34,11 @@ interface ProjectGalleryCardProps {
   onViewDetails?: () => void;
   variant?: ProjectGalleryVariant;
 }
-export type ProjectGalleryVariant = 'nagpur-phase-2' | 'atladara-vadodara' | 'kodungaiyur-chennai';
+export type ProjectGalleryVariant =
+  | 'nagpur-phase-2'
+  | 'atladara-vadodara'
+  | 'kodungaiyur-chennai'
+  | 'vendipalayam-erode';
 
 interface GalleryMetric {
   key: MetricKey;
@@ -46,9 +60,16 @@ interface GalleryTile {
   showOngoingBadge?: boolean;
 }
 
+interface GalleryDefaultView {
+  beforeImage: string;
+  afterImage: string;
+  isComparison?: boolean;
+  showOngoingBadge?: boolean;
+}
+
 const GALLERY_CONFIG: Record<
   ProjectGalleryVariant,
-  { title: string; state: string; metrics: GalleryMetric[]; tiles: GalleryTile[] }
+  { title: string; state: string; metrics: GalleryMetric[]; tiles: GalleryTile[]; defaultView?: GalleryDefaultView }
 > = {
   'nagpur-phase-2': {
     title: 'Nagpur - Phase 2',
@@ -187,6 +208,59 @@ const GALLERY_CONFIG: Record<
       },
     ],
   },
+  'vendipalayam-erode': {
+    title: 'Vendipalayam - Erode',
+    state: 'Tamilnadu',
+    defaultView: {
+      beforeImage: vendipalayamBefore,
+      afterImage: vendipalayamAfter,
+      isComparison: true,
+      showOngoingBadge: false,
+    },
+    metrics: [
+      { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '549,026', unit: 'TONS' },
+      { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '17.3', unit: 'ACRES' },
+      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '380,200.505', unit: 'METRIC TONS' },
+      {
+        key: 'recovery',
+        label: 'Project Status',
+        title: 'Project Status',
+        value: 'Completed',
+        unit: 'CURRENT PROJECT STAGE',
+        details: [{ label: 'Project Timeline', value: '21.01.2022 - 24.11.2022' }],
+      },
+    ],
+    tiles: [
+      {
+        id: 'tile-1',
+        beforeImage: vendipalayamZoneABefore,
+        afterImage: vendipalayamZoneAAfter,
+        label: 'Zone A',
+        metricKey: 'waste',
+      },
+      {
+        id: 'tile-2',
+        beforeImage: vendipalayamZoneBBefore,
+        afterImage: vendipalayamZoneBAfter,
+        label: 'Zone B',
+        metricKey: 'land',
+      },
+      {
+        id: 'tile-3',
+        beforeImage: vendipalayamZoneCBefore,
+        afterImage: vendipalayamZoneCAfter,
+        label: 'Zone C',
+        metricKey: 'co2',
+      },
+      {
+        id: 'tile-4',
+        beforeImage: vendipalayamZoneDBefore,
+        afterImage: vendipalayamZoneDAfter,
+        label: 'Zone D',
+        metricKey: 'recovery',
+      },
+    ],
+  },
 };
 
 export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
@@ -194,9 +268,11 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
   variant = 'nagpur-phase-2',
 }) => {
   const config = GALLERY_CONFIG[variant];
-  const { title, state, metrics, tiles } = config;
+  const { title, state, metrics, tiles, defaultView } = config;
   const [activeMetric, setActiveMetric] = useState<MetricKey>('waste');
-  const [activeTileId, setActiveTileId] = useState<string>('tile-1');
+  const [activeTileId, setActiveTileId] = useState<string | null>(
+    variant === 'vendipalayam-erode' ? null : 'tile-1',
+  );
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const currentMetric = useMemo(
@@ -205,11 +281,13 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
   );
 
   const currentTile = useMemo(
-    () => tiles.find((tile) => tile.id === activeTileId) ?? tiles[0],
+    () => (activeTileId ? tiles.find((tile) => tile.id === activeTileId) ?? tiles[0] : null),
     [activeTileId, tiles],
   );
-  const isComparison = currentTile.isComparison ?? true;
-  const showOngoingBadge = currentTile.showOngoingBadge ?? true;
+  const sliderBeforeImage = currentTile?.beforeImage ?? defaultView?.beforeImage ?? tiles[0].beforeImage;
+  const sliderAfterImage = currentTile?.afterImage ?? defaultView?.afterImage ?? tiles[0].afterImage;
+  const isComparison = currentTile?.isComparison ?? defaultView?.isComparison ?? true;
+  const showOngoingBadge = currentTile?.showOngoingBadge ?? defaultView?.showOngoingBadge ?? true;
   const metricDisplayValue =
     variant === 'nagpur-phase-2' && activeMetric === 'land' && currentTile.landValue
       ? currentTile.landValue
@@ -234,8 +312,8 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
       >
         <div className="relative min-h-[520px] lg:flex-1 bg-black">
           <ComparisonSlider
-            beforeSrc={currentTile.beforeImage}
-            afterSrc={currentTile.afterImage}
+            beforeSrc={sliderBeforeImage}
+            afterSrc={sliderAfterImage}
             isComparison={isComparison}
             showOngoingBadge={showOngoingBadge}
           />
@@ -248,6 +326,12 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
                   key={tile.id}
                   type="button"
                   onClick={() => {
+                    if (variant === 'vendipalayam-erode' && activeTileId === tile.id) {
+                      setActiveTileId(null);
+                      setActiveMetric('waste');
+                      setDetailsOpen(false);
+                      return;
+                    }
                     setActiveTileId(tile.id);
                     setActiveMetric('land');
                     setDetailsOpen(true);
@@ -394,3 +478,7 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
     </article>
   );
 };
+
+
+
+

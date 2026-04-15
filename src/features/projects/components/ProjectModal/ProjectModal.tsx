@@ -30,8 +30,8 @@ const COLORS = {
 const SIZES = {
   modalWidth: "max-w-[1100px]",
   modalHeight: "max-h-[95vh]",
-  leafIcon: "h-14 w-14",
-  cardIcon: "h-12 w-12",
+  leafIcon: "h-32 w-26",
+  cardIcon: "h-32 w-32",
 };
 
 // ============ Sub-Components ============
@@ -90,14 +90,16 @@ interface MarkerCardProps {
   text: string;
 }
 
+// icons size
+
 const MarkerCard = ({ icon, text }: MarkerCardProps) => 
-  <div className="flex h-full items-center gap-5 rounded-[14px] border border-[#cae4d8] bg-white px-6 py-5 transition-all hover:shadow-md">
-    <div className="relative flex h-20 w-20 flex-shrink-0 items-center justify-center">
+  <div className="flex h-full items-center gap-5 rounded-lg border border-[#cae4d8] bg-white px-6 py-5 transition-all hover:shadow-md">
+    <div className="relative flex h-24 w-24 flex-shrink-0 items-center justify-center">
       <img src={credibilityBg} alt="" className="absolute inset-0 h-full w-full object-contain opacity-80" />
-      <span className="relative z-10 flex h-8 w-8 items-center justify-center text-[#36a57a]">{icon}</span>
+      <span className="relative z-10 flex h-20 w-20 items-center justify-center text-primary">{icon}</span>
     </div>
 
-    <p className="flex-1 text-base leading-relaxed text-[#2f3944]">{text}</p>
+    <p className="flex-1 text-md  text-justify  ">{text}</p>
   </div>
 ;
 
@@ -109,14 +111,14 @@ interface CredibilityMarkersSectionProps {
 const CredibilityMarkersSection = ({ markers }: CredibilityMarkersSectionProps) => (
   <section>
     {/* Section Header with decorative leaves */}
-    <div className="mb-7 flex items-center justify-center  ">
-      <img src={leafLeft} alt="" className="h-14 w-8 object-contain opacity-85" />
+    <div className="mb-3 flex items-center justify-center  ">
+      <img src={leafLeft} alt="" className="h-32 w-10 object-contain opacity-85" />
       <div className="text-center">
-        <h3 className="text-xl uppercase font-bold tracking-[0.34em] ">
+        <h3 className="text-2xl uppercase font-bold tracking-[0.2em] mt-4">
           Credibility Markers
         </h3>
       </div>
-      <img src={leafRight} alt="" className="h-14 w-8 object-contain opacity-85" />
+      <img src={leafRight} alt="" className="h-32 w-10 object-contain opacity-85" />
     </div>
 
     {/* Marker Cards Grid */}
@@ -137,29 +139,49 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
   useEffect(() => {
     if (!project) return;
 
+    const lenis = (window as Window & {
+      __lenis?: {
+        scroll?: number;
+        stop?: () => void;
+        start?: () => void;
+        scrollTo: (
+          target: number | string | HTMLElement,
+          options?: { immediate?: boolean; offset?: number },
+        ) => void;
+      };
+    }).__lenis;
+
     const handleEscapeKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 
-    const scrollY = window.scrollY;
+    const scrollY = typeof lenis?.scroll === "number" ? lenis.scroll : window.scrollY;
     const originalBodyPosition = document.body.style.position;
     const originalBodyTop = document.body.style.top;
     const originalBodyWidth = document.body.style.width;
     const originalBodyOverflow = document.body.style.overflow;
 
     window.addEventListener("keydown", handleEscapeKey);
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = "100%";
-    document.body.style.overflow = "hidden";
+    lenis?.stop?.();
+    if (!lenis) {
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+      document.body.style.overflow = "hidden";
+    }
 
     return () => {
       window.removeEventListener("keydown", handleEscapeKey);
-      document.body.style.position = originalBodyPosition;
-      document.body.style.top = originalBodyTop;
-      document.body.style.width = originalBodyWidth;
-      document.body.style.overflow = originalBodyOverflow;
-      window.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
+      if (lenis) {
+        lenis.start?.();
+        lenis.scrollTo(scrollY, { immediate: true });
+      } else {
+        document.body.style.position = originalBodyPosition;
+        document.body.style.top = originalBodyTop;
+        document.body.style.width = originalBodyWidth;
+        document.body.style.overflow = originalBodyOverflow;
+        window.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
+      }
     };
   }, [project, onClose]);
 
@@ -167,10 +189,10 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
 
   // Create credibility markers with icons
   const markerIcons: ReactNode[] = [
-    <Award className="h-9 w-9" />,
-    <Shield className="h-9 w-9" />,
-    <Star className="h-9 w-9" />,
-    <BookOpen className="h-9 w-9" />,
+    <Award className="h-12 w-12" />,
+    <Shield className="h-12 w-12" />,
+    <Star className="h-12 w-12" />,
+    <BookOpen className="h-12 w-12" />,
   ];
 
   const credibilityMarkers: CredibilityMarker[] = project.metrics.map((text, index) => ({
