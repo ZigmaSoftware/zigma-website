@@ -19,7 +19,7 @@ import epr from "@/assets/services/EPR.png";
 import recycledFurniture from "@/assets/website/hero/Furnitures.png";
 import iwmsPdf from "@/assets/services/IWMS ZIGMA v2.pdf";
 import uniceilCataloguePdf from "@/assets/Products/UNICEIL -WPE -Master Catalogue-2026.pdf";
-import Servicescp from "./Servicescp";
+// import Servicescp from "./Servicescp";
 
 
 const SLOW_EASE = "power2.out";

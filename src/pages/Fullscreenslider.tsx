@@ -6,7 +6,7 @@ import award2 from "../assets/Awards/award2.jpg";
 import award3 from "../assets/Awards/award3.jpg";
 import award4 from "../assets/Awards/award4.jpg";
 import award5 from "../assets/Awards/award5.jpg";
-import award6 from "../assets/Awards/award6.jpg";
+// import award6 from "../assets/Awards/award6.jpg";
 import award7 from "../assets/Awards/award7.jpg";
 import award8 from "../assets/Awards/award8.jpg";
 import award9 from "../assets/Awards/award9.jpg";
@@ -51,11 +51,11 @@ const DEFAULT_SLIDES: SliderSlide[] = [
     title: "Award\nFive",
     imageUrl: award5,
   },
-  {
-    id: 6,
-    title: "Award\nSix",
-    imageUrl: award6,
-  },
+  // {
+  //   id: 6,
+  //   title: "Award\nSix",
+  //   imageUrl: award6,
+  // },
   {
     id: 7,
     title: "Award\nSeven",
@@ -264,18 +264,29 @@ interface ThumbnailsProps {
 }
 
 function Thumbnails({ slides, current, onChange, onPrev, onNext }: ThumbnailsProps) {
+  const visibleCount = Math.min(10, slides.length);
+  const startIndex =
+    slides.length <= visibleCount
+      ? 0
+      : (current - Math.floor(visibleCount / 2) + slides.length) % slides.length;
+
+  const visibleSlides = Array.from({ length: visibleCount }, (_, offset) => {
+    const realIndex = (startIndex + offset) % slides.length;
+    return { slide: slides[realIndex], realIndex };
+  });
+
   return (
     <div className="w-full">
       {/* Smaller Thumbnails Grid */}
-      <div className="w-full grid grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-2 px-2">
-        {slides.map((slide, i) => (
+      <div className="w-full grid grid-cols-10 justify-items-center gap-2 px-2">
+        {visibleSlides.map(({ slide, realIndex }) => (
           <button
             key={`small-${slide.id}`}
-            onClick={() => onChange(i)}
+            onClick={() => onChange(realIndex)}
             className={`
-              aspect-square rounded-md overflow-hidden cursor-pointer
+              h-10 w-10 rounded-md overflow-hidden cursor-pointer
               transition-all duration-300 ease-out
-              ${i === current 
+              ${realIndex === current
                 ? "border-2 border-gray-500 opacity-100 scale-105 shadow-lg" 
                 : "border border-white/20 opacity-40 "
               }
@@ -284,7 +295,7 @@ function Thumbnails({ slides, current, onChange, onPrev, onNext }: ThumbnailsPro
           >
             <img
               src={slide.imageUrl}
-              alt={`Thumbnail ${i + 1}`}
+              alt={`Thumbnail ${realIndex + 1}`}
               className="w-full h-full object-cover"
             />
           </button>
