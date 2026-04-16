@@ -4,6 +4,8 @@ import credibilityBg from "@/assets/icons/Credibility.png";
 import leafLeft from "@/assets/icons/leaf-left.png";
 import leafRight from "@/assets/icons/leaf-right.png";
 import leafbottom from "@/assets/icons/leaf-bottom.png";
+import swacchBharathLogo from "@/assets/icons/Swacch Bharath.png";
+import supremeCourtLogo from "@/assets/icons/Supreme Court.png";
 import type { Project } from "../../types";
 
 // ============ Types ============
@@ -195,9 +197,37 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
     <BookOpen className="h-12 w-12" />,
   ];
 
+  const getMarkerIcon = (text: string, index: number): ReactNode => {
+    const normalized = text.toLowerCase();
+
+    if (normalized.includes("swacch bharath")) {
+      return (
+        <img
+          src={swacchBharathLogo}
+          alt=""
+          loading="lazy"
+          className="h-16 w-16 object-contain ml-1.5"
+        />
+      );
+    }
+
+    if (normalized.includes("supreme court")) {
+      return (
+        <img
+          src={supremeCourtLogo}
+          alt=""
+          loading="lazy"
+          className="h-14 w-14 object-contain mb-4"
+        />
+      );
+    }
+
+    return markerIcons[index % markerIcons.length];
+  };
+
   const credibilityMarkers: CredibilityMarker[] = project.metrics.map((text, index) => ({
     text,
-    icon: markerIcons[index % markerIcons.length],
+    icon: getMarkerIcon(text, index),
   }));
 
   return (

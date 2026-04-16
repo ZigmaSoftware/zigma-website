@@ -7,7 +7,7 @@ const PLACEHOLDER_IMAGE =
   'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23e2e8f0"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23475569" font-family="Arial,sans-serif" font-size="40"></text></svg>';
 
 const PROJECT_IMAGE_MODULES = import.meta.glob(
-  '../../../assets/before after projects/**/*.{png,jpg,jpeg,PNG,JPG,JPEG}',
+  '../../../assets/before after projects/**/*.{png,jpg,jpeg,webp,PNG,JPG,JPEG,WEBP}',
   {
     eager: true,
     import: 'default',
@@ -121,9 +121,13 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('Kollam-Before.jpg'),
     afterImage: getProjectImageByFileName('Kollam-After.jpg'),
   },
-  [normalizeProjectKey('Puducherry')]: {
+  [normalizeProjectKey('Puducherry phase 2')]: {
     beforeImage: getProjectImageByFileName('Puducherry-Before..jpg'),
     afterImage: getProjectImageByFileName('Puducherry-After.jpg'),
+  },
+  [normalizeProjectKey('Puducherry phase 1')]: {
+    beforeImage: getProjectImageByFileName('Puducherry-Phase 1-Before.jpeg'),
+    afterImage: getProjectImageByFileName('Puducherry-Phase 1-After.jpeg'),
   },
   [normalizeProjectKey('Muthusamy Colony')]: {
     beforeImage: getProjectImageByFileName('Erode- Muthusamy colony - before.jpeg'),
@@ -205,6 +209,26 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByRelativePath('ongoing/Chittoor.jpeg'),
     afterImage: getProjectImageByRelativePath('ongoing/Chittoor.jpeg'),
   },
+  [normalizeProjectKey('Srikalahasti')]: {
+    beforeImage: getProjectImageByRelativePath('ongoing/Srikalahasti-Before.JPG'),
+    afterImage: getProjectImageByRelativePath('ongoing/Srikalahasti-Before.JPG'),
+  },
+  [normalizeProjectKey('Dhontali- Nellore')]: {
+    beforeImage: getProjectImageByRelativePath('ongoing/Dhontali.jpeg'),
+    afterImage: getProjectImageByRelativePath('ongoing/Dhontali.jpeg'),
+  },
+  [normalizeProjectKey('Visakhapatnam- Phase 5')]: {
+    beforeImage: getProjectImageByRelativePath('ongoing/Vizag-Phase5-Before.webp'),
+    afterImage: getProjectImageByRelativePath('ongoing/Vizag-Phase5-Before.webp'),
+  },
+  [normalizeProjectKey('Tiruchirappalli- Phase 3')]: {
+    beforeImage: getProjectImageByRelativePath('ongoing/Trichy_Phase-3_After_Apr_2026.webp'),
+    afterImage: getProjectImageByRelativePath('ongoing/Trichy_Phase-3_After_Apr_2026.webp'),
+  },
+  [normalizeProjectKey('Kozhikode')]: {
+    beforeImage: getProjectImageByRelativePath('ongoing/Kozhikode-Before.webp'),
+    afterImage: getProjectImageByRelativePath('ongoing/Kozhikode-Before.webp'),
+  },
   [normalizeProjectKey('Athipattu- Chennai')]: {
     beforeImage: getProjectImageByFileName('Athipattu-Before.jpeg'),
     afterImage: PLACEHOLDER_IMAGE,
@@ -217,13 +241,72 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('Belortol.jpeg'),
     afterImage: getProjectImageByFileName('Belortol.jpeg'),
   },
+  [normalizeProjectKey('Allipuram')]: {
+    beforeImage: getProjectImageByFileName('Allipuram_Before_Dec_2025.webp'),
+    afterImage: getProjectImageByFileName('Allipuram_After_Apr_2026.webp'),
+  },
+  [normalizeProjectKey('Atmakur')]: {
+    beforeImage: getProjectImageByFileName('Atmakur-Befor.jpeg'),
+    afterImage: getProjectImageByFileName('Atmakur-After.JPG'),
+  },
+  [normalizeProjectKey('Buchireddypalayam')]: {
+    beforeImage: getProjectImageByFileName('Buchireddypalayam-Before.JPG'),
+    afterImage: getProjectImageByFileName('Buchireddypalayam-After.JPG'),
+  },
+  [normalizeProjectKey('Gooty')]: {
+    beforeImage: getProjectImageByFileName('Gooty-Befor.jpeg'),
+    afterImage: getProjectImageByFileName('Gooty-Afte.jpeg'),
+  },
+  [normalizeProjectKey('Gudur')]: {
+    beforeImage: getProjectImageByFileName('Gudur-Befor.jpeg'),
+    afterImage: getProjectImageByFileName('Gudur-After.jpeg'),
+  },
+  [normalizeProjectKey('Guntakal')]: {
+    beforeImage: getProjectImageByFileName('Guntakal-Befor.jpeg'),
+    afterImage: getProjectImageByFileName('Guntakal-After.JPG'),
+  },
+  [normalizeProjectKey('Kavali')]: {
+    beforeImage: getProjectImageByFileName('Kavali-Before.JPG'),
+    afterImage: getProjectImageByFileName('Kavali-After.JPG'),
+  },
+  [normalizeProjectKey('Nagari')]: {
+    beforeImage: getProjectImageByFileName('Nagari_Before_Aerial_Image.jpg.jpeg'),
+    afterImage: getProjectImageByFileName('Nagari_After_Aerial_Image.jpg.jpeg'),
+  },
+  [normalizeProjectKey('Naidupetta')]: {
+    beforeImage: getProjectImageByFileName('Naidupetta-Before.JPG'),
+    afterImage: getProjectImageByFileName('Naidupetta-After.JPG'),
+  },
+  [normalizeProjectKey('Palamaneeru')]: {
+    beforeImage: getProjectImageByFileName('Palamaneeru-Before.jpeg'),
+    afterImage: getProjectImageByFileName('Palamaneeru-After.JPG'),
+  },
+  [normalizeProjectKey('Puttur')]: {
+    beforeImage: getProjectImageByFileName('Puttur-Before.JPG'),
+    afterImage: getProjectImageByFileName('Puttur-After.JPG'),
+  },
+};
+
+/**
+ * Alias map for project titles that differ between data rows and image lookup keys.
+ */
+const PROJECT_TITLE_ALIASES: Record<string, string> = {
+  [normalizeProjectKey('Allipuram- Nellore')]: normalizeProjectKey('Allipuram'),
+  [normalizeProjectKey('Buchireddypalem')]: normalizeProjectKey('Buchireddypalayam'),
+  [normalizeProjectKey('Gudur(N)')]: normalizeProjectKey('Gudur'),
+  [normalizeProjectKey('Nayudupeta')]: normalizeProjectKey('Naidupetta'),
+  [normalizeProjectKey('Palamaneru')]: normalizeProjectKey('Palamaneeru'),
+  [normalizeProjectKey('Palameneru')]: normalizeProjectKey('Palamaneeru'),
 };
 
 /**
  * Resolve project images by title
  */
 export const resolveProjectImages = (title: string): { beforeImage: string; afterImage: string } => {
-  return IMAGE_LOOKUP[normalizeProjectKey(title)] ?? {
+  const normalizedTitle = normalizeProjectKey(title);
+  const aliasKey = PROJECT_TITLE_ALIASES[normalizedTitle];
+
+  return IMAGE_LOOKUP[normalizedTitle] ?? (aliasKey ? IMAGE_LOOKUP[aliasKey] : undefined) ?? {
     beforeImage: PLACEHOLDER_IMAGE,
     afterImage: PLACEHOLDER_IMAGE,
   };
@@ -235,4 +318,7 @@ export const resolveProjectImages = (title: string): { beforeImage: string; afte
 export const getPlaceholderImage = (): string => {
   return PLACEHOLDER_IMAGE;
 };
+
+
+
 
