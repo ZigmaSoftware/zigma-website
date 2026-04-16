@@ -18,7 +18,8 @@ interface ProjectStatCardProps {
 }
 
 const ProjectStatCard = ({ stat, compact = false }: ProjectStatCardProps) => {
-  const displayValue = formatValue(stat.value);
+  const numericValue = typeof stat.value === "string" ? parseFloat(stat.value) : stat.value;
+  const displayValue = formatValue(numericValue);
   const Icon = iconMap[stat.icon];
 
   return (

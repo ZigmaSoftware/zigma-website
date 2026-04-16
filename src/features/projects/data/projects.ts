@@ -10,9 +10,89 @@ import {
   normalizeState,
   buildScopeKey,
   splitCredibilityMarkers,
+  normalizeProjectKey,
 } from '../utils/dataProcessing';
 import { resolveProjectImages, getPlaceholderImage } from '../utils/imageLoading';
 import { OFFICIAL_SCOPE_BY_KEY } from './scopes';
+import projectDetails from '../../../../project_details.json';
+
+type ProjectDetailsRow = {
+  sno: number;
+  project_brief: string | null;
+  project_name: string | null;
+  state: string | null;
+  waste_processed: number | string | null;
+  actual_quantity_cleared: number | string | null;
+  land_reclaimed: number | string | null;
+  schedule_progress: string | null;
+  start: string | null;
+  end: string | null;
+  co2_mitigated: number | string | null;
+  credibility_markers: string | null;
+  project_status: string | null;
+};
+
+const PROJECT_DETAILS_BY_KEY: Record<string, ProjectDetailsRow> = (() => {
+  const rows = (projectDetails as { projects?: ProjectDetailsRow[] })?.projects ?? [];
+  const map: Record<string, ProjectDetailsRow> = {};
+
+  for (const row of rows) {
+    const title = row.project_name?.trim();
+    const state = row.state?.trim();
+    if (!title || !state) continue;
+
+    // Index by both raw and normalized state so lookups match existing TS rows reliably.
+    map[buildScopeKey(title, state)] = row;
+    map[buildScopeKey(title, normalizeState(state))] = row;
+  }
+
+  return map;
+})();
+
+const PROJECT_DETAILS_BY_NORMALIZED_KEY: Record<string, ProjectDetailsRow> = (() => {
+  const rows = (projectDetails as { projects?: ProjectDetailsRow[] })?.projects ?? [];
+  const map: Record<string, ProjectDetailsRow> = {};
+
+  for (const row of rows) {
+    const title = row.project_name?.trim();
+    const state = row.state?.trim();
+    if (!title || !state) continue;
+
+    const titleKey = normalizeProjectKey(title);
+    const stateKey = normalizeState(state).trim().toLowerCase();
+    map[`${titleKey}|${stateKey}`] = row;
+  }
+
+  return map;
+})();
+
+// Known Excel naming inconsistencies/typos mapped to the names used in project_details.json.
+const DETAILS_TITLE_KEY_ALIASES: Record<string, string> = {
+  [normalizeProjectKey('Pallavaram')]: normalizeProjectKey('Pallavapuram'),
+  [normalizeProjectKey('Tiruchirappalli- Phase 1')]: normalizeProjectKey('Tiruchirapalli- Phase 1'),
+  [normalizeProjectKey('Tiruchirappalli- Phase 2')]: normalizeProjectKey('Tiruchirapalli- Phase 2'),
+  [normalizeProjectKey('Tiruchirappalli- Phase 3')]: normalizeProjectKey('Tiruchirapall i- Phase 3'),
+  [normalizeProjectKey('Sullurupeta')]: normalizeProjectKey('Sullurpet'),
+  [normalizeProjectKey('Nayudupeta')]: normalizeProjectKey('Naidupet'),
+  [normalizeProjectKey('Kammiyampettai- Cuddalore')]: normalizeProjectKey('Kamiyanpettai- Cuddalore'),
+  [normalizeProjectKey('Pachayankuppam- Cuddalore')]: normalizeProjectKey('Panchayankuppam- Cuddalore'),
+  [normalizeProjectKey('Atmakur')]: normalizeProjectKey('Atmakur(N)'),
+};
+
+const getProjectDetails = (title: string, rawState: string): ProjectDetailsRow | undefined => {
+  const exact =
+    PROJECT_DETAILS_BY_KEY[buildScopeKey(title, rawState)] ??
+    PROJECT_DETAILS_BY_KEY[buildScopeKey(title, normalizeState(rawState))];
+  if (exact) return exact;
+
+  const stateKey = normalizeState(rawState).trim().toLowerCase();
+  const titleKey = normalizeProjectKey(title);
+
+  return (
+    PROJECT_DETAILS_BY_NORMALIZED_KEY[`${titleKey}|${stateKey}`] ??
+    PROJECT_DETAILS_BY_NORMALIZED_KEY[`${DETAILS_TITLE_KEY_ALIASES[titleKey] ?? titleKey}|${stateKey}`]
+  );
+};
 
 /**
  * Combined project data with status tracking
@@ -26,7 +106,31 @@ const formatTimelineDate = (input: string | null | undefined): string => {
   if (!raw) return 'Not available';
   if (/ongoing/i.test(raw)) return 'Ongoing';
 
-  const parts = raw.split(/[.-]/).map((part) => part.trim());
+  // Accept ISO-like inputs too: "YYYY-MM-DD", "YYYY-MM-DDTHH:mm:ss", "YYYY-MM-DD HH:mm:ss"
+  const isoMatch = raw.match(/^(\d{4})[/-](\d{1,2})[/-](\d{1,2})(?:[ T].*)?$/);
+  if (isoMatch) {
+    const [, yyyy, mm, dd] = isoMatch;
+    const dayNum = Number(dd);
+    const monthNum = Number(mm);
+    const yearNum = Number(yyyy);
+
+    if (
+      Number.isFinite(dayNum) &&
+      Number.isFinite(monthNum) &&
+      Number.isFinite(yearNum) &&
+      monthNum >= 1 &&
+      monthNum <= 12 &&
+      dayNum >= 1 &&
+      dayNum <= new Date(yearNum, monthNum, 0).getDate()
+    ) {
+      return `${String(dayNum).padStart(2, '0')}.${String(monthNum).padStart(2, '0')}.${String(
+        yearNum,
+      ).padStart(4, '0')}`;
+    }
+  }
+
+  // Common local formats: "DD.MM.YYYY", "D-M-YYYY", "DD/MM/YYYY"
+  const parts = raw.split(/[./-]/).map((part) => part.trim());
   if (parts.length !== 3) return raw;
 
   const [day, month, year] = parts;
@@ -39,6 +143,13 @@ const formatTimelineDate = (input: string | null | undefined): string => {
   if (!Number.isFinite(dayNum) || !Number.isFinite(monthNum) || !Number.isFinite(yearNum)) {
     return raw;
   }
+
+  const isValidDate =
+    monthNum >= 1 &&
+    monthNum <= 12 &&
+    dayNum >= 1 &&
+    dayNum <= new Date(yearNum, monthNum, 0).getDate();
+  if (!isValidDate) return raw;
 
   const dd = String(dayNum).padStart(2, '0');
   const mm = String(monthNum).padStart(2, '0');
@@ -336,8 +447,20 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     credibility: "The project was executed on the fragile RAMSAR Pallikaranai Marshland reclaiming the largest area of 92 acres in South India. The project upon completion also hosted the AVPN Summit 2025 Workshop with delegates from 25 countries attending, the first of its kind event hosted in a reclaimed dumpsite. ",
     status: 'completed',
   },
+
+   {
+        title: "Puducherry phase 1",
+        state: "Puducherry",
+        waste: 901989,
+        land: 19.1,
+        co2: 624627.3,
+        start: "31.12.2021",
+        end: "30-4-2023",
+        credibility: null,
+        status: 'completed', 
+    },
   {
-    title: "Puducherry",
+    title: "Puducherry phase 2",
     state: "Puducherry",
     waste: 123703,
     land: 4.1,
@@ -424,17 +547,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     credibility: null,
     status: 'completed',
   },
-  // {
-  //   title: "Kochi",
-  //   state: "Keralam",
-  //   waste: 821250,
-  //   land: "Not applicable",
-  //   co2: 568715.625,
-  //   start: "14.09.2023",
-  //   end: "14-9-2026",
-  //   credibility: null,
-  //   status: 'ongoing',
-  // },
+ 
   {
     title: "Tirupati Tirumala Devasthanams",
     state: "Andhra Pradesh",
@@ -524,8 +637,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 20018.32,
     land: 0.6,
     co2: 13862.686599999999,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "29-03-2025",
+    end: "02-10-2025",
     credibility: null,
     status: 'completed',
   },
@@ -535,8 +648,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 36505.15,
     land: 27.52,
     co2: 25279.816375,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "29-03-2025",
+    end: "02-10-2025",
     credibility: null,
     status: 'completed',
   },
@@ -546,8 +659,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 16515.32,
     land: 8.97,
     co2: 11436.8591,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "29/03/2025",
+    end: "02/10/2025",
     credibility: null,
     status: 'completed',
   },
@@ -557,8 +670,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 45623.8,
     land: 10.25,
     co2: 31594.481500000005,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "29-03-2025",
+    end: "02-10-2025",
     credibility: null,
     status: 'completed',
   },
@@ -568,8 +681,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 14451.71,
     land: 8.46,
     co2: 10007.809174999999,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "03-04-2025",
+    end: "02-10-2025",
     credibility: null,
     status: 'completed',
   },
@@ -579,8 +692,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 28022.46,
     land: 3.16,
     co2: 19405.55355,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "03-04-2025",
+    end: "02-10-2025",
     credibility: null,
     status: 'completed',
   },
@@ -623,8 +736,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 20845.97,
     land: 7.41,
     co2: 14435.834225000002,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "03-04-2025",
+    end: "02-10-2025",
     credibility: null,
     status: 'completed',
   },
@@ -656,8 +769,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 20000,
     land: 25,
     co2: 13850,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "03-04-2025",
+    end: "01-12-2025",
     credibility: null,
     status: 'completed',
   },
@@ -667,8 +780,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 2099.52,
     land: 1.32,
     co2: 1453.9176,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "03-04-2025",
+    end: "02-10-2025",
     credibility: null,
     status: 'completed',
   },
@@ -678,8 +791,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 16004.81,
     land: 9.3,
     co2: 11083.330924999998,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "03-04-2025",
+    end: "02-10-2025",
     credibility: null,
     status: 'completed',
   },
@@ -689,8 +802,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 6030,
     land: 2.77,
     co2: 4175.775,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "03-04-2025",
+    end: "02-10-2025",
     credibility: null,
     status: 'completed',
   },
@@ -722,8 +835,8 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     waste: 4186.06,
     land: 6.29,
     co2: 2898.84655,
-    start: "Ongoing",
-    end: "Ongoing",
+    start: "04-04-2025",
+    end: "10-11-2025",
     credibility: null,
     status: 'completed',
   },
@@ -760,17 +873,7 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     credibility: null,
     status: 'ongoing',
   },
-  {
-    title: "Kochi",
-    state: "Keralam",
-    waste: 821250,
-    land: null,
-    co2: 568715.625,
-    start: "14.09.2023",
-    end: "14-9-2026",
-    credibility: null,
-    status: 'ongoing',
-  },
+
   {
     title: "Athipattu- Chennai",
     state: "Tamilnadu",
@@ -869,18 +972,21 @@ const transformRowToProject = (
   id: number,
 ): Project => {
   const title = row.title.trim();
+  const details = getProjectDetails(title, row.state);
   const state = normalizeState(row.state);
-  const waste = toNumber(row.waste);
-  const land = toNumber(row.land);
-  const co2 = toNumber(row.co2);
-  const periodStart = formatTimelineDate(row.start);
-  const periodEnd = formatTimelineDate(row.end);
-  const markers = splitCredibilityMarkers(row.credibility);
+  const waste = toNumber(details?.waste_processed ?? row.waste);
+  const land = toNumber(details?.land_reclaimed ?? row.land);
+  const co2 = toNumber(details?.co2_mitigated ?? row.co2);
+  const periodStart = formatTimelineDate(details?.start ?? row.start);
+  const periodEnd = formatTimelineDate(details?.end ?? row.end);
+  const markers = splitCredibilityMarkers(details?.credibility_markers ?? row.credibility);
   const officialScope = OFFICIAL_SCOPE_BY_KEY[buildScopeKey(title, row.state)]?.trim();
+  const projectBrief = details?.project_brief?.trim();
   const isCompleted = row.status === 'completed';
 
   const resolvedImages = resolveProjectImages(title);
-  const isCompletelyFinished = isCompleted && row.end !== 'Ongoing' && !row.end?.includes('Ongoing');
+  const rawEnd = details?.end ?? row.end;
+  const isCompletelyFinished = isCompleted && rawEnd !== 'Ongoing' && !rawEnd?.includes('Ongoing');
   const images = isCompletelyFinished
     ? resolvedImages
     : {
@@ -898,7 +1004,7 @@ const transformRowToProject = (
     subtitle: isCompleted ? 'Project Completed' : 'Project Under Progress',
     status: row.status,
     state,
-    desc: officialScope || `${title} legacy waste remediation project in ${state}.`,
+    desc: projectBrief || officialScope || `${title} legacy waste remediation project in ${state}.`,
     project: `Waste processed: ${formatMetricNumber(waste, 2)} m3. Land reclaimed: ${formatMetricNumber(land, 2)} acres.`,
     focus: `Project timeline: ${periodStart} - ${periodEnd}.`,
     outcome: `CO2 mitigated: ${formatMetricNumber(co2, 3)} MT.`,

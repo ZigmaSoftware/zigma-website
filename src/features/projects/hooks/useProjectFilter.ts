@@ -1,17 +1,21 @@
 /**
  * Hook for managing project filters
  */
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { Project } from '../types';
 
 /**
  * Hook to manage project state filtering
  */
 export const useProjectFilter = (projects: Project[]) => {
-  const states = Array.from(new Set(projects.map((p) => p.state)));
+  const states = useMemo(() => Array.from(new Set(projects.map((p) => p.state))), [projects]);
   const [selectedState, setSelectedState] = useState<string>(states[0] || '');
 
-  const filteredProjects = projects.filter((p) => p.state === selectedState);
+  const filteredProjects = useMemo(
+    () => projects.filter((p) => p.state === selectedState),
+    [projects, selectedState],
+  );
+  const firstProjectId = filteredProjects[0]?.id;
 
   const handleStateSelect = useCallback((state: string) => {
     setSelectedState(state);
@@ -27,19 +31,18 @@ export const useProjectFilter = (projects: Project[]) => {
 
   // Scroll to first project when state changes
   useEffect(() => {
-    const firstProject = filteredProjects[0];
-    if (!firstProject) return;
+    if (!firstProjectId) return;
 
     // Use setTimeout to ensure DOM is updated
     setTimeout(() => {
-      const el = document.getElementById(`proj-${firstProject.id}`);
+      const el = document.getElementById(`proj-${firstProjectId}`);
       if (!el) return;
       window.scrollTo({
         top: el.getBoundingClientRect().top + window.pageYOffset - 130,
         behavior: 'smooth',
       });
     }, 0);
-  }, [selectedState, filteredProjects]);
+  }, [selectedState, firstProjectId]);
 
   return {
     states,
