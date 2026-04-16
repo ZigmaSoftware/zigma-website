@@ -160,7 +160,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   className={`font-semibold text-primary mb-1 break-words ${
                     /[A-Za-z]/.test(currentMetric.displayValue)
                       ? 'text-2xl md:text-3xl leading-tight'
-                      : 'text-4xl md:text-5xl leading-none'
+                      : 'text-4xl md:text-4xl leading-none'
                   }`}
                 >
                   {currentMetric.displayValue}
