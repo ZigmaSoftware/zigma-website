@@ -19,6 +19,7 @@ export const buildInteractiveMetrics = (
   limits: ProjectLimits,
 ): InteractiveMetric[] => {
   const status = project.status === 'ongoing' ? 'Ongoing' : 'Completed';
+  const isOngoing = project.status === 'ongoing';
   const timeline = (project.focus || '')
     .replace(/^Project timeline:\s*/i, '')
     .replace(/\.$/, '')
@@ -28,10 +29,10 @@ export const buildInteractiveMetrics = (
   return [
     {
       key: 'waste',
-      label: 'Waste Processed',
+      label: isOngoing ? 'Estimated waste to be Processed' : 'Waste Processed',
       railValue: project.waste > 0 ? `${formatIndian(project.waste)} m3` : 'No data',
       eyebrow: 'Operations',
-      title: 'Waste Processed',
+      title: isOngoing ? 'Estimated waste to be Processed' : 'Waste Processed',
       displayValue: project.waste > 0 ? formatIndian(project.waste) : '-',
       unit: 'CUBIC METERS',
       status,
@@ -40,10 +41,10 @@ export const buildInteractiveMetrics = (
     },
     {
       key: 'land',
-      label: 'Land Reclaimed',
+      label: isOngoing ? 'Target land Reclamation' : 'Land Reclaimed',
       railValue: project.land > 0 ? `${formatIndian(project.land)} Acres` : 'No data',
       eyebrow: 'Restoration',
-      title: 'Land Reclaimed',
+      title: isOngoing ? 'Target land Reclamation' : 'Land Reclaimed',
       displayValue: project.land > 0 ? formatIndian(project.land) : '-',
       unit: 'ACRES RESTORED',
       status,
@@ -52,10 +53,10 @@ export const buildInteractiveMetrics = (
     },
     {
       key: 'co2',
-      label: 'CO2 Mitigated',
+      label: isOngoing ? 'Expected Co2e Mitigation' : 'CO2 Mitigated',
       railValue: project.co2 > 0 ? `${formatIndian(project.co2)} MT` : 'No data',
       eyebrow: 'Climate',
-      title: 'CO2 Mitigated',
+      title: isOngoing ? 'Expected Co2e Mitigation' : 'CO2 Mitigated',
       displayValue: project.co2 > 0 ? formatIndian(project.co2) : '-',
       unit: 'METRIC TONS',
       status,

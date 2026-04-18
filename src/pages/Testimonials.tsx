@@ -12,6 +12,7 @@ import {
   X,
   ChevronDown,
   Check,
+  Image,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -36,6 +37,10 @@ import mrGagandeepSinghBediImg from "@/assets/Testimonials/Mr. Gagandeep Singh B
 import mrManojJoshiImg from "@/assets/Testimonials/Mr. Manoj Joshi, IAS.jpg";
 import mrJusticePJyothimaniImg from "@/assets/Testimonials/Mr. Justice P Jyothimani.jpg";
 import mrJusticeAdiImg from "@/assets/Testimonials/Mr. Justice Adi.jpg";
+import shriArunMaheshBabuImg from "@/assets/Testimonials/Arun Mahesh Babu Profile.png";
+import andersBendsenSpohrImg from "@/assets/Testimonials/Anders Bendsen Spohr.webp";
+import andersBendsenSpohrCommentsImg from "@/assets/Testimonials/social proof/Anders Bendsen Spohr comments.jpeg";
+import arunMaheshBabuCommentsImg from "@/assets/Testimonials/social proof/Arun Mahesh Babu IAS comments.jpeg";
 import socialImg1 from "@/assets/Testimonials/social proof/social.jpg";
 import socialImg2 from "@/assets/Testimonials/social proof/social2.png";
 import socialImg3 from "@/assets/Testimonials/social proof/social3.png";
@@ -57,6 +62,7 @@ interface Slide {
   name: string;
   role: string;
   tag: string;
+  commentImage?: string;
 }
 
 interface Video {
@@ -275,6 +281,22 @@ const SLIDES: Slide[] = [
     name: "Mrs. Almitra H Patel",
     role: "National Expert, Swachh Bharat Mission and Former Member, Supreme Court Committee for SWM",
     tag: "India",
+  },
+  {
+    text: "The site visit was quite insightful. Happy to see good work of processing happening. Hope the work helps the environment.",
+    image: shriArunMaheshBabuImg,
+    name: "Shri Arun Mahesh Babu M.S., IAS",
+    role: "Municipal Commissioner of Vadodara Municipal Corporation (VMC)",
+    tag: "Gujarat",
+    commentImage: arunMaheshBabuCommentsImg,
+  },
+  {
+    text: "It was a great pleasure to see the site. You guys are doing great things for the planet and you are very professional in how you manage and the culture you have on site. So many thanks.",
+    image: andersBendsenSpohrImg,
+    name: "Anders Bendsen Spohr",
+    role: "Managing Partner, Head of Planetary Health Investments",
+    tag: "International",
+    commentImage: andersBendsenSpohrCommentsImg,
   },
 ];
 
@@ -715,13 +737,19 @@ const Testimonials: FC = () => {
   /* Slider state */
   const [current, setCurrent] = useState<number>(0);
   const [videoCascadeIndex, setVideoCascadeIndex] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  
+  /* Comment image modal state */
+  const [commentImageOpen, setCommentImageOpen] = useState<boolean>(false);
+  const [selectedCommentImage, setSelectedCommentImage] = useState<string>("");
 
   const goTo = useCallback((idx: number) => {
     setCurrent((idx + SLIDES.length) % SLIDES.length);
   }, []);
 
   const startAuto = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
     intervalRef.current = setInterval(
       () => setCurrent((c) => (c + 1) % SLIDES.length),
       5000
@@ -729,7 +757,20 @@ const Testimonials: FC = () => {
   }, []);
 
   const stopAuto = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    setIsPaused(true);
+  }, []);
+
+  const resumeAuto = useCallback(() => {
+    setIsPaused(false);
     if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(
+      () => setCurrent((c) => (c + 1) % SLIDES.length),
+      5000
+    );
   }, []);
 
   useEffect(() => {
@@ -740,17 +781,17 @@ const Testimonials: FC = () => {
   const handlePrev = (): void => {
     stopAuto();
     goTo(current - 1);
-    startAuto();
+    setTimeout(() => resumeAuto(), 100);
   };
   const handleNext = (): void => {
     stopAuto();
     goTo(current + 1);
-    startAuto();
+    setTimeout(() => resumeAuto(), 100);
   };
   const handleDot = (i: number): void => {
     stopAuto();
     goTo(i);
-    startAuto();
+    setTimeout(() => resumeAuto(), 100);
   };
 
   /* Touch swipe */
@@ -763,7 +804,7 @@ const Testimonials: FC = () => {
     if (Math.abs(diff) > 50) {
       stopAuto();
       diff > 0 ? goTo(current + 1) : goTo(current - 1);
-      startAuto();
+      setTimeout(() => resumeAuto(), 100);
     }
   };
 
@@ -883,9 +924,28 @@ const Testimonials: FC = () => {
                 key={i}
                 style={{ display: i === current ? "block" : "none" }}
               >
-                <div className="relative min-h-[460px] overflow-hidden rounded-2xl border border-border bg-white p-8 shadow-lg md:p-12">
+                <div 
+                  className="relative min-h-[460px] overflow-hidden rounded-2xl border border-border bg-white p-8 shadow-lg md:p-12"
+                  onMouseEnter={stopAuto}
+                  onMouseLeave={resumeAuto}
+                >
                   <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-primary to-primary/70" />
                   <div className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-gradient-to-br from-primary/15 to-transparent blur-3xl" />
+                  
+                  {/* Comment Icon Button */}
+                  {s.commentImage && (
+                    <button
+                      onClick={() => {
+                        setSelectedCommentImage(s.commentImage!);
+                        setCommentImageOpen(true);
+                      }}
+                      className="absolute right-4 top-4 z-[60] flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all hover:bg-primary hover:text-white hover:scale-110 shadow-md"
+                      aria-label="View comment image"
+                      title="View original comment image"
+                    >
+                      <Image size={22} />
+                    </button>
+                  )}
 
                   <div className="relative z-10 grid h-full items-center justify-items-center gap-8 md:grid-cols-[360px_1fr] md:gap-10">
                     <div className="mx-auto w-full max-w-[360px]">
@@ -1098,6 +1158,34 @@ const Testimonials: FC = () => {
                     className="h-full w-full"
                   />
                 )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Comment Image Modal */}
+        {commentImageOpen && (
+          <div
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            onClick={() => setCommentImageOpen(false)}
+          >
+            <div
+              className="relative w-full max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto overflow-hidden rounded-2xl bg-white shadow-2xl"
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setCommentImageOpen(false)}
+                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                aria-label="Close modal"
+              >
+                <X size={20} />
+              </button>
+              <div className="max-h-[85vh] overflow-auto">
+                <img
+                  src={selectedCommentImage}
+                  alt="Original comment"
+                  className="w-full h-auto object-contain"
+                />
               </div>
             </div>
           </div>
