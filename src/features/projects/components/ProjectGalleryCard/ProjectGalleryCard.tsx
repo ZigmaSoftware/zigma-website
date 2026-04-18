@@ -29,6 +29,19 @@ import kdgPackage1Before from '@/assets/before after projects/ongoing/Kdg/KDG-Pa
 import kdgPackage3Before from '@/assets/before after projects/ongoing/Kdg/KDG-Package3-Before.jpeg';
 import kdgPackage4Before from '@/assets/before after projects/ongoing/Kdg/KDG-Package4-Before.jpeg';
 import kdgPackage6Before from '@/assets/before after projects/ongoing/Kdg/KDG-Package6-Before.jpeg';
+import pdgPackage3Before from '@/assets/before after projects/PDG/PDG-Package3-Before.webp';
+import pdgPackage3After from '@/assets/before after projects/PDG/PDG-Package3-After.webp';
+import pdgPackage4Before from '@/assets/before after projects/PDG/PDG-Package4-Before.webp';
+import pdgPackage4After from '@/assets/before after projects/PDG/PDG-Package4-After.webp';
+import pdgPackage5Before from '@/assets/before after projects/PDG/PDG-Package5-Before.webp';
+import pdgPackage5After from '@/assets/before after projects/PDG/PDG-Package5-After.webp';
+import makarpuraZone1Before from '@/assets/before after projects/Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone1-before.jpeg';
+import makarpuraZone1After from '@/assets/before after projects/Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone1-After.jpeg';
+import makarpuraZone2Before from '@/assets/before after projects/Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone2-Bofore.jpeg';
+import makarpuraZone2After from '@/assets/before after projects/Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone2-After.jpeg';
+import makarpuraPhase2Before from '@/assets/before after projects/Makarpura-phase-2/Makarpura-phase-2-before.jpeg';
+import makarpuraPhase2After from '@/assets/before after projects/Makarpura-phase-2/Makarpura-phase-2-after.jpeg';
+
 
 interface ProjectGalleryCardProps {
   onViewDetails?: () => void;
@@ -38,7 +51,10 @@ export type ProjectGalleryVariant =
   | 'nagpur-phase-2'
   | 'atladara-vadodara'
   | 'kodungaiyur-chennai'
-  | 'vendipalayam-erode';
+  | 'vendipalayam-erode'
+  | 'perungudi-chennai'
+  | 'makarpura-vadodara-phase-1'
+  | 'makarpura-vadodara-phase-2';
 
 interface GalleryMetric {
   key: MetricKey;
@@ -261,6 +277,104 @@ const GALLERY_CONFIG: Record<
       },
     ],
   },
+  'perungudi-chennai': {
+    title: 'Perungudi - Chennai',
+    state: 'Tamilnadu',
+    metrics: [
+      { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '1,730,584.23', unit: 'TONS' },
+      { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '94.31', unit: 'ACRES' },
+      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '1,198,429.58', unit: 'METRIC TONS' },
+      {
+        key: 'recovery',
+        label: 'Project Status',
+        title: 'Project Status',
+        value: 'Completed',
+        unit: 'CURRENT PROJECT STAGE',
+        details: [{ label: 'Project Timeline', value: '12.10.2021 - 31.09.2024' }],
+      },
+    ],
+    tiles: [
+      {
+        id: 'tile-1',
+        beforeImage: pdgPackage3Before,
+        afterImage: pdgPackage3After,
+        label: 'Package 3',
+        metricKey: 'waste',
+      },
+      {
+        id: 'tile-2',
+        beforeImage: pdgPackage4Before,
+        afterImage: pdgPackage4After,
+        label: 'Package 4',
+        metricKey: 'land',
+      },
+      {
+        id: 'tile-3',
+        beforeImage: pdgPackage5Before,
+        afterImage: pdgPackage5After,
+        label: 'Package 5',
+        metricKey: 'co2',
+      },
+    ],
+  },
+  'makarpura-vadodara-phase-1': {
+    title: 'Makarpura - Vadodara - Phase 1',
+    state: 'Gujarat',
+    metrics: [
+      { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '500,000', unit: 'TONS' },
+      { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '19', unit: 'ACRES' },
+      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '346,250', unit: 'METRIC TONS' },
+      {
+        key: 'recovery',
+        label: 'Project Status',
+        title: 'Project Status',
+        value: 'Completed',
+        unit: 'CURRENT PROJECT STAGE',
+        details: [{ label: 'Project Timeline', value: '10.02.2021 - 24.12.2023' }],
+      },
+    ],
+    tiles: [
+      {
+        id: 'tile-1',
+        beforeImage: makarpuraZone1Before,
+        afterImage: makarpuraZone1After,
+        label: 'Zone 1',
+        metricKey: 'waste',
+      },
+      {
+        id: 'tile-2',
+        beforeImage: makarpuraZone2Before,
+        afterImage: makarpuraZone2After,
+        label: 'Zone 2',
+        metricKey: 'land',
+      },
+    ],
+  },
+  'makarpura-vadodara-phase-2': {
+    title: 'Makarpura - Vadodara - Phase 2',
+    state: 'Gujarat',
+    defaultView: {
+      beforeImage: makarpuraPhase2Before,
+      afterImage: makarpuraPhase2After,
+      isComparison: true,
+      showOngoingBadge: true,
+    },
+    metrics: [
+      { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '200,000', unit: 'TONS' },
+      { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '0', unit: 'ACRES' },
+      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '138,500', unit: 'METRIC TONS' },
+      {
+        key: 'recovery',
+        label: 'Project Status',
+        title: 'Project Status',
+        value: 'Ongoing',
+        unit: 'CURRENT PROJECT STAGE',
+        details: [{ label: 'Project Timeline', value: '20.01.2026 - Ongoing' }],
+      },
+    ],
+    tiles: [],
+  },
+
 };
 
 export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({

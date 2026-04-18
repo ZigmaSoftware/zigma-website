@@ -50,6 +50,23 @@ export const getProjectImageByRelativePath = (relativePath: string): string => {
 };
 
 /**
+ * Get all images for a project (supports zone-wise images)
+ */
+export const getProjectAllImages = (prefix: string): string[] => {
+  const normalizedPrefix = prefix.replace(/\\/g, '/').toLowerCase();
+  const images: string[] = [];
+  
+  for (const [path, url] of Object.entries(PROJECT_IMAGE_MODULES)) {
+    const relativePath = path.toLowerCase().replace('/assets/before after projects/', '');
+    if (relativePath.startsWith(normalizedPrefix)) {
+      images.push(url);
+    }
+  }
+  
+  return images;
+};
+
+/**
  * Image lookup map for before/after images
  */
 export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: string }> = {
@@ -116,6 +133,18 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
   [normalizeProjectKey('Pachayankuppam- Cuddalore')]: {
     beforeImage: getProjectImageByFileName('Pachayankuppam - Cuddalore - before.jpeg'),
     afterImage: getProjectImageByFileName('Pachayankuppam - Cuddalore -after.jpeg'),
+  },
+  [normalizeProjectKey('Kammiyampettai- Cuddalore')]: {
+    beforeImage: getProjectImageByFileName('Kammiyampettai-Cuddalore-Before.webp'),
+    afterImage: getProjectImageByFileName('Kammiyampettai-Cuddalore-After.webp'),
+  },
+  [normalizeProjectKey('Makarpura- Vadodara- Phase 1')]: {
+    beforeImage: getProjectImageByRelativePath('Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone1-before.jpeg'),
+    afterImage: getProjectImageByRelativePath('Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone1-After.jpeg'),
+  },
+  [normalizeProjectKey('Makarpura- Vadodara- Phase 2')]: {
+    beforeImage: getProjectImageByRelativePath('Makarpura-phase-2/Makarpura-phase-2-before.jpeg'),
+    afterImage: getProjectImageByRelativePath('Makarpura-phase-2/Makarpura-phase-2-after.jpeg'),
   },
   [normalizeProjectKey('Kollam')]: {
     beforeImage: getProjectImageByFileName('Kollam-Before.jpg'),
@@ -285,6 +314,10 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('Puttur-Before.JPG'),
     afterImage: getProjectImageByFileName('Puttur-After.JPG'),
   },
+  [normalizeProjectKey('Tambaram')]: {
+    beforeImage: getProjectImageByFileName('Tambaram-Before.webp'),
+    afterImage: getProjectImageByFileName('Tambaram-After.webp'),
+  },
 };
 
 /**
@@ -297,6 +330,7 @@ const PROJECT_TITLE_ALIASES: Record<string, string> = {
   [normalizeProjectKey('Nayudupeta')]: normalizeProjectKey('Naidupetta'),
   [normalizeProjectKey('Palamaneru')]: normalizeProjectKey('Palamaneeru'),
   [normalizeProjectKey('Palameneru')]: normalizeProjectKey('Palamaneeru'),
+  [normalizeProjectKey('Kammiyampettai- Cuddalore')]: normalizeProjectKey('Kamiyanpettai- Cuddalore'),
 };
 
 /**

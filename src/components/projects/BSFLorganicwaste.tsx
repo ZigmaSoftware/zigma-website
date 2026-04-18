@@ -59,7 +59,7 @@ const METRICS: MetricItem[] = [
     id: 'technology',
     title: 'Technology Type',
     description: 'Processing technology deployed at site.',
-    value: 'Pit Type',
+    value: 'Pit',
     unit: 'PROCESS',
     image: pic3,
   },

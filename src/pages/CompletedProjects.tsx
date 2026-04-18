@@ -73,6 +73,12 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
               normalizedTitle === 'kodungaiyur- chennai' || normalizedTitle === 'kodungaiyur - chennai';
             const isVendipalayamErode =
               normalizedTitle === 'vendipalayam- erode' || normalizedTitle === 'vendipalayam - erode';
+            const isPerungudiChennai =
+              normalizedTitle === 'perungudi- chennai' || normalizedTitle === 'perungudi - chennai';
+            const isMakarpuraPhase1 =
+              normalizedTitle === 'makarpura- vadodara- phase 1' || normalizedTitle === 'makarpura - vadodara - phase 1';
+            const isMakarpuraPhase2 =
+              normalizedTitle === 'makarpura- vadodara- phase 2' || normalizedTitle === 'makarpura - vadodara - phase 2';
             const showNagpurGallery = !isPrivateView && normalizedState === 'maharashtra' && isNagpurPhase2;
             const showAtladaraGallery = !isPrivateView && normalizedState === 'gujarat' && isAtladaraVadodara;
             const showKodungaiyurGallery =
@@ -83,8 +89,14 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
               !isPrivateView &&
               (normalizedState === 'tamilnadu' || normalizedState === 'tamil nadu') &&
               isVendipalayamErode;
+            const showPerungudiGallery =
+              !isPrivateView &&
+              (normalizedState === 'tamilnadu' || normalizedState === 'tamil nadu') &&
+              isPerungudiChennai;
+            const showMakarpuraGallery = !isPrivateView && normalizedState === 'gujarat' && isMakarpuraPhase1;
+            const showMakarpuraPhase2Gallery = !isPrivateView && normalizedState === 'gujarat' && isMakarpuraPhase2;
 
-            if (showNagpurGallery || showAtladaraGallery || showKodungaiyurGallery || showVendipalayamGallery) {
+            if (showNagpurGallery || showAtladaraGallery || showKodungaiyurGallery || showVendipalayamGallery || showPerungudiGallery || showMakarpuraGallery || showMakarpuraPhase2Gallery) {
               return (
                 <ProjectGalleryCard
                   key={p.id}
@@ -95,7 +107,13 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
                         ? 'atladara-vadodara'
                         : showKodungaiyurGallery
                           ? 'kodungaiyur-chennai'
-                          : 'vendipalayam-erode'
+                          : showVendipalayamGallery
+                            ? 'vendipalayam-erode'
+                            : showPerungudiGallery
+                              ? 'perungudi-chennai'
+                              : showMakarpuraGallery
+                                ? 'makarpura-vadodara-phase-1'
+                                : 'makarpura-vadodara-phase-2'
                   }
                   onViewDetails={() => setModalId(p.id)}
                 />

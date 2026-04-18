@@ -200,7 +200,11 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
   const getMarkerIcon = (text: string, index: number): ReactNode => {
     const normalized = text.toLowerCase();
 
-    if (normalized.includes("swacch bharath")) {
+    // Only use Swacch Bharath logo for Kumbakonam project
+    if (
+      project.title.toLowerCase().includes("kumbakonam") &&
+      normalized.includes("featured in the swacch bharath mission best practises 2016")
+    ) {
       return (
         <img
           src={swacchBharathLogo}
