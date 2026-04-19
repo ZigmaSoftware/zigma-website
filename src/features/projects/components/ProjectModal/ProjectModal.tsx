@@ -86,6 +86,54 @@ const ProjectBrief = ({ description }: ProjectBriefProps) => (
   </section>
 );
 
+/** Project details section (Authority, Support, Consultant) */
+interface ProjectDetailsProps {
+  executingAuthority?: string | null;
+  supportedBy?: string | null;
+  projectManagementConsultant?: string | null;
+}
+
+const ProjectDetailsSection = ({
+  executingAuthority,
+  supportedBy,
+  projectManagementConsultant,
+}: ProjectDetailsProps) => {
+  const hasDetails = executingAuthority || supportedBy || projectManagementConsultant;
+
+  if (!hasDetails) return null;
+
+  return (
+    <section>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {executingAuthority && (
+          <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+              Executing Authority
+            </p>
+            <p className="text-base text-[#394450]">{executingAuthority}</p>
+          </div>
+        )}
+        {supportedBy && (
+          <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+              Supported By
+            </p>
+            <p className="text-base text-[#394450]">{supportedBy}</p>
+          </div>
+        )}
+        {projectManagementConsultant && (
+          <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+              Project Management Consultant
+            </p>
+            <p className="text-base text-[#394450]">{projectManagementConsultant}</p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
 /** Single credibility marker card */
 interface MarkerCardProps {
   icon: ReactNode;
@@ -248,6 +296,11 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         {/* Content Section */}
         <div className="space-y-8 px-6 py-8 sm:px-10 sm:py-10">
           <ProjectBrief description={project.desc} />
+          <ProjectDetailsSection
+            executingAuthority={project.executingAuthority}
+            supportedBy={project.supportedBy}
+            projectManagementConsultant={project.projectManagementConsultant}
+          />
           {credibilityMarkers.length > 0 && (
             <CredibilityMarkersSection markers={credibilityMarkers} />
           )}

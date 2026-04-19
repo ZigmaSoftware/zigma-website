@@ -79,6 +79,8 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
               normalizedTitle === 'makarpura- vadodara- phase 1' || normalizedTitle === 'makarpura - vadodara - phase 1';
             const isMakarpuraPhase2 =
               normalizedTitle === 'makarpura- vadodara- phase 2' || normalizedTitle === 'makarpura - vadodara - phase 2';
+            const isRayadurgam =
+              normalizedTitle === 'rayadurgam';
             const showNagpurGallery = !isPrivateView && normalizedState === 'maharashtra' && isNagpurPhase2;
             const showAtladaraGallery = !isPrivateView && normalizedState === 'gujarat' && isAtladaraVadodara;
             const showKodungaiyurGallery =
@@ -95,8 +97,9 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
               isPerungudiChennai;
             const showMakarpuraGallery = !isPrivateView && normalizedState === 'gujarat' && isMakarpuraPhase1;
             const showMakarpuraPhase2Gallery = !isPrivateView && normalizedState === 'gujarat' && isMakarpuraPhase2;
+            const showRayadurgamGallery = !isPrivateView && normalizedState === 'andhra pradesh' && isRayadurgam;
 
-            if (showNagpurGallery || showAtladaraGallery || showKodungaiyurGallery || showVendipalayamGallery || showPerungudiGallery || showMakarpuraGallery || showMakarpuraPhase2Gallery) {
+            if (showNagpurGallery || showAtladaraGallery || showKodungaiyurGallery || showVendipalayamGallery || showPerungudiGallery || showMakarpuraGallery || showMakarpuraPhase2Gallery || showRayadurgamGallery) {
               return (
                 <ProjectGalleryCard
                   key={p.id}
@@ -113,7 +116,9 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
                               ? 'perungudi-chennai'
                               : showMakarpuraGallery
                                 ? 'makarpura-vadodara-phase-1'
-                                : 'makarpura-vadodara-phase-2'
+                                : showMakarpuraPhase2Gallery
+                                  ? 'makarpura-vadodara-phase-2'
+                                  : 'rayadurgam-andhra-pradesh'
                   }
                   onViewDetails={() => setModalId(p.id)}
                 />

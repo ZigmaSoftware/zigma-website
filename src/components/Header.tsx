@@ -133,7 +133,7 @@ const navItems: NavItem[] = [
 
   { name: "Projects", path: "/projects" ,
   dropdown: [
-    { name: " Landfill Mining", path: "/projects" },
+    { name: " Landfill Mining", path: "/projects?category=landfill-mining" },
     { name: "BSFL Organic Waste", path: "/projects?category=bsfl-organic-waste" },
     { name: "Integrated Alternative Fuel ", path: "/projects?category=integrated-af-projects" },
     // { name: "Waste Plastics Extrusion Projects", path: "/projects/gallery" },
