@@ -159,7 +159,7 @@ const SLIDES: Slide[] = [
   {
     text: "Take a tour of #Kumbakonm and learn about the bio-mining.",
     image: mrVenkaihNaiduImg,
-    name: "Mr. Venkaih Naidu",
+    name: "Venkaih Naidu",
     role: "Former Minister for Urban Development, Govt. of India, Former Vice President of India.",
     tag: "India",
   },
@@ -173,7 +173,7 @@ const SLIDES: Slide[] = [
   {
     text: "Extremely impressed by the process going on in remediating the legacy waste, my best wishes.",
     image: mrDurgaShankarMishraImg,
-    name: "Mr. Durga Shankar Mishra",
+    name: "Durga Shankar Mishra",
     role: "Former Secretary, Ministry of Housing and Urban Affairs (MoHUA), Govt. of India",
     tag: "India",
   },
@@ -194,7 +194,7 @@ const SLIDES: Slide[] = [
   {
     text: "Well-organized and well-maintained SWM plant.",
     image: mrAmolSAwateImg,
-    name: "Mr. Amol S. Awate, IAS",
+    name: "Amol S. Awate, IAS",
     role: "Former Sub Divisional Magistrate, Dwarka, Gujarat",
     tag: "Gujarat",
   },
@@ -222,7 +222,7 @@ const SLIDES: Slide[] = [
   {
     text: "Today visited the dump yard at Atladara and witnessed a massive transformation from garbage dump to a processed plant. Seventeen acres of valuable land have been preserved and reclaimed. Good work.",
     image: mrPSwaroopImg,
-    name: "Mr. P. Swaroop, IAS",
+    name: "P. Swaroop, IAS",
     role: "Former Municipal Commissioner, Vadodara",
     tag: "Gujarat",
   },
@@ -236,14 +236,14 @@ const SLIDES: Slide[] = [
   {
     text: "Happy to see the initial works starting here, wish to see a quick starting of the project and continuation of the good work already done by Zigma in other cities.",
     image: mrGagandeepSinghBediImg,
-    name: "Mr. Gagandeep Singh Bedi, IAS",
+    name: "Gagandeep Singh Bedi, IAS",
     role: "Former Commissioner, Greater Chennai Corporation (GCC)",
     tag: "Tamil Nadu",
   },
   {
     text: "Carried out an inspection of the bio mining work being done at the Perungudi garbage dump in Chennai, Tamil Nadu. GOI stands committed under the Swachh Bharat Mission for remediation of legacy dumpsites of solid waste in urban cities.",
     image: mrManojJoshiImg,
-    name: "Mr. Manoj Joshi, IAS",
+    name: "Manoj Joshi, IAS",
     role: "Former Secretary, MoHUA, Govt. of India",
     tag: "India",
   },
@@ -257,7 +257,7 @@ const SLIDES: Slide[] = [
   {
     text: "I was astonished to see that the TN Municipal Administration department along with Zigma are able to implement bio-mining projects while still other states are in the conceptualization stage.",
     image: mrJusticePJyothimaniImg,
-    name: "Mr. Justice P Jyothimani",
+    name: "Justice P Jyothimani",
     role: "Chairman, South Zone, Hon. National Green Tribunal",
     tag: "India",
   },
@@ -271,7 +271,7 @@ const SLIDES: Slide[] = [
   {
     text: "Very impressive. Would love to see progress in few years' time here.",
     image: mrJusticeAdiImg,
-    name: "Mr. Justice Adi",
+    name: "Justice Adi",
     role: "Head, SWM Monitoring Committee, Hon. National Green Tribunal, Karnataka",
     tag: "India",
   },
@@ -286,7 +286,7 @@ const SLIDES: Slide[] = [
     text: "The site visit was quite insightful. Happy to see good work of processing happening. Hope the work helps the environment.",
     image: shriArunMaheshBabuImg,
     name: "Shri Arun Mahesh Babu M.S., IAS",
-    role: "Municipal Commissioner of Vadodara Municipal Corporation (VMC)",
+    role: "Municipal Commissioner - Vadodara Municipal Corporation",
     tag: "Gujarat",
     commentImage: arunMaheshBabuCommentsImg,
   },
@@ -294,7 +294,7 @@ const SLIDES: Slide[] = [
     text: "It was a great pleasure to see the site. You guys are doing great things for the planet and you are very professional in how you manage and the culture you have on site. So many thanks.",
     image: andersBendsenSpohrImg,
     name: "Anders Bendsen Spohr",
-    role: "Managing Partner, Head of Planetary Health Investments",
+    role: "Managing Partner - NOVO Holdings, Head of Planetary Health Investments",
     tag: "International",
     commentImage: andersBendsenSpohrCommentsImg,
   },

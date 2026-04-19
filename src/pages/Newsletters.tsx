@@ -178,8 +178,8 @@ const Newsletters = () => {
             style={{ backgroundImage: `url(${heroBg})` }}
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
-          {/* <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/28 to-black/18" aria-hidden="true" /> */}
+          <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/38 to-black/68" aria-hidden="true" />
 
           <div className="container-main relative grid items-center justify-items-center text-center">
             <p className="text-sm md:text-base tracking-[0.35em] uppercase text-white/85 font-medium">

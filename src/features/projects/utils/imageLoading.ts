@@ -318,6 +318,10 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('Tambaram-Before.webp'),
     afterImage: getProjectImageByFileName('Tambaram-After.webp'),
   },
+  [normalizeProjectKey('Rayadurgam')]: {
+    beforeImage: getProjectImageByFileName('Rayadurgam-Before.jpeg'),
+    afterImage: getProjectImageByFileName('Rayadurgam-After.jpeg'),
+  },
 };
 
 /**
