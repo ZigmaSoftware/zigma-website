@@ -30,6 +30,10 @@ type ProjectDetailsRow = {
   co2_mitigated: number | string | null;
   credibility_markers: string | null;
   project_status: string | null;
+  executing_authority?: string | null;
+  supported_by?: string | null;
+  project_management_consultant?: string | null;
+  packages?: Array<{ name: string; acres: number }>;
 };
 
 const PROJECT_DETAILS_BY_KEY: Record<string, ProjectDetailsRow> = (() => {
@@ -449,7 +453,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
   },
 
    {
-        title: "Puducherry phase 1",
+        title: "Puducherry Phase 1",
         state: "Puducherry",
         waste: 901989,
         land: 19.1,
@@ -460,7 +464,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
         status: 'completed', 
     },
   {
-    title: "Puducherry phase 2",
+    title: "Puducherry Phase 2",
     state: "Puducherry",
     waste: 123703,
     land: 4.1,
@@ -580,6 +584,28 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     end: "12-2-2026",
     credibility: "13.09.2024",
     status: 'completed',
+  },
+    {
+    title: "Visakhapatnam- Phase 4",
+    state: "Andhra Pradesh",
+    waste: 201400,
+    land: 5,
+    co2: 139469.5,
+    start: "12/03/2025",
+    end: "22/09/2025",
+    credibility: null,
+    status: 'ongoing',
+  },
+    {
+    title: "Visakhapatnam- Phase 5",
+    state: "Andhra Pradesh",
+    waste: 300000,
+    land: null,
+    co2: 207750,
+    start: "11-11-2025",
+    end: "Ongoing",
+    credibility: null,
+    status: 'ongoing',
   },
   {
     title: "Allipuram- Nellore",
@@ -840,17 +866,7 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     credibility: null,
     status: 'completed',
   },
-  {
-    title: "Visakhapatnam- Phase 5",
-    state: "Andhra Pradesh",
-    waste: 300000,
-    land: null,
-    co2: 207750,
-    start: "11-11-2025",
-    end: "Ongoing",
-    credibility: null,
-    status: 'ongoing',
-  },
+
   {
     title: "Tiruchirappalli- Phase 3",
     state: "Tamilnadu",
@@ -896,17 +912,7 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     credibility: null,
     status: 'ongoing',
   },
-  {
-    title: "Visakhapatnam- Phase 4",
-    state: "Andhra Pradesh",
-    waste: 201400,
-    land: 5,
-    co2: 139469.5,
-    start: "12/03/2025",
-    end: "22/09/2025",
-    credibility: null,
-    status: 'ongoing',
-  },
+
   {
     title: "Kodungaiyur- Chennai",
     state: "Tamilnadu",
@@ -1014,6 +1020,10 @@ const transformRowToProject = (
     co2,
     beforeImage: images.beforeImage,
     afterImage: images.afterImage,
+    packages: details?.packages,
+    executingAuthority: details?.executing_authority,
+    supportedBy: details?.supported_by,
+    projectManagementConsultant: details?.project_management_consultant,
   };
 };
 

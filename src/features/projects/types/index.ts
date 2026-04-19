@@ -19,6 +19,10 @@ export interface Project {
   co2: number;
   beforeImage: string;
   afterImage: string;
+  packages?: Array<{ name: string; acres: number }>;
+  executingAuthority?: string | null;
+  supportedBy?: string | null;
+  projectManagementConsultant?: string | null;
 }
 
 /** Metric types available for projects */

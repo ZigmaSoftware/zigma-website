@@ -41,7 +41,7 @@ export const useProjectFilter = (projects: Project[]) => {
         top: el.getBoundingClientRect().top + window.pageYOffset - 130,
         behavior: 'smooth',
       });
-    }, 0);
+    }, 0);  
   }, [selectedState, firstProjectId]);
 
   return {

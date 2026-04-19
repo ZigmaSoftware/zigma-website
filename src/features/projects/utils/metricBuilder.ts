@@ -26,6 +26,14 @@ export const buildInteractiveMetrics = (
     .replace(/\s*-\s*/g, ' - ')
     .trim();
 
+  // Build land metric details with packages if available
+  const landDetails: Array<{ label: string; value: string }> = [];
+  if (project.packages && project.packages.length > 0) {
+    project.packages.forEach((pkg) => {
+      landDetails.push({ label: pkg.name, value: `${pkg.acres} acres` });
+    });
+  }
+
   return [
     {
       key: 'waste',
@@ -49,7 +57,7 @@ export const buildInteractiveMetrics = (
       unit: 'ACRES RESTORED',
       status,
       progress: Math.min(100, Math.round((project.land / limits.land) * 100)),
-      details: [],
+      details: landDetails,
     },
     {
       key: 'co2',
