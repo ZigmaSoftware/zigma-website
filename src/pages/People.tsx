@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import Reveal from "@/components/animation/Reveal";
-import heroImage from "@/assets/people at zigma/Zigma beyond work/38.png";
+import heroImage from "@/assets/people at zigma/Zigma beyond work/39.jpeg";
 
 gsap.registerPlugin(ScrollTrigger);
 
