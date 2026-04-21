@@ -25,10 +25,11 @@ const PROJECT_IMAGE_BY_FILE_NAME = Object.entries(PROJECT_IMAGE_MODULES).reduce<
 const PROJECT_IMAGE_BY_RELATIVE_PATH = Object.entries(PROJECT_IMAGE_MODULES).reduce<
   Record<string, string>
 >((acc, [path, url]) => {
-  const marker = '/assets/before after projects/';
-  const markerIndex = path.toLowerCase().indexOf(marker);
+  const normalizedPath = path.replace(/\\/g, '/').toLowerCase();
+  const marker = 'assets/before after projects/';
+  const markerIndex = normalizedPath.indexOf(marker);
   if (markerIndex !== -1) {
-    const relativePath = path.slice(markerIndex + marker.length).toLowerCase();
+    const relativePath = normalizedPath.slice(markerIndex + marker.length);
     acc[relativePath] = url;
   }
   return acc;
@@ -57,7 +58,12 @@ export const getProjectAllImages = (prefix: string): string[] => {
   const images: string[] = [];
   
   for (const [path, url] of Object.entries(PROJECT_IMAGE_MODULES)) {
-    const relativePath = path.toLowerCase().replace('/assets/before after projects/', '');
+    const normalizedPath = path.replace(/\\/g, '/').toLowerCase();
+    const marker = 'assets/before after projects/';
+    const markerIndex = normalizedPath.indexOf(marker);
+    if (markerIndex === -1) continue;
+
+    const relativePath = normalizedPath.slice(markerIndex + marker.length);
     if (relativePath.startsWith(normalizedPrefix)) {
       images.push(url);
     }

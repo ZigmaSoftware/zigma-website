@@ -14,7 +14,7 @@ import Award8 from "@/assets/Awards/award8.jpg";
 import Award9 from "@/assets/Awards/award9.jpg";
 import Award10 from "@/assets/Awards/award10.jpg";
 import Award11 from "@/assets/Awards/award11.png";
-import Award12 from "@/assets/website/hero/award12_Swachha Andhra.png";
+// import Award12 from "@/assets/website/hero/award12_Swachha Andhra.png";
 
 // import awdbg from "@/assets/Awards/awd_bg.jpeg";
 type Award = {
@@ -146,16 +146,16 @@ const awards: Award[] = [
     desc:
       "Honoured at the National Conclave on Environmental Services for driving green innovation and sustainability-focused solutions.",
   },
-  {
-    id: "a12",
-    title: "State Level Award",
-    org: "Government of Andhra Pradesh (Swachha Andhra Initiative)",
-    year: 2025,
-    category: "Corporate",
-    img: Award12,
-    desc:
-      "Recognized for outstanding operational performance and service delivery under major municipal solid waste programs.",
-  },
+  // {
+  //   id: "a12",
+  //   title: "State Level Award",
+  //   org: "Government of Andhra Pradesh (Swachha Andhra Initiative)",
+  //   year: 2025,
+  //   category: "Corporate",
+  //   img: Award12,
+  //   desc:
+  //     "Recognized for outstanding operational performance and service delivery under major municipal solid waste programs.",
+  // },
 ];
 
 const metrics: Metric[] = [
