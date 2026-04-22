@@ -27,10 +27,10 @@ export const StateFilter: React.FC<StateFilterProps> = ({
   onPrivateTabClick,
 }) => {
   return (
-    <nav className="sticky top-[64px] p-2 pt-4 overflow-hidden border-y border-border bg-background/95 backdrop-blur z-40">
+    <nav className="sticky top-[64px] p-2 pt-4 overflow-x-auto overflow-y-hidden border-y border-border bg-background/95 backdrop-blur z-40">
       <div className="max-w-[1400px] mx-auto px-[5%] py-2 flex flex-wrap items-center gap-3">
         <div
-          className="flex flex-1 flex-wrap gap-2 justify-center md:justify-start"
+          className="flex flex-1 gap-2 justify-start md:flex-wrap flex-nowrap"
         >
           {states.map((state) => (
             <button

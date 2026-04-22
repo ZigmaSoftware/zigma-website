@@ -109,6 +109,7 @@ const Footer = () => {
                   { label: "In the News", path: "/media" },
                   { label: "Publications", path: "/publications" },
                   { label: "Testimonials", path: "/testimonials" },
+                  { label: "Newsletters", path: "/newsletters" },
                   { label: "Careers", path: "/careers" },
                   { label: "Contact", path: "/contact" },
                   { label: "Governance Policies", path: "/about" },
@@ -160,7 +161,7 @@ const Footer = () => {
                 <li className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 mt-1.5 flex-shrink-0" />
                   <span className="text-foreground/70 text-md">
-                    178, Indu Nagar, Palayapalayam, Perundurai Road, Erode, Tamilnadu - 638 011.
+                    178, Indu Nagar, Palayapalayam, Perundurai Road, Erode, Tamilnadu - 638 011, India.
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
