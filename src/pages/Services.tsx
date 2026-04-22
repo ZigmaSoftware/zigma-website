@@ -16,7 +16,7 @@ import bsflsolarr from "@/assets/services/solarr.jpeg";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import epr from "@/assets/services/EPR.png";
-import recycledFurniture from "@/assets/website/hero/Furnitures.png";
+import recycledFurniture from "@/assets/services/5.png";
 import iwmsPdf from "@/assets/services/IWMS ZIGMA v2.pdf";
 import uniceilCataloguePdf from "@/assets/Products/UNICEIL -WPE -Master Catalogue-2026.pdf";
 // import Servicescp from "./Servicescp";

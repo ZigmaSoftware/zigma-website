@@ -16,6 +16,7 @@ const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout = false }) =
   const allProjects = getAllProjects();
   const [activeRegion, setActiveRegion] = useState<'india' | 'international'>('india');
   const [modalId, setModalId] = useState<number | null>(null);
+  const [isPrivateView, setIsPrivateView] = useState(false);
 
   // Landfill mining project titles
   const landfillMiningTitles = useMemo(
@@ -47,6 +48,8 @@ const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout = false }) =
       'Kavali',
       'Nayudupeta',
       'Atladara- Vadodara',
+      'Makarpura- Vadodara- Phase 1',
+      'Makarpura- Vadodara- Phase 2',
       'Nagpur- Phase 2',
       'Paschim Boragaon- Guwahati',
       'Belortol Guwahati',
@@ -55,7 +58,15 @@ const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout = false }) =
       'Sector 145 NOIDA Phase 2',
       'Gurugram',
       'Puducherry',
+      'Tirupati Tirumala Devasthanams',
+      'ITC Coimbatore',
     ]),
+    [],
+  );
+
+  // Private project titles
+  const privateProjectTitles = useMemo(
+    () => new Set(['Tirupati Tirumala Devasthanams', 'ITC Coimbatore']),
     [],
   );
 
@@ -65,14 +76,27 @@ const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout = false }) =
     [allProjects, landfillMiningTitles],
   );
 
-  // Use project filter hook for state filtering
-  const { states, selectedState, filteredProjects, handleStateSelect } = useProjectFilter(landfillMiningProjects);
+  // Get private landfill mining projects
+  const privateProjects = useMemo(
+    () => landfillMiningProjects.filter((p) => privateProjectTitles.has(p.title)),
+    [landfillMiningProjects, privateProjectTitles],
+  );
+
+  // Use project filter hook for state filtering (only public projects)
+  const publicLandfillProjects = useMemo(
+    () => landfillMiningProjects.filter((p) => !privateProjectTitles.has(p.title)),
+    [landfillMiningProjects, privateProjectTitles],
+  );
+
+  const { states, selectedState, filteredProjects, handleStateSelect } = useProjectFilter(publicLandfillProjects);
 
   // Filter by state and ensure they're landfill mining projects
-  const displayProjects = useMemo(
-    () => filteredProjects.filter((p) => landfillMiningTitles.has(p.title)),
-    [filteredProjects, landfillMiningTitles],
+  const publicFilteredProjects = useMemo(
+    () => filteredProjects.filter((p) => landfillMiningTitles.has(p.title) && !privateProjectTitles.has(p.title)),
+    [filteredProjects, landfillMiningTitles, privateProjectTitles],
   );
+
+  const displayProjects = isPrivateView ? privateProjects : publicFilteredProjects;
 
   const activeProject = modalId !== null ? displayProjects.find((p) => p.id === modalId) ?? null : null;
   const normalizedState = selectedState.trim().toLowerCase();
@@ -125,7 +149,13 @@ const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout = false }) =
         <StateFilter
           states={states}
           selectedState={selectedState}
-          onStateSelect={handleStateSelect}
+          onStateSelect={(state) => {
+            setIsPrivateView(false);
+            handleStateSelect(state);
+          }}
+          showPrivateTab
+          isPrivateActive={isPrivateView}
+          onPrivateTabClick={() => setIsPrivateView((prev) => !prev)}
         />
       )}
 

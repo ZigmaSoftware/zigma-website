@@ -11,6 +11,7 @@ import Newsletters from "./pages/Newsletters";
 import CascadeSlider from "./pages/Cascadeslider";
 import FullScreenSlider from "./pages/Fullscreenslider";
 import Newsroom from "./pages/Newsroom";
+import SDGSection from "./components/home/SdgSection";
 // import Facilities from "./pages/Facilities";
 // import StackedCards from "./components/ui/StackedCards";
 // import Peopledemo1 from "./pages/Peopledemo1";
@@ -102,6 +103,7 @@ const App = () => (
               <Route path="/cascadeslider" element={<CascadeSlider />} />
               <Route path="/fullscreenslider" element={<FullScreenSlider />} />
               <Route path="/newsroom" element={<Newsroom />} />
+              <Route path="/sdgsection" element={<SDGSection />} />
             </Routes>
           </Suspense>
         </BrowserRouter>
