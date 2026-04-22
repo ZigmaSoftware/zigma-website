@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import Reveal from "@/components/animation/Reveal";
-import heroImage from "@/assets/people at zigma/Zigma beyond work/38.png";
+import heroImage from "@/assets/website/hero/people-hero.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,9 +13,9 @@ gsap.registerPlugin(ScrollTrigger);
 const SLOW_EASE = 'power2.out';
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 const HERO_IMAGE_SCALE = 1.1;
-const HERO_IMAGE_Y_END = 80;
-const ANIMATION_BASE_DURATION = 120;
-const ANIMATION_LANE_MULTIPLIERS = [1, 1.2, 1] as const;
+const HERO_IMAGE_Y_END = 60;
+const ANIMATION_BASE_DURATION = 0;
+const ANIMATION_LANE_MULTIPLIERS = [1, 1, 1] as const;
 
 // ==================== TYPES ====================
 type MediaCategory = "office" | "plants" | "beyond" | "other";

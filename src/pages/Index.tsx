@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import HeroSection from "@/components/home/HeroSection";
 import AboutSection from "@/components/home/AboutSection";
 import StatsSection from "@/components/home/StatsSection";
+import SDGSection from "@/components/home/SdgSection";
 // import ULBClientsSectioncp from "@/components/home/ULBClientsSectioncp";
 
 const IndiaPresence = lazy(() =>
@@ -51,6 +52,7 @@ const Index = () => {
         <AboutSection />
         {showDeferredSections ? (
           <Suspense fallback={null}>
+            {/* <SDGSection /> */}
             <IndiaPresence />
             <ServicesSection />
             <ULBClientsSection />
