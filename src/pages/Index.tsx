@@ -47,19 +47,14 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        <HeroSection />   
+        <HeroSection />
         <StatsSection />
         <AboutSection />
-        {showDeferredSections ? (
-          <Suspense fallback={null}>
-            {/* <SDGSection /> */}
-            <IndiaPresence />
-            <ServicesSection />
-            <ULBClientsSection />
-            <PartnersSectioncp />
-          </Suspense>
-        ) : null}
-        {/* <ULBClientsSectioncp/> */}
+        <IndiaPresence />
+        <ServicesSection />
+        <ULBClientsSection />
+        <PartnersSectioncp />
+        <SDGSection />
       </main>
       <Footer />
     </div>
