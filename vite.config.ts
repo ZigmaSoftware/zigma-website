@@ -45,7 +45,7 @@ export default defineConfig(({ command }) => ({
   },
 
   build: {
-    outDir: "dist/alpha", // default, but explicit is better
+    outDir: "dist/", // default, but explicit is better
     emptyOutDir: true,
     
   },
