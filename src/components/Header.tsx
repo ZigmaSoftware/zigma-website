@@ -10,18 +10,20 @@ import herobg from "@/assets/website/hero/noida-present-hero.jpg";
 import machine from "@/assets/services/machinery.png";
 import iotImage from "@/assets/services/WB.png";
 import iotLogo from "@/assets/services/IOT.png";
-import bsflsolar from "@/assets/services/solarr.jpeg";
+import bsflsolar from "@/assets/BSFL project pictures/pic 3.jpeg";
 import servicesDropdownLogo from "@/assets/services/zigma_blueplanet_logo.png";
 import zigflyLogo from "@/assets/services/zigfly.png";
 import wasteTechLogo from "@/assets/services/logo-wastetech.png";
 import productRdf from "@/assets/services/Refuse-Derived Fuel.jpeg";
-import productAfd from "@/assets/services/Alternative fuel derivative feedstocks.jpg";
 import productBioEarth from "@/assets/Products/goodearth.jpg";
 import productInertStones from "@/assets/Products/stone.jpg";
 import productInertSoil from "@/assets/Products/soil.jpg";
 import productGlass from "@/assets/Products/glass.jpg";
-import productIron from "@/assets/Products/Ferrous.jpg";
 import productFurniture from "@/assets/services/5.png";
+import wpeFurniture1 from "@/assets/Products/Picture2.jpg";
+import frassPlus6mm from "@/assets/Products/Frass +6mm.jpeg";
+import manure from "@/assets/Products/Manure.jpeg";
+import larvae from "@/assets/Products/larvae.jpeg";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import epr from "@/assets/services/EPR.png";
@@ -120,14 +122,13 @@ const navItems: NavItem[] = [
     path: "/products",
     megaMenu: true,
     dropdown: [
-      { name: "Refuse-Derived Fuel", path: "/products", image: productRdf },
-      { name: "Alternative fuel derivative feedstocks", path: "/products", image: productAfd },
-      { name: "Bio Earth", path: "/products", image: productBioEarth },
-      { name: "Inert Stones", path: "/products", image: productInertStones },
-      { name: "Inert Soil", path: "/products", image: productInertSoil },
-      { name: "Glass scrap", path: "/products", image: productGlass },
-      { name: "Iron Scrap", path: "/products", image: productIron },
-      { name: "Recycled Furniture", path: "/products", image: productFurniture },
+      { name: "Refuse Derived Fuel (RDF)", path: "/products", image: productRdf },
+      { name: "Inert Soil and Stones", path: "/products", image: productInertSoil },
+      { name: "Recyclables", path: "/products", image: productGlass },
+      { name: "Bio-earth", path: "/products", image: productBioEarth },
+      { name: "Recycled Furniture", path: "/products", image: wpeFurniture1 },
+      { name: "Black Soldier Fly Larvae (BSFL)", path: "/products", image: larvae },
+      { name: "BSFL Manure and Frass", path: "/products", image: manure },
     ],
   },
 
@@ -148,9 +149,10 @@ const navItems: NavItem[] = [
     name: "News Room",
     path: "/media",
     dropdown: [
-      { name: "In The News", path: "/newsroom " },
+      { name: "In The News", path: "/newsroom" },
       { name: "Publications", path: "/publications" },
       { name: "Newsletters", path: "/newsletters" },
+      { name: "Events", path: "/events" },
       { name: "Awards and Recognitions", path: "/AwardsandRecognition" },
       { name: "Testimonials", path: "/Testimonials" },
       // { name: "Newsroom", path: "/newsroom" },
@@ -505,169 +507,73 @@ const Header = () => {
 
                         {navItems.map((item) => (
 
-              <div
-                key={item.name}
-                className={item.megaMenu ? "static" : "relative"}
-                ref={(el) => {
-                  itemRefs.current[item.name] = el;
-                }}
-                onMouseEnter={() => updateIndicatorToItem(item.name)}
-              >
+              <div key={item.name}>
 
                 {item.dropdown ? (
 
-                  <button
-                    onMouseEnter={() => setActiveDropdown(item.name)}
-                    className={`flex items-center gap-1 py-4 text-sm font-medium transition-colors whitespace-nowrap ${
-                      isActive(item.path)
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
-                    }`}
-                  >
-                    {item.name}
-
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform ${
-                        activeDropdown === item.name ? "rotate-180" : ""
+                  <>
+                    <button
+                      onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
+                      className={`flex items-center justify-between w-full py-4 text-sm font-medium transition-colors ${
+                        isActive(item.path)
+                          ? "text-primary"
+                          : "text-foreground hover:text-primary"
                       }`}
-                    />
+                    >
+                      {item.name}
 
-                  </button>
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform ${
+                          activeDropdown === item.name ? "rotate-180" : ""
+                        }`}
+                      />
+
+                    </button>
+
+                    {activeDropdown === item.name && (
+                      <div className="pl-4 pb-2 space-y-1">
+                        {item.dropdown.map((sub) => (
+                          <Link
+                            key={sub.name}
+                            to={sub.path}
+                            className="block py-2 text-sm text-muted-foreground hover:text-primary"
+                            onClick={() => {
+                              setActiveDropdown(null);
+                              setIsMenuOpen(false);
+                            }}
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </>
 
                 ) : (
 
                   <Link
                     to={item.path}
-                    className={`flex items-center py-4 text-sm font-medium transition-colors whitespace-nowrap ${
+                    className={`flex items-center py-4 text-sm font-medium transition-colors ${
                       isActive(item.path)
                         ? "text-primary"
                         : "text-foreground hover:text-primary"
                     }`}
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
 
                 )}
 
-                {/* DROPDOWN */}
-
-                {item.dropdown && !item.megaMenu && activeDropdown === item.name && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 z-50 w-max min-w-[200px] bg-card border border-border rounded-md shadow-xl p-2">
-                    {item.dropdown.map((sub) => (
-                      <Link
-                        key={sub.name}
-                        to={sub.path}
-                        className="block px-4 py-2 text-sm hover:text-primary"
-                        onClick={() => setActiveDropdown(null)}
-                      >
-                        {sub.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-
               </div>
 
             ))}
 
-            {activeMegaMenuItem?.dropdown && (
-              <div
-                className="absolute top-full left-1/2 -translate-x-1/2 z-50 bg-white border border-border rounded-xl shadow-2xl p-6"
-                style={{ width: megaMenuWidth }}
-              >
-                <p className="text-[0.65rem] font-bold tracking-widest text-muted-foreground uppercase mb-5 px-1">
-                  {`Our ${activeMegaMenuItem.name}`}
-                </p>
-
-                <div className="space-y-5">
-                  {splitIntoTwoRows(activeMegaMenuItem.dropdown).map((row, rowIndex) => (
-                    <div key={`row-${rowIndex}`} className={`grid ${megaGridCols} gap-4`}>
-                      {row.map((sub) => {
-                        const isServicesMenu = activeMegaMenuItem.name === "Services";
-                        const isIotService =
-                          sub.name === "IOT Systems for Waste Management";
-                        const isWasteTechService =
-                          sub.name === "Machinery Sales & Rentals";
-                        const isUniceilService =
-                          sub.name === "Waste Plastics Extrusion";
-                        const serviceCardLogo =
-                          sub.name === "BSFL Based Organic Waste Management"
-                            ? zigflyLogo
-                            : isIotService
-                              ? iotLogo
-                            : isUniceilService
-                              ? uniceilLogo
-                            : isWasteTechService
-                              ? wasteTechLogo
-                              : servicesDropdownLogo;
-
-                        const cn = (...classes: Array<string | undefined | null | false>): string =>
-                          classes.filter(Boolean).join(" ");
-                        return (
-                          <Link
-                            key={sub.name}
-                            to={sub.path}
-                            onClick={() => setActiveDropdown(null)}
-                            className="group flex flex-col gap-2 rounded-lg overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                          >
-                            <div
-                              className={`relative overflow-hidden rounded-lg aspect-[16/9] ${
-                                isServicesMenu ? "bg-transparent" : "bg-muted"
-                              }`}
-                            >
-                              {isServicesMenu ? (
-                                <>
-                                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-0">
-                                    <img
-                                      src={serviceCardLogo}
-                                      alt=""
-                                      aria-hidden="true"
-                                      className={cn(
-                                        "w-auto object-contain transition-transform duration-300",
-                                        isIotService
-                                          ? "h-9 scale-[1.22] drop-shadow-md"
-                                          : isWasteTechService
-                                            ? "h-6 mix-blend-multiply"
-                                            : "h-10 mix-blend-multiply"
-                                      )}
-                                      loading="lazy"
-                                    />
-                                  </div>
-                                  {sub.image ? (
-                                    <img
-                                      src={sub.image}
-                                      alt={sub.name}
-                                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                      loading="lazy"
-                                    />
-                                  ) : null}
-                                </>
-                              ) : sub.image ? (
-                                <img
-                                  src={sub.image}
-                                  alt={sub.name}
-                                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                  loading="lazy"
-                                />
-                              ) : (
-                                <div className="w-full h-full bg-secondary" />
-                              )}
-                              {isServicesMenu ? null : (
-                                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
-                              )}
-                            </div>
-
-                            <span className="text-[0.9rem] font-medium text-foreground text-center group-hover:text-primary transition-colors duration-200 leading-snug px-1 pb-1">
-                              {sub.name}
-                            </span>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            <div className="pt-4 border-t border-border mt-4">
+              <Button asChild className="w-full">
+                <Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact Us</Link>
+              </Button>
+            </div>
 
           </nav>
 

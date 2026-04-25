@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { MetricKey } from '../../types';
 import { ComparisonSlider } from '../ComparisonSlider';
+import { generateGalleryConfigFromZones, generateGalleryConfigFromPackages } from '../../utils/galleryConfig';
 import nseZoneBAfter from '@/assets/Integrated AF Projects/NSE/Zone-1_After_30.12.2022.JPG.jpeg';
 import nseZoneBBefore from '@/assets/Integrated AF Projects/NSE/Zone-1_Before_30.10.2021.jpeg';
 import nseZoneCAfter from '@/assets/Integrated AF Projects/NSE/Zone-2_After_20.02.2024.JPG.jpeg';
@@ -41,13 +42,18 @@ import makarpuraZone2Before from '@/assets/before after projects/Makarpura-phase
 import makarpuraZone2After from '@/assets/before after projects/Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone2-After.jpeg';
 import makarpuraPhase2Before from '@/assets/before after projects/Makarpura-phase-2/Makarpura-phase-2-before.jpeg';
 import makarpuraPhase2After from '@/assets/before after projects/Makarpura-phase-2/Makarpura-phase-2-after.jpeg';
-import rayadurgamBefore from '@/assets/before after projects/Rayadurgam-Before.jpeg';
-import rayadurgamAfter from '@/assets/before after projects/Rayadurgam-After.jpeg';
 
 
 interface ProjectGalleryCardProps {
   onViewDetails?: () => void;
   variant?: ProjectGalleryVariant;
+  // For dynamic data-based gallery
+  projectName?: string;
+  projectState?: string;
+  projectFolder?: string;
+  zones?: Array<{ name: string; acres?: number }>;
+  packages?: Array<{ name: string; acres?: number }>;
+  metrics?: GalleryMetric[];
 }
 export type ProjectGalleryVariant =
   | 'nagpur-phase-2'
@@ -56,8 +62,7 @@ export type ProjectGalleryVariant =
   | 'vendipalayam-erode'
   | 'perungudi-chennai'
   | 'makarpura-vadodara-phase-1'
-  | 'makarpura-vadodara-phase-2'
-  | 'rayadurgam-andhra-pradesh';
+  | 'makarpura-vadodara-phase-2';
 
 interface GalleryMetric {
   key: MetricKey;
@@ -158,8 +163,8 @@ const GALLERY_CONFIG: Record<
       },
     ],
     tiles: [
-      { id: 'tile-1', beforeImage: atladaraBeforeB, afterImage: atladaraAfterC, label: 'Zone 1', metricKey: 'waste' },
-      { id: 'tile-2', beforeImage: atladaraBeforeA, afterImage: atladaraAfterB, label: 'Zone 2', metricKey: 'land' },
+      { id: 'tile-1', beforeImage: atladaraBeforeB, afterImage: atladaraAfterC, label: 'Zone 1', metricKey: 'land', landValue: '6.2' },
+      { id: 'tile-2', beforeImage: atladaraBeforeA, afterImage: atladaraAfterB, label: 'Zone 2', metricKey: 'co2', landValue: '5.1' },
     ],
   },
   'kodungaiyur-chennai': {
@@ -185,6 +190,7 @@ const GALLERY_CONFIG: Record<
         afterImage: kdgPackage1Before,
         label: 'Package 1',
         metricKey: 'waste',
+        landValue: '15.2',
         isComparison: false,
         showOngoingBadge: true,
       },
@@ -194,6 +200,7 @@ const GALLERY_CONFIG: Record<
         afterImage: kdgPackage3Before,
         label: 'Package 3',
         metricKey: 'land',
+        landValue: '14.8',
         isComparison: false,
         showOngoingBadge: true,
       },
@@ -203,6 +210,7 @@ const GALLERY_CONFIG: Record<
         afterImage: kdgPackage4Before,
         label: 'Package 4',
         metricKey: 'co2',
+        landValue: '16.5',
         isComparison: false,
         showOngoingBadge: true,
       },
@@ -212,6 +220,7 @@ const GALLERY_CONFIG: Record<
         afterImage: kdgPackage6Before,
         label: 'Package 6',
         metricKey: 'recovery',
+        landValue: '13.9',
         isComparison: false,
         showOngoingBadge: true,
       },
@@ -246,6 +255,7 @@ const GALLERY_CONFIG: Record<
         afterImage: vendipalayamZoneAAfter,
         label: 'Zone A',
         metricKey: 'waste',
+        landValue: '4.8',
       },
       {
         id: 'tile-2',
@@ -253,6 +263,7 @@ const GALLERY_CONFIG: Record<
         afterImage: vendipalayamZoneBAfter,
         label: 'Zone B',
         metricKey: 'land',
+        landValue: '4.2',
       },
       {
         id: 'tile-3',
@@ -260,6 +271,7 @@ const GALLERY_CONFIG: Record<
         afterImage: vendipalayamZoneCAfter,
         label: 'Zone C',
         metricKey: 'co2',
+        landValue: '4.5',
       },
       {
         id: 'tile-4',
@@ -267,6 +279,7 @@ const GALLERY_CONFIG: Record<
         afterImage: vendipalayamZoneDAfter,
         label: 'Zone D',
         metricKey: 'recovery',
+        landValue: '3.8',
       },
     ],
   },
@@ -292,7 +305,7 @@ const GALLERY_CONFIG: Record<
         beforeImage: pdgPackage3Before,
         afterImage: pdgPackage3After,
         label: 'Package 3',
-        metricKey: 'land',
+        metricKey: 'waste',
         landValue: '35.37',
       },
       {
@@ -308,7 +321,7 @@ const GALLERY_CONFIG: Record<
         beforeImage: pdgPackage5Before,
         afterImage: pdgPackage5After,
         label: 'Package 5',
-        metricKey: 'land',
+        metricKey: 'co2',
         landValue: '35.49',
       },
     ],
@@ -336,6 +349,7 @@ const GALLERY_CONFIG: Record<
         afterImage: makarpuraZone1After,
         label: 'Zone 1',
         metricKey: 'waste',
+        landValue: '10.3',
       },
       {
         id: 'tile-2',
@@ -343,6 +357,7 @@ const GALLERY_CONFIG: Record<
         afterImage: makarpuraZone2After,
         label: 'Zone 2',
         metricKey: 'land',
+        landValue: '8.7',
       },
     ],
   },
@@ -370,42 +385,38 @@ const GALLERY_CONFIG: Record<
     ],
     tiles: [],
   },
-  'rayadurgam-andhra-pradesh': {
-    title: 'Rayadurgam',
-    state: 'Andhra Pradesh',
-    defaultView: {
-      beforeImage: rayadurgamBefore,
-      afterImage: rayadurgamAfter,
-      isComparison: true,
-      showOngoingBadge: true,
-    },
-    metrics: [
-      { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '108,876', unit: 'TONS' },
-      { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '12.32', unit: 'ACRES' },
-      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '75,396.63', unit: 'METRIC TONS' },
-      {
-        key: 'recovery',
-        label: 'Project Status',
-        title: 'Project Status',
-        value: 'Ongoing',
-        unit: 'CURRENT PROJECT STAGE',
-        details: [{ label: 'Project Timeline', value: '03.04.2025 - Ongoing' }],
-      },
-    ],
-    tiles: [],
-  },
 
 };
 
 export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
   onViewDetails,
   variant = 'nagpur-phase-2',
+  projectName,
+  projectState,
+  projectFolder,
+  zones,
+  packages,
+  metrics: dynamicMetrics,
 }) => {
-  const config = GALLERY_CONFIG[variant];
+  // Determine which config to use: dynamic or variant-based
+  const config = useMemo(() => {
+    if (projectName && projectState && projectFolder && dynamicMetrics) {
+      if (zones && zones.length > 0) {
+        return generateGalleryConfigFromZones(projectName, projectState, projectFolder, zones, dynamicMetrics);
+      }
+      if (packages && packages.length > 0) {
+        return generateGalleryConfigFromPackages(projectName, projectState, projectFolder, packages, dynamicMetrics);
+      }
+    }
+    return GALLERY_CONFIG[variant];
+  }, [projectName, projectState, projectFolder, zones, packages, dynamicMetrics, variant]);
+
   const { title, state, metrics, tiles, defaultView } = config;
   const [activeMetric, setActiveMetric] = useState<MetricKey>('waste');
+  
+  // Initialize active tile: null if no defaultView and no tiles, otherwise first tile
   const [activeTileId, setActiveTileId] = useState<string | null>(
-    variant === 'vendipalayam-erode' || tiles.length === 0 ? null : 'tile-1',
+    !defaultView && tiles.length > 0 ? 'tile-1' : null,
   );
   const [detailsOpen, setDetailsOpen] = useState(false);
 
@@ -421,9 +432,11 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
   const sliderBeforeImage = currentTile?.beforeImage ?? defaultView?.beforeImage ?? tiles[0]?.beforeImage;
   const sliderAfterImage = currentTile?.afterImage ?? defaultView?.afterImage ?? tiles[0]?.afterImage;
   const isComparison = currentTile?.isComparison ?? defaultView?.isComparison ?? true;
-  const showOngoingBadge = currentTile?.showOngoingBadge ?? defaultView?.showOngoingBadge ?? true;
+  const showOngoingBadge = currentTile?.showOngoingBadge ?? defaultView?.showOngoingBadge ?? false;
+  
+  // Use landValue if available in current tile, otherwise use metric value
   const metricDisplayValue =
-    (variant === 'nagpur-phase-2' || variant === 'perungudi-chennai') && activeMetric === 'land' && currentTile?.landValue
+    currentTile?.landValue && activeMetric === 'land'
       ? currentTile.landValue
       : currentMetric.value;
 
@@ -460,7 +473,8 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
                   key={tile.id}
                   type="button"
                   onClick={() => {
-                    if (variant === 'vendipalayam-erode' && activeTileId === tile.id) {
+                    // Toggle logic: if clicking active tile and there's a default view, deselect
+                    if (activeTileId === tile.id && defaultView) {
                       setActiveTileId(null);
                       setActiveMetric('waste');
                       setDetailsOpen(false);
@@ -612,7 +626,3 @@ export const ProjectGalleryCard: React.FC<ProjectGalleryCardProps> = ({
     </article>
   );
 };
-
-
-
-

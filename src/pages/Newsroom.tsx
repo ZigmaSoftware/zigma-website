@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -11,6 +11,7 @@ interface NewsItem {
   title: string;
   thumbnail: string;
   fullImage: string;
+  language: string;
 }
 
 interface FeaturedVideo {
@@ -78,6 +79,11 @@ const FEATURED_VIDEO_LINKS: string[] = [
   "https://youtu.be/TLXCtngKo6U",
 ];
 
+const extractLanguageFromPath = (path: string): string => {
+  const match = path.match(/\/News\/([^/]+)\//);
+  return match?.[1] ?? "Other";
+};
+
 const newsAssets = Object.entries(
   import.meta.glob("../assets/News/**/*.{jpg,jpeg,png,JPG,JPEG,PNG}", {
     eager: true,
@@ -87,17 +93,40 @@ const newsAssets = Object.entries(
   .map(([path, src]) => {
     const fileName = path.split("/").pop() ?? "News Image";
     const title = fileName.replace(/\.[^/.]+$/, "").replace(/[_-]+/g, " ").trim();
+    const language = extractLanguageFromPath(path);
 
     return {
       id: path,
       title,
       thumbnail: src as string,
       fullImage: src as string,
+      language,
     };
   })
   .sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
 
 const NEWS_ITEMS: NewsItem[] = newsAssets;
+
+const LANGUAGE_ORDER: string[] = ["English", "Hindi", "Tamil", "Telugu", "Malayalam", "Gujarati"];
+
+const AVAILABLE_LANGUAGES: string[] = Array.from(new Set(NEWS_ITEMS.map((item) => item.language))).sort(
+  (a, b) => {
+    const rankA = LANGUAGE_ORDER.indexOf(a);
+    const rankB = LANGUAGE_ORDER.indexOf(b);
+    const normalizedRankA = rankA === -1 ? Number.POSITIVE_INFINITY : rankA;
+    const normalizedRankB = rankB === -1 ? Number.POSITIVE_INFINITY : rankB;
+    if (normalizedRankA !== normalizedRankB) return normalizedRankA - normalizedRankB;
+    return a.localeCompare(b);
+  },
+);
+
+const LANGUAGE_COUNTS: Record<string, number> = NEWS_ITEMS.reduce<Record<string, number>>(
+  (acc, item) => {
+    acc[item.language] = (acc[item.language] ?? 0) + 1;
+    return acc;
+  },
+  {},
+);
 
 interface NewsCardProps {
   item: NewsItem;
@@ -185,8 +214,12 @@ export default function Newsroom() {
   const [selectedItem, setSelectedItem] = useState<NewsItem | null>(null);
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [videoOpen, setVideoOpen] = useState(false);
+  const [activeLanguage, setActiveLanguage] = useState<string>("All");
 
-  const filtered = NEWS_ITEMS;
+  const filtered =
+    activeLanguage === "All"
+      ? NEWS_ITEMS
+      : NEWS_ITEMS.filter((item) => item.language === activeLanguage);
   const featuredVideos: FeaturedVideo[] = FEATURED_VIDEO_LINKS.map((url, index) => ({
     id: `${index + 1}`,
     url,
@@ -197,6 +230,14 @@ export default function Newsroom() {
 
   const activeFeaturedVideo = featuredVideos[featuredIndex] ?? featuredVideos[0] ?? null;
   const selectedVideoEmbedUrl = activeFeaturedVideo ? getYouTubeEmbedUrl(activeFeaturedVideo.url) : null;
+
+  useEffect(() => {
+    if (!selectedItem) return;
+    if (activeLanguage === "All") return;
+    if (selectedItem.language !== activeLanguage) {
+      setSelectedItem(null);
+    }
+  }, [activeLanguage, selectedItem]);
 
   const selectedIndex = selectedItem
     ? filtered.findIndex((item) => item.id === selectedItem.id)
@@ -343,7 +384,37 @@ export default function Newsroom() {
                   </p>
                 </div>
 
-                <div className="mt-6 mb-8" />
+                <div className="mt-6 mb-8 flex flex-wrap justify-center gap-2">
+                  {["All", ...AVAILABLE_LANGUAGES].map((language) => {
+                    const isActive = activeLanguage === language;
+                    const count =
+                      language === "All" ? NEWS_ITEMS.length : (LANGUAGE_COUNTS[language] ?? 0);
+                    return (
+                      <button
+                        key={language}
+                        type="button"
+                        onClick={() => setActiveLanguage(language)}
+                        aria-pressed={isActive}
+                        className={[
+                          "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition",
+                          isActive
+                            ? "border-primary bg-primary text-white"
+                            : "border-slate-300 bg-white text-slate-700 hover:border-primary/40 hover:text-primary",
+                        ].join(" ")}
+                      >
+                        <span>{language}</span>
+                        <span
+                          className={[
+                            "rounded-full px-2 py-0.5 text-xs",
+                            isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600",
+                          ].join(" ")}
+                        >
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
 
                 {filtered.length > 0 ? (
                   <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
@@ -390,4 +461,3 @@ export default function Newsroom() {
     </div>
   );
 }
-

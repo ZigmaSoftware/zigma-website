@@ -12,6 +12,7 @@ import CascadeSlider from "./pages/Cascadeslider";
 import FullScreenSlider from "./pages/Fullscreenslider";
 import Newsroom from "./pages/Newsroom";
 import SDGSection from "./components/home/SdgSection";
+import BluePlanetSection from "./components/home/BluePlanetSection";
 // import Facilities from "./pages/Facilities";
 // import StackedCards from "./components/ui/StackedCards";
 // import Peopledemo1 from "./pages/Peopledemo1";
@@ -40,6 +41,7 @@ const Policies = lazy(() => import("./pages/Policies"));
 const Mediacp = lazy(() => import("./pages/Mediacp"));
 const AwardsandRecognition = lazy(() => import("./pages/AwardsandRecognition"));
 const Publications = lazy(() => import("./pages/Publications"));
+const Events = lazy(() => import("./pages/Events"));
 
 // const Projectsdemo1 = lazy(() => import("./pages/Projectsdemo1"));
 const Testimonials = lazy(() => import("./pages/Testimonials"));
@@ -82,6 +84,7 @@ const App = () => (
               <Route path="/careers/apply" element={<CareersApply />} />
               <Route path="/media" element={<Media />} />
               <Route path="/publications" element={<Publications />} />
+              <Route path="/events" element={<Events />} />
               <Route path="/newsletters" element={<Newsletters />} />
               <Route path="*" element={<NotFound />} />
               <Route path="/people" element={<People />} />
@@ -104,6 +107,7 @@ const App = () => (
               <Route path="/fullscreenslider" element={<FullScreenSlider />} />
               <Route path="/newsroom" element={<Newsroom />} />
               <Route path="/sdgsection" element={<SDGSection />} />
+              <Route path="/blueplanetsection" element={<BluePlanetSection />} />
             </Routes>
           </Suspense>
         </BrowserRouter>
