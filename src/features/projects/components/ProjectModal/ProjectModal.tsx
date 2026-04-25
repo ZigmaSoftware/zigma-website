@@ -98,37 +98,32 @@ const ProjectDetailsSection = ({
   supportedBy,
   projectManagementConsultant,
 }: ProjectDetailsProps) => {
-  const hasDetails = executingAuthority || supportedBy || projectManagementConsultant;
-
-  if (!hasDetails) return null;
+  const normalizeValue = (value?: string | null) => {
+    const trimmed = value?.trim();
+    return trimmed ? trimmed : 'Not available';
+  };
 
   return (
     <section>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {executingAuthority && (
-          <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
-              Executing Authority
-            </p>
-            <p className="text-base text-[#394450]">{executingAuthority}</p>
-          </div>
-        )}
-        {supportedBy && (
-          <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
-              Supported By
-            </p>
-            <p className="text-base text-[#394450]">{supportedBy}</p>
-          </div>
-        )}
-        {projectManagementConsultant && (
-          <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
-              Project Management Consultant
-            </p>
-            <p className="text-base text-[#394450]">{projectManagementConsultant}</p>
-          </div>
-        )}
+        <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+            Executing Authority
+          </p>
+          <p className="text-base text-[#394450]">{normalizeValue(executingAuthority)}</p>
+        </div>
+        <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+            Supported By
+          </p>
+          <p className="text-base text-[#394450]">{normalizeValue(supportedBy)}</p>
+        </div>
+        <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+            Project Management Consultant
+          </p>
+          <p className="text-base text-[#394450]">{normalizeValue(projectManagementConsultant)}</p>
+        </div>
       </div>
     </section>
   );

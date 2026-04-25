@@ -269,7 +269,7 @@ const People = () => {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`whitespace-nowrap text-base md:text-lg font-semibold text-left px-3 py-2 md:px-[50px] md:py-6 border-b-2 transition-colors ${
+                      className={`whitespace-nowrap text-base md:text-lg  text-left px-3 py-2 md:px-[50px] md:py-6 border-b-2 transition-colors ${
                         activeTab === tab.id
                           ? "text-primary border-primary"
                           : "text-foreground/80 border-transparent hover:text-primary"

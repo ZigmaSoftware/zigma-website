@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import {
   Dialog,
   DialogContent,
@@ -14,6 +15,7 @@ import picture1 from "@/assets/website/hero/career-bg.jpeg";
 
 import {
   Send,
+  Copy,
   Building2,
   Play,
   Pause,
@@ -141,6 +143,20 @@ const Careers = () => {
 
   const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
   const [isJobDetailsOpen, setIsJobDetailsOpen] = useState(false);
+
+  const careersEmail = "careers@zigma.in";
+  const careersMailtoHref =
+    "mailto:careers@zigma.in?subject=Career%20Application&body=Hi%20Zigma%20Team%2C%0A%0AI%20would%20like%20to%20share%20my%20profile%20for%20career%20opportunities.%0A%0ARegards%2C";
+
+  const copyCareersEmail = async () => {
+    try {
+      const test = await navigator.clipboard.writeText(careersEmail);
+      console.log(test);
+      toast.success("Email copied to clipboard.");
+    } catch {
+      toast.error("Could not copy email. Please copy it manually.");
+    }
+  };
 
   const cultureVideos: CultureVideo[] = [
     { id: "v1", src: "/videos/video3.mp4", objectPosition: "center 45%", zoom: 1.06 },
@@ -563,14 +579,20 @@ const Careers = () => {
               we'll reach out when a suitable position opens up.
             </p>
 
-            <a
-              href="mailto:careers@zigma.in?subject=Career%20Application&body=Hi%20Zigma%20Team%2C%0A%0AI%20would%20like%20to%20share%20my%20profile%20for%20career%20opportunities.%0A%0ARegards%2C"
-              aria-label="Send your profile to careers@zigma.in"
-              className="inline-flex items-center gap-2 text-base font-semibold text-emerald-700 underline underline-offset-4 hover:text-emerald-800"
-            >
-              <Send className="h-4 w-4" />
-              careers@zigma.in
-            </a>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href={careersMailtoHref}
+                aria-label="Send your profile to careers@zigma.in"
+                className="inline-flex items-center gap-2 text-base font-semibold text-emerald-700 underline underline-offset-4 hover:text-emerald-800"
+              >
+                <Send className="h-4 w-4" />
+                {careersEmail}
+              </a>
+              <Button variant="outline" onClick={copyCareersEmail}>
+                <Copy className="mr-2 h-4 w-4" />
+                Copy Email
+              </Button>
+            </div>
           </div>
         </section>
 

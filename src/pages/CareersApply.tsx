@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,18 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Upload, Send } from "lucide-react";
 import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
+
+// EmailJS config (replace via .env in production)
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "SERVICE_ID";
+const EMAILJS_TEMPLATE_ID =
+  import.meta.env.VITE_EMAILJS_CAREERS_TEMPLATE_ID ||
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID ||
+  "TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "PUBLIC_KEY";
+
+const CAREERS_TO_EMAIL = import.meta.env.VITE_CAREERS_TO_EMAIL || "careers@zigma.in";
+const MAX_RESUME_BYTES = 5 * 1024 * 1024; // 5MB
 
 const initialForm = {
   fullName: "",
@@ -21,6 +33,9 @@ const CareersApply = (): JSX.Element => {
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [isDragOverResume, setIsDragOverResume] = useState(false);
   const [isRoleLocked, setIsRoleLocked] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const resumeInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -52,6 +67,13 @@ const CareersApply = (): JSX.Element => {
       return;
     }
 
+    if (file.size > MAX_RESUME_BYTES) {
+      toast.error("Resume file is too large. Please upload a PDF under 5MB.");
+      setResumeFile(null);
+      e.target.value = "";
+      return;
+    }
+
     setResumeFile(file);
   };
 
@@ -76,19 +98,63 @@ const CareersApply = (): JSX.Element => {
       return;
     }
 
+    if (file.size > MAX_RESUME_BYTES) {
+      toast.error("Resume file is too large. Please upload a PDF under 5MB.");
+      return;
+    }
+
     setResumeFile(file);
+
+    // Ensure EmailJS `sendForm` includes the dropped file by syncing it into the input element.
+    if (resumeInputRef.current) {
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      resumeInputRef.current.files = dataTransfer.files;
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!resumeFile) {
       toast.error("Please upload your resume.");
       return;
     }
 
-    toast.success("Your profile was submitted successfully.");
-    setForm(initialForm);
-    setResumeFile(null);
+    // Prevent runtime issues if EmailJS IDs were not configured
+    if (
+      EMAILJS_SERVICE_ID === "SERVICE_ID" ||
+      EMAILJS_TEMPLATE_ID === "TEMPLATE_ID" ||
+      EMAILJS_PUBLIC_KEY === "PUBLIC_KEY"
+    ) {
+      toast.error("Email service is not configured yet. Please contact support.");
+      return;
+    }
+
+    if (!formRef.current) {
+      toast.error("Could not submit right now. Please try again.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current, {
+        publicKey: EMAILJS_PUBLIC_KEY,
+      });
+
+      toast.success("Your profile was submitted successfully.");
+      setForm(initialForm);
+      setResumeFile(null);
+      setIsRoleLocked(false);
+      if (resumeInputRef.current) {
+        resumeInputRef.current.value = "";
+      }
+    } catch (error) {
+      console.error("EmailJS submission failed:", error);
+      toast.error("Could not submit your application. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -109,7 +175,23 @@ const CareersApply = (): JSX.Element => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="mt-8 space-y-4 border border-border bg-card p-5 md:p-6">
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="mt-8 space-y-4 border border-border bg-card p-5 md:p-6"
+            >
+              <input
+                type="hidden"
+                name="subject"
+                value={`Career Application${form.role.trim() ? ` - ${form.role.trim()}` : ""}`}
+              />
+              <input type="hidden" name="to_email" value={CAREERS_TO_EMAIL} />
+              <input type="hidden" name="reply_to" value={form.email.trim()} />
+              <input type="hidden" name="from_name" value={form.fullName.trim()} />
+              <input type="hidden" name="from_email" value={form.email.trim()} />
+              <input type="hidden" name="from_phone" value={form.phone.trim()} />
+              <input type="hidden" name="role" value={form.role.trim()} />
+              <input type="hidden" name="message" value={form.coverLetter.trim()} />
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="fullName">Full Name *</Label>
@@ -181,8 +263,10 @@ const CareersApply = (): JSX.Element => {
                   <input
                     id="resumeUpload"
                     type="file"
+                    name="resume"
                     accept=".pdf,application/pdf"
                     className="absolute inset-0 cursor-pointer opacity-0"
+                    ref={resumeInputRef}
                     onChange={handleResumeUpload}
                   />
                   <span className="inline-flex items-center gap-1 text-primary text-sm font-medium">
@@ -210,9 +294,9 @@ const CareersApply = (): JSX.Element => {
               </div>
 
               <div className="flex justify-end pt-2">
-                <Button type="submit">
+                <Button type="submit" disabled={isSubmitting}>
                   <Send className="mr-2 h-4 w-4" />
-                  Submit Application
+                  {isSubmitting ? "Submitting..." : "Submit Application"}
                 </Button>
               </div>
             </form>

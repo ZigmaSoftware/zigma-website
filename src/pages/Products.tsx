@@ -19,7 +19,10 @@ import wpeFurniture2 from "@/assets/WPE/7.jpeg";
 import wpeProductCover from "@/assets/Products/wpe.jpg";
 import wpePic1 from "@/assets/Products/Picture1.jpg";
 import wpePic2 from "@/assets/Products/Picture2.jpg";
-import wpePic7 from "@/assets/Products/Picture7.jpg";
+import frassPlus6mm from "@/assets/Products/Frass +6mm.jpeg";
+import frassMinus4mm from "@/assets/Products/Frass   -4mm.jpeg";
+import manure from "@/assets/Products/Manure.jpeg";
+import larvae from "@/assets/Products/larvae.jpeg";
 
 const SLOW_EASE = "power2.out";
 
@@ -190,7 +193,9 @@ const products = [
     tagline: "Sustainable Protein Source",
     description:
       "Black Soldier Fly Larvae (BSFL) produced through controlled organic waste bioconversion for use in animal feed, aquaculture, and circular bio-economy applications. Rich in protein and fat, BSFL offer a sustainable alternative to conventional feed ingredients.",
-    image: larva,
+    image: larvae,
+    imageHover: larva,
+    images: [larvae, larva],
     color: "from-amber-500 to-orange-700",
     features: [
       "High protein and fat content",
@@ -208,7 +213,9 @@ const products = [
     tagline: "Closing the Loop on Organic Waste",
     description:
       "Black Soldier Fly Organic Manure (Frass) is produced through controlled bioconversion of organic waste by BSF larvae. A nutrient-rich, eco-friendly fertiliser ideal for agriculture, gardening, and soil health improvement — available in fine and standard grades.",
-    image: product3,
+    image: manure,
+    imageHover: frassPlus6mm,
+    images: [manure, frassPlus6mm, frassMinus4mm],
     color: "from-emerald-700 to-emerald-900",
     features: [
       "Rich in NPK (Nitrogen, Phosphorus, Potassium)",

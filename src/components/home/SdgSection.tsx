@@ -1,6 +1,16 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef } from "react";
 import sdgLogo from "@/assets/website/Sustainable-Development-Goals.logo.png";
 import sdgBgVideo from "@/assets/website/sdg-bg.mp4";
+import sdg03 from "@/assets/website/sdg-icons/sdg-03.png";
+import sdg06 from "@/assets/website/sdg-icons/sdg-06.png";
+import sdg08 from "@/assets/website/sdg-icons/sdg-08.png";
+import sdg09 from "@/assets/website/sdg-icons/sdg-09.png";
+import sdg10 from "@/assets/website/sdg-icons/sdg-10.png";
+import sdg11 from "@/assets/website/sdg-icons/sdg-11.png";
+import sdg12 from "@/assets/website/sdg-icons/sdg-12.png";
+import sdg13 from "@/assets/website/sdg-icons/sdg-13.png";
+import sdg15 from "@/assets/website/sdg-icons/sdg-15.png";
+import sdg17 from "@/assets/website/sdg-icons/sdg-17.png";
 
 // Add styles for wheel rotation animation
 const wheelAnimationStyle = `
@@ -22,16 +32,16 @@ const wheelAnimationStyle = `
 `;
 
 const GOALS = [
-  { id: 3,  name: "Good Health and Well-Being",               color: "#4C9F38", lines: ["GOOD HEALTH", "AND WELL-BEING"],             img: "https://aiesec-logos.s3.eu-west-1.amazonaws.com/TGG_Icon_Color_03.png" },
-  { id: 6,  name: "Clean Water and Sanitation",               color: "#26BDE2", lines: ["CLEAN WATER", "AND SANITATION"],             img: "https://aiesec-logos.s3.eu-west-1.amazonaws.com/TGG_Icon_Color_06.png" },
-  { id: 8,  name: "Decent Work and Economic Growth",          color: "#A21942", lines: ["DECENT WORK", "AND ECONOMIC GROWTH"],        img: "https://aiesec-logos.s3.eu-west-1.amazonaws.com/TGG_Icon_Color_08.png" },
-  { id: 9,  name: "Industry, Innovation and Infrastructure",  color: "#FD6925", lines: ["INDUSTRY, INNOVATION", "& INFRASTRUCTURE"],  img: "https://aiesec-logos.s3.eu-west-1.amazonaws.com/TGG_Icon_Color_09.png" },
-  { id: 10, name: "Reduced Inequalities",                     color: "#e11484",  lines: ["REDUCED", "INEQUALITIES"],                  img: "https://aiesec-logos.s3.eu-west-1.amazonaws.com/TGG_Icon_Color_10.png" },
-  { id: 11, name: "Sustainable Cities and Communities",       color: "#FD9D24", lines: ["SUSTAINABLE CITIES", "AND COMMUNITIES"],     img: "https://aiesec-logos.s3.eu-west-1.amazonaws.com/TGG_Icon_Color_11.png" },
-  { id: 12, name: "Responsible Consumption and Production",   color: "#BF8B2E", lines: ["RESPONSIBLE", "CONSUMPTION & PRODUCTION"],   img: "https://aiesec-logos.s3.eu-west-1.amazonaws.com/TGG_Icon_Color_12.png" },
-  { id: 13, name: "Climate Action",                           color: "#3F7E44", lines: ["CLIMATE", "ACTION"],                         img: "https://aiesec-logos.s3.eu-west-1.amazonaws.com/TGG_Icon_Color_13.png" },
-  { id: 15, name: "Life on Land",                             color: "#56C02B", lines: ["LIFE", "ON LAND"],                           img: "https://aiesec-logos.s3.eu-west-1.amazonaws.com/TGG_Icon_Color_15.png" },
-  { id: 17, name: "Partnerships for the Goals",               color: "#19486A", lines: ["PARTNERSHIPS", "FOR THE GOALS"],             img: "https://aiesec-logos.s3.eu-west-1.amazonaws.com/TGG_Icon_Color_17.png" },
+  { id: 3,  name: "Good Health and Well-Being",               color: "#4C9F38", lines: ["GOOD HEALTH", "AND WELL-BEING"],             img: sdg03 },
+  { id: 6,  name: "Clean Water and Sanitation",               color: "#26BDE2", lines: ["CLEAN WATER", "AND SANITATION"],             img: sdg06 },
+  { id: 8,  name: "Decent Work and Economic Growth",          color: "#A21942", lines: ["DECENT WORK", "AND ECONOMIC GROWTH"],        img: sdg08 },
+  { id: 9,  name: "Industry, Innovation and Infrastructure",  color: "#FD6925", lines: ["INDUSTRY, INNOVATION", "& INFRASTRUCTURE"],  img: sdg09 },
+  { id: 10, name: "Reduced Inequalities",                     color: "#e11484",  lines: ["REDUCED", "INEQUALITIES"],                  img: sdg10 },
+  { id: 11, name: "Sustainable Cities and Communities",       color: "#FD9D24", lines: ["SUSTAINABLE CITIES", "AND COMMUNITIES"],     img: sdg11 },
+  { id: 12, name: "Responsible Consumption and Production",   color: "#BF8B2E", lines: ["RESPONSIBLE", "CONSUMPTION & PRODUCTION"],   img: sdg12 },
+  { id: 13, name: "Climate Action",                           color: "#3F7E44", lines: ["CLIMATE", "ACTION"],                         img: sdg13 },
+  { id: 15, name: "Life on Land",                             color: "#56C02B", lines: ["LIFE", "ON LAND"],                           img: sdg15 },
+  { id: 17, name: "Partnerships for the Goals",               color: "#19486A", lines: ["PARTNERSHIPS", "FOR THE GOALS"],             img: sdg17 },
 ] as const;
 
 const CX = 250, CY = 250, R_IN = 105, R_OUT = 245;

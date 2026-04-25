@@ -8,6 +8,7 @@ import Reveal from '@/components/animation/Reveal';
 import bg1 from '@/assets/website/background-1.png';
 import hero from '@/assets/website/hero/about-hero.jpg';
 import globeSvg from '@/assets/website/contact_globe.svg';
+import BluePlanetSection from '@/components/home/BluePlanetSection';
 
 import img1 from '@/assets/website/Kumbakonam.png';
 import img2 from '@/assets/website/Forcebel.png';
@@ -87,7 +88,7 @@ const milestones: Milestone[] = [
     title: 'The Foundation',
     description: [
       'March: Zigma Global Environ Solutions Pvt. Ltd. was founded.',
-      "May: Awarded the Kumbakonam biomining project for 1.3 lakh m�, India's first ever integrated landfill mining project executed on zero residue methodology.",
+      "May: Awarded the Kumbakonam biomining project for 1.3 lakh M³, India's first ever integrated landfill mining project executed on zero residue methodology.",
       'July: Invited by the Ministry of Urban Development (Govt. of India) to present in workshops for first Swachh Survekshan 2017 for Bio-mining across 500 cities in India.',
     ],
     image: img1,
@@ -599,6 +600,9 @@ const About = (): JSX.Element => {
             </Reveal>
           </div>
         </section>
+
+        {/* Blueplanet  */}
+        <BluePlanetSection/>
 
         <section
           ref={milestoneSectionRef}
