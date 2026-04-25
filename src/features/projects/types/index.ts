@@ -2,6 +2,17 @@
  * Project-related type definitions
  */
 
+/** Zone or Package information for projects */
+export interface ProjectZone {
+  name: string;
+  acres: number;
+}
+
+export interface ProjectPackage {
+  name: string;
+  acres: number;
+}
+
 /** Represents a single project with all metadata and metrics */
 export interface Project {
   id: number;
@@ -20,6 +31,7 @@ export interface Project {
   beforeImage: string;
   afterImage: string;
   packages?: Array<{ name: string; acres: number }>;
+  zones?: Array<{ name: string; acres: number }>;
   executingAuthority?: string | null;
   supportedBy?: string | null;
   projectManagementConsultant?: string | null;

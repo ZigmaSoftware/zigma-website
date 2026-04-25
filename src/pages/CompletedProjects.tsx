@@ -7,8 +7,10 @@ import {
   ProjectModal,
   StateFilter,
 } from '@/features/projects/components';
+import { ProjectGalleryVariant } from '@/features/projects/components/ProjectGalleryCard/ProjectGalleryCard';
 import { useProjectFilter } from '@/features/projects/hooks/useProjectFilter';
 import { getAllProjects } from '@/features/projects/data/projects';
+import { normalizeProjectKey } from '@/features/projects/utils/dataProcessing';
 
 interface CompletedProjectsProps {
   hideLayout?: boolean;
@@ -21,6 +23,19 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
   const { states, selectedState, filteredProjects, handleStateSelect } = useProjectFilter(projects);
   const [modalId, setModalId] = useState<number | null>(null);
   const [isPrivateView, setIsPrivateView] = useState(false);
+
+  const galleryVariantByKey = useMemo<Record<string, ProjectGalleryVariant>>(
+    () => ({
+      [normalizeProjectKey('Nagpur- Phase 2')]: 'nagpur-phase-2',
+      [normalizeProjectKey('Atladara- Vadodara')]: 'atladara-vadodara',
+      [normalizeProjectKey('Vendipalayam- Erode')]: 'vendipalayam-erode',
+      [normalizeProjectKey('Perungudi- Chennai')]: 'perungudi-chennai',
+      [normalizeProjectKey('Kodungaiyur- Chennai')]: 'kodungaiyur-chennai',
+      [normalizeProjectKey('Makarpura- Vadodara- Phase 1')]: 'makarpura-vadodara-phase-1',
+      [normalizeProjectKey('Makarpura- Vadodara- Phase 2')]: 'makarpura-vadodara-phase-2',
+    }),
+    [],
+  );
 
   const privateProjectTitles = useMemo(
     () => new Set(['Tirupati Tirumala Devasthanams', 'ITC Coimbatore']),
@@ -37,7 +52,6 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
   const displayProjects = isPrivateView ? privateProjects : publicFilteredProjects;
 
   const activeProject = modalId !== null ? displayProjects.find((p) => p.id === modalId) ?? null : null;
-  const normalizedState = selectedState.trim().toLowerCase();
 
   return (
     <div className="min-h-screen bg-background">
@@ -65,61 +79,15 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
       <main className="max-w-[1400px] mx-auto px-[5%] pb-24 flex flex-col gap-20">
         {displayProjects.map((p, i) => (
           (() => {
-            const normalizedTitle = p.title.trim().toLowerCase().replace(/\s+/g, ' ');
-            const isNagpurPhase2 = normalizedTitle === 'nagpur- phase 2' || normalizedTitle === 'nagpur - phase 2';
-            const isAtladaraVadodara =
-              normalizedTitle === 'atladara- vadodara' || normalizedTitle === 'atladara - vadodara';
-            const isKodungaiyurChennai =
-              normalizedTitle === 'kodungaiyur- chennai' || normalizedTitle === 'kodungaiyur - chennai';
-            const isVendipalayamErode =
-              normalizedTitle === 'vendipalayam- erode' || normalizedTitle === 'vendipalayam - erode';
-            const isPerungudiChennai =
-              normalizedTitle === 'perungudi- chennai' || normalizedTitle === 'perungudi - chennai';
-            const isMakarpuraPhase1 =
-              normalizedTitle === 'makarpura- vadodara- phase 1' || normalizedTitle === 'makarpura - vadodara - phase 1';
-            const isMakarpuraPhase2 =
-              normalizedTitle === 'makarpura- vadodara- phase 2' || normalizedTitle === 'makarpura - vadodara - phase 2';
-            const isRayadurgam =
-              normalizedTitle === 'rayadurgam';
-            const showNagpurGallery = !isPrivateView && normalizedState === 'maharashtra' && isNagpurPhase2;
-            const showAtladaraGallery = !isPrivateView && normalizedState === 'gujarat' && isAtladaraVadodara;
-            const showKodungaiyurGallery =
-              !isPrivateView &&
-              (normalizedState === 'tamilnadu' || normalizedState === 'tamil nadu') &&
-              isKodungaiyurChennai;
-            const showVendipalayamGallery =
-              !isPrivateView &&
-              (normalizedState === 'tamilnadu' || normalizedState === 'tamil nadu') &&
-              isVendipalayamErode;
-            const showPerungudiGallery =
-              !isPrivateView &&
-              (normalizedState === 'tamilnadu' || normalizedState === 'tamil nadu') &&
-              isPerungudiChennai;
-            const showMakarpuraGallery = !isPrivateView && normalizedState === 'gujarat' && isMakarpuraPhase1;
-            const showMakarpuraPhase2Gallery = !isPrivateView && normalizedState === 'gujarat' && isMakarpuraPhase2;
-            const showRayadurgamGallery = !isPrivateView && normalizedState === 'andhra pradesh' && isRayadurgam;
+            const galleryVariant = !isPrivateView
+              ? galleryVariantByKey[normalizeProjectKey(p.title)]
+              : undefined;
 
-            if (showNagpurGallery || showAtladaraGallery || showKodungaiyurGallery || showVendipalayamGallery || showPerungudiGallery || showMakarpuraGallery || showMakarpuraPhase2Gallery || showRayadurgamGallery) {
+            if (galleryVariant) {
               return (
                 <ProjectGalleryCard
                   key={p.id}
-                  variant={
-                    showNagpurGallery
-                      ? 'nagpur-phase-2'
-                      : showAtladaraGallery
-                        ? 'atladara-vadodara'
-                        : showKodungaiyurGallery
-                          ? 'kodungaiyur-chennai'
-                          : showVendipalayamGallery
-                            ? 'vendipalayam-erode'
-                            : showPerungudiGallery
-                              ? 'perungudi-chennai'
-                              : showMakarpuraGallery
-                                ? 'makarpura-vadodara-phase-1'
-                                : showMakarpuraPhase2Gallery
-                                  ? 'makarpura-vadodara-phase-2'
-                                  : 'rayadurgam-andhra-pradesh'
-                  }
+                  variant={galleryVariant}
                   onViewDetails={() => setModalId(p.id)}
                 />
               );
@@ -151,4 +119,3 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
 };
 
 export default CompletedProjects;
-

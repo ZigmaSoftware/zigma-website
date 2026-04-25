@@ -39,8 +39,8 @@ import mrJusticePJyothimaniImg from "@/assets/Testimonials/Mr. Justice P Jyothim
 import mrJusticeAdiImg from "@/assets/Testimonials/Mr. Justice Adi.jpg";
 import shriArunMaheshBabuImg from "@/assets/Testimonials/Arun Mahesh Babu Profile.png";
 import andersBendsenSpohrImg from "@/assets/Testimonials/Anders Bendsen Spohr.webp";
-import andersBendsenSpohrCommentsImg from "@/assets/Testimonials/social proof/Anders Bendsen Spohr comments.jpeg";
-import arunMaheshBabuCommentsImg from "@/assets/Testimonials/social proof/Arun Mahesh Babu IAS comments.jpeg";
+// import andersBendsenSpohrCommentsImg from "@/assets/Testimonials/social proof/Anders Bendsen Spohr comments.jpeg";
+// import arunMaheshBabuCommentsImg from "@/assets/Testimonials/social proof/Arun Mahesh Babu IAS comments.jpeg";
 import socialImg1 from "@/assets/Testimonials/social proof/social.jpg";
 import socialImg2 from "@/assets/Testimonials/social proof/social2.png";
 import socialImg3 from "@/assets/Testimonials/social proof/social3.png";
@@ -288,7 +288,7 @@ const SLIDES: Slide[] = [
     name: "Shri Arun Mahesh Babu M.S., IAS",
     role: "Municipal Commissioner - Vadodara Municipal Corporation",
     tag: "Gujarat",
-    commentImage: arunMaheshBabuCommentsImg,
+    // commentImage: arunMaheshBabuCommentsImg,
   },
   {
     text: "It was a great pleasure to see the site. You guys are doing great things for the planet and you are very professional in how you manage and the culture you have on site. So many thanks.",
@@ -296,7 +296,7 @@ const SLIDES: Slide[] = [
     name: "Anders Bendsen Spohr",
     role: "Managing Partner - NOVO Holdings, Head of Planetary Health Investments",
     tag: "International",
-    commentImage: andersBendsenSpohrCommentsImg,
+    // commentImage: andersBendsenSpohrCommentsImg,
   },
 ];
 

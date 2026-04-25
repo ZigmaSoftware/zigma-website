@@ -34,6 +34,7 @@ type ProjectDetailsRow = {
   supported_by?: string | null;
   project_management_consultant?: string | null;
   packages?: Array<{ name: string; acres: number }>;
+  zones?: Array<{ name: string; acres: number }>;
 };
 
 const PROJECT_DETAILS_BY_KEY: Record<string, ProjectDetailsRow> = (() => {

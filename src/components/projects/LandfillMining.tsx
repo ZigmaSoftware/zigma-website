@@ -5,62 +5,31 @@ import {
   ProjectModal,
   StateFilter,
 } from '@/features/projects/components';
+import { ProjectGalleryVariant } from '@/features/projects/components/ProjectGalleryCard/ProjectGalleryCard';
 import { useProjectFilter } from '@/features/projects/hooks/useProjectFilter';
 import { getAllProjects } from '@/features/projects/data/projects';
+import { normalizeProjectKey } from '@/features/projects/utils/dataProcessing';
 
 interface LandfillMiningProps {
   hideLayout?: boolean;
 }
 
-const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout = false }) => {
+const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout: _hideLayout = false }) => {
   const allProjects = getAllProjects();
   const [activeRegion, setActiveRegion] = useState<'india' | 'international'>('india');
   const [modalId, setModalId] = useState<number | null>(null);
   const [isPrivateView, setIsPrivateView] = useState(false);
 
-  // Landfill mining project titles
-  const landfillMiningTitles = useMemo(
-    () => new Set([
-      'Kumbakonam',
-      'Sembakkam',
-      'Pammal',
-      'Poonamallee',
-      'Pallavaram',
-      'Tambaram',
-      'Perungudi',
-      'Kodungaiyur',
-      'Chidambaram',
-      'Vendipalayam',
-      'Kammiyampettai',
-      'Pachayankuppam',
-      'Keeramangalam',
-      'Karaikudi',
-      'Karur',
-      'Dindigul',
-      'Tiruchirappalli',
-      'Vijayawada',
-      'Kollam',
-      'Kozhikode',
-      'Rayadurgam',
-      'Atmakur',
-      'Buchireddypalem',
-      'Gudur',
-      'Kavali',
-      'Nayudupeta',
-      'Atladara- Vadodara',
-      'Makarpura- Vadodara- Phase 1',
-      'Makarpura- Vadodara- Phase 2',
-      'Nagpur- Phase 2',
-      'Paschim Boragaon- Guwahati',
-      'Belortol Guwahati',
-      'Sector 54 NOIDA',
-      'Sector 145 NOIDA Phase 1',
-      'Sector 145 NOIDA Phase 2',
-      'Gurugram',
-      'Puducherry',
-      'Tirupati Tirumala Devasthanams',
-      'ITC Coimbatore',
-    ]),
+  const galleryVariantByKey = useMemo<Record<string, ProjectGalleryVariant>>(
+    () => ({
+      [normalizeProjectKey('Nagpur- Phase 2')]: 'nagpur-phase-2',
+      [normalizeProjectKey('Atladara- Vadodara')]: 'atladara-vadodara',
+      [normalizeProjectKey('Vendipalayam- Erode')]: 'vendipalayam-erode',
+      [normalizeProjectKey('Perungudi- Chennai')]: 'perungudi-chennai',
+      [normalizeProjectKey('Kodungaiyur- Chennai')]: 'kodungaiyur-chennai',
+      [normalizeProjectKey('Makarpura- Vadodara- Phase 1')]: 'makarpura-vadodara-phase-1',
+      [normalizeProjectKey('Makarpura- Vadodara- Phase 2')]: 'makarpura-vadodara-phase-2',
+    }),
     [],
   );
 
@@ -70,36 +39,23 @@ const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout = false }) =
     [],
   );
 
-  // Filter only landfill mining projects
-  const landfillMiningProjects = useMemo(
-    () => allProjects.filter((p) => landfillMiningTitles.has(p.title)),
-    [allProjects, landfillMiningTitles],
-  );
-
   // Get private landfill mining projects
   const privateProjects = useMemo(
-    () => landfillMiningProjects.filter((p) => privateProjectTitles.has(p.title)),
-    [landfillMiningProjects, privateProjectTitles],
+    () => allProjects.filter((p) => privateProjectTitles.has(p.title)),
+    [allProjects, privateProjectTitles],
   );
 
   // Use project filter hook for state filtering (only public projects)
   const publicLandfillProjects = useMemo(
-    () => landfillMiningProjects.filter((p) => !privateProjectTitles.has(p.title)),
-    [landfillMiningProjects, privateProjectTitles],
+    () => allProjects.filter((p) => !privateProjectTitles.has(p.title)),
+    [allProjects, privateProjectTitles],
   );
 
   const { states, selectedState, filteredProjects, handleStateSelect } = useProjectFilter(publicLandfillProjects);
 
-  // Filter by state and ensure they're landfill mining projects
-  const publicFilteredProjects = useMemo(
-    () => filteredProjects.filter((p) => landfillMiningTitles.has(p.title) && !privateProjectTitles.has(p.title)),
-    [filteredProjects, landfillMiningTitles, privateProjectTitles],
-  );
-
-  const displayProjects = isPrivateView ? privateProjects : publicFilteredProjects;
+  const displayProjects = isPrivateView ? privateProjects : filteredProjects;
 
   const activeProject = modalId !== null ? displayProjects.find((p) => p.id === modalId) ?? null : null;
-  const normalizedState = selectedState.trim().toLowerCase();
 
   return (
     <div className="min-h-screen bg-background">
@@ -164,15 +120,31 @@ const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout = false }) =
         <main className="max-w-[1400px] mx-auto px-[5%] pb-24 flex flex-col gap-20">
           {displayProjects.length > 0 ? (
             displayProjects.map((p, i) => (
-              <ProjectCard
-                key={p.id}
-                project={p}
-                index={i}
-                total={displayProjects.length}
-                onViewDetails={(id) => setModalId(id)}
-                allProjects={landfillMiningProjects}
-                isComparison={p.status === 'completed'}
-              />
+              (() => {
+                const galleryVariant = !isPrivateView ? galleryVariantByKey[normalizeProjectKey(p.title)] : undefined;
+
+                if (galleryVariant) {
+                  return (
+                    <ProjectGalleryCard
+                      key={p.id}
+                      variant={galleryVariant}
+                      onViewDetails={() => setModalId(p.id)}
+                    />
+                  );
+                }
+
+                return (
+                  <ProjectCard
+                    key={p.id}
+                    project={p}
+                    index={i}
+                    total={displayProjects.length}
+                    onViewDetails={(id) => setModalId(id)}
+                    allProjects={allProjects}
+                    isComparison={p.status === 'completed'}
+                  />
+                );
+              })()
             ))
           ) : (
             <div className="text-center py-20">

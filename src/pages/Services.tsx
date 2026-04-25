@@ -12,7 +12,7 @@ import wetWaste from "@/assets/services/fresh-waste.jpg";
 import herobg from "@/assets/website/hero/Pdgclose.jpg";
 import machine from "@/assets/services/machinery.png";
 import iot from "@/assets/services/WB.png";
-import bsflsolarr from "@/assets/services/solarr.jpeg";
+import bsflsolarr from "@/assets/BSFL project pictures/pic 3.jpeg";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
 import epr from "@/assets/services/EPR.png";

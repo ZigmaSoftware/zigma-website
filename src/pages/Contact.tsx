@@ -65,6 +65,12 @@ const Contact = () => {
     }
 
     // Prevent runtime issues if EmailJS IDs were not configured
+
+    console.log("EmailJS Config Status:", {
+      serviceId: EMAILJS_SERVICE_ID,
+      templateId: EMAILJS_TEMPLATE_ID,
+      publicKey: EMAILJS_PUBLIC_KEY,
+    })
     if (
       EMAILJS_SERVICE_ID === "SERVICE_ID" ||
       EMAILJS_TEMPLATE_ID === "TEMPLATE_ID" ||
@@ -251,7 +257,7 @@ const Contact = () => {
                       <h3 className="text-base font-bold text-foreground mb-1.5">HO Address</h3>
                       <p className="text-muted-foreground">
                         178, Indu Nagar, Palayapalayam, <br />
-                        Perundurai Road, Erode, Tamilnadu - 638 011.
+                        Perundurai Road, Erode, Tamilnadu - 638 011, India.
                       </p>
                     </div>
                   </div>
