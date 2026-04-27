@@ -52,6 +52,23 @@ import socialImg8 from "@/assets/Testimonials/social proof/social8.png";
 import socialImg9 from "@/assets/Testimonials/social proof/social9.png";
 import socialImg10 from "@/assets/Testimonials/social proof/social10.png";
 import bg from "@/assets/website/hero/Testimonials-bg.jpeg";
+import visit1 from "@/assets/Testimonials/Visits/1.jpeg";
+import visit2 from "@/assets/Testimonials/Visits/2.jpg";
+import visit3 from "@/assets/Testimonials/Visits/3.jpeg";
+import visit4 from "@/assets/Testimonials/Visits/4.jpeg";
+import visit5 from "@/assets/Testimonials/Visits/5.jpeg";
+import visit6 from "@/assets/Testimonials/Visits/6.jpeg";
+import visit7 from "@/assets/Testimonials/Visits/7.jpeg";
+import visit8 from "@/assets/Testimonials/Visits/8.jpeg";
+import visit9 from "@/assets/Testimonials/Visits/9.jpeg";
+import visit10 from "@/assets/Testimonials/Visits/10.jpeg";
+import visit11 from "@/assets/Testimonials/Visits/11.jpeg";
+import visit12 from "@/assets/Testimonials/Visits/12.jpeg";
+import visit13 from "@/assets/Testimonials/Visits/13.jpeg";
+import visit14 from "@/assets/Testimonials/Visits/14.jpeg";
+import visit15 from "@/assets/Testimonials/Visits/15.jpeg";
+import visit16 from "@/assets/Testimonials/Visits/16.jpeg";
+import nellore2 from "@/assets/Testimonials/Visits/nellore2.jpg";
 
 
 /*TYPES*/
@@ -1190,6 +1207,39 @@ const Testimonials: FC = () => {
             </div>
           </div>
         )}
+
+        {/* SITE VISITS GALLERY */}
+        <section className="section-padding bg-muted/30">
+          <div className="container-main text-center">
+            <Reveal className="inline-flex items-center gap-2">
+              <span className="text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                Site Visits
+              </span>
+            </Reveal>
+            <Reveal className="mt-3">
+              <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                Witnessing Change <span className="text-primary">On the Ground</span>
+              </h2>
+            </Reveal>
+            <Reveal className="mt-3">
+              <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                Leaders and officials visiting our sites to see the transformation firsthand
+              </p>
+            </Reveal>
+            <div className="mt-10 columns-2 gap-4 sm:columns-3 lg:columns-4">
+              {[visit1,visit2,visit3,visit4,visit5,visit6,visit7,visit8,visit9,visit10,visit11,visit12,visit13,visit14,visit15,visit16,nellore2].map((src, i) => (
+                <Reveal key={i} className="mb-4 break-inside-avoid overflow-hidden rounded-xl">
+                  <img
+                    src={src}
+                    alt={`Site visit ${i + 1}`}
+                    className="w-full object-cover transition-transform duration-500 hover:scale-105"
+                    loading="lazy"
+                  />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* -------- SOCIAL PROOF WALL -------- */}
         {/* <section className="section-padding">

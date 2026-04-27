@@ -27,7 +27,7 @@
     "projects":  [
                      {
                          "sno":  1,
-                         "project_brief":  "Revamping and Clearing of Existing Dumped Municipal Solid Waste in Thepperamanallur Compost Yard using Bio-Mining technolgy",
+                         "project_brief":  "Revamping and Clearing of Existing Dumped Municipal Solid Waste in Thepperamanallur Compost Yard using Bio-Mining technology",
                          "project_name":  "Kumbakonam  ",
                          "state":  "Tamilnadu",
                          "waste_processed":  231782,
@@ -475,7 +475,7 @@
                          "supported_by":  "Commissionerate of Municipal Administration, Govt. of Tamilnadu",
                          "project_management_consultant":  "Center For Environmental Studies, Anna University, Chennai"
                      },
-                     
+
                      {
                          "sno":  27,
                          "project_brief":  "Remediation of existing MSW dumpsite at Kapulappada  Dumping Site through Bio-Mining Process in Greater Visakhapatnam Municipal Corporation on “Design-Build-Operate (DBO)",
