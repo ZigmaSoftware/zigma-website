@@ -17,10 +17,10 @@ const markers: Marker[] = [
   { name: "Nepal", coords: [70, -1], labelPos: "right" },
   { name: "India", coords: [65, -10.6], labelPos: "right" },
   { name: "Malaysia", coords: [87, -19], labelPos: "left" },
-  { name: "Singapore", coords: [103.8, 1.35], labelPos: "right" },
-  { name: "Philippines", coords: [121.8, 12.9], labelPos: "right" },
-  { name: "Australia", coords: [133.8, -25.3], labelPos: "right" },
-  { name: "New Zealand", coords: [174, -41], labelPos: "left" },
+  { name: "Singapore", coords: [90, -25], labelPos: "right" },
+  { name: "Philippines", coords: [110, -18], labelPos: "right" },
+  { name: "Australia", coords: [125, -55], labelPos: "right" },
+  { name: "New Zealand", coords: [135, -70], labelPos: "left" },
 ];
 
 const MAP_WIDTH = 1061;
@@ -38,23 +38,15 @@ const BluePlanetSection = () => {
       <div className="container-main">
         <div className="mt-8 max-w-5xl mx-auto">
           <div className="text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
-            Our Parent Company
+            Our Group Company
           </div>
           <h2 className="mt-3 mb-6 text-3xl font-bold leading-tight text-foreground md:text-4xl">
             Blue Planet Environmental{" "}
             <span className="text-primary">Solutions</span>
           </h2>
           <p className="text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-            Zigma is proud to be part of{" "}
-            <a
-              href="https://www.blueplanet.asia"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary font-semibold hover:underline inline-flex items-center gap-1"
-            >
-              Blue Planet Environmental Solutions
-              <ExternalLink className="w-3 h-3" />
-            </a>
+            Zigma is proud to be part of  Blue Planet Environmental Solutions
+       
             , a Singapore-headquartered company and one of Asia's fastest-growing
             integrated waste management enterprises.
           </p>
@@ -73,7 +65,7 @@ const BluePlanetSection = () => {
             products.
           </p>
 
-          <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg italic">
+          <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
             Guided by the United Nations Sustainable Development Goals and a
             commitment to the triple bottom line of People, Planet, and
             Prosperity, Blue Planet drives decarbonisation and promotes
@@ -92,17 +84,7 @@ const BluePlanetSection = () => {
               Visit Blue Planet
               <ExternalLink className="w-4 h-4" />
             </a>
-            <a
-              href="https://www.linkedin.com/company/blue-planet-environmental-solutions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-lg hover:bg-muted transition-colors font-medium"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-              LinkedIn
-            </a>
+            
           </div>
         </div>
 
@@ -121,7 +103,7 @@ const BluePlanetSection = () => {
                 className="absolute inset-0 h-auto w-full"
                 preserveAspectRatio="xMidYMid meet"
               >
-                {markers.map((m) => {
+                {markers.map((m, i) => {
                   const { x, y } = project(m.coords);
                   const labelOffset =
                     m.labelPos === "left"
@@ -137,19 +119,24 @@ const BluePlanetSection = () => {
                       <circle
                         cx={x}
                         cy={y}
-                        r={6}
+                        r={8}
                         fill="hsl(var(--primary) / 0.14)"
+                        className="animate-marker-pulse"
+                        style={{
+                          animationDelay: `${i * 0.15}s`,
+                          transformOrigin: `${x}px ${y}px`,
+                        }}
                       />
                       <circle
                         cx={x}
                         cy={y}
-                        r={3.2}
+                        r={4}
                         fill="hsl(var(--primary))"
                       />
                       <text
                         x={x + labelOffset.dx}
                         y={y + labelOffset.dy}
-                        fontSize={10}
+                        fontSize={14}
                         fill="hsl(var(--foreground))"
                         textAnchor={labelOffset.anchor}
                         style={{

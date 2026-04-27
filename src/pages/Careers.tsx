@@ -344,7 +344,7 @@ const Careers = () => {
 
             {/* DEPARTMENT FILTER */}
 
-            <div className="flex gap-6 border-b mb-8 overflow-x-auto">
+            <div className="flex gap-2 border-b mb-8 overflow-x-auto scrollbar-hide px-1 sm:gap-6">
 
               {departments.map((dept) => {
 
@@ -354,8 +354,9 @@ const Careers = () => {
                   <button
                     key={dept}
                     onClick={() => setSelectedDepartment(dept)}
-                    className={`pb-3 font-semibold ${active ? "text-primary border-b-2 border-primary" : ""
-                      }`}
+                    className={`shrink-0 whitespace-nowrap pb-3 text-sm font-semibold transition-colors sm:text-base ${
+                      active ? "text-primary border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"
+                    }`}
                   >
                     {dept === "all" ? "All Openings" : dept}
                   </button>

@@ -27,8 +27,8 @@ function getPosition(index: number, current: number, total: number): SlidePositi
 
 const POSITION_CLASSES: Record<SlidePosition, string> = {
   now: "opacity-100 z-10 [transform:translateY(-50%)_translateX(-50%)_scale(1)]",
-  prev: "hidden md:block opacity-100 z-[1] [transform:translateY(-50%)_translateX(calc(-50%-300px))_scale(0.84)]",
-  next: "hidden md:block opacity-100 z-[1] [transform:translateY(-50%)_translateX(calc(-50%+300px))_scale(0.84)]",
+  prev: "hidden md:block opacity-100 z-[1] [transform:translateY(-50%)_translateX(calc(-50%-240px))_scale(0.84)] lg:[transform:translateY(-50%)_translateX(calc(-50%-300px))_scale(0.84)]",
+  next: "hidden md:block opacity-100 z-[1] [transform:translateY(-50%)_translateX(calc(-50%+240px))_scale(0.84)] lg:[transform:translateY(-50%)_translateX(calc(-50%+300px))_scale(0.84)]",
   hidden: "opacity-0 z-0 pointer-events-none [transform:translateY(-50%)_translateX(-50%)_scale(0.7)]",
 };
 
@@ -88,7 +88,7 @@ function VideoSlideCard({ slide, position, isActive, onClick, onPlayVideo }: Vid
         onClick={onClick}
         className="group w-full overflow-hidden rounded-2xl border border-border bg-card text-left"
       >
-        <div className="relative h-[320px] bg-slate-100 p-3 md:h-[360px]">
+        <div className="relative h-[300px] bg-slate-100 p-3 md:h-[320px] lg:h-[360px]">
           <img
             src={slide.poster}
             alt={slide.title}
@@ -153,19 +153,19 @@ const VideosCascadeSlider = ({
     <div className="w-full">
       <div
         ref={containerRef}
-        className="relative mx-auto w-full max-w-5xl "
+        className="relative mx-auto w-full max-w-5xl px-10 md:px-16"
       >
         {/* Navigation Buttons - Left */}
         <button
           onClick={goPrev}
-          className="absolute -left-20 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border-2 border-border "
+          className="absolute left-0 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-border md:h-12 md:w-12"
           aria-label="Previous video"
         >
           <ChevronLeft />
         </button>
 
         {/* Slides Container */}
-        <div className="relative h-[420px] w-full">
+        <div className="relative h-[360px] w-full md:h-[400px] lg:h-[420px]">
           {slides.map((slide, index) => {
             const position = getPosition(index, currentIndex, slides.length);
             const isActive = position === "now";
@@ -186,7 +186,7 @@ const VideosCascadeSlider = ({
         {/* Navigation Buttons - Right */}
         <button
           onClick={goNext}
-          className="absolute -right-20 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border-2 border-border"
+          className="absolute right-0 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-border md:h-12 md:w-12"
           aria-label="Next video"
         >
           <ChevronRight />

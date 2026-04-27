@@ -159,6 +159,61 @@ const DiamondCard = ({ icon: Icon, value, suffix, line2, desc, index, isVisible,
   );
 };
 
+// ── Scaled Diamond Grid ──────────────────────────────────────────────────────
+const ScaledDiamondGrid = ({ isVisible, animRun }: { isVisible: boolean; animRun: number }) => {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      const available = entry.contentRect.width;
+      setScale(Math.min(1, available / CONTAINER_W));
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div ref={wrapRef} className="w-full flex justify-center py-4">
+      <div
+        style={{
+          width: CONTAINER_W * scale,
+          height: CONTAINER_H * scale,
+          position: "relative",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: CONTAINER_W,
+            height: CONTAINER_H,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        >
+          <div className="absolute top-0 left-0 flex" style={{ gap: D_GAP }}>
+            {topStats.map((s, i) => (
+              <DiamondCard key={s.desc} {...s} index={i} isVisible={isVisible} animRun={animRun} />
+            ))}
+          </div>
+          <div
+            className="absolute flex"
+            style={{ gap: D_GAP, top: D_SIZE - ROW_OVERLAP, left: ROW_OFFSET }}
+          >
+            {bottomStats.map((s, i) => (
+              <DiamondCard key={s.desc} {...s} index={i + 4} isVisible={isVisible} animRun={animRun} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // ── Section ───────────────────────────────────────────────────────────────────
 const StatsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -202,26 +257,8 @@ const StatsSection = () => {
           </p>
         </div>
 
-        <div className="flex justify-center overflow-x-auto scrollbar-hide py-4">
-          <div
-            ref={statsRef}
-            className="relative flex-shrink-0"
-            style={{ width: CONTAINER_W, height: CONTAINER_H }}
-          >
-            <div className="absolute top-0 left-0 flex" style={{ gap: D_GAP }}>
-              {topStats.map((s, i) => (
-                <DiamondCard key={s.desc} {...s} index={i} isVisible={isVisible} animRun={animRun} />
-              ))}
-            </div>
-            <div
-              className="absolute flex"
-              style={{ gap: D_GAP, top: D_SIZE - ROW_OVERLAP, left: ROW_OFFSET }}
-            >
-              {bottomStats.map((s, i) => (
-                <DiamondCard key={s.desc} {...s} index={i + 4} isVisible={isVisible} animRun={animRun} />
-              ))}
-            </div>
-          </div>
+        <div ref={statsRef} className="w-full">
+          <ScaledDiamondGrid isVisible={isVisible} animRun={animRun} />
         </div>
       </div>
 

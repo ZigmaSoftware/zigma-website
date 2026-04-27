@@ -274,7 +274,7 @@ const leaders: Leader[] = [
   },
   {
     group: 'Management Team',
-    name: 'Sridhar Jegannathan',
+    name: 'Sridhar Jagannathan',
     image: picture7,
     designation: 'Vice President - Operations',
     linkedin: 'https://www.linkedin.com/in/sridhar-jagannathan-00a52444/',
@@ -564,7 +564,7 @@ const About = (): JSX.Element => {
           {/* Globe SVG background */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 select-none lg:h-[560px] lg:w-[560px]"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 select-none sm:h-[360px] sm:w-[360px] lg:h-[560px] lg:w-[560px]"
           >
             <img
               src={globeSvg}
@@ -573,9 +573,9 @@ const About = (): JSX.Element => {
             />
           </div>
 
-          <div className="container-main relative w-full max-w-5xl section-padding">
+          <div className="container-main relative">
             <Reveal
-              className="mt-4 flex flex-col justify-start"
+              className="mt-8 max-w-5xl mx-auto"
               data-anim-start="top 92%"
               data-anim-duration="1.5"
               data-anim-ease={SLOW_EASE}
@@ -590,13 +590,14 @@ const About = (): JSX.Element => {
                 In 2015, while exploring various waste streams, our founders discovered a stark reality: India had no solution for its growing legacy waste crisis. Open dump yards across the country were overflowing with decades of mismanaged municipal solid waste, and the nation was grappling with the absence of a clear, scientific pathway to address it.
               </p>
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-                This realization became the turning point. A group of serial entrepreneurs from South India - experienced in steel manufacturing, TMT bars, billets, UPVC profiles, hospitality, and IT infrastructure - saw in this challenge an opportunity to do something truly transformative, not just for communities but for the country at large.              </p>
+                This realization became the turning point. A group of serial entrepreneurs from South India - experienced in steel manufacturing, TMT bars, billets, UPVC profiles, hospitality, and IT infrastructure - saw in this challenge an opportunity to do something truly transformative, not just for communities but for the country at large.
+              </p>
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
                 Determined to find answers, they traveled across Germany, South Africa, Thailand, China, and South Korea, studying how these nations tackled municipal solid waste. Out of this exploration emerged Zigma: a company dedicated to pioneering solutions for legacy waste management.
               </p>
-
               <p className="mt-4 text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-                At the heart of our operations lies a low-carbon emission model that scientifically segregates and remediates decades of accumulated waste. What began as a quest to solve India's most pressing environmental challenge has evolved into a mission with global resonance - turning neglected dump yards into opportunities for renewal, sustainability, and impact.              </p>
+                At the heart of our operations lies a low-carbon emission model that scientifically segregates and remediates decades of accumulated waste. What began as a quest to solve India's most pressing environmental challenge has evolved into a mission with global resonance - turning neglected dump yards into opportunities for renewal, sustainability, and impact.
+              </p>
             </Reveal>
           </div>
         </section>
