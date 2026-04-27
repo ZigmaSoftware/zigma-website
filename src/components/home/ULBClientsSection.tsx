@@ -70,12 +70,12 @@ const CLIENTS: Client[] = Object.entries(ULB_LOGOS)
 
 
 const ClientMarqueeCard = ({ client }: { client: Client }) => (
-  <div className="group relative min-w-[140px] md:min-w-[170px] h-14 md:h-36 bg-card rounded-lg flex items-center justify-center px-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg hover:z-10">
+  <div className="group relative min-w-[110px] sm:min-w-[140px] md:min-w-[170px] h-20 sm:h-28 md:h-36 bg-card rounded-lg flex items-center justify-center px-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg hover:z-10">
     <img
       src={client.logoSrc}
       alt={client.name}
       loading="lazy"
-      className="h-28 w-auto max-w-full object-contain opacity-95 transition-opacity transition-transform duration-300 ease-out group-hover:opacity-100"
+      className="h-14 sm:h-20 md:h-28 w-auto max-w-full object-contain opacity-95 transition-opacity transition-transform duration-300 ease-out group-hover:opacity-100"
     />
   </div>
 );
@@ -90,8 +90,8 @@ const MarqueeRow = ({
   durationSeconds?: number;
 }) => (
   <div className="relative overflow-hidden rounded-xl bg-card/40">
-    <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent" />
-    <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent" />
+    <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-background to-transparent z-10" />
+    <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-background to-transparent z-10" />
     <div
       className={[
         "flex w-max items-center gap-4 py-3 px-3 hover:[animation-play-state:paused]",

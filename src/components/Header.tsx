@@ -182,6 +182,7 @@ const navItems: NavItem[] = [
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
 
   const [indicatorStyle, setIndicatorStyle] = useState({
     left: 0,
@@ -488,7 +489,10 @@ const Header = () => {
 
           <button
             className="lg:hidden p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => {
+              setIsMenuOpen(!isMenuOpen);
+              if (isMenuOpen) setMobileDropdown(null);
+            }}
           >
             {isMenuOpen ? <X /> : <Menu />}
           </button>
@@ -513,7 +517,7 @@ const Header = () => {
 
                   <>
                     <button
-                      onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
+                      onClick={() => setMobileDropdown(mobileDropdown === item.name ? null : item.name)}
                       className={`flex items-center justify-between w-full py-4 text-sm font-medium transition-colors ${
                         isActive(item.path)
                           ? "text-primary"
@@ -524,13 +528,13 @@ const Header = () => {
 
                       <ChevronDown
                         className={`w-4 h-4 transition-transform ${
-                          activeDropdown === item.name ? "rotate-180" : ""
+                          mobileDropdown === item.name ? "rotate-180" : ""
                         }`}
                       />
 
                     </button>
 
-                    {activeDropdown === item.name && (
+                    {mobileDropdown === item.name && (
                       <div className="pl-4 pb-2 space-y-1">
                         {item.dropdown.map((sub) => (
                           <Link
@@ -538,7 +542,7 @@ const Header = () => {
                             to={sub.path}
                             className="block py-2 text-sm text-muted-foreground hover:text-primary"
                             onClick={() => {
-                              setActiveDropdown(null);
+                              setMobileDropdown(null);
                               setIsMenuOpen(false);
                             }}
                           >
