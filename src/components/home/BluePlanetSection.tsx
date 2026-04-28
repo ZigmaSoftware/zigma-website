@@ -45,9 +45,7 @@ const BluePlanetSection = () => {
             <span className="text-primary">Solutions</span>
           </h2>
           <p className="text-justify text-base leading-relaxed text-slate-600 lg:text-lg">
-            Zigma is proud to be part of  Blue Planet Environmental Solutions
-       
-            , a Singapore-headquartered company and one of Asia's fastest-growing
+            Zigma is proud to be part of  Blue Planet Environmental Solutions, a Singapore-headquartered company and one of Asia's fastest-growing
             integrated waste management enterprises.
           </p>
 

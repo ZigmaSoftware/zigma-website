@@ -106,7 +106,7 @@ const Footer = () => {
                   { label: "Services", path: "/services" },
                   { label: "Projects", path: "/projects" },
                   { label: "Products", path: "/products" },
-                  { label: "In the News", path: "/media" },
+                  { label: "In the News", path: "//newsroom" },
                   { label: "Publications", path: "/publications" },
                   { label: "Testimonials", path: "/testimonials" },
                   { label: "Newsletters", path: "/newsletters" },
@@ -204,7 +204,7 @@ const Footer = () => {
               © {new Date().getFullYear()} Zigma Global Environ Solutions Pvt Ltd. All Rights Reserved.
             </p>
             <div className="flex gap-6 ">
-              <Link to="/governance-policies" className="text-foreground/60 hover:text-foreground text-sm transition-colors">
+              <Link to="/about" className="text-foreground/60 hover:text-foreground text-sm transition-colors">
                 Privacy Policy & Terms of Service
               </Link>
               {/* <Link to="/governance-policies" className="text-foreground/60 hover:text-foreground text-sm transition-colors">

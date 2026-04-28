@@ -36,7 +36,7 @@ import picture14 from '@/assets/Leaders/Maran.png';
 import picture15 from '@/assets/Leaders/Senthil Annamalai.jpeg';
 import picture16 from '@/assets/Leaders/Vijayan.png';
 import picture17 from '@/assets/Leaders/Mohan kumar.png';
-import picture18 from '@/assets/Leaders/Shivashankar Pandian.jpeg';
+import picture18 from '@/assets/Leaders/ShivashankaraPandian.jpg';
 
 import milestone2016 from '@/assets/Awards/award7.jpg';
 import milestone2017 from '@/assets/milestone/Chandrababu naidu handing over Vijayawada order.jpeg';
@@ -302,10 +302,10 @@ const leaders: Leader[] = [
   },
   {
     group: 'Management Team',
-    name: 'Shivashankar Pandian',
+    name: 'Sivasankarapandian P',
     image: picture18,
     designation: 'General Manager - Finance & Accounts',
-    linkedin: 'https://www.linkedin.com/in/shivashankar-pandian/', // FIX: was incorrectly pointing to Mohan Kumar's profile
+    linkedin: 'https://www.linkedin.com/in/sivasankarapandian-ssp-b35152392/', // FIX: was incorrectly pointing to Mohan Kumar's profile
   },
 ];
 

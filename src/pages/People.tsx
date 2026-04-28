@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import Reveal from "@/components/animation/Reveal";
-import heroImage from "@/assets/website/hero/people-hero.jpg";
+import heroImage from "@/assets/website/hero/people-hero.jpg.jpeg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -232,7 +232,7 @@ const People = () => {
         />
         
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+        {/* <div className="absolute inset-0 bg-black/30" aria-hidden="true" /> */}
 
         {/* Content */}
         <div className="container-main relative grid items-center justify-items-center">
