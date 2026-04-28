@@ -46,27 +46,27 @@ type CultureVideo = {
 };
 
 const jobOpenings: JobOpening[] = [
-  {
-    id: 1,
-    title: "Environmental Engineer / Officer",
-    department: "Operations",
-    location: "Guwahati, Puducherry, Tirupati, Chittoor, Trichy",
-    type: "Full-time",
-    experience: "0-3 years",
-    summary:
-      "Lead environmental assessment and remediation programs for landfill and waste-management sites.",
-    qualifications: [
-      "BE/ME in Environmental Engineering, or B.Sc/M.Sc in Environmental Science/Chemistry",
-      "Strong understanding of environmental regulations and compliance",
-      "Ability to prepare field and technical documentation",
-    ],
-    responsibilities: [
-      "Conduct environmental impact assessments",
-      "Design and implement remediation strategies",
-      "Monitor compliance with environmental regulations",
-      "Prepare technical reports and project documentation",
-    ],
-  },
+  // {
+  //   id: 1,
+  //   title: "Environmental Engineer / Officer",
+  //   department: "Operations",
+  //   location: "Guwahati, Puducherry, Tirupati, Chittoor, Trichy",
+  //   type: "Full-time",
+  //   experience: "0-3 years",
+  //   summary:
+  //     "Lead environmental assessment and remediation programs for landfill and waste-management sites.",
+  //   qualifications: [
+  //     "BE/ME in Environmental Engineering, or B.Sc/M.Sc in Environmental Science/Chemistry",
+  //     "Strong understanding of environmental regulations and compliance",
+  //     "Ability to prepare field and technical documentation",
+  //   ],
+  //   responsibilities: [
+  //     "Conduct environmental impact assessments",
+  //     "Design and implement remediation strategies",
+  //     "Monitor compliance with environmental regulations",
+  //     "Prepare technical reports and project documentation",
+  //   ],
+  // },
   {
     id: 2,
     title: "Project Engineer",
@@ -89,48 +89,48 @@ const jobOpenings: JobOpening[] = [
       "Track project risks and ensure timely closure",
     ],
   },
-  {
-    id: 3,
-    title: "Machine Operator",
-    department: "Field Operations",
-    location: "Pan India (Multiple Sites)",
-    type: "Full-time",
-    experience: "0-5 years",
-    summary:
-      "Operate and maintain heavy machinery for landfill mining and waste-processing operations.",
-    qualifications: [
-      "Hands-on experience with heavy equipment operations",
-      "Knowledge of LT panels, motors, pumps, and control wiring is preferred",
-      "Awareness of electrical and site safety standards",
-    ],
-    responsibilities: [
-      "Operate excavators, loaders, and related machinery",
-      "Perform routine inspection and preventive maintenance",
-      "Follow safety SOPs and escalation procedures",
-      "Report and coordinate closure of equipment issues",
-    ],
-  },
-  {
-    id: 4,
-    title: "Stores Executive",
-    department: "Stores & Logistics",
-    location: "Puducherry, Kodungaiyur (Chennai)",
-    type: "Full-time",
-    experience: "0-3 years",
-    summary:
-      "Manage receipt, storage, and issue of materials while maintaining stock registers and ERP records.",
-    qualifications: [
-      "Any degree",
-      "Basic understanding of inventory systems and stock audits",
-      "Good coordination skills with procurement and site teams",
-    ],
-    responsibilities: [
-      "Monitor inventory levels and reorder points",
-      "Coordinate with procurement and logistics teams",
-      "Ensure FIFO practices and periodic stock audits",
-      "Maintain store hygiene, records, and compliance",
-    ],
-  },
+  // {
+  //   id: 3,
+  //   title: "Machine Operator",
+  //   department: "Field Operations",
+  //   location: "Pan India (Multiple Sites)",
+  //   type: "Full-time",
+  //   experience: "0-5 years",
+  //   summary:
+  //     "Operate and maintain heavy machinery for landfill mining and waste-processing operations.",
+  //   qualifications: [
+  //     "Hands-on experience with heavy equipment operations",
+  //     "Knowledge of LT panels, motors, pumps, and control wiring is preferred",
+  //     "Awareness of electrical and site safety standards",
+  //   ],
+  //   responsibilities: [
+  //     "Operate excavators, loaders, and related machinery",
+  //     "Perform routine inspection and preventive maintenance",
+  //     "Follow safety SOPs and escalation procedures",
+  //     "Report and coordinate closure of equipment issues",
+  //   ],
+  // },
+  // {
+  //   id: 4,
+  //   title: "Stores Executive",
+  //   department: "Stores & Logistics",
+  //   location: "Puducherry, Kodungaiyur (Chennai)",
+  //   type: "Full-time",
+  //   experience: "0-3 years",
+  //   summary:
+  //     "Manage receipt, storage, and issue of materials while maintaining stock registers and ERP records.",
+  //   qualifications: [
+  //     "Any degree",
+  //     "Basic understanding of inventory systems and stock audits",
+  //     "Good coordination skills with procurement and site teams",
+  //   ],
+  //   responsibilities: [
+  //     "Monitor inventory levels and reorder points",
+  //     "Coordinate with procurement and logistics teams",
+  //     "Ensure FIFO practices and periodic stock audits",
+  //     "Maintain store hygiene, records, and compliance",
+  //   ],
+  // },
 ];
 
 /* ---------------- COMPONENT ---------------- */

@@ -277,7 +277,7 @@ export default function Newsroom() {
               Newsroom
             </p>
             <h1 className="mt-3 text-5xl md:text-6xl font-bold leading-tight text-white">
-              In The <span className="text-primary">News</span>
+              In The News
             </h1>
             <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-3xl text-center">
               Explore media coverage, project stories, and important updates from Zigma Blue Planet.
@@ -403,14 +403,6 @@ export default function Newsroom() {
                         ].join(" ")}
                       >
                         <span>{language}</span>
-                        <span
-                          className={[
-                            "rounded-full px-2 py-0.5 text-xs",
-                            isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600",
-                          ].join(" ")}
-                        >
-                          {count}
-                        </span>
                       </button>
                     );
                   })}
