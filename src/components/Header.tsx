@@ -262,9 +262,8 @@ const Header = () => {
     (item) => item.name === activeDropdown && item.megaMenu && item.dropdown
   );
   const megaMenuWidth = activeMegaMenuItem?.name === "Products"
-    ? "clamp(760px, 78vw, 1080px)"
-    : "clamp(760px, 88vw, 1200px)";
-  const megaGridCols = activeMegaMenuItem?.name === "Products" ? "grid-cols-4" : "grid-cols-5";
+    ? "min(78vw, 1080px)"
+    : "min(88vw, 1200px)";
 
   return (
     <header className="sticky top-0 inset-x-0 z-[80] bg-background/95 backdrop-blur border-b border-border">
@@ -279,14 +278,14 @@ const Header = () => {
             <img
               src={logo}
               alt="Zigma Blue Planet"
-              className="h-12 w-auto object-contain"
+              className="h-10 sm:h-12 w-auto object-contain"
             />
           </Link>
 
           {/* DESKTOP NAV */}
 
           <nav
-            className="relative hidden lg:flex items-center justify-center gap-8 flex-wrap"
+            className="relative hidden xl:flex items-center justify-center gap-4 2xl:gap-8 flex-wrap"
             ref={(el) => {
               dropdownRef.current = el;
               navRef.current = el;
@@ -386,7 +385,7 @@ const Header = () => {
 
                 <div className="space-y-5">
                   {splitIntoTwoRows(activeMegaMenuItem.dropdown).map((row, rowIndex) => (
-                    <div key={`row-${rowIndex}`} className={`grid ${megaGridCols} gap-4`}>
+                    <div key={`row-${rowIndex}`} className={`grid grid-cols-2 lg:grid-cols-3 ${activeMegaMenuItem?.name === "Products" ? "xl:grid-cols-4" : "xl:grid-cols-5"} gap-4`}>
                       {row.map((sub) => {
                         const isServicesMenu = activeMegaMenuItem.name === "Services";
                         const isIotService =
@@ -479,7 +478,7 @@ const Header = () => {
 
           {/* CTA */}
 
-          <div className="hidden lg:block shrink-0">
+          <div className="hidden xl:block shrink-0">
             <Button asChild>
               <Link to="/contact">Contact Us</Link>
             </Button>
@@ -488,7 +487,7 @@ const Header = () => {
           {/* MOBILE TOGGLE */}
 
           <button
-            className="lg:hidden p-2"
+            className="xl:hidden p-2"
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
               if (isMenuOpen) setMobileDropdown(null);
@@ -507,7 +506,7 @@ const Header = () => {
 
         <div className="container-main">
 
-          <nav className="lg:hidden py-4 border-t border-border max-h-[70vh] overflow-y-auto">
+          <nav className="xl:hidden py-4 border-t border-border max-h-[70vh] overflow-y-auto pb-6">
 
                         {navItems.map((item) => (
 
