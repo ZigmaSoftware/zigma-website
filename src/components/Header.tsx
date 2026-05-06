@@ -4,9 +4,9 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/website/zigma_blueplanet_logo.png";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
-import landfillManagement from "@/assets/website/windrow.jpg";
+import landfillManagement from "@/assets/website/windrow.webp";
 import wetWaste from "@/assets/services/fresh-waste.jpg";
-import herobg from "@/assets/website/hero/noida-present-hero.jpg";
+// import herobg from "@/assets/website/hero/noida-present-hero.jpg";
 import machine from "@/assets/services/machinery.png";
 import iotImage from "@/assets/services/WB.png";
 import iotLogo from "@/assets/services/IOT.png";
@@ -19,14 +19,14 @@ import productBioEarth from "@/assets/Products/goodearth.jpg";
 import productInertStones from "@/assets/Products/stone.jpg";
 import productInertSoil from "@/assets/Products/soil.jpg";
 import productGlass from "@/assets/Products/glass.jpg";
-import productFurniture from "@/assets/services/5.png";
+import productFurniture from "@/assets/services/5.webp";
 import wpeFurniture1 from "@/assets/Products/Picture2.jpg";
 import frassPlus6mm from "@/assets/Products/Frass +6mm.jpeg";
 import manure from "@/assets/Products/Manure.jpeg";
 import larvae from "@/assets/Products/larvae.jpeg";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
-import epr from "@/assets/services/EPR.png";
+import epr from "@/assets/services/EPR.webp";
 import uniceilLogo from "@/assets/Products/uniceil_transparent.png";
 
 
@@ -108,7 +108,7 @@ const navItems: NavItem[] = [
         image: epr,
       },
       {
-        name: "Waste Plastics Extrusion",
+        name: "Wood Polyethylene",
         path: "/services#recycled-furniture",
         image: productFurniture,
       },
@@ -137,8 +137,8 @@ const navItems: NavItem[] = [
     { name: " Landfill Mining", path: "/projects?category=landfill-mining" },
     { name: "BSFL Organic Waste", path: "/projects?category=bsfl-organic-waste" },
     { name: "Integrated Alternative Fuel ", path: "/projects?category=integrated-af-projects" },
-    // { name: "Waste Plastics Extrusion Projects", path: "/projects/gallery" },
-    { name: "Waste Plastics Extrusion ", path: "/projects?category=waste-plastics-extrusion" },
+    // { name: "Wood Polyethylene Projects", path: "/projects/gallery" },
+    { name: "Wood Polyethylene ", path: "/projects?category=waste-plastics-extrusion" },
     
   
   ],
@@ -393,7 +393,7 @@ const Header = () => {
                         const isWasteTechService =
                           sub.name === "Machinery Sales & Rentals";
                         const isUniceilService =
-                          sub.name === "Waste Plastics Extrusion";
+                          sub.name === "Wood Polyethylene";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo

@@ -138,7 +138,7 @@ const IndiaPresence: React.FC = () => {
                     singleColumn={singleColumnBuckets}
                   />
                   <ProjectBucketSection
-                    title="Waste Plastics Extrusion"
+                    title="Wood Polyethylene"
                     locations={wastePlasticsExtrusionLocations}
                     singleColumn={singleColumnBuckets}
                   />

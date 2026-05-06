@@ -13,8 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import emailjs from "@emailjs/browser";
-import erode from "@/assets/website/zigma-picture.png";
+import erode from "@/assets/website/zigma-picture.webp";
 import chennai from "@/assets/website/Chennai.jpg";
 import Delhi from "@/assets/website/New-Delhi.webp";
 import Mumbai from "@/assets/website/Mumbai.jpg";
@@ -24,11 +23,10 @@ import Singapore from "@/assets/website/Singapore.jpg";
 import Malaysia from "@/assets/website/Malaysia.jpg";
 
 import Herobg from '@/assets/website/Office Night.jpeg';
-// EmailJS config (replace via .env in production)
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "PUBLIC_KEY";
 
+const MAIL_TRIGGER_URL =
+  import.meta.env.VITE_CONTACT_MAIL_TRIGGER_URL ||
+  "https://zigma.in/zigma_website/mail_trigger.php";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -64,70 +62,42 @@ const Contact = () => {
       return;
     }
 
-    // Prevent runtime issues if EmailJS IDs were not configured
-
-    console.log("EmailJS Config Status:", {
-      serviceId: EMAILJS_SERVICE_ID,
-      templateId: EMAILJS_TEMPLATE_ID,
-      publicKey: EMAILJS_PUBLIC_KEY,
-    })
-    if (
-      EMAILJS_SERVICE_ID === "SERVICE_ID" ||
-      EMAILJS_TEMPLATE_ID === "TEMPLATE_ID" ||
-      EMAILJS_PUBLIC_KEY === "PUBLIC_KEY"
-    ) {
-      toast.error("Email service is not configured yet. Please contact support.");
-      return;
-    }
-
     setIsSubmitting(true);
     try {
       const submittedName = formData.name.trim() || "Not provided";
       const submittedEmail = formData.email.trim();
-      const submittedPhone = formData.phone.trim() || "Not provided";
+      const submittedPhone = formData.phone.trim();
       const submittedSubject = formData.subject.trim();
       const submittedMessage = formData.message.trim();
 
-      // Send canonical keys + common alias keys to avoid template-key mismatch issues.
-      const templateParams = {
+      const query = new URLSearchParams({
+        type: submittedSubject,
         name: submittedName,
-        email: submittedEmail,
-        phone: submittedPhone,
-        subject: submittedSubject,
+        mail: submittedEmail,
+        phone_no: submittedPhone,
         message: submittedMessage,
-        from_name: submittedName,
-        from_email: submittedEmail,
-        from_phone: submittedPhone,
-        from_subject: submittedSubject,
-        from_message: submittedMessage,
-        user_name: submittedName,
-        user_email: submittedEmail,
-        user_phone: submittedPhone,
-        user_subject: submittedSubject,
-        user_message: submittedMessage,
-        to_email: "creative@zigma.in",
-        reply_to: submittedEmail,
-      };
+      });
 
+      const apiUrl = `${MAIL_TRIGGER_URL}?${query.toString()}`;
       if (import.meta.env.DEV) {
-        console.log("[Contact] EmailJS payload", {
-          serviceId: EMAILJS_SERVICE_ID,
-          templateId: EMAILJS_TEMPLATE_ID,
-          templateParams,
-        });
+        console.log("[Contact] mail_trigger request", apiUrl);
       }
 
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams,
-        { publicKey: EMAILJS_PUBLIC_KEY }
-      );
+      const apiResponse = await fetch(apiUrl, { method: "GET" });
+      const apiBodyText = await apiResponse.text().catch(() => "");
+      if (!apiResponse.ok) {
+        throw new Error(`mail_trigger failed (${apiResponse.status}): ${apiBodyText}`);
+      }
+
+      // Some PHP endpoints always return 200; treat explicit failure keywords as an error.
+      if (apiBodyText && /fail|error|invalid/i.test(apiBodyText)) {
+        throw new Error(`mail_trigger response indicates failure: ${apiBodyText}`);
+      }
 
       toast.success("Thank you for your message! We'll get back to you soon.");
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
     } catch (error) {
-      console.error("EmailJS submission failed:", error);
+      console.error("Contact submission failed:", error);
       toast.error("Could not send your message. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -303,31 +273,31 @@ const Contact = () => {
                     </SelectTrigger>
                     <SelectContent className="rounded-lg border border-border bg-card p-1">
                       <SelectItem
-                        value="General Inquiry"
+                        value="1"
                         className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
                       >
                         General Inquiry
                       </SelectItem>
                       <SelectItem
-                        value="Sales"
+                        value="2"
                         className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
                       >
                         Sales
                       </SelectItem>
                       <SelectItem
-                        value="Support"
+                        value="3"
                         className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
                       >
                         Support
                       </SelectItem>
                       <SelectItem
-                        value="Partnership"
+                        value="4"
                         className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
                       >
                         Partnership
                       </SelectItem>
                       <SelectItem
-                        value="Careers"
+                        value="5"
                         className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
                       >
                         Careers

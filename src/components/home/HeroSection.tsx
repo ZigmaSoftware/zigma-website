@@ -1,57 +1,42 @@
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ScrollToTop from "@/components/ScrollToTop";
-// import Container from "./Container";
-
-import img1 from "@/assets/website/hero/noida-present-hero.jpg";
-import img2 from "@/assets/website/hero/landfill-mining-hero.jpg";
-import img3 from "@/assets/website/hero/Pdgclose.jpg";
-import img4 from "@/assets/website/hero/wpe-product.jpeg";
-import img5 from "@/assets/services/kumbakonam.png";
-import img6 from "@/assets/website/hero/vairapalayam.png";
-import img7 from "@/assets/website/hero/kdg.png";
-import img8 from "@/assets/website/hero/war-room.jpeg";
-import img9 from "@/assets/website/hero/rdf-plant.jpg.jpeg";
-// import herobg from "@/assets/services/kumbakonam.png";
-
-
-
 
 const slides = [
   {
-    image: img1,
+    image: "/hero/noida-present-hero.webp",
     title: "Transforming Landfills into Living Landscapes.",
   },
   {
-    image: img2,
+    image: "/hero/landfill-mining-hero.jpg",
     title: "Clearing Legacy Waste, Creating Sustainable Futures.",
   },
   {
-    image: img3,
+    image: "/hero/Pdgclose.webp",
     title: "Science-Driven Solutions for a Cleaner Tomorrow.",
   },
   {
-    image: img4,
+    image: "/hero/wpe-product.webp",
     title: "From Waste to Wealth, Responsibly.",
   },
   {
-    image: img5,
+    image: "/hero/kumbakonam.webp",
     title: "Pioneering Bio-Mining, Protecting Generations.",
   },
   {
-    image: img6,
+    image: "/hero/vairapalayam.webp",
     title: "Restoring Land, Reviving Communities.",
   },
   {
-    image: img7,
+    image: "/hero/kdg.webp",
     title: "Reclaiming Landfills, Redefining Possibilities.",
   },
   {
-    image: img8,
+    image: "/hero/war-room.webp",
     title: "Engineering Transparency, Delivering Sustainability.",
   },
   {
-    image: img9,
+    image: "/hero/rdf-plant.webp",
     title: "Innovating Waste Management, Inspiring Change.",
   },
 ];

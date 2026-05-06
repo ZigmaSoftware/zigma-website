@@ -38,12 +38,12 @@ interface ImpactStat {
 
 const stats: ImpactStat[] = [
   { icon: Trash2,       value: 11.71, suffix: "+ Million",  line2: "Tons", desc: "Waste processed" },
-  { icon: Factory,      value: 20000, suffix: "+ Metric",   line2: "Tons", desc: "Daily waste processing capacity" },
-  { icon: Beaker,       value: 2,     suffix: "+ Million",  line2: "Tons", desc: "RDF used as alternative fuel" },
-  { icon: Map,          value: 650,   suffix: "+",    line2: "Acres", desc: "Land reclaimed" },
-  { icon: Sprout,       value: 4.95,  suffix: "+ Million Tons",  line2: "soil repurposed", desc: "For sustainable earthfilling" },
-  { icon: MountainSnow, value: 2.18,  suffix: "+ Million Tons",  line2: "stones reused",   desc: "Minimizing dependence on materials" },
-  { icon: Shovel,       value: 30,    suffix: "+",     line2: "Landfills", desc: "Remediation projects completed" },
+  { icon: Factory,      value: 27000, suffix: "+ Metric",   line2: "Tons", desc: "Daily waste processing capacity" },
+  { icon: Beaker,       value: 2.9,     suffix: "+ Million",  line2: "Tons", desc: "RDF used as alternative fuel" },
+  { icon: Map,          value: 850,   suffix: "+",    line2: "Acres", desc: "Land reclaimed" },
+  { icon: Sprout,       value: 7.9,  suffix: "+ Million Tons",  line2: "soil repurposed", desc: "For sustainable earthfilling" },
+  { icon: MountainSnow, value: 3.2,  suffix: "+ Million Tons",  line2: "stones reused",   desc: "Minimizing dependence on materials" },
+  { icon: Shovel,       value: 70,    suffix: "+",     line2: "Landfills", desc: "Remediation projects completed" },
   { icon: Users2,       value: 2000,  suffix: "+",     line2: "Employees", desc: "Working for sustainable future" },
 ];
 
