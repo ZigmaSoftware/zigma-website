@@ -366,7 +366,7 @@ const Products = () => {
                       {product.name.includes("Recycled Furniture") ? (
                         <Button asChild variant="outline">
                           <a href={furnitureCataloguePdf} target="_blank" rel="noopener noreferrer">
-                            View 
+                            Know More
                           </a>
                         </Button>
                       ) : null}

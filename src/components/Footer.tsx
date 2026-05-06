@@ -31,14 +31,14 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_2.5fr_1.8fr] gap-4 lg:gap-x-4 lg:gap-y-5">
             {/* Company Info */}
             <div className="flex flex-col gap-8" >
-              <a href="/" className="flex items-center gap-3 mb-4">
+              <Link to="/" className="flex items-center gap-3 mb-4">
                 <img
                   src="/zigma_blueplanet_logo.png"
                   alt="Zigma Blue Planet"
                   className="h-20 w-auto object-contain"
                   loading="lazy"
                 />
-              </a>
+              </Link>
               {/* <p className="text-background/70 text-sm leading-relaxed mb-4">
                 Driving sustainable landfill reclamation across India through advanced biomining,
                 transforming waste into reusable resources.
@@ -106,7 +106,7 @@ const Footer = () => {
                   { label: "Services", path: "/services" },
                   { label: "Projects", path: "/projects" },
                   { label: "Products", path: "/products" },
-                  { label: "In the News", path: "//newsroom" },
+                  { label: "In the News", path: "/newsroom" },
                   { label: "Publications", path: "/publications" },
                   { label: "Testimonials", path: "/testimonials" },
                   { label: "Newsletters", path: "/newsletters" },
