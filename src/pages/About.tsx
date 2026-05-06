@@ -10,14 +10,14 @@ import hero from '@/assets/website/hero/about-hero.jpg';
 import globeSvg from '@/assets/website/contact_globe.svg';
 import BluePlanetSection from '@/components/home/BluePlanetSection';
 
-import img1 from '@/assets/website/Kumbakonam.png';
+import img1 from '@/assets/milestone/Kumbakonam-temple.png';
 import img2 from '@/assets/website/Forcebel.png';
 import img3 from '@/assets/Forcebel awd.jpg';
 import img4 from '@/assets/before after projects/chidambaram after.png';
 import img5 from '@/assets/before after projects/SEMBAKKAM LAKE  after.png';
 import img6 from '@/assets/before after projects/karaikudi after.png';
 import img7 from '@/assets/before after projects/VIJAYAWADA-AJITSINGH NAGAR after.png';
-import img8 from '@/assets/website/noida present.png';
+// import img8 from '@/assets/website/noida-present.webp';
 import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/website/hero/controll room.png';
 import img11 from '@/assets/website/hero/award12_Swachha Andhra.png';
@@ -295,9 +295,9 @@ const leaders: Leader[] = [
   },
   {
     group: 'Management Team',
-    name: 'Mohan Kumar',
+    name: 'Mohan Kumaar S',
     image: picture17,
-    designation: 'General Manager - Resource Recovery & Revenue',
+    designation: 'General Manager - AFR',
     linkedin: 'https://www.linkedin.com/in/mohan-kumaar-subramaniam-a3b064175/',
   },
   {

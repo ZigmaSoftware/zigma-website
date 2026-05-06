@@ -171,9 +171,9 @@ const GALLERY_CONFIG: Record<
     title: 'Kodungaiyur - Chennai',
     state: 'Tamilnadu',
     metrics: [
-      { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '4,403,088.41', unit: 'TONS' },
-      { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '--', unit: 'ACRES' },
-      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '3,049,138.72', unit: 'METRIC TONS' },
+      { key: 'waste', label: 'Estimated waste to be Processed', title: 'Estimated waste to be Processed', value: '4,403,088.41', unit: 'TONS' },
+      { key: 'land', label: 'Target land Reclamation', title: 'Target land Reclamation', value: '--', unit: 'ACRES' },
+      { key: 'co2', label: 'Expected Co2e Mitigation', title: 'Expected Co2e Mitigation', value: '3,049,138.72', unit: 'METRIC TONS' },
       {
         key: 'recovery',
         label: 'Project Status',
@@ -371,9 +371,9 @@ const GALLERY_CONFIG: Record<
       showOngoingBadge: true,
     },
     metrics: [
-      { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '200,000', unit: 'TONS' },
-      { key: 'land', label: 'Land Reclaimed', title: 'Land Reclaimed', value: '0', unit: 'ACRES' },
-      { key: 'co2', label: 'CO2 Mitigated', title: 'CO2 Mitigated', value: '138,500', unit: 'METRIC TONS' },
+      { key: 'waste', label: 'Estimated waste to be Processed', title: 'Estimated waste to be Processed', value: '200,000', unit: 'TONS' },
+      { key: 'land', label: 'Target land Reclamation', title: 'Target land Reclamation', value: '0', unit: 'ACRES' },
+      { key: 'co2', label: 'Expected Co2e Mitigation', title: 'Expected Co2e Mitigation', value: '138,500', unit: 'METRIC TONS' },
       {
         key: 'recovery',
         label: 'Project Status',

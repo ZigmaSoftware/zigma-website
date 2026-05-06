@@ -3,14 +3,14 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Reveal from "@/components/animation/Reveal";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
-import landfillManagement from "@/assets/website/windrow.jpg";
+import landfillManagement from "@/assets/website/windrow.webp";
 import freshWaste from "@/assets/services/fresh-waste.jpg";
 import bsflWaste from "@/assets/BSFL project pictures/pic 3.jpeg";
 import machinery from "@/assets/services/machinery.png";
 import iotWaste from "@/assets/services/WB.png";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrialWaste from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
-import eprService from "@/assets/services/EPR.png";
+import eprService from "@/assets/services/EPR.webp";
 
 const services = [
   {

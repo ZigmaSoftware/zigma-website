@@ -50,11 +50,15 @@ const Index = () => {
         <HeroSection />
         <StatsSection />
         <AboutSection />
-        <IndiaPresence />
-        <ServicesSection />
-        <ULBClientsSection />
-        <PartnersSectioncp />
-        <SDGSection />
+        {showDeferredSections && (
+          <>
+            <IndiaPresence />
+            <ServicesSection />
+            <ULBClientsSection />
+            <PartnersSectioncp />
+            <SDGSection />
+          </>
+        )}
       </main>
       <Footer />
     </div>

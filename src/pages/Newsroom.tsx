@@ -3,8 +3,9 @@ import { X } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import VideosCascadeSlider from "@/components/videos/VideosCascadeSlider";
-import heroBg from "@/assets/website/news_bg.jpeg";
+import heroBg from "@/assets/website/hero/news_bg.webp";
 import sectionBg from "@/assets/website/background-1.png";
+import { newsEnglishArticles, newsPagedAssetPaths } from "@/data/newsEnglishPageWise";
 
 interface NewsItem {
   id: string;
@@ -12,6 +13,7 @@ interface NewsItem {
   thumbnail: string;
   fullImage: string;
   language: string;
+  pages?: string[];
 }
 
 interface FeaturedVideo {
@@ -90,6 +92,7 @@ const newsAssets = Object.entries(
     import: "default",
   }),
 )
+  .filter(([path]) => !newsPagedAssetPaths.has(path))
   .map(([path, src]) => {
     const fileName = path.split("/").pop() ?? "News Image";
     const title = fileName.replace(/\.[^/.]+$/, "").replace(/[_-]+/g, " ").trim();
@@ -107,9 +110,20 @@ const newsAssets = Object.entries(
 
 const NEWS_ITEMS: NewsItem[] = newsAssets;
 
+const PAGE_WISE_NEWS_ITEMS: NewsItem[] = newsEnglishArticles.map((article) => ({
+  id: `page-wise-${article.slug}`,
+  title: article.title,
+  thumbnail: article.coverUrl,
+  fullImage: article.coverUrl,
+  language: article.language,
+  pages: article.pages.map((page) => page.url),
+}));
+
+const ALL_NEWS_ITEMS: NewsItem[] = [...NEWS_ITEMS, ...PAGE_WISE_NEWS_ITEMS];
+
 const LANGUAGE_ORDER: string[] = ["English", "Hindi", "Tamil", "Telugu", "Malayalam", "Gujarati"];
 
-const AVAILABLE_LANGUAGES: string[] = Array.from(new Set(NEWS_ITEMS.map((item) => item.language))).sort(
+const AVAILABLE_LANGUAGES: string[] = Array.from(new Set(ALL_NEWS_ITEMS.map((item) => item.language))).sort(
   (a, b) => {
     const rankA = LANGUAGE_ORDER.indexOf(a);
     const rankB = LANGUAGE_ORDER.indexOf(b);
@@ -120,7 +134,7 @@ const AVAILABLE_LANGUAGES: string[] = Array.from(new Set(NEWS_ITEMS.map((item) =
   },
 );
 
-const LANGUAGE_COUNTS: Record<string, number> = NEWS_ITEMS.reduce<Record<string, number>>(
+const LANGUAGE_COUNTS: Record<string, number> = ALL_NEWS_ITEMS.reduce<Record<string, number>>(
   (acc, item) => {
     acc[item.language] = (acc[item.language] ?? 0) + 1;
     return acc;
@@ -170,13 +184,26 @@ interface DetailViewProps {
 function DetailView({ item, onBack, onPrev, onNext }: DetailViewProps) {
   return (
     <div className="animate-fadeIn rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-6">
-      <div className="mb-8 overflow-hidden rounded-lg border border-slate-200 bg-white p-1 md:p-2">
-        <img
-          src={item.fullImage}
-          alt={item.title}
-          className="block h-auto w-full object-contain"
-        />
-      </div>
+      {item.pages && item.pages.length > 0 ? (
+        <div className="mb-8 grid grid-cols-1 gap-6">
+          {item.pages.map((pageUrl, pageIndex) => (
+            <article key={`${item.id}-page-${pageIndex + 1}`} className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+              <div className="border-b border-slate-200 px-4 py-3">
+                <p className="text-sm font-semibold text-slate-900">Page {pageIndex + 1}</p>
+              </div>
+              <img src={pageUrl} alt={`${item.title} page ${pageIndex + 1}`} className="block h-auto w-full object-contain" />
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div className="mb-8 overflow-hidden rounded-lg border border-slate-200 bg-white p-1 md:p-2">
+          <img
+            src={item.fullImage}
+            alt={item.title}
+            className="block h-auto w-full object-contain"
+          />
+        </div>
+      )}
 
       <div className="grid grid-cols-3 items-center gap-3">
         <button
@@ -218,8 +245,8 @@ export default function Newsroom() {
 
   const filtered =
     activeLanguage === "All"
-      ? NEWS_ITEMS
-      : NEWS_ITEMS.filter((item) => item.language === activeLanguage);
+      ? ALL_NEWS_ITEMS
+      : ALL_NEWS_ITEMS.filter((item) => item.language === activeLanguage);
   const featuredVideos: FeaturedVideo[] = FEATURED_VIDEO_LINKS.map((url, index) => ({
     id: `${index + 1}`,
     url,
@@ -388,7 +415,7 @@ export default function Newsroom() {
                   {["All", ...AVAILABLE_LANGUAGES].map((language) => {
                     const isActive = activeLanguage === language;
                     const count =
-                      language === "All" ? NEWS_ITEMS.length : (LANGUAGE_COUNTS[language] ?? 0);
+                      language === "All" ? ALL_NEWS_ITEMS.length : (LANGUAGE_COUNTS[language] ?? 0);
                     return (
                       <button
                         key={language}

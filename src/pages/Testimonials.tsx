@@ -10,8 +10,6 @@ import {
   Award,
   Play,
   X,
-  ChevronDown,
-  Check,
   Image,
 } from "lucide-react";
 import Header from "@/components/Header";
@@ -41,16 +39,17 @@ import shriArunMaheshBabuImg from "@/assets/Testimonials/Arun Mahesh Babu Profil
 import andersBendsenSpohrImg from "@/assets/Testimonials/Anders Bendsen Spohr.webp";
 // import andersBendsenSpohrCommentsImg from "@/assets/Testimonials/social proof/Anders Bendsen Spohr comments.jpeg";
 // import arunMaheshBabuCommentsImg from "@/assets/Testimonials/social proof/Arun Mahesh Babu IAS comments.jpeg";
-import socialImg1 from "@/assets/Testimonials/social proof/social.jpg";
-import socialImg2 from "@/assets/Testimonials/social proof/social2.png";
-import socialImg3 from "@/assets/Testimonials/social proof/social3.png";
-import socialImg4 from "@/assets/Testimonials/social proof/social4.png";
-import socialImg5 from "@/assets/Testimonials/social proof/social5.png";
-import socialImg6 from "@/assets/Testimonials/social proof/social6.png";
-import socialImg7 from "@/assets/Testimonials/social proof/social7.png";
-import socialImg8 from "@/assets/Testimonials/social proof/social8.png";
-import socialImg9 from "@/assets/Testimonials/social proof/social9.png";
-import socialImg10 from "@/assets/Testimonials/social proof/social10.png";
+// Social proof (currently hidden/disabled on the page)
+// import socialImg1 from "@/assets/Testimonials/social proof/social.jpg";
+// import socialImg2 from "@/assets/Testimonials/social proof/social2.png";
+// import socialImg3 from "@/assets/Testimonials/social proof/social3.png";
+// import socialImg4 from "@/assets/Testimonials/social proof/social4.png";
+// import socialImg5 from "@/assets/Testimonials/social proof/social5.png";
+// import socialImg6 from "@/assets/Testimonials/social proof/social6.png";
+// import socialImg7 from "@/assets/Testimonials/social proof/social7.png";
+// import socialImg8 from "@/assets/Testimonials/social proof/social8.png";
+// import socialImg9 from "@/assets/Testimonials/social proof/social9.png";
+// import socialImg10 from "@/assets/Testimonials/social proof/social10.png";
 import bg from "@/assets/website/hero/Testimonials-bg.jpeg";
 import visit1 from "@/assets/Testimonials/Visits/1.jpeg";
 import visit2 from "@/assets/Testimonials/Visits/2.jpg";
@@ -105,22 +104,25 @@ interface Stat {
   decimal?: boolean;
 }
 
-type Platform = "linkedin" | "twitter";
+type IconComponent = React.ComponentType<{ size?: number | string; className?: string }>;
 
-interface WallCard {
-  initials: string;
-  gradient: string;
-  name: string;
-  handle: string;
-  platform: Platform;
-  text: string;
-  likes: string;
-  time: string;
-  tall?: boolean;
-  image?: string;
-}
-
-type LoadState = "idle" | "loading" | "done";
+// Social proof wall types (currently hidden/disabled on the page)
+// type Platform = "linkedin" | "twitter";
+//
+// interface WallCard {
+//   initials: string;
+//   gradient: string;
+//   name: string;
+//   handle: string;
+//   platform: Platform;
+//   text: string;
+//   likes: string;
+//   time: string;
+//   tall?: boolean;
+//   image?: string;
+// }
+//
+// type LoadState = "idle" | "loading" | "done";
 
 const YOUTUBE_PATTERNS: RegExp[] = [
   /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([A-Za-z0-9_-]{11})/i,
@@ -430,102 +432,103 @@ const STATS: Stat[] = [
   },
 ];
 
-const WALL_CARDS: WallCard[] = [
-  {
-    initials: "MD",
-    gradient: "linear-gradient(135deg,#10B981,#34D399)",
-    name: "MoUD",
-    handle: "@Moud_India",
-    platform: "linkedin",
-    text: `Take a tour of #Kumbakonam dumpyard and learn about the biomining process. #MyCleanIndia.`,
-    likes: "2.1k",
-    time: "3 days ago",
-    image: socialImg1,
-  },
-  {
-    initials: "NF",
-    gradient: "linear-gradient(135deg,#059669,#10B981)",
-    name: "Neev Fund",
-    handle: "@NeevFund",
-    platform: "linkedin",
-    text: `Blue Planet Environmental Solutions and partners Zigma Global Environ Solutions Pvt. Ltd. are addressing urban waste by clearing a legacy dumpsite and freeing up land for Chidambaram Municipality.`,
-    likes: "1.8k",
-    time: "5 days ago",
-    image: socialImg2,
-  },
-  {
-    initials: "NF",
-    gradient: "linear-gradient(135deg,#047857,#10B981)",
-    name: "Neev Fund",
-    handle: "@NeevFund",
-    platform: "linkedin",
-    text: `Our portfolio company Blue Planet Environmental Solutions' efforts in waste management and biomining have paid off, helping transform degraded sites into greener, more sustainable spaces.`,
-    likes: "1.2k",
-    time: "1 week ago",
-    image: socialImg3,
-  },
-  {
-    initials: "NF",
-    gradient: "linear-gradient(135deg,#065F46,#059669)",
-    name: "Neev Fund",
-    handle: "@NeevFund",
-    platform: "linkedin",
-    text: `Rapid urbanization has intensified city waste challenges. This highlights Blue Planet Environmental Solutions and Zigma leaders discussing practical technologies to tackle the problem.`,
-    likes: "986",
-    time: "9 days ago",
-    image: socialImg4,
-  },
-];
-
-const EXTRA_CARDS: WallCard[] = [
-  {
-    initials: "BP",
-    gradient: "linear-gradient(135deg,#10B981,#6EE7B7)",
-    name: "Blue Planet Environmental Solutions",
-    handle: "@BluePlanet_Env",
-    platform: "linkedin",
-    text: `This contribution by our associate company @zigmaglobal1 is commendable. We are working with partners to support communities with essential resources.`,
-    likes: "1.1k",
-    time: "2 weeks ago",
-    image: socialImg5,
-  },
-  {
-    initials: "BP",
-    gradient: "linear-gradient(135deg,#059669,#34D399)",
-    name: "Blue Planet Environmental Solutions",
-    handle: "@BluePlanet_Env",
-    platform: "linkedin",
-    text: `Our partner @zigmaglobal1 has leveraged eco-friendly landfill-mining techniques to reclaim over 12 acres under the Kumbakonam Dumpyard Reclamation Project.`,
-    likes: "1.4k",
-    time: "2 weeks ago",
-    image: socialImg6,
-  },
-  {
-    initials: "BP",
-    gradient: "linear-gradient(135deg,#047857,#34D399)",
-    name: "Blue Planet Environmental Solutions",
-    handle: "@BluePlanet_Env",
-    platform: "linkedin",
-    text: `We continue driving circular-economy outcomes with partners like @NeevFund through the #SustainabilityShowcase and broader sustainability efforts.`,
-    likes: "1.6k",
-    time: "3 weeks ago",
-    image: socialImg7,
-  },
-  {
-    initials: "BP",
-    gradient: "linear-gradient(135deg,#10B981,#059669)",
-    name: "Blue Planet Environmental Solutions",
-    handle: "@BluePlanet_Env",
-    platform: "linkedin",
-    text: `Converting landfills into clean, productive stretches of land may seem far-fetched, but together with Zigma Global Environ Solutions we have been doing exactly that.`,
-    likes: "2.4k",
-    time: "1 month ago",
-    image: socialImg8,
-  },
-];
+// Social proof wall data (currently hidden/disabled on the page)
+// const WALL_CARDS: WallCard[] = [
+//   {
+//     initials: "MD",
+//     gradient: "linear-gradient(135deg,#10B981,#34D399)",
+//     name: "MoUD",
+//     handle: "@Moud_India",
+//     platform: "linkedin",
+//     text: `Take a tour of #Kumbakonam dumpyard and learn about the biomining process. #MyCleanIndia.`,
+//     likes: "2.1k",
+//     time: "3 days ago",
+//     image: socialImg1,
+//   },
+//   {
+//     initials: "NF",
+//     gradient: "linear-gradient(135deg,#059669,#10B981)",
+//     name: "Neev Fund",
+//     handle: "@NeevFund",
+//     platform: "linkedin",
+//     text: `Blue Planet Environmental Solutions and partners Zigma Global Environ Solutions Pvt. Ltd. are addressing urban waste by clearing a legacy dumpsite and freeing up land for Chidambaram Municipality.`,
+//     likes: "1.8k",
+//     time: "5 days ago",
+//     image: socialImg2,
+//   },
+//   {
+//     initials: "NF",
+//     gradient: "linear-gradient(135deg,#047857,#10B981)",
+//     name: "Neev Fund",
+//     handle: "@NeevFund",
+//     platform: "linkedin",
+//     text: `Our portfolio company Blue Planet Environmental Solutions' efforts in waste management and biomining have paid off, helping transform degraded sites into greener, more sustainable spaces.`,
+//     likes: "1.2k",
+//     time: "1 week ago",
+//     image: socialImg3,
+//   },
+//   {
+//     initials: "NF",
+//     gradient: "linear-gradient(135deg,#065F46,#059669)",
+//     name: "Neev Fund",
+//     handle: "@NeevFund",
+//     platform: "linkedin",
+//     text: `Rapid urbanization has intensified city waste challenges. This highlights Blue Planet Environmental Solutions and Zigma leaders discussing practical technologies to tackle the problem.`,
+//     likes: "986",
+//     time: "9 days ago",
+//     image: socialImg4,
+//   },
+// ];
+//
+// const EXTRA_CARDS: WallCard[] = [
+//   {
+//     initials: "BP",
+//     gradient: "linear-gradient(135deg,#10B981,#6EE7B7)",
+//     name: "Blue Planet Environmental Solutions",
+//     handle: "@BluePlanet_Env",
+//     platform: "linkedin",
+//     text: `This contribution by our associate company @zigmaglobal1 is commendable. We are working with partners to support communities with essential resources.`,
+//     likes: "1.1k",
+//     time: "2 weeks ago",
+//     image: socialImg5,
+//   },
+//   {
+//     initials: "BP",
+//     gradient: "linear-gradient(135deg,#059669,#34D399)",
+//     name: "Blue Planet Environmental Solutions",
+//     handle: "@BluePlanet_Env",
+//     platform: "linkedin",
+//     text: `Our partner @zigmaglobal1 has leveraged eco-friendly landfill-mining techniques to reclaim over 12 acres under the Kumbakonam Dumpyard Reclamation Project.`,
+//     likes: "1.4k",
+//     time: "2 weeks ago",
+//     image: socialImg6,
+//   },
+//   {
+//     initials: "BP",
+//     gradient: "linear-gradient(135deg,#047857,#34D399)",
+//     name: "Blue Planet Environmental Solutions",
+//     handle: "@BluePlanet_Env",
+//     platform: "linkedin",
+//     text: `We continue driving circular-economy outcomes with partners like @NeevFund through the #SustainabilityShowcase and broader sustainability efforts.`,
+//     likes: "1.6k",
+//     time: "3 weeks ago",
+//     image: socialImg7,
+//   },
+//   {
+//     initials: "BP",
+//     gradient: "linear-gradient(135deg,#10B981,#059669)",
+//     name: "Blue Planet Environmental Solutions",
+//     handle: "@BluePlanet_Env",
+//     platform: "linkedin",
+//     text: `Converting landfills into clean, productive stretches of land may seem far-fetched, but together with Zigma Global Environ Solutions we have been doing exactly that.`,
+//     likes: "2.4k",
+//     time: "1 month ago",
+//     image: socialImg8,
+//   },
+// ];
 
 /* Icons */
-const StatIcons: Record<StatIconType, React.ComponentType<any>> = {
+const StatIcons: Record<StatIconType, IconComponent> = {
   globe: Globe,
   leaf: Leaf,
   star: Star,
@@ -701,53 +704,54 @@ const StatCard: FC<StatCardProps> = ({ stat }) => {
   );
 };
 
-interface WallCardProps {
-  card: WallCard;
-  delay?: number;
-}
-
-const WallCardItem: FC<WallCardProps> = ({ card, delay = 0 }) => (
-  <Reveal
-    className="break-inside-avoid"
-    style={{
-      display: "inline-block",
-      width: "100%",
-      marginBottom: 20,
-    }}
-  >
-    <article
-      className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl",
-        card.tall && "motion-safe:hover:shadow-lg"
-      )}
-    >
-      {card.image && (
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
-          <img
-            src={card.image}
-            alt={card.name}
-            className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          />
-        </div>
-      )}
-
-      <div className="flex flex-1 flex-col p-5">
-        <div className="mb-3 text-left">
-          <strong className="block text-sm font-bold text-foreground">
-            {card.name}
-          </strong>
-          <span className="block text-xs text-muted-foreground">
-            {card.handle.replace(/\s*-\s*LinkedIn\s*$/i, "")}
-          </span>
-        </div>
-        <p
-          className="text-left text-sm leading-relaxed text-muted-foreground"
-          dangerouslySetInnerHTML={{ __html: card.text }}
-        />
-      </div>
-    </article>
-  </Reveal>
-);
+// Social proof wall UI (currently hidden/disabled on the page)
+// interface WallCardProps {
+//   card: WallCard;
+//   delay?: number;
+// }
+//
+// const WallCardItem: FC<WallCardProps> = ({ card, delay = 0 }) => (
+//   <Reveal
+//     className="break-inside-avoid"
+//     style={{
+//       display: "inline-block",
+//       width: "100%",
+//       marginBottom: 20,
+//     }}
+//   >
+//     <article
+//       className={cn(
+//         "group flex h-full flex-col overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl",
+//         card.tall && "motion-safe:hover:shadow-lg"
+//       )}
+//     >
+//       {card.image && (
+//         <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+//           <img
+//             src={card.image}
+//             alt={card.name}
+//             className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+//           />
+//         </div>
+//       )}
+//
+//       <div className="flex flex-1 flex-col p-5">
+//         <div className="mb-3 text-left">
+//           <strong className="block text-sm font-bold text-foreground">
+//             {card.name}
+//           </strong>
+//           <span className="block text-xs text-muted-foreground">
+//             {card.handle.replace(/\s*-\s*LinkedIn\s*$/i, "")}
+//           </span>
+//         </div>
+//         <p
+//           className="text-left text-sm leading-relaxed text-muted-foreground"
+//           dangerouslySetInnerHTML={{ __html: card.text }}
+//         />
+//       </div>
+//     </article>
+//   </Reveal>
+// );
 
 /* Main Component */
 const Testimonials: FC = () => {
@@ -820,7 +824,8 @@ const Testimonials: FC = () => {
     const diff = touchStart.current - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 50) {
       stopAuto();
-      diff > 0 ? goTo(current + 1) : goTo(current - 1);
+      if (diff > 0) goTo(current + 1);
+      else goTo(current - 1);
       setTimeout(() => resumeAuto(), 100);
     }
   };
@@ -865,18 +870,18 @@ const Testimonials: FC = () => {
     };
   }, []);
 
-  /* Social wall */
-  const [wallCards, setWallCards] = useState<WallCard[]>(WALL_CARDS);
-  const [loadState, setLoadState] = useState<LoadState>("idle");
-
-  const handleLoadMore = (): void => {
-    if (loadState !== "idle") return;
-    setLoadState("loading");
-    setTimeout(() => {
-      setWallCards((c) => [...c, ...EXTRA_CARDS]);
-      setLoadState("done");
-    }, 900);
-  };
+  // Social proof wall (currently hidden/disabled on the page)
+  // const [wallCards, setWallCards] = useState<WallCard[]>(WALL_CARDS);
+  // const [loadState, setLoadState] = useState<LoadState>("idle");
+  //
+  // const handleLoadMore = (): void => {
+  //   if (loadState !== "idle") return;
+  //   setLoadState("loading");
+  //   setTimeout(() => {
+  //     setWallCards((c) => [...c, ...EXTRA_CARDS]);
+  //     setLoadState("done");
+  //   }, 900);
+  // };
 
   return (
     <div className="min-h-screen bg-background">

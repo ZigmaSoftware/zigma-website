@@ -7,16 +7,16 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
-import landfillManagement from "@/assets/website/windrow.jpg";
+import landfillManagement from "@/assets/website/windrow.webp";
 import wetWaste from "@/assets/services/fresh-waste.jpg";
-import herobg from "@/assets/website/hero/Pdgclose.jpg";
+// import herobg from "";
 import machine from "@/assets/services/machinery.png";
 import iot from "@/assets/services/WB.png";
 import bsflsolarr from "@/assets/BSFL project pictures/pic 3.jpeg";
 import integrated from "@/assets/website/hero/RDF1.jpeg";
 import industrial from "@/assets/services/Industrial & Commercial Waste Solutions.jpeg";
-import epr from "@/assets/services/EPR.png";
-import recycledFurniture from "@/assets/services/5.png";
+import epr from "@/assets/services/EPR.webp";
+import recycledFurniture from "@/assets/services/5.webp";
 import iwmsPdf from "@/assets/services/IWMS ZIGMA v2.pdf";
 import uniceilCataloguePdf from "@/assets/Products/UNICEIL -WPE -Master Catalogue-2026.pdf";
 // import Servicescp from "./Servicescp";
@@ -269,7 +269,7 @@ const services = [
   },
   {
     id: "recycled-furniture",
-    title: "Waste Plastics Extrusion",
+    title: "Wood Polyethylene",
     eyebrow: "From Waste to Wealth, Responsibly.",
     image: recycledFurniture,
     description:
@@ -296,7 +296,7 @@ const Services = () => {
         {/* Page Header */}
         <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
           <img
-            src={herobg}
+            src="/hero/Pdgclose.webp"
             alt=" Services Hero Background"
             aria-hidden="true"
             fetchPriority="high"
@@ -410,7 +410,7 @@ const Services = () => {
                             {service.id === "iot-waste-management" ? (
                               <Button asChild variant="outline">
                                 <a href={iwmsPdf} target="_blank" rel="noopener noreferrer">
-                                  View PDF
+                                  Know more
                                 </a>
                               </Button>
                             ) : null}
@@ -459,4 +459,3 @@ const Services = () => {
 };
 
 export default Services;
-

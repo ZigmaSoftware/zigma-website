@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   ProjectCard,
   ProjectGalleryCard,
@@ -19,6 +19,11 @@ const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout: _hideLayout
   const [activeRegion, setActiveRegion] = useState<'india' | 'international'>('india');
   const [modalId, setModalId] = useState<number | null>(null);
   const [isPrivateView, setIsPrivateView] = useState(false);
+  const [showRegionTabs, setShowRegionTabs] = useState(true);
+  const [headerOffset, setHeaderOffset] = useState(80);
+  const [regionTabsHeight, setRegionTabsHeight] = useState(0);
+  const sectionTopRef = useRef<HTMLDivElement | null>(null);
+  const regionTabsRef = useRef<HTMLElement | null>(null);
 
   const galleryVariantByKey = useMemo<Record<string, ProjectGalleryVariant>>(
     () => ({
@@ -57,48 +62,107 @@ const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout: _hideLayout
 
   const activeProject = modalId !== null ? displayProjects.find((p) => p.id === modalId) ?? null : null;
 
+  const handleRegionChange = (region: 'india' | 'international') => {
+    setActiveRegion(region);
+    setShowRegionTabs(false);
+  };
+
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const measureOffsets = () => {
+      const header = document.querySelector('header');
+      const nextHeaderOffset = header instanceof HTMLElement ? Math.round(header.getBoundingClientRect().height) : 80;
+      const nextRegionHeight =
+        showRegionTabs && regionTabsRef.current
+          ? Math.round(regionTabsRef.current.getBoundingClientRect().height)
+          : 0;
+
+      setHeaderOffset(nextHeaderOffset);
+      setRegionTabsHeight(nextRegionHeight);
+    };
+
+    measureOffsets();
+    window.addEventListener('resize', measureOffsets);
+
+    return () => window.removeEventListener('resize', measureOffsets);
+  }, [showRegionTabs]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const syncRegionTabsVisibility = () => {
+      const sectionTop = sectionTopRef.current?.getBoundingClientRect().top;
+      const isAtProjectsTop =
+        typeof sectionTop === 'number' && sectionTop >= headerOffset - 1;
+
+      if (isAtProjectsTop) {
+        setShowRegionTabs(true);
+      } else {
+        setShowRegionTabs(false);
+      }
+    };
+
+    syncRegionTabsVisibility();
+    window.addEventListener('scroll', syncRegionTabsVisibility, { passive: true });
+    window.addEventListener('resize', syncRegionTabsVisibility);
+
+    return () => {
+      window.removeEventListener('scroll', syncRegionTabsVisibility);
+      window.removeEventListener('resize', syncRegionTabsVisibility);
+    };
+  }, [headerOffset]);
+
   return (
     <div className="min-h-screen bg-background">
+      <div ref={sectionTopRef} />
+
       {/* shimmer keyframes */}
       <style>{`
         @keyframes barShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
       `}</style>
 
       {/* Region Tabs - India / International */}
-      <nav className="sticky top-[64px] p-2 pt-4 overflow-hidden border-y border-border bg-background/95 backdrop-blur z-40">
-        <div className="max-w-[1400px] mx-auto px-[5%] py-2 flex flex-wrap items-center gap-3">
-          <div className="relative inline-grid grid-cols-2 rounded-full border border-border bg-muted/60 p-1">
-            <span
-              aria-hidden="true"
-              className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-primary shadow-sm transition-transform duration-300 ease-out ${
-                activeRegion === 'international' ? 'translate-x-full' : 'translate-x-0'
-              }`}
-            />
-            <button
-              type="button"
-              onClick={() => setActiveRegion('india')}
-              className={`relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
-                activeRegion === 'india'
-                  ? 'text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              India
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveRegion('international')}
-              className={`relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
-                activeRegion === 'international'
-                  ? 'text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              International
-            </button>
+      {showRegionTabs && (
+        <nav
+          ref={regionTabsRef}
+          className="sticky p-2 pt-4 overflow-hidden border-y border-border bg-background/95 backdrop-blur z-40"
+          style={{ top: `${headerOffset}px` }}
+        >
+          <div className="max-w-[1400px] mx-auto px-[5%] py-2 flex flex-wrap items-center gap-3">
+            <div className="relative inline-grid grid-cols-2 rounded-full border border-border bg-muted/60 p-1">
+              <span
+                aria-hidden="true"
+                className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-primary shadow-sm transition-transform duration-300 ease-out ${
+                  activeRegion === 'international' ? 'translate-x-full' : 'translate-x-0'
+                }`}
+              />
+              <button
+                type="button"
+                onClick={() => handleRegionChange('india')}
+                className={`relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
+                  activeRegion === 'india'
+                    ? 'text-primary-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                India
+              </button>
+              <button
+                type="button"
+                onClick={() => handleRegionChange('international')}
+                className={`relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
+                  activeRegion === 'international'
+                    ? 'text-primary-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                International
+              </button>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      )}
 
       {/* State Filter - Only show for India region */}
       {activeRegion === 'india' && (
@@ -109,6 +173,7 @@ const LandfillMining: React.FC<LandfillMiningProps> = ({ hideLayout: _hideLayout
             setIsPrivateView(false);
             handleStateSelect(state);
           }}
+          stickyTop={headerOffset + (showRegionTabs ? regionTabsHeight : 0)}
           showPrivateTab
           isPrivateActive={isPrivateView}
           onPrivateTabClick={() => setIsPrivateView((prev) => !prev)}
