@@ -1,12 +1,15 @@
 ﻿import { useEffect, type ReactNode } from "react";
-import { X, MapPin, Award, Shield, Star, BookOpen } from "lucide-react";
+import { X, MapPin } from "lucide-react";
 import credibilityBg from "@/assets/icons/Credibility.png";
 import leafLeft from "@/assets/icons/leaf-left.png";
 import leafRight from "@/assets/icons/leaf-right.png";
-import leafbottom from "@/assets/icons/leaf-bottom.png";
-import swacchBharathLogo from "@/assets/icons/Swacch Bharath.png";
-import supremeCourtLogo from "@/assets/icons/Supreme Court.png";
 import type { Project } from "../../types";
+import {
+  buildCredibilityMarkers,
+  getAuthorityLogo,
+  getSupportedByLogo,
+  normalizeProjectModalValue,
+} from "./projectModalPresentation";
 
 // ============ Types ============
 interface CredibilityMarker {
@@ -20,20 +23,9 @@ interface ProjectModalProps {
 }
 
 // ============ Style Constants ============
-const COLORS = {
-  primary: "#0f2e51",
-  text: "#2f3944",
-  border: "#cad2d2",
-  background: "#f3f5f7",
-  accent: "#43b187",
-  secondary: "#667488",
-};
-
 const SIZES = {
   modalWidth: "max-w-[1100px]",
   modalHeight: "max-h-[95vh]",
-  leafIcon: "h-32 w-26",
-  cardIcon: "h-32 w-32",
 };
 
 // ============ Sub-Components ============
@@ -46,9 +38,9 @@ interface ModalHeaderProps {
 }
 
 const ModalHeader = ({ title, state, onClose }: ModalHeaderProps) => (
-  <div className="sticky top-0 z-10 flex items-center justify-between rounded-t-[18px] border-b border-[#d5dce5] bg-[#f3f5f7] px-6 py-5 sm:px-10 sm:py-6">
-    <div className="flex flex-1 items-center gap-3 sm:gap-4">
-      <h2 className="truncate text-2xl font-extrabold leading-none tracking-[-0.02em]  sm:text-[40px]">
+  <div className="sticky top-0 z-30 flex items-center justify-between rounded-t-[18px] border-b border-[#d5dce5] bg-[#f3f5f7] px-6 py-5 sm:px-10 sm:py-6">
+    <div className="flex flex-1 items-center gap-3 sm:gap-4 ">
+      <h2 className="truncate text-2xl font-extrabold leading-tight tracking-[-0.02em]  sm:text-[40px] ">
         {title}
       </h2>
       <span className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-full  px-4 py-1.5">
@@ -98,31 +90,66 @@ const ProjectDetailsSection = ({
   supportedBy,
   projectManagementConsultant,
 }: ProjectDetailsProps) => {
-  const normalizeValue = (value?: string | null) => {
-    const trimmed = value?.trim();
-    return trimmed ? trimmed : 'Not available';
-  };
+  const authorityLogo = getAuthorityLogo(executingAuthority);
+  const supportedByLogo = getSupportedByLogo(supportedBy);
 
   return (
+
+    // Excuting Authority, Supported By, Project Management Consultant cards
+
     <section>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+        <div className="flex h-full min-h-[220px] flex-col items-center justify-center rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
+          <p className="mb-2 whitespace-nowrap text-center text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
             Executing Authority
           </p>
-          <p className="text-base text-[#394450]">{normalizeValue(executingAuthority)}</p>
+          <p className="text-center text-base text-[#394450]">{normalizeProjectModalValue(executingAuthority)}</p>
+          {authorityLogo && (
+            <div className="mt-4 flex justify-center">
+              <div className="relative flex h-24 w-24 items-center justify-center">
+                <img
+                  src={credibilityBg}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-contain opacity-80"
+                />
+                <img
+                  src={authorityLogo.src}
+                  alt={authorityLogo.alt}
+                  loading="lazy"
+                  className={authorityLogo.className ?? "relative  h-14 w-14 object-contain mb-4"}
+                />
+              </div>
+            </div>
+          )}
         </div>
-        <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+        <div className="flex h-full min-h-[220px] flex-col items-center justify-center rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
+          <p className="mb-2 whitespace-nowrap text-center text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
             Supported By
           </p>
-          <p className="text-base text-[#394450]">{normalizeValue(supportedBy)}</p>
+          <p className="text-center text-base text-[#394450]">{normalizeProjectModalValue(supportedBy)}</p>
+          {supportedByLogo && (
+            <div className="mt-4 flex justify-center">
+              <div className="relative flex h-24 w-24 items-center justify-center">
+                <img
+                  src={credibilityBg}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-contain opacity-80"
+                />
+                <img
+                  src={supportedByLogo.src}
+                  alt={supportedByLogo.alt}
+                  loading="lazy"
+                  className="relative h-14 w-14 object-contain mb-4"
+                />
+              </div>
+            </div>
+          )}
         </div>
-        <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+        <div className="flex h-full min-h-[220px] flex-col items-center justify-center rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
+          <p className="mb-2 whitespace-nowrap text-center text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
             Project Management Consultant
           </p>
-          <p className="text-base text-[#394450]">{normalizeValue(projectManagementConsultant)}</p>
+          <p className="text-center text-base text-[#394450]">{normalizeProjectModalValue(projectManagementConsultant)}</p>
         </div>
       </div>
     </section>
@@ -232,50 +259,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
 
   if (!project) return null;
 
-  // Create credibility markers with icons
-  const markerIcons: ReactNode[] = [
-    <Award className="h-12 w-12" />,
-    <Shield className="h-12 w-12" />,
-    <Star className="h-12 w-12" />,
-    <BookOpen className="h-12 w-12" />,
-  ];
-
-  const getMarkerIcon = (text: string, index: number): ReactNode => {
-    const normalized = text.toLowerCase();
-
-    // Only use Swacch Bharath logo for Kumbakonam project
-    if (
-      project.title.toLowerCase().includes("kumbakonam") &&
-      normalized.includes("featured in the swacch bharath mission best practises 2016")
-    ) {
-      return (
-        <img
-          src={swacchBharathLogo}
-          alt=""
-          loading="lazy"
-          className="h-16 w-16 object-contain ml-1.5"
-        />
-      );
-    }
-
-    if (normalized.includes("supreme court")) {
-      return (
-        <img
-          src={supremeCourtLogo}
-          alt=""
-          loading="lazy"
-          className="h-14 w-14 object-contain mb-4"
-        />
-      );
-    }
-
-    return markerIcons[index % markerIcons.length];
-  };
-
-  const credibilityMarkers: CredibilityMarker[] = project.metrics.map((text, index) => ({
-    text,
-    icon: getMarkerIcon(text, index),
-  }));
+  const credibilityMarkers: CredibilityMarker[] = buildCredibilityMarkers(project);
 
   return (
     // Modal Overlay
@@ -284,7 +268,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
       <div className="absolute inset-0 bg-slate-900/35 backdrop-blur-[2px]" onClick={onClose} />
 
       {/* Modal Container */}
-      <div className={`relative z-10 w-full ${SIZES.modalWidth} ${SIZES.modalHeight} overflow-y-auto rounded-[18px] border border-[#d8dee6] bg-[#f3f5f7] shadow-[0_25px_70px_rgba(15,23,42,0.20)]`}>
+      <div className={`relative isolate z-10 w-full ${SIZES.modalWidth} ${SIZES.modalHeight} overflow-y-auto rounded-[18px] border border-[#d8dee6] bg-[#f3f5f7] shadow-[0_25px_70px_rgba(15,23,42,0.20)]`}>
         {/* Header Section */}
         <ModalHeader title={project.title} state={project.state} onClose={onClose} />
 

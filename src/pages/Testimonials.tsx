@@ -51,23 +51,6 @@ import andersBendsenSpohrImg from "@/assets/Testimonials/Anders Bendsen Spohr.we
 // import socialImg9 from "@/assets/Testimonials/social proof/social9.png";
 // import socialImg10 from "@/assets/Testimonials/social proof/social10.png";
 import bg from "@/assets/website/hero/Testimonials-bg.jpeg";
-import visit1 from "@/assets/Testimonials/Visits/1.jpeg";
-import visit2 from "@/assets/Testimonials/Visits/2.jpg";
-import visit3 from "@/assets/Testimonials/Visits/3.jpeg";
-import visit4 from "@/assets/Testimonials/Visits/4.jpeg";
-import visit5 from "@/assets/Testimonials/Visits/5.jpeg";
-import visit6 from "@/assets/Testimonials/Visits/6.jpeg";
-import visit7 from "@/assets/Testimonials/Visits/7.jpeg";
-import visit8 from "@/assets/Testimonials/Visits/8.jpeg";
-import visit9 from "@/assets/Testimonials/Visits/9.jpeg";
-import visit10 from "@/assets/Testimonials/Visits/10.jpeg";
-import visit11 from "@/assets/Testimonials/Visits/11.jpeg";
-import visit12 from "@/assets/Testimonials/Visits/12.jpeg";
-import visit13 from "@/assets/Testimonials/Visits/13.jpeg";
-import visit14 from "@/assets/Testimonials/Visits/14.jpeg";
-import visit15 from "@/assets/Testimonials/Visits/15.jpeg";
-import visit16 from "@/assets/Testimonials/Visits/16.jpeg";
-import nellore2 from "@/assets/Testimonials/Visits/nellore2.jpg";
 
 
 /*TYPES*/
@@ -91,6 +74,12 @@ interface Video {
   author: string;
   dotColor: string;
   featured: boolean;
+}
+
+interface SiteVisitImage {
+  src: string;
+  alt: string;
+  headline?: string;
 }
 
 type StatIconType = "globe" | "leaf" | "star" | "zap" | "home" | "award";
@@ -386,7 +375,80 @@ const VIDEOS: Video[] = VIDEO_SEEDS.map((seed, index) => {
 
 const DEFAULT_VIDEO: Video = VIDEOS.find((video) => video.featured) ?? VIDEOS[0];
 
-const STATS: Stat[] = [
+const SITE_VISIT_IMAGES: SiteVisitImage[] = [
+  {
+    src: new URL("../assets/Testimonials/Visits/3.jpeg", import.meta.url).href,
+    alt: "Site visit 3",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/4.jpeg", import.meta.url).href,
+    alt: "Site visit 4",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/5.jpeg", import.meta.url).href,
+    alt: "Site visit 5",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/6.jpeg", import.meta.url).href,
+    alt: "Site visit 6",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/7.jpeg", import.meta.url).href,
+    alt: "Site visit 7",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/8.jpeg", import.meta.url).href,
+    alt: "Site visit 8",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/9.jpeg", import.meta.url).href,
+    alt: "Site visit 9",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/10.jpeg", import.meta.url).href,
+    alt: "Site visit 10",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/11.jpeg", import.meta.url).href,
+    alt: "Site visit 11",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/12.jpeg", import.meta.url).href,
+    alt: "Site visit 12",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/13.jpeg", import.meta.url).href,
+    alt: "Site visit 13",
+    headline:
+      "Sri Lankan Delegation Visits Zigma Global’s Perungudi Reclaimed Dumpsite to Observe Bio-Mining Best Practices",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/14.jpeg", import.meta.url).href,
+    alt: "Site visit 14",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/15.jpeg", import.meta.url).href,
+    alt: "Site visit 15",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/16.jpeg", import.meta.url).href,
+    alt: "Site visit 16",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/17.jpg", import.meta.url).href,
+    alt: "Site visit 17",
+    headline:
+      "KFW and TNUIFSL Delegation Visits Zigma Global to Explore Circular Economy Solutions",
+  },
+  {
+    src: new URL("../assets/Testimonials/Visits/nellore2.jpg", import.meta.url).href,
+    alt: "Site visit Nellore",
+    headline:
+      "Nellore Municipal Commissioner Visits Zigma Blue Planet to Explore Waste Management Best Practices",
+  },
+];
+
+const STATS: Stat[] = [ 
   {
     icon: "globe",
     number: 200,
@@ -764,6 +826,25 @@ const Testimonials: FC = () => {
   /* Comment image modal state */
   const [commentImageOpen, setCommentImageOpen] = useState<boolean>(false);
   const [selectedCommentImage, setSelectedCommentImage] = useState<string>("");
+  const [siteVisitImages, setSiteVisitImages] = useState<SiteVisitImage[]>(SITE_VISIT_IMAGES);
+
+  const siteVisitsTrackRef = useRef<HTMLDivElement | null>(null);
+  const siteVisitsOffsetRef = useRef<number>(0);
+  const siteVisitsItemWidthRef = useRef<number>(0);
+  const siteVisitsAnimationFrameRef = useRef<number | null>(null);
+  const siteVisitsLayoutFrameRef = useRef<number | null>(null);
+  const siteVisitsResumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const siteVisitsTransitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const siteVisitsPausedRef = useRef<boolean>(false);
+  const siteVisitsTransitioningRef = useRef<boolean>(false);
+  const siteVisitsMountedRef = useRef<boolean>(true);
+  const siteVisitsDragPointerIdRef = useRef<number | null>(null);
+  const siteVisitsDragStartXRef = useRef<number>(0);
+  const siteVisitsDragStartOffsetRef = useRef<number>(0);
+  const siteVisitsDragBaseOffsetRef = useRef<number>(0);
+  const siteVisitsDragDeltaRef = useRef<number>(0);
+  const siteVisitsDragActiveRef = useRef<boolean>(false);
+  const siteVisitsDragPreparedPrevRef = useRef<boolean>(false);
 
   const goTo = useCallback((idx: number) => {
     setCurrent((idx + SLIDES.length) % SLIDES.length);
@@ -798,6 +879,71 @@ const Testimonials: FC = () => {
     startAuto();
     return stopAuto;
   }, [startAuto, stopAuto]);
+
+  const clearSiteVisitsResumeTimeout = useCallback((): void => {
+    if (siteVisitsResumeTimeoutRef.current) {
+      clearTimeout(siteVisitsResumeTimeoutRef.current);
+      siteVisitsResumeTimeoutRef.current = null;
+    }
+  }, []);
+
+  const clearSiteVisitsTransitionTimeout = useCallback((): void => {
+    if (siteVisitsTransitionTimeoutRef.current) {
+      clearTimeout(siteVisitsTransitionTimeoutRef.current);
+      siteVisitsTransitionTimeoutRef.current = null;
+    }
+  }, []);
+
+  const applySiteVisitsTransform = useCallback((offset: number, transition = "none"): void => {
+    const track = siteVisitsTrackRef.current;
+    if (!track) return;
+    track.style.transition = transition;
+    track.style.transform = `translateX(${offset}px)`;
+  }, []);
+
+  const updateSiteVisitsMetrics = useCallback((): void => {
+    const track = siteVisitsTrackRef.current;
+    const firstCard = track?.firstElementChild as HTMLElement | null;
+    if (!track || !firstCard) return;
+
+    const styles = window.getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap || "0");
+    siteVisitsItemWidthRef.current = firstCard.getBoundingClientRect().width + gap;
+
+    if (!siteVisitsTransitioningRef.current) {
+      applySiteVisitsTransform(siteVisitsOffsetRef.current, "none");
+    }
+  }, [applySiteVisitsTransform]);
+
+  const pauseSiteVisits = useCallback((): void => {
+    siteVisitsPausedRef.current = true;
+    clearSiteVisitsResumeTimeout();
+  }, [clearSiteVisitsResumeTimeout]);
+
+  const resumeSiteVisits = useCallback((): void => {
+    clearSiteVisitsResumeTimeout();
+    siteVisitsPausedRef.current = false;
+  }, [clearSiteVisitsResumeTimeout]);
+
+  const scheduleSiteVisitsResume = useCallback((delay = 2500): void => {
+    clearSiteVisitsResumeTimeout();
+    siteVisitsResumeTimeoutRef.current = setTimeout(() => {
+      siteVisitsPausedRef.current = false;
+      siteVisitsResumeTimeoutRef.current = null;
+    }, delay);
+  }, [clearSiteVisitsResumeTimeout]);
+
+  const moveSiteVisitFirstToEnd = useCallback((images: SiteVisitImage[]): SiteVisitImage[] => {
+    if (images.length <= 1) return images;
+    const [first, ...rest] = images;
+    return [...rest, first];
+  }, []);
+
+  const moveSiteVisitLastToFront = useCallback((images: SiteVisitImage[]): SiteVisitImage[] => {
+    if (images.length <= 1) return images;
+    const last = images[images.length - 1];
+    return [last, ...images.slice(0, -1)];
+  }, []);
 
   const handlePrev = (): void => {
     stopAuto();
@@ -869,6 +1015,261 @@ const Testimonials: FC = () => {
       active = false;
     };
   }, []);
+
+  useEffect(() => {
+    siteVisitsMountedRef.current = true;
+
+    const step = (): void => {
+      if (
+        !siteVisitsMountedRef.current ||
+        siteVisitsPausedRef.current ||
+        siteVisitsTransitioningRef.current ||
+        siteVisitsItemWidthRef.current <= 0
+      ) {
+        siteVisitsAnimationFrameRef.current = window.requestAnimationFrame(step);
+        return;
+      }
+
+      siteVisitsOffsetRef.current -= 0.9;
+
+      if (Math.abs(siteVisitsOffsetRef.current) >= siteVisitsItemWidthRef.current) {
+        setSiteVisitImages((prev) => moveSiteVisitFirstToEnd(prev));
+        siteVisitsOffsetRef.current += siteVisitsItemWidthRef.current;
+      }
+
+      applySiteVisitsTransform(siteVisitsOffsetRef.current, "none");
+      siteVisitsAnimationFrameRef.current = window.requestAnimationFrame(step);
+    };
+
+    const handleResize = (): void => {
+      updateSiteVisitsMetrics();
+    };
+
+    updateSiteVisitsMetrics();
+    applySiteVisitsTransform(0, "none");
+    siteVisitsAnimationFrameRef.current = window.requestAnimationFrame(step);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      siteVisitsMountedRef.current = false;
+      clearSiteVisitsResumeTimeout();
+      clearSiteVisitsTransitionTimeout();
+      if (siteVisitsAnimationFrameRef.current) {
+        window.cancelAnimationFrame(siteVisitsAnimationFrameRef.current);
+      }
+      if (siteVisitsLayoutFrameRef.current) {
+        window.cancelAnimationFrame(siteVisitsLayoutFrameRef.current);
+      }
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [
+    applySiteVisitsTransform,
+    clearSiteVisitsResumeTimeout,
+    clearSiteVisitsTransitionTimeout,
+    moveSiteVisitFirstToEnd,
+    updateSiteVisitsMetrics,
+  ]);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      updateSiteVisitsMetrics();
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
+  }, [siteVisitImages, updateSiteVisitsMetrics]);
+
+  const handleSiteVisitNext = useCallback((): void => {
+    const itemWidth = siteVisitsItemWidthRef.current;
+    if (!itemWidth || siteVisitsTransitioningRef.current) return;
+
+    pauseSiteVisits();
+    clearSiteVisitsTransitionTimeout();
+    siteVisitsTransitioningRef.current = true;
+    siteVisitsOffsetRef.current -= itemWidth;
+    applySiteVisitsTransform(siteVisitsOffsetRef.current, "transform 500ms ease-in-out");
+
+    siteVisitsTransitionTimeoutRef.current = setTimeout(() => {
+      setSiteVisitImages((prev) => moveSiteVisitFirstToEnd(prev));
+      siteVisitsOffsetRef.current += itemWidth;
+      applySiteVisitsTransform(siteVisitsOffsetRef.current, "none");
+      siteVisitsTransitioningRef.current = false;
+      siteVisitsTransitionTimeoutRef.current = null;
+      scheduleSiteVisitsResume();
+    }, 500);
+  }, [
+    applySiteVisitsTransform,
+    clearSiteVisitsTransitionTimeout,
+    moveSiteVisitFirstToEnd,
+    pauseSiteVisits,
+    scheduleSiteVisitsResume,
+  ]);
+
+  const handleSiteVisitPrev = useCallback((): void => {
+    const itemWidth = siteVisitsItemWidthRef.current;
+    if (!itemWidth || siteVisitsTransitioningRef.current) return;
+
+    pauseSiteVisits();
+    clearSiteVisitsTransitionTimeout();
+    if (siteVisitsLayoutFrameRef.current) {
+      window.cancelAnimationFrame(siteVisitsLayoutFrameRef.current);
+    }
+
+    siteVisitsTransitioningRef.current = true;
+    const baseOffset = siteVisitsOffsetRef.current;
+
+    setSiteVisitImages((prev) => moveSiteVisitLastToFront(prev));
+
+    siteVisitsLayoutFrameRef.current = window.requestAnimationFrame(() => {
+      siteVisitsOffsetRef.current = baseOffset - itemWidth;
+      applySiteVisitsTransform(siteVisitsOffsetRef.current, "none");
+
+      siteVisitsLayoutFrameRef.current = window.requestAnimationFrame(() => {
+        siteVisitsOffsetRef.current = baseOffset;
+        applySiteVisitsTransform(siteVisitsOffsetRef.current, "transform 500ms ease-in-out");
+
+        siteVisitsTransitionTimeoutRef.current = setTimeout(() => {
+          siteVisitsTransitioningRef.current = false;
+          siteVisitsTransitionTimeoutRef.current = null;
+          scheduleSiteVisitsResume();
+        }, 500);
+      });
+    });
+  }, [
+    applySiteVisitsTransform,
+    clearSiteVisitsTransitionTimeout,
+    moveSiteVisitLastToFront,
+    pauseSiteVisits,
+    scheduleSiteVisitsResume,
+  ]);
+
+  const resetSiteVisitsDragState = useCallback((): void => {
+    siteVisitsDragPointerIdRef.current = null;
+    siteVisitsDragDeltaRef.current = 0;
+    siteVisitsDragActiveRef.current = false;
+    siteVisitsDragPreparedPrevRef.current = false;
+  }, []);
+
+  const handleSiteVisitsPointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>): void => {
+    if (siteVisitsTransitioningRef.current) return;
+
+    pauseSiteVisits();
+    clearSiteVisitsTransitionTimeout();
+    siteVisitsDragPointerIdRef.current = event.pointerId;
+    siteVisitsDragActiveRef.current = true;
+    siteVisitsDragPreparedPrevRef.current = false;
+    siteVisitsDragStartXRef.current = event.clientX;
+    siteVisitsDragStartOffsetRef.current = siteVisitsOffsetRef.current;
+    siteVisitsDragBaseOffsetRef.current = siteVisitsOffsetRef.current;
+    siteVisitsDragDeltaRef.current = 0;
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }, [clearSiteVisitsTransitionTimeout, pauseSiteVisits]);
+
+  const handleSiteVisitsPointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>): void => {
+    if (
+      !siteVisitsDragActiveRef.current ||
+      siteVisitsDragPointerIdRef.current !== event.pointerId ||
+      siteVisitsTransitioningRef.current
+    ) {
+      return;
+    }
+
+    const itemWidth = siteVisitsItemWidthRef.current;
+    const delta = event.clientX - siteVisitsDragStartXRef.current;
+
+    if (delta > 0 && !siteVisitsDragPreparedPrevRef.current && itemWidth > 0) {
+      setSiteVisitImages((prev) => moveSiteVisitLastToFront(prev));
+      siteVisitsDragPreparedPrevRef.current = true;
+      siteVisitsDragBaseOffsetRef.current = siteVisitsDragStartOffsetRef.current - itemWidth;
+      siteVisitsOffsetRef.current = siteVisitsDragBaseOffsetRef.current;
+    }
+
+    siteVisitsDragDeltaRef.current = delta;
+    siteVisitsOffsetRef.current = siteVisitsDragBaseOffsetRef.current + delta;
+    applySiteVisitsTransform(siteVisitsOffsetRef.current, "none");
+  }, [applySiteVisitsTransform, moveSiteVisitLastToFront]);
+
+  const handleSiteVisitsPointerEnd = useCallback((event: React.PointerEvent<HTMLDivElement>): void => {
+    if (
+      !siteVisitsDragActiveRef.current ||
+      siteVisitsDragPointerIdRef.current !== event.pointerId ||
+      siteVisitsTransitioningRef.current
+    ) {
+      return;
+    }
+
+    const itemWidth = siteVisitsItemWidthRef.current;
+    const startOffset = siteVisitsDragStartOffsetRef.current;
+    const baseOffset = siteVisitsDragBaseOffsetRef.current;
+    const delta = siteVisitsDragDeltaRef.current;
+    const threshold = itemWidth ? Math.min(120, itemWidth * 0.2) : 0;
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    clearSiteVisitsTransitionTimeout();
+    siteVisitsTransitioningRef.current = true;
+
+    if (siteVisitsDragPreparedPrevRef.current) {
+      if (delta > threshold) {
+        siteVisitsOffsetRef.current = startOffset;
+        applySiteVisitsTransform(startOffset, "transform 400ms ease-in-out");
+        siteVisitsTransitionTimeoutRef.current = setTimeout(() => {
+          siteVisitsTransitioningRef.current = false;
+          siteVisitsTransitionTimeoutRef.current = null;
+          resetSiteVisitsDragState();
+          scheduleSiteVisitsResume();
+        }, 400);
+        return;
+      }
+
+      siteVisitsOffsetRef.current = baseOffset;
+      applySiteVisitsTransform(baseOffset, "transform 250ms ease-out");
+      siteVisitsTransitionTimeoutRef.current = setTimeout(() => {
+        setSiteVisitImages((prev) => moveSiteVisitFirstToEnd(prev));
+        siteVisitsOffsetRef.current = startOffset;
+        applySiteVisitsTransform(startOffset, "none");
+        siteVisitsTransitioningRef.current = false;
+        siteVisitsTransitionTimeoutRef.current = null;
+        resetSiteVisitsDragState();
+        scheduleSiteVisitsResume();
+      }, 250);
+      return;
+    }
+
+    if (delta < -threshold && itemWidth > 0) {
+      siteVisitsOffsetRef.current = startOffset - itemWidth;
+      applySiteVisitsTransform(startOffset - itemWidth, "transform 400ms ease-in-out");
+      siteVisitsTransitionTimeoutRef.current = setTimeout(() => {
+        setSiteVisitImages((prev) => moveSiteVisitFirstToEnd(prev));
+        siteVisitsOffsetRef.current = startOffset;
+        applySiteVisitsTransform(startOffset, "none");
+        siteVisitsTransitioningRef.current = false;
+        siteVisitsTransitionTimeoutRef.current = null;
+        resetSiteVisitsDragState();
+        scheduleSiteVisitsResume();
+      }, 400);
+      return;
+    }
+
+    siteVisitsOffsetRef.current = startOffset;
+    applySiteVisitsTransform(startOffset, "transform 250ms ease-out");
+    siteVisitsTransitionTimeoutRef.current = setTimeout(() => {
+      applySiteVisitsTransform(startOffset, "none");
+      siteVisitsTransitioningRef.current = false;
+      siteVisitsTransitionTimeoutRef.current = null;
+      resetSiteVisitsDragState();
+      scheduleSiteVisitsResume();
+    }, 250);
+  }, [
+    applySiteVisitsTransform,
+    clearSiteVisitsTransitionTimeout,
+    moveSiteVisitFirstToEnd,
+    resetSiteVisitsDragState,
+    scheduleSiteVisitsResume,
+  ]);
 
   // Social proof wall (currently hidden/disabled on the page)
   // const [wallCards, setWallCards] = useState<WallCard[]>(WALL_CARDS);
@@ -1214,7 +1615,7 @@ const Testimonials: FC = () => {
         )}
 
         {/* SITE VISITS GALLERY */}
-        <section className="section-padding bg-muted/30">
+        <section className="section-padding overflow-hidden bg-muted/30">
           <div className="container-main text-center">
             <Reveal className="inline-flex items-center gap-2">
               <span className="text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
@@ -1231,18 +1632,68 @@ const Testimonials: FC = () => {
                 Leaders and officials visiting our sites to see the transformation firsthand
               </p>
             </Reveal>
-            <div className="mt-10 columns-2 gap-4 sm:columns-3 lg:columns-4">
-              {[visit1,visit2,visit3,visit4,visit5,visit6,visit7,visit8,visit9,visit10,visit11,visit12,visit13,visit14,visit15,visit16,nellore2].map((src, i) => (
-                <Reveal key={i} className="mb-4 break-inside-avoid overflow-hidden rounded-xl">
-                  <img
-                    src={src}
-                    alt={`Site visit ${i + 1}`}
-                    className="w-full object-cover transition-transform duration-500 hover:scale-105"
-                    loading="lazy"
-                  />
-                </Reveal>
-              ))}
-            </div>
+            <Reveal className="mt-10">
+              <div
+                className="relative overflow-hidden"
+                onMouseEnter={pauseSiteVisits}
+                onMouseLeave={resumeSiteVisits}
+              >
+                <button
+                  onClick={handleSiteVisitPrev}
+                  className="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border-2 border-border/70 bg-white/90 text-muted-foreground shadow-md transition-all hover:border-primary hover:bg-primary/10 hover:text-primary md:left-6"
+                  aria-label="Previous site visit image"
+                >
+                  <ChevronLeft size={20} strokeWidth={3} />
+                </button>
+
+                <div
+                  className="overflow-hidden px-14 select-none touch-pan-y sm:px-16 md:px-20 py-4"
+                  onPointerDown={handleSiteVisitsPointerDown}
+                  onPointerMove={handleSiteVisitsPointerMove}
+                  onPointerUp={handleSiteVisitsPointerEnd}
+                  onPointerCancel={handleSiteVisitsPointerEnd}
+                >
+                  <div
+                    ref={siteVisitsTrackRef}
+                    className="flex gap-4 will-change-transform md:gap-5"
+                  >
+                    {siteVisitImages.map((image, index) => (
+                      <div
+                        key={image.src}
+                        className="w-[84vw] shrink-0 sm:w-[340px] md:w-[380px] lg:w-[420px] xl:w-[460px]"
+                      >
+                        <div className="rounded-2xl border border-border/60 bg-white shadow-lg">
+                          <div className="overflow-hidden rounded-t-2xl">
+                            <img
+                              src={image.src}
+                              alt={image.alt}
+                              className="aspect-[4/3] w-full object-cover transition-transform duration-500 hover:scale-105"
+                              loading="lazy"
+                              draggable={false}
+                            />
+                          </div>
+                          {image.headline && (
+                            <div className="px-4 py-3 text-left">
+                              <p className="text-sm  leading-snug  md:text-md  text-foreground text-center width-md ">
+                                {image.headline}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleSiteVisitNext}
+                  className="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border-2 border-border/70 bg-white/90 text-muted-foreground shadow-md transition-all hover:border-primary hover:bg-primary/10 hover:text-primary md:right-6"
+                  aria-label="Next site visit image"
+                >
+                  <ChevronRight size={20} strokeWidth={3} />
+                </button>
+              </div>
+            </Reveal>
           </div>
         </section>
 

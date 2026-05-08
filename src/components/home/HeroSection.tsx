@@ -81,7 +81,8 @@ const HeroSection = () => {
 
   return (
     <section
-      className=" relative h-[calc(100vh-5rem)] flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28 "
+      data-header-hero
+      className=" relative min-h-[100svh] flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28 "
     >
       <ScrollToTop />
 
@@ -130,7 +131,7 @@ const HeroSection = () => {
       </div>
 
       {/* Navigation */}
-      <div className="absolute inset-x-0 top-6 z-[30] pointer-events-none">
+      <div className="absolute inset-x-0 top-24 z-[30] pointer-events-none md:top-28">
         <div className="container-main flex justify-end">
           <div
             className="flex gap-3 pointer-events-auto"
