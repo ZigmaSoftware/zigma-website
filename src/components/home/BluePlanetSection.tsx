@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { ExternalLink } from "lucide-react";
 import worldMapUrl from "../../assets/website/BP-worldmap.svg";
 
@@ -25,6 +26,8 @@ const markers: Marker[] = [
 
 const MAP_WIDTH = 1061;
 const MAP_HEIGHT = 520;
+const MARKER_SEQUENCE_DURATION_MS = 6000;
+const MARKER_REVEAL_DURATION_MS = 450;
 
 function project([lon, lat]: [number, number]): { x: number; y: number } {
   const x = ((lon + 180) / 360) * MAP_WIDTH;
@@ -33,8 +36,55 @@ function project([lon, lat]: [number, number]): { x: number; y: number } {
 }
 
 const BluePlanetSection = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [markersActivated, setMarkersActivated] = useState(false);
+  const [visibleMarkerCount, setVisibleMarkerCount] = useState(0);
+
+  useEffect(() => {
+    const sectionEl = sectionRef.current;
+
+    if (!sectionEl) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setMarkersActivated(true);
+        observer.disconnect();
+      },
+      {
+        threshold: 0.3,
+        rootMargin: "0px 0px -10% 0px",
+      },
+    );
+
+    observer.observe(sectionEl);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!markersActivated) return;
+
+    const staggerMs =
+      markers.length > 0
+        ? MARKER_SEQUENCE_DURATION_MS / markers.length
+        : MARKER_SEQUENCE_DURATION_MS;
+    const timers = markers.map((_, index) =>
+      window.setTimeout(() => {
+        setVisibleMarkerCount(index + 1);
+      }, Math.round(index * staggerMs)),
+    );
+
+    return () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, [markersActivated]);
+
   return (
-    <section className="section-padding scroll-mt-24 lg:scroll-mt-28 lg:snap-start bg-background">
+    <section
+      ref={sectionRef}
+      className="section-padding scroll-mt-24 lg:scroll-mt-28 lg:snap-start bg-background"
+    >
       <div className="container-main">
         <div className="mt-8 max-w-5xl mx-auto">
           <div className="text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
@@ -103,6 +153,7 @@ const BluePlanetSection = () => {
               >
                 {markers.map((m, i) => {
                   const { x, y } = project(m.coords);
+                  const isVisible = i < visibleMarkerCount;
                   const labelOffset =
                     m.labelPos === "left"
                       ? { dx: -9, dy: 3, anchor: "end" as const }
@@ -113,13 +164,25 @@ const BluePlanetSection = () => {
                           : { dx: 9, dy: 3, anchor: "start" as const };
 
                   return (
-                    <g key={m.name}>
+                    <g
+                      key={m.name}
+                      style={{
+                        opacity: isVisible ? 1 : 0,
+                        transform: isVisible
+                          ? "translate3d(0, 0, 0) scale(1)"
+                          : "translate3d(0, 10px, 0) scale(0.88)",
+                        transitionProperty: "opacity, transform",
+                        transitionDuration: `${MARKER_REVEAL_DURATION_MS}ms`,
+                        transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+                        transformOrigin: `${x}px ${y}px`,
+                      }}
+                    >
                       <circle
                         cx={x}
                         cy={y}
                         r={8}
                         fill="hsl(var(--primary) / 0.14)"
-                        className="animate-marker-pulse"
+                        className={isVisible ? "animate-marker-pulse" : undefined}
                         style={{
                           animationDelay: `${i * 0.15}s`,
                           transformOrigin: `${x}px ${y}px`,
