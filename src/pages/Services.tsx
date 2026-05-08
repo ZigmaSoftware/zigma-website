@@ -25,7 +25,7 @@ import uniceilCataloguePdf from "@/assets/Products/UNICEIL -WPE -Master Catalogu
 const SLOW_EASE = "power2.out";
 
 const EMPHASIS_MAP: Record<string, string[]> = {
-  "Legacy Waste Reclamation": [
+  "legacy-waste-reclamation": [
     "state-of-the-art processing machinery",
     "ESG (Environmental, Social, and Governance) and EHS (Environment, Health, and Safety) compliance",
     "reuse, recycling, or circularity pathways",
@@ -138,7 +138,7 @@ const renderFeatureText = (feature: string): ReactNode => {
 
 const services = [
   {
-    id: "Legacy Waste Reclamation",
+    id: "legacy-waste-reclamation",
     title: "Landfill Mining and Remediation",
     eyebrow: "Legacy Waste Reclamation",
     image: landfillMining,
@@ -294,7 +294,10 @@ const Services = () => {
 
       <main>
         {/* Page Header */}
-        <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
+        <section
+          data-header-hero
+          className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28"
+        >
           <img
             src="/hero/Pdgclose.webp"
             alt=" Services Hero Background"
@@ -336,7 +339,7 @@ const Services = () => {
                   data-anim-start="top 90%"
                   data-anim-duration="1.45"
                   data-anim-ease={SLOW_EASE}
-                  className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
+                  className={`scroll-mt-28 lg:scroll-mt-32 grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
                     }`}
                 >
                   {(() => {

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import logo from "@/assets/website/zigma_blueplanet_logo.png";
 import landfillMining from "@/assets/website/hero/landfill-mining-hero.jpg";
 import landfillManagement from "@/assets/website/windrow.webp";
@@ -64,7 +65,7 @@ const navItems: NavItem[] = [
     dropdown: [
       {
         name: "Landfill Mining and Remediation",
-        path: "/services",
+        path: "/services#legacy-waste-reclamation",
         image: landfillMining,
         },
       {
@@ -74,37 +75,37 @@ const navItems: NavItem[] = [
       },
       {
         name: "Daily MSW Management and Processing",
-        path: "/services#wet-waste",
+        path: "/services#fresh-waste",
         image: wetWaste,
       },
       {
         name: "BSFL Based Organic Waste Management",
-        path: "/services#Bsfl",
+        path: "/services#bsfl-organic-waste",
         image: bsflsolar,
       },
       {
         name: "Machinery Sales & Rentals",
-        path: "/services#machinery",
+        path: "/services#machinery-sales-rentals",
         image: machine,
       },
       {
         name: "IOT Systems for Waste Management",
-        path: "/services#iot",
+        path: "/services#iot-waste-management",
         image: iotImage,
       },
       {
         name: "Integrated Alternative Fuel Solutions",
-        path: "/services#alt-fuel",
+        path: "/services#integrated-alternative-fuel-solutions",
         image: integrated,
       },
       {
         name: "Industrial & Commercial Waste Solutions",
-        path: "/services#industrial",
+        path: "/services#industrial-commercial-waste-solutions",
         image: industrial,
       },
       {
         name: "EPR Responsibility Services",
-        path: "/services#epr",
+        path: "/services#epr-extended-producer-responsibility",
         image: epr,
       },
       {
@@ -122,13 +123,13 @@ const navItems: NavItem[] = [
     path: "/products",
     megaMenu: true,
     dropdown: [
-      { name: "Refuse Derived Fuel (RDF)", path: "/products", image: productRdf },
-      { name: "Inert Soil and Stones", path: "/products", image: productInertSoil },
-      { name: "Recyclables", path: "/products", image: productGlass },
-      { name: "Bio-earth", path: "/products", image: productBioEarth },
-      { name: "Recycled Furniture", path: "/products", image: wpeFurniture1 },
-      { name: "Black Soldier Fly Larvae (BSFL)", path: "/products", image: larvae },
-      { name: "BSFL Manure and Frass", path: "/products", image: manure },
+      { name: "Refuse Derived Fuel (RDF)", path: "/products#refuse-derived-fuel-rdf", image: productRdf },
+      { name: "Inert Soil and Stones", path: "/products#inert-soil-and-stones", image: productInertSoil },
+      { name: "Recyclables", path: "/products#recyclables", image: productGlass },
+      { name: "Bio-earth", path: "/products#bio-earth", image: productBioEarth },
+      { name: "Recycled Furniture", path: "/products#recycled-furniture", image: wpeFurniture1 },
+      { name: "Black Soldier Fly Larvae (BSFL)", path: "/products#black-soldier-fly-larvae-bsfl", image: larvae },
+      { name: "BSFL Manure and Frass", path: "/products#bsfl-manure-and-frass", image: manure },
     ],
   },
 
@@ -183,6 +184,11 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
+  const [hasHeroSection, setHasHeroSection] = useState(false);
+  const [isHeroActive, setIsHeroActive] = useState(false);
+  const [canAutoHideOnHero, setCanAutoHideOnHero] = useState(false);
+  const [heroHideArmed, setHeroHideArmed] = useState(false);
+  const [isHeroHeaderVisible, setIsHeroHeaderVisible] = useState(true);
 
   const [indicatorStyle, setIndicatorStyle] = useState({
     left: 0,
@@ -256,7 +262,90 @@ const Header = () => {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-    }, []);
+  }, []);
+
+  useEffect(() => {
+    let cleanup: (() => void) | undefined;
+    let frameId = 0;
+
+    const setupHeroSync = () => {
+      const heroEl = document.querySelector<HTMLElement>("[data-header-hero]");
+
+      if (!heroEl) {
+        setHasHeroSection(false);
+        setIsHeroActive(false);
+        return;
+      }
+
+      setHasHeroSection(true);
+
+      const syncHeroState = () => {
+        const headerHeight = 80;
+        const rect = heroEl.getBoundingClientRect();
+        const heroStillInView =
+          rect.bottom > headerHeight + 24 && rect.top < window.innerHeight * 0.85;
+
+        setIsHeroActive(heroStillInView);
+      };
+
+      syncHeroState();
+      window.addEventListener("scroll", syncHeroState, { passive: true });
+      window.addEventListener("resize", syncHeroState);
+
+      cleanup = () => {
+        window.removeEventListener("scroll", syncHeroState);
+        window.removeEventListener("resize", syncHeroState);
+      };
+    };
+
+    frameId = window.requestAnimationFrame(setupHeroSync);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      cleanup?.();
+    };
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+    const syncCapability = () => {
+      setCanAutoHideOnHero(mediaQuery.matches);
+    };
+
+    syncCapability();
+    mediaQuery.addEventListener("change", syncCapability);
+
+    return () => mediaQuery.removeEventListener("change", syncCapability);
+  }, []);
+
+  useEffect(() => {
+    const shouldAutoHide = hasHeroSection && isHeroActive && canAutoHideOnHero && !isMenuOpen;
+
+    if (!shouldAutoHide) {
+      setHeroHideArmed(false);
+      setIsHeroHeaderVisible(true);
+      return;
+    }
+
+    setHeroHideArmed(false);
+    setIsHeroHeaderVisible(true);
+
+    const timerId = window.setTimeout(() => {
+      setHeroHideArmed(true);
+      setIsHeroHeaderVisible(false);
+    }, 5000);
+
+    return () => window.clearTimeout(timerId);
+  }, [hasHeroSection, isHeroActive, canAutoHideOnHero, location.pathname, isMenuOpen]);
+
+  useEffect(() => {
+    if (!heroHideArmed) return;
+
+    if (activeDropdown || isMenuOpen) {
+      setIsHeroHeaderVisible(true);
+    }
+  }, [activeDropdown, heroHideArmed, isMenuOpen]);
 
   const activeMegaMenuItem = navItems.find(
     (item) => item.name === activeDropdown && item.megaMenu && item.dropdown
@@ -264,9 +353,36 @@ const Header = () => {
   const megaMenuWidth = activeMegaMenuItem?.name === "Products"
     ? "min(78vw, 1080px)"
     : "min(88vw, 1200px)";
+  const shouldAutoHideHeroHeader = hasHeroSection && isHeroActive && canAutoHideOnHero;
+  const isHeroHeaderHidden =
+    shouldAutoHideHeroHeader && heroHideArmed && !isHeroHeaderVisible && !isMenuOpen;
+  const desktopNavItemClass = "text-foreground hover:text-primary";
+  const desktopActiveNavItemClass = "text-primary";
+  const mobileNavItemClass = "text-foreground hover:text-primary";
+  const mobileActiveNavItemClass = "text-primary";
 
   return (
-    <header className="sticky top-0 inset-x-0 z-[80] bg-background/95 backdrop-blur border-b border-border">
+    <>
+      {isHeroHeaderHidden && (
+        <div
+          className="fixed inset-x-0 top-0 z-[79] hidden h-10 xl:block"
+          onMouseEnter={() => setIsHeroHeaderVisible(true)}
+        />
+      )}
+
+      <header
+        className={cn(
+          "top-0 inset-x-0 z-[80] border-b transition-[transform,background-color,border-color,box-shadow] duration-300",
+          hasHeroSection ? "fixed" : "sticky",
+          isHeroHeaderHidden ? "-translate-y-full" : "translate-y-0",
+          "bg-background/95 border-border backdrop-blur shadow-sm"
+        )}
+        onMouseLeave={() => {
+          if (shouldAutoHideHeroHeader && heroHideArmed && !isMenuOpen && !activeDropdown) {
+            setIsHeroHeaderVisible(false);
+          }
+        }}
+      >
 
       <div className="container-main flex items-center justify-center">
 
@@ -290,16 +406,24 @@ const Header = () => {
               dropdownRef.current = el;
               navRef.current = el;
             }}
+            onMouseEnter={() => {
+              if (shouldAutoHideHeroHeader && heroHideArmed) {
+                setIsHeroHeaderVisible(true);
+              }
+            }}
             onMouseLeave={() => {
               resetIndicatorToActive();
               setActiveDropdown(null);
+              if (shouldAutoHideHeroHeader && heroHideArmed && !isMenuOpen) {
+                setIsHeroHeaderVisible(false);
+              }
             }}
           >
 
             {/* Sliding Indicator */}
 
             <div
-              className="pointer-events-none absolute left-0 top-3/4 h-[3px] bg-emerald-600 transition-[left,width,opacity] duration-500"
+              className="pointer-events-none absolute left-0 top-3/4 h-[3px] bg-emerald-600 transition-[left,width,opacity,background-color] duration-500"
               style={{
                 left: indicatorStyle.left,
                 width: indicatorStyle.width,
@@ -324,8 +448,8 @@ const Header = () => {
                     onMouseEnter={() => setActiveDropdown(item.name)}
                     className={`flex items-center gap-1 py-4 text-sm font-medium transition-colors whitespace-nowrap ${
                       isActive(item.path)
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
+                        ? desktopActiveNavItemClass
+                        : desktopNavItemClass
                     }`}
                   >
                     {item.name}
@@ -344,8 +468,8 @@ const Header = () => {
                     to={item.path}
                     className={`flex items-center py-4 text-sm font-medium transition-colors whitespace-nowrap ${
                       isActive(item.path)
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
+                        ? desktopActiveNavItemClass
+                        : desktopNavItemClass
                     }`}
                   >
                     {item.name}
@@ -405,9 +529,6 @@ const Header = () => {
                               ? wasteTechLogo
                               : servicesDropdownLogo;
 
-                        // Add this helper near the top (outside component) or replace the placeholder.
-                        const cn = (...classes: Array<string | undefined | null | false>): string =>
-                          classes.filter(Boolean).join(" ");
                         return (
                           <Link
                             key={sub.name}
@@ -487,7 +608,7 @@ const Header = () => {
           {/* MOBILE TOGGLE */}
 
           <button
-            className="xl:hidden p-2"
+            className="xl:hidden p-2 transition-colors text-foreground"
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
               if (isMenuOpen) setMobileDropdown(null);
@@ -519,8 +640,8 @@ const Header = () => {
                       onClick={() => setMobileDropdown(mobileDropdown === item.name ? null : item.name)}
                       className={`flex items-center justify-between w-full py-4 text-sm font-medium transition-colors ${
                         isActive(item.path)
-                          ? "text-primary"
-                          : "text-foreground hover:text-primary"
+                          ? mobileActiveNavItemClass
+                          : mobileNavItemClass
                       }`}
                     >
                       {item.name}
@@ -558,8 +679,8 @@ const Header = () => {
                     to={item.path}
                     className={`flex items-center py-4 text-sm font-medium transition-colors ${
                       isActive(item.path)
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
+                        ? mobileActiveNavItemClass
+                        : mobileNavItemClass
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -584,7 +705,8 @@ const Header = () => {
 
       )}
 
-    </header>
+      </header>
+    </>
   );
 };
 

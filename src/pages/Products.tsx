@@ -94,7 +94,7 @@ const ProductImage: React.FC<{
 
 const products = [
   {
-    id: 101,
+    id: "refuse-derived-fuel-rdf",
     name: "Refuse Derived Fuel (RDF)",
     subtitle: "Turning non-recyclable waste into industrial energy",
     tagline: "High-Calorific Recovery",
@@ -111,7 +111,7 @@ const products = [
     icon: Recycle
   },
   {
-    id: 103,
+    id: "inert-soil-and-stones",
     name: "Inert Soil and Stones",
     subtitle: "Chemically stable materials recovered from waste for construction use",
     tagline: "Recovered Aggregates",
@@ -130,7 +130,7 @@ const products = [
     icon: Recycle
   },
   {
-    id: 104,
+    id: "recyclables",
     name: "Recyclables",
     subtitle: "Recovered glass, metal and more — sorted, cleaned, and ready for reuse",
     tagline: "Circular Material Recovery",
@@ -149,7 +149,7 @@ const products = [
     icon: Recycle
   },
   {
-    id: 105,
+    id: "bio-earth",
     name: "Bio-earth",
     subtitle: "Nutrient-rich organic compost for healthier soils and higher yields",
     tagline: "Nature's Gift Renewed",
@@ -167,7 +167,7 @@ const products = [
     icon: Leaf
   },
   {
-    id: 106,
+    id: "recycled-furniture",
     name: "Recycled Furniture",
     subtitle: "Durable, stylish furniture crafted from reclaimed materials",
     tagline: "From Waste to Wealth, Responsibly",
@@ -187,7 +187,7 @@ const products = [
     icon: Sparkles
   },
   {
-    id: 107,
+    id: "black-soldier-fly-larvae-bsfl",
     name: "Black Soldier Fly Larvae (BSFL)",
     subtitle: "High-protein biomass produced through controlled organic waste bioconversion",
     tagline: "Sustainable Protein Source",
@@ -207,7 +207,7 @@ const products = [
     icon: Leaf
   },
   {
-    id: 108,
+    id: "bsfl-manure-and-frass",
     name: "BSFL Manure and Frass",
     subtitle: "Nutrient-rich organic fertiliser from BSF bioconversion",
     tagline: "Closing the Loop on Organic Waste",
@@ -234,7 +234,10 @@ const Products = () => {
       <Header />
       <main className="">
         {/* Page Header */}
-        <section className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28">
+        <section
+          data-header-hero
+          className="relative min-h-[100svh] box-border pt-20 flex items-center overflow-hidden scroll-mt-24 lg:scroll-mt-28"
+        >
           <div
             className="absolute inset-0 h-full w-full bg-cover bg-center"
             style={{ backgroundImage: `url(${product1})` }}
@@ -295,10 +298,11 @@ const Products = () => {
               {products.map((product, index) => (
                 <Reveal
                   key={product.id}
+                  id={product.id}
                   data-anim-start="top 90%"
                   data-anim-duration="1.45"
                   data-anim-ease={SLOW_EASE}
-                  className={`group grid lg:grid-cols-2 gap-12 items-center ${
+                  className={`scroll-mt-28 lg:scroll-mt-32 group grid lg:grid-cols-2 gap-12 items-center ${
                     index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                   }`}
                 >

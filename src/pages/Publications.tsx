@@ -125,6 +125,13 @@ const publicationMetaByFileName: Record<
     category: "Advisory",
     source: "SBM",
   },
+  "solid-waste-management-rules-2026.pdf": {
+    title: "Solid Waste Management Rules 2026",
+    summary:
+      "Policy publication covering the updated solid waste management rules, compliance requirements, and implementation direction for urban waste systems.",
+    category: "Rules",
+    source: "Policy Publication",
+  },
   "Solidwaste India.pdf": {
     title: "Solid Waste India",
     summary:
@@ -467,4 +474,3 @@ const Publications = () => {
 };
 
 export default Publications;
-

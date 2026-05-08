@@ -211,7 +211,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Atladara- Vadodara",
+    title: "Atladara - Vadodara",
     state: "Gujarat",
     waste: 375000,
     land: 19,
@@ -310,7 +310,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Nagpur- Phase 1",
+    title: "Nagpur - Phase 1",
     state: "Maharashtra",
     waste: 1000000,
     land: 43,
@@ -321,7 +321,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Tiruchirappalli- Phase 1",
+    title: "Tiruchirappalli - Phase 1",
     state: "Tamilnadu",
     waste: 760000,
     land: 40,
@@ -331,8 +331,33 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     credibility: "The project got featured in \"Towards Lakshya Zero dumpsite- collection of case studies\" released by GIZ- Germany in association with Swacch Bharath Mission.",
     status: 'completed',
   },
+
+   {
+    title: "Tiruchirappalli - Phase 2",
+    state: "Tamilnadu",
+    waste: 349285,
+    land: 10,
+    co2: 241879.8625,
+    start: "22.07.2022",
+    end: "15-4-2024",
+    credibility: null,
+    status: 'completed',
+  },
+
+    {
+    title: "Tiruchirappalli - Phase 3",
+    state: "Tamilnadu",
+    waste: 617716,
+    land: null,
+    co2: 427768.33,
+    start: "19-12-2025",
+    end: "Ongoing",
+    credibility: null,
+    status: 'ongoing',
+  },
+
   {
-    title: "Vairapalayam- Erode",
+    title: "Vairapalayam - Erode",
     state: "Tamilnadu",
     waste: 125974,
     land: 7,
@@ -387,7 +412,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Kammiyampettai- Cuddalore",
+    title: "Kammiyampettai - Cuddalore",
     state: "Tamilnadu",
     waste: 77000,
     land: 3.6,
@@ -398,7 +423,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: " Pachayankuppam- Cuddalore",
+    title: " Pachayankuppam - Cuddalore",
     state: "Tamilnadu",
     waste: 25000,
     land: 1.92,
@@ -420,7 +445,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Visakhapatnam- Phase 1",
+    title: "Visakhapatnam - Phase 1",
     state: "Andhra Pradesh",
     waste: 250000,
     land: 20,
@@ -431,7 +456,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Makarpura- Vadodara- Phase 1",
+    title: "Makarpura - Vadodara - Phase 1",
     state: "Gujarat",
     waste: 500000,
     land: 19,
@@ -442,7 +467,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Perungudi- Chennai",
+    title: "Perungudi - Chennai",
     state: "Tamilnadu",
     waste: 1730584.23,
     land: 94.31,
@@ -497,17 +522,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     credibility: null,
     status: 'completed',
   },
-  {
-    title: "Tiruchirappalli- Phase 2",
-    state: "Tamilnadu",
-    waste: 349285,
-    land: 10,
-    co2: 241879.8625,
-    start: "22.07.2022",
-    end: "15-4-2024",
-    credibility: null,
-    status: 'completed',
-  },
+ 
   {
     title: "ITC Coimbatore",
     state: "Tamilnadu",
@@ -868,17 +883,7 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
 
-  {
-    title: "Tiruchirappalli- Phase 3",
-    state: "Tamilnadu",
-    waste: 617716,
-    land: null,
-    co2: 427768.33,
-    start: "19-12-2025",
-    end: "Ongoing",
-    credibility: null,
-    status: 'ongoing',
-  },
+
   {
     title: "Kozhikode",
     state: "Keralam",
