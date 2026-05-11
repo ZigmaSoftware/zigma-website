@@ -3,18 +3,27 @@ import { Award, Shield, Star, BookOpen } from "lucide-react";
 import swacchBharathLogo from "@/assets/icons/Swacch Bharath.png";
 import supremeCourtLogo from "@/assets/icons/Supreme Court.png";
 import worldBankLogo from "@/assets/icons/World-bank.png";
+import allIndiaInstituteLogo from "@/assets/icons/All India Institute of Local Self Government, Mumbai.webp";
 import cseLogo from "@/assets/icons/header-cse-logo.png";
+import annaUniversityLogo from "@/assets/icons/Center For Environmental Studies, Anna University, Chennai.webp";
+import facileMavenLogo from "@/assets/icons/FM-Logo-2010-ORIGINAL-1-300x167.png";
 import firstProjectLogo from "@/assets/icons/First-project.webp";
 import haryanaGovtLogo from "@/assets/icons/haryana govt.webp";
 import assamGovtLogo from "@/assets/icons/Ministry of Urban Development, Govt. of Assam.webp";
 import avpnLogo from "@/assets/icons/AVPN-Logo.webp";
+import apurbanLogo from "@/assets/icons/apurban_logo.webp";
+import iitgLogo from "@/assets/icons/iitg_logo.webp";
 import itcLimitedLogo from "@/assets/icons/ITC_Limited_Logo.webp";
 import isacLogo from "@/assets/icons/isac-100pxlogo.webp";
 import jnnurmLogo from "@/assets/icons/JnNURM_logo.png";
+import kpmgLogo from "@/assets/icons/KPMG.png";
 import kswmpLogo from "@/assets/icons/KSWMP.png";
 import keralaStatePollutionControlBoardLogo from "@/assets/icons/Kerala State Pollution Control Board.png";
 import mohuaLogo from "@/assets/icons/mohua-logo.webp";
+import nitcLogo from "@/assets/icons/nitc_logo_icon.svg";
+import nittLogo from "@/assets/icons/NITT_logo.webp";
 import ngtLogo from "@/assets/icons/ngt_logo_transparent.webp";
+import pondicherryUniversityLogo from "@/assets/icons/PU_Logo-BG-White.webp";
 import ashtamudiRamsarLogo from "@/assets/icons/ramsar-logo-png_seeklogo-115726.webp";
 import swachhaAndhraAwardLogo from "@/assets/icons/Swachha Andhra-award.png";
 import skochLogo from "@/assets/icons/SKOCH-Group-Logo.png";
@@ -211,6 +220,10 @@ export const getSupportedByLogo = (supportedBy?: string | null): ProjectModalLog
     return { src: haryanaGovtLogo, alt: "Government of Haryana logo" };
   }
 
+  if (normalizedSupportedBy.includes("ministry of urban development, govt. of andhra pradesh")) {
+    return { src: andhraPradeshLogo, alt: "Andhra Pradesh logo" };
+  }
+
   if (normalizedSupportedBy.includes("world bank")) {
     return { src: worldBankLogo, alt: "World Bank logo" };
   }
@@ -233,6 +246,80 @@ export const getSupportedByLogo = (supportedBy?: string | null): ProjectModalLog
 
   if (normalizedSupportedBy.includes("commissionerate of municipal administration, govt. of tamilnadu")) {
     return { src: tnLogo,   alt: "Tamil Nadu logo" };
+  }
+
+  return null;
+};
+
+export const getProjectManagementConsultantLogo = (
+  projectManagementConsultant?: string | null,
+): ProjectModalLogo | null => {
+  const normalizedConsultant = normalizeText(projectManagementConsultant);
+
+  if (
+    normalizedConsultant.includes("center for environmental studies, anna university, chennai")
+  ) {
+    return {
+      src: annaUniversityLogo,
+      alt: "Center For Environmental Studies, Anna University, Chennai logo",
+      className: "relative h-12 w-12 object-contain mb-8",
+    };
+  }
+
+  if (
+    normalizedConsultant.includes("national institute of technology, tiruchirappalli")
+  ) {
+    return { src: nittLogo, alt: "National Institute of Technology, Tiruchirappalli logo" };
+  }
+
+  if (normalizedConsultant.includes("kpmg india")) {
+    return {
+      src: kpmgLogo,
+      alt: "KPMG India logo",
+      className: "relative h-10 w-10 object-contain mb-4",
+    };
+  }
+
+  if (normalizedConsultant.includes("facile maven private limited, surat")) {
+    return { src: facileMavenLogo, alt: "Facile Maven Private Limited logo" };
+  }
+
+  if (normalizedConsultant.includes("all india institute of local self government, mumbai")) {
+    return { src: allIndiaInstituteLogo, alt: "All India Institute of Local Self Government, Mumbai logo" };
+  }
+
+  if (
+    normalizedConsultant.includes("andhra pradesh urban infrastructure asset management limited, vijayawada")
+  ) {
+    return {
+      src: apurbanLogo,
+      alt: "Andhra Pradesh Urban Infrastructure Asset Management Limited, Vijayawada logo",
+      className: "relative h-12 w-12 object-contain mb-4",
+    };
+  }
+
+  if (normalizedConsultant.includes("pondicherry university, puducherry")) {
+    return {
+      src: pondicherryUniversityLogo,
+      alt: "Pondicherry University, Puducherry logo",
+      className: "relative h-12 w-12 object-contain mb-4",
+    };
+  }
+
+  if (normalizedConsultant.includes("national institute of technology, calicut")) {
+    return {
+      src: nitcLogo,
+      alt: "National Institute of Technology, Calicut logo",
+      className: "relative h-12 w-12 object-contain mb-4",
+    };
+  }
+
+  if (normalizedConsultant.includes("indian institute of technology, guwahati")) {
+    return {
+      src: iitgLogo,
+      alt: "Indian Institute of Technology, Guwahati logo",
+      className: "relative h-12 w-12 object-contain mb-4",
+    };
   }
 
   return null;
