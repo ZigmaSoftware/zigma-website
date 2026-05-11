@@ -8,10 +8,13 @@ interface Client {
 }
 
 
-const ULB_LOGOS = import.meta.glob("../../assets/ULB Logos/*.{png,jpg,jpeg,svg}", {
-  eager: true,
-  import: "default",
-}) as Record<string, string>;
+const ULB_LOGOS = import.meta.glob(
+  "../../assets/ULB Logos/*.{png,jpg,jpeg,svg,webp,PNG,JPG,JPEG,SVG,WEBP}",
+  {
+    eager: true,
+    import: "default",
+  },
+) as Record<string, string>;
 
 const normalizeName = (value: string) =>
   value
