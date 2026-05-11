@@ -7,6 +7,7 @@ import type { Project } from "../../types";
 import {
   buildCredibilityMarkers,
   getAuthorityLogo,
+  getProjectManagementConsultantLogo,
   getSupportedByLogo,
   normalizeProjectModalValue,
 } from "./projectModalPresentation";
@@ -92,6 +93,7 @@ const ProjectDetailsSection = ({
 }: ProjectDetailsProps) => {
   const authorityLogo = getAuthorityLogo(executingAuthority);
   const supportedByLogo = getSupportedByLogo(supportedBy);
+  const projectManagementConsultantLogo = getProjectManagementConsultantLogo(projectManagementConsultant);
 
   return (
 
@@ -150,6 +152,23 @@ const ProjectDetailsSection = ({
             Project Management Consultant
           </p>
           <p className="text-center text-base text-[#394450]">{normalizeProjectModalValue(projectManagementConsultant)}</p>
+          {projectManagementConsultantLogo && (
+            <div className="mt-4 flex justify-center">
+              <div className="relative flex h-24 w-24 items-center justify-center ">
+                <img
+                  src={credibilityBg}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-contain opacity-80"
+                />
+                <img
+                  src={projectManagementConsultantLogo.src}
+                  alt={projectManagementConsultantLogo.alt}
+                  loading="lazy"
+                  className={projectManagementConsultantLogo.className ?? "relative h-14 w-14 object-contain mb-4"}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
