@@ -240,10 +240,6 @@ export default function Events(): JSX.Element {
                       className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-
-                  <div className="pt-3 px-3 pb-4 flex flex-col gap-1">
-                    <h4 className="text-sm font-bold text-slate-900 leading-snug">{event.title}</h4>
-                  </div>
                 </article>
               ))}
             </div>

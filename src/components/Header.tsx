@@ -109,7 +109,7 @@ const navItems: NavItem[] = [
         image: epr,
       },
       {
-        name: "Wood Polyethylene",
+        name: "WPE",
         path: "/services#recycled-furniture",
         image: productFurniture,
       },
@@ -138,8 +138,8 @@ const navItems: NavItem[] = [
     { name: " Landfill Mining", path: "/projects?category=landfill-mining" },
     { name: "BSFL Organic Waste", path: "/projects?category=bsfl-organic-waste" },
     { name: "Integrated Alternative Fuel ", path: "/projects?category=integrated-af-projects" },
-    // { name: "Wood Polyethylene Projects", path: "/projects/gallery" },
-    { name: "Wood Polyethylene ", path: "/projects?category=waste-plastics-extrusion" },
+    // { name: "WPE Projects", path: "/projects/gallery" },
+    { name: "WPE ", path: "/projects?category=waste-plastics-extrusion" },
     
   
   ],
@@ -517,7 +517,7 @@ const Header = () => {
                         const isWasteTechService =
                           sub.name === "Machinery Sales & Rentals";
                         const isUniceilService =
-                          sub.name === "Wood Polyethylene";
+                          sub.name === "WPE";
                         const serviceCardLogo =
                           sub.name === "BSFL Based Organic Waste Management"
                             ? zigflyLogo
