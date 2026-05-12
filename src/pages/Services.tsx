@@ -269,7 +269,7 @@ const services = [
   },
   {
     id: "recycled-furniture",
-    title: "Wood Polyethylene",
+    title: "WPE",
     eyebrow: "From Waste to Wealth, Responsibly.",
     image: recycledFurniture,
     description:

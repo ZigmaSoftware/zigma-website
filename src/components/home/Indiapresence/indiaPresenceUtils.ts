@@ -109,7 +109,7 @@ export const parseDistrictRecord = (district: string): DistrictRecord => {
     return { site, location: "Location", bucket: "integrated" };
   }
 
-  if (joined.includes("Wood Polyethylene")) {
+  if (joined.includes("WPE")) {
     if (parts.length >= 3) {
       return {
         site: normalizeLocationName(parts[0]),

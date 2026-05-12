@@ -36,6 +36,7 @@ import mrManojJoshiImg from "@/assets/Testimonials/Mr. Manoj Joshi, IAS.jpg";
 import mrJusticePJyothimaniImg from "@/assets/Testimonials/Mr. Justice P Jyothimani.jpg";
 import mrJusticeAdiImg from "@/assets/Testimonials/Mr. Justice Adi.jpg";
 import shriArunMaheshBabuImg from "@/assets/Testimonials/Arun Mahesh Babu Profile.png";
+import mrAjayKapurImg from "@/assets/Testimonials/Mr. Ajay Kapur.png";
 import andersBendsenSpohrImg from "@/assets/Testimonials/Anders Bendsen Spohr.webp";
 // import andersBendsenSpohrCommentsImg from "@/assets/Testimonials/social proof/Anders Bendsen Spohr comments.jpeg";
 // import arunMaheshBabuCommentsImg from "@/assets/Testimonials/social proof/Arun Mahesh Babu IAS comments.jpeg";
@@ -297,6 +298,13 @@ const SLIDES: Slide[] = [
     role: "Municipal Commissioner - Vadodara Municipal Corporation",
     tag: "Gujarat",
     // commentImage: arunMaheshBabuCommentsImg,
+  },
+  {
+    text: "For nearly a decade, Zigma part of the Blue Planet Group and our sustainability partner, has played a crucial role in advancing the circular economy in our cement manufacturing. I commend them for facilitating the use of over two million tonnes of RDF.",
+    image: mrAjayKapurImg,
+    name: "Mr. Ajay Kapur",
+    role: "CEO, Cement Business, Adani Group",
+    tag: "India",
   },
   {
     text: "It was a great pleasure to see the site. You guys are doing great things for the planet and you are very professional in how you manage and the culture you have on site. So many thanks.",

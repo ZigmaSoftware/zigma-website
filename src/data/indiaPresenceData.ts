@@ -53,7 +53,7 @@ export const stateData: Record<string, StateData> = {
       "Dindigul - Dindigul",
       "Tiruchirappalli - Tiruchirappalli",
       "Sivakasi - Virudhunagar - Integrated Alternative Fuel",
-      "Sulur - Coimbatore - Wood Polyethylene",
+      "Sulur - Coimbatore - WPE",
       
 
     ],
