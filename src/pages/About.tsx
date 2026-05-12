@@ -6,7 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/animation/Reveal';
 import bg1 from '@/assets/website/background-1.png';
-import hero from '@/assets/website/hero/about-hero.jpg';
+import hero from '@/assets/website/zigma-picture.webp';
 import globeSvg from '@/assets/website/contact_globe.svg';
 import BluePlanetSection from '@/components/home/BluePlanetSection';
 

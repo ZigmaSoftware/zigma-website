@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, useCallback } from "react";
 import type { CSSProperties } from "react";
 import {
   Beaker,
@@ -17,13 +17,17 @@ interface ImpactMetric {
   id: string;
   icon: LucideIcon;
   x: number;
-  y: number; 
+  y: number;
   dx?: number;
   dy?: number;
   revealStart: number;
   revealEnd: number;
   titleLines: string[];
   descLines: string[];
+  countTarget: number;
+  countPrefix?: string;
+  countSuffix?: string;
+  countDecimals?: number;
 }
 
 const CHAIN_PATH =
@@ -55,10 +59,13 @@ const metrics: ImpactMetric[] = [
     x: 83,
     y: 90,
     dx: 2,
-    revealStart: 0.02,
-    revealEnd: 0.03,
+    revealStart: 0.005,
+    revealEnd: 0.05,
     titleLines: ["11.71+ Million", "Tons"],
     descLines: ["Waste", "processed"],
+    countTarget: 11.71,
+    countSuffix: "+ Million",
+    countDecimals: 2,
   },
 
   {
@@ -67,10 +74,13 @@ const metrics: ImpactMetric[] = [
     x: 173,
     y: 170,
     dx: -2,
-    revealStart: 0.04,
-    revealEnd: 0.05,
+    revealStart: 0.02,
+    revealEnd: 0.06,
     titleLines: ["7.9+ Million Tons", "soil repurposed"],
     descLines: ["For sustainable", "earthfilling"],
+    countTarget: 7.9,
+    countSuffix: "+ Million Tons",
+    countDecimals: 1,
   },
 
   {
@@ -79,10 +89,12 @@ const metrics: ImpactMetric[] = [
     x: 258,
     y: 82,
     dy: 2,
-    revealStart: 0.06,
-    revealEnd: 0.07,
+    revealStart: 0.04,
+    revealEnd: 0.06,
     titleLines: ["27,000+", "Metric Tons"],
     descLines: ["Daily waste processing", "capacity"],
+    countTarget: 27000,
+    countSuffix: "+",
   },
 
   {
@@ -92,10 +104,13 @@ const metrics: ImpactMetric[] = [
     y: 164,
     dx: 1,
     dy: 2,
-    revealStart: 0.08,
-    revealEnd: 0.09,
+    revealStart: 0.06,
+    revealEnd: 0.12,
     titleLines: ["3.2+ Million Tons", "stones reused"],
     descLines: ["Minimizing dependence", "on materials"],
+    countTarget: 3.2,
+    countSuffix: "+ Million Tons",
+    countDecimals: 1,
   },
 
   {
@@ -104,10 +119,13 @@ const metrics: ImpactMetric[] = [
     x: 430,
     y: 89,
     dx: -1,
-    revealStart: 0.11,
+    revealStart: 0.09,
     revealEnd: 0.12,
     titleLines: ["2.9+ Million Tons"],
     descLines: ["RDF used as", "alternative fuel"],
+    countTarget: 2.9,
+    countSuffix: "+ Million Tons",
+    countDecimals: 1,
   },
   {
     id: "landfills",
@@ -115,10 +133,12 @@ const metrics: ImpactMetric[] = [
     x: 515,
     y: 164,
     dx: -2,
-    revealStart: 0.14,
-    revealEnd: 0.15,
+    revealStart: 0.11,
+    revealEnd: 0.16,
     titleLines: ["70+ Landfills"],
     descLines: ["Remediation projects", "completed"],
+    countTarget: 70,
+    countSuffix: "+ Landfills",
   },
 
   {
@@ -127,10 +147,12 @@ const metrics: ImpactMetric[] = [
     x: 605,
     y: 80,
     dy: 2,
-    revealStart: 0.17,
-    revealEnd: 0.18,
+    revealStart: 0.14,
+    revealEnd: 0.16,
     titleLines: ["850+ Acres"],
     descLines: ["Land reclaimed"],
+    countTarget: 850,
+    countSuffix: "+ Acres",
   },
 
   {
@@ -140,12 +162,77 @@ const metrics: ImpactMetric[] = [
     y: 165,
     dx: -5,
     dy: 2,
-    revealStart: 0.20,
+    revealStart: 0.18,
     revealEnd: 0.21,
     titleLines: ["2,000+", "Employees"],
     descLines: ["Working for sustainable", "future"],
+    countTarget: 2000,
+    countSuffix: "+",
   },
 ];
+
+const COUNT_UP_DURATION_MS = 1800;
+
+const easeInOutCubic = (progress: number) =>
+  progress < 0.5
+    ? 4 * progress * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+const formatCount = (value: number, decimals = 0) =>
+  decimals > 0
+    ? value.toFixed(decimals)
+    : Math.floor(value).toLocaleString();
+
+const useCountUp = (
+  target: number,
+  decimals: number,
+  delayMs: number,
+  shouldStart: boolean,
+  skipAnimation = false,
+) => {
+  const [count, setCount] = useState(0);
+  const rafRef = useRef<number>(0);
+  const startTimeRef = useRef<number>(0);
+
+  const start = useCallback(() => {
+    startTimeRef.current = 0;
+    setCount(0);
+
+    const tick = (now: number) => {
+      if (!startTimeRef.current) startTimeRef.current = now;
+      const elapsed = now - startTimeRef.current;
+      const progress = Math.min(elapsed / COUNT_UP_DURATION_MS, 1);
+      const eased = easeInOutCubic(progress);
+      setCount(eased * target);
+      if (progress < 1) rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+  }, [target]);
+
+  useEffect(() => {
+    if (!shouldStart) {
+      cancelAnimationFrame(rafRef.current);
+      startTimeRef.current = 0;
+      setCount(0);
+      return;
+    }
+
+    if (skipAnimation) {
+      cancelAnimationFrame(rafRef.current);
+      startTimeRef.current = 0;
+      setCount(target);
+      return;
+    }
+
+    const timer = setTimeout(start, delayMs);
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [delayMs, shouldStart, skipAnimation, start, target]);
+
+  return formatCount(count, decimals);
+};
 
 const renderMultilineText = (
   lines: string[],
@@ -153,11 +240,14 @@ const renderMultilineText = (
   lineHeight: number,
   className: string,
   style?: CSSProperties,
+  countLine?: { index: number; value: string; suffix: string },
 ) => (
   <text textAnchor="middle" className={className} style={style}>
     {lines.map((line, index) => (
       <tspan key={`${line}-${index}`} x="0" y={startY + index * lineHeight}>
-        {line}
+        {countLine && countLine.index === index
+          ? `${countLine.value}${countLine.suffix}`
+          : line}
       </tspan>
     ))}
   </text>
@@ -180,11 +270,12 @@ const getMetricRevealKeyframes = (metric: ImpactMetric, prefix: string) => {
   return `
     @keyframes ${getMetricRevealAnimationName(metric, prefix)} {
       0%, ${start} {
-        opacity: 0;
-        transform: translateY(10px) scale(0.94);
+        transform: translateY(0) scale(1);
+      }
+      ${formatProgressPercent((metric.revealStart + metric.revealEnd) / 2)} {
+        transform: translateY(-8px) scale(1.06);
       }
       ${end}, 100% {
-        opacity: 1;
         transform: translateY(0) scale(1);
       }
     }
@@ -194,34 +285,159 @@ const getMetricRevealKeyframes = (metric: ImpactMetric, prefix: string) => {
 const getMetricRevealAnimation = (metric: ImpactMetric, prefix: string) =>
   `${getMetricRevealAnimationName(metric, prefix)} ${CHAIN_ANIMATION_MS}ms ${CHAIN_EASING} both`;
 
-const MobileMetricsGrid = () => (
-  <div className="grid gap-4 sm:grid-cols-2 md:hidden">
-    {metrics.map((metric) => {
-      const Icon = metric.icon;
+const MobileMetricCard = ({
+  metric,
+  prefersReducedMotion,
+}: {
+  metric: ImpactMetric;
+  prefersReducedMotion: boolean;
+}) => {
+  const Icon = metric.icon;
+  const [started, setStarted] = useState(prefersReducedMotion);
+  const ref = useRef<HTMLElement>(null);
 
-      return (
-        <article
-          key={metric.id}
-          className="rounded-2xl border border-border/70 bg-background/90 p-5 shadow-sm backdrop-blur-sm"
-        >
-          <Icon
-            width={24}
-            height={24}
-            strokeWidth={1.75}
-            className="text-foreground/70"
-            aria-hidden="true"
-          />
-          <h3 className="mt-4 text-lg font-bold leading-tight text-foreground">
-            {metric.titleLines.join(" ")}
-          </h3>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            {[...metric.descLines].join(" ")}
-          </p>
-        </article>
-      );
-    })}
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setStarted(true);
+      return;
+    }
+
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setStarted(true); observer.disconnect(); } },
+      { threshold: 0.3 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [prefersReducedMotion]);
+
+  const count = useCountUp(
+    metric.countTarget,
+    metric.countDecimals ?? 0,
+    0,
+    started,
+    prefersReducedMotion,
+  );
+  const suffix = metric.countSuffix ?? "";
+  const titleFirst = `${count}${suffix}`;
+  const restLines = metric.titleLines.slice(1);
+
+  return (
+    <article
+      ref={ref}
+      key={metric.id}
+      className="rounded-2xl border border-border/70 bg-background/90 p-5 shadow-sm backdrop-blur-sm"
+    >
+      <Icon width={24} height={24} strokeWidth={1.75} className="text-foreground/70" aria-hidden="true" />
+      <h3 className="mt-4 text-lg font-bold leading-tight text-foreground">
+        {titleFirst}{restLines.length > 0 ? " " + restLines.join(" ") : ""}
+      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+        {metric.descLines.join(" ")}
+      </p>
+    </article>
+  );
+};
+
+const MobileMetricsGrid = ({ prefersReducedMotion }: { prefersReducedMotion: boolean }) => (
+  <div className="grid gap-4 sm:grid-cols-2 md:hidden">
+    {metrics.map((metric) => (
+      <MobileMetricCard
+        key={metric.id}
+        metric={metric}
+        prefersReducedMotion={prefersReducedMotion}
+      />
+    ))}
   </div>
 );
+
+const MetricNode = ({
+  metric,
+  hasAnimated,
+  shouldAnimate,
+  prefersReducedMotion,
+  metricAnimationPrefix,
+  metricShadowFilterId,
+}: {
+  metric: ImpactMetric;
+  hasAnimated: boolean;
+  shouldAnimate: boolean;
+  prefersReducedMotion: boolean;
+  metricAnimationPrefix: string;
+  metricShadowFilterId: string;
+}) => {
+  const Icon = metric.icon;
+  const metricX = metric.x + (metric.dx ?? 0);
+  const metricY = metric.y + (metric.dy ?? 0);
+  const titleHeight = (metric.titleLines.length - 1) * TITLE_LINE_HEIGHT;
+  const descHeight = (metric.descLines.length - 1) * DESC_LINE_HEIGHT;
+  const totalHeight =
+    ICON_SIZE + ICON_GAP + titleHeight + DIVIDER_GAP_TOP + DIVIDER_GAP_BOTTOM + descHeight;
+  const topY = -totalHeight / 2;
+  const iconY = topY + ICON_SIZE / 2;
+  const titleStartY = topY + ICON_SIZE + ICON_GAP;
+  const dividerY = titleStartY + titleHeight + DIVIDER_GAP_TOP;
+  const descStartY = dividerY + DIVIDER_GAP_BOTTOM;
+
+  const delayMs = prefersReducedMotion ? 0 : metric.revealStart * CHAIN_ANIMATION_MS;
+  const count = useCountUp(
+    metric.countTarget,
+    metric.countDecimals ?? 0,
+    delayMs,
+    hasAnimated,
+    prefersReducedMotion,
+  );
+
+  return (
+    <g transform={`translate(${metricX}, ${metricY})`}>
+      <g
+        style={{
+          opacity: 1,
+          transformOrigin: "center",
+          transformBox: "fill-box",
+          animation: shouldAnimate
+            ? getMetricRevealAnimation(metric, metricAnimationPrefix)
+            : undefined,
+          filter: `url(#${metricShadowFilterId})`,
+        }}
+      >
+        <Icon
+          x={-ICON_SIZE / 2}
+          y={iconY - ICON_SIZE / 2}
+          width={ICON_SIZE}
+          height={ICON_SIZE}
+          strokeWidth={1.35}
+          className="text-foreground/70"
+        />
+        {renderMultilineText(
+          metric.titleLines,
+          titleStartY,
+          TITLE_LINE_HEIGHT,
+          "fill-slate-800 font-bold dark:fill-foreground",
+          { fontSize: TITLE_FONT_SIZE },
+          { index: 0, value: count, suffix: metric.countSuffix ?? "" },
+        )}
+        <line
+          x1={-DIVIDER_WIDTH / 2}
+          y1={dividerY}
+          x2={DIVIDER_WIDTH / 2}
+          y2={dividerY}
+          stroke="hsl(var(--foreground) / 0.3)"
+          strokeWidth="1.3"
+          strokeLinecap="round"
+        />
+        {renderMultilineText(
+          metric.descLines,
+          descStartY,
+          DESC_LINE_HEIGHT,
+          "fill-foreground font-medium",
+          { fontSize: DESC_FONT_SIZE, fontWeight: DESC_FONT_WEIGHT },
+        )}
+      </g>
+    </g>
+  );
+};
 
 const ChainGraphic = ({
   hasAnimated,
@@ -235,6 +451,8 @@ const ChainGraphic = ({
   const metricAnimationPrefix = `${graphicId}-metric`;
   const titleId = `${graphicId}-chain-graphic-title`;
   const shapeId = `${graphicId}-stats-chain-shape`;
+  const chainGlowFilterId = `${graphicId}-chain-glow`;
+  const metricShadowFilterId = `${graphicId}-metric-shadow`;
   const metricRevealKeyframes = metrics
     .map((metric) => getMetricRevealKeyframes(metric, metricAnimationPrefix))
     .join("\n");
@@ -267,6 +485,24 @@ const ChainGraphic = ({
         <title id={titleId}>Animated diamond chain with ecological metrics</title>
         <defs>
           <path id={shapeId} d={CHAIN_PATH} />
+          <filter id={chainGlowFilterId} x="-10%" y="-18%" width="120%" height="136%">
+            <feDropShadow
+              dx="0"
+              dy="4"
+              stdDeviation="6"
+              floodColor="hsl(var(--foreground))"
+              floodOpacity="0.12"
+            />
+          </filter>
+          <filter id={metricShadowFilterId} x="-24%" y="-24%" width="148%" height="160%">
+            <feDropShadow
+              dx="0"
+              dy="8"
+              stdDeviation="10"
+              floodColor="#020617"
+              floodOpacity="0.14"
+            />
+          </filter>
         </defs>
 
         <use
@@ -277,7 +513,7 @@ const ChainGraphic = ({
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
-          style={chainStrokeStyle}
+          style={{ ...chainStrokeStyle, filter: `url(#${chainGlowFilterId})` }}
         />
         <use
           href={`#${shapeId}`}
@@ -290,75 +526,17 @@ const ChainGraphic = ({
           style={chainStrokeStyle}
         />
 
-        {metrics.map((metric) => {
-          const Icon = metric.icon;
-          const metricX = metric.x + (metric.dx ?? 0);
-          const metricY = metric.y + (metric.dy ?? 0);
-          const titleHeight = (metric.titleLines.length - 1) * TITLE_LINE_HEIGHT;
-          const descHeight = (metric.descLines.length - 1) * DESC_LINE_HEIGHT;
-          const totalHeight =
-            ICON_SIZE +
-            ICON_GAP +
-            titleHeight +
-            DIVIDER_GAP_TOP +
-            DIVIDER_GAP_BOTTOM +
-            descHeight;
-          const topY = -totalHeight / 2;
-          const iconY = topY + ICON_SIZE / 2;
-          const titleStartY = topY + ICON_SIZE + ICON_GAP;
-          const dividerY = titleStartY + titleHeight + DIVIDER_GAP_TOP;
-          const descStartY = dividerY + DIVIDER_GAP_BOTTOM;
-
-          return (
-            <g
-              key={metric.id}
-              transform={`translate(${metricX}, ${metricY})`}
-            >
-              <g
-                style={{
-                  opacity: prefersReducedMotion ? 1 : 0,
-                  transformOrigin: "center",
-                  transformBox: "fill-box",
-                  animation: shouldAnimate
-                    ? getMetricRevealAnimation(metric, metricAnimationPrefix)
-                    : undefined,
-                }}
-              >
-                <Icon
-                  x={-ICON_SIZE / 2}
-                  y={iconY - ICON_SIZE / 2}
-                  width={ICON_SIZE}
-                  height={ICON_SIZE}
-                  strokeWidth={1.35}
-                  className="text-foreground/70"
-                />
-                {renderMultilineText(
-                  metric.titleLines,
-                  titleStartY,
-                  TITLE_LINE_HEIGHT,
-                  "fill-slate-800 font-bold dark:fill-foreground",
-                  { fontSize: TITLE_FONT_SIZE },
-                )}
-                <line
-                  x1={-DIVIDER_WIDTH / 2}
-                  y1={dividerY}
-                  x2={DIVIDER_WIDTH / 2}
-                  y2={dividerY}
-                  stroke="hsl(var(--foreground) / 0.3)"
-                  strokeWidth="1.3"
-                  strokeLinecap="round"
-                />
-                {renderMultilineText(
-                  metric.descLines,
-                  descStartY,
-                  DESC_LINE_HEIGHT,
-                  "fill-foreground font-medium",
-                  { fontSize: DESC_FONT_SIZE, fontWeight: DESC_FONT_WEIGHT },
-                )}
-              </g>
-            </g>
-          );
-        })}
+        {metrics.map((metric) => (
+          <MetricNode
+            key={metric.id}
+            metric={metric}
+            hasAnimated={hasAnimated}
+            shouldAnimate={shouldAnimate}
+            prefersReducedMotion={prefersReducedMotion}
+            metricAnimationPrefix={metricAnimationPrefix}
+            metricShadowFilterId={metricShadowFilterId}
+          />
+        ))}
       </svg>
     </div>
   );
@@ -431,7 +609,7 @@ const StatsSection = () => {
         </div>
 
         <div ref={statsRef} className="w-full">
-          <MobileMetricsGrid />
+          <MobileMetricsGrid prefersReducedMotion={prefersReducedMotion} />
           <div className="hidden md:block">
             <ChainGraphic
               hasAnimated={hasAnimated}

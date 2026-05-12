@@ -28,7 +28,7 @@ const METRICS: MetricItem[] = [
   {
     id: "processing-capacity",
     title: "Processing Capacity",
-    description: "Daily Wood Polyethylene throughput.",
+    description: "Daily WPE throughput.",
     value: "3,500",
     unit: "TONS / YEAR",
     image: pic1,
@@ -163,7 +163,7 @@ const Wpe: React.FC = () => {
           <div className="absolute inset-0 transition-opacity duration-500 overflow-hidden">
             <img
               src={currentImage}
-              alt="Wood Polyethylene project"
+              alt="WPE project"
               className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 ${
                 effectiveHoveredSection ? "scale-105" : ""
               }`}
