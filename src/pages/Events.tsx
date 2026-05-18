@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import heroBg from "@/assets/website/hero/DA4A6583.webp";
 import sectionBg from "@/assets/website/background-1.png";
 
@@ -12,7 +18,7 @@ type EventItem = {
   location: string;
   description: string;
   tag: string;
-  isPast?: boolean;
+  image: string;
 };
 
 type EventAssetItem = {
@@ -35,54 +41,69 @@ const formatGalleryTitle = (assetPath: string) =>
     .replace(/\s+/g, " ")
     .trim() ?? "Event Image";
 
+const EVENT_ASSET_ENTRIES = Object.entries(EVENT_ASSETS).sort(([a], [b]) => a.localeCompare(b));
+
+const pickEventAsset = (keywords: string[], fallbackIndex = 0) => {
+  const normalizedKeywords = keywords.map((keyword) => keyword.toLowerCase());
+
+  const matchedAsset =
+    EVENT_ASSET_ENTRIES.find(([assetPath]) => {
+      const normalizedTitle = formatGalleryTitle(assetPath).toLowerCase();
+      return normalizedKeywords.every((keyword) => normalizedTitle.includes(keyword));
+    }) ??
+    EVENT_ASSET_ENTRIES.find(([assetPath]) => {
+      const normalizedTitle = formatGalleryTitle(assetPath).toLowerCase();
+      return normalizedKeywords.some((keyword) => normalizedTitle.includes(keyword));
+    });
+
+  return matchedAsset?.[1] ?? EVENT_ASSET_ENTRIES[fallbackIndex]?.[1] ?? heroBg;
+};
+
 const UPCOMING_EVENTS: EventItem[] = [
   {
-    id: "event-1",
+    id: "avpn-summit-workshop",
     title: "AVPN Summit Workshop",
     dateLabel: "2025",
+    time: "08:30",
     location: "Chennai, India",
     description:
       "A workshop hosted at a reclaimed dumpsite to discuss scalable, city-ready remediation models and circular recovery outcomes.",
-    tag: "Summit",
+    tag: "Workshop",
+    image: pickEventAsset(["cii"], 0),
   },
   {
-    id: "event-2",
+    id: "municipal-collaboration-roundtable",
     title: "Municipal Collaboration Roundtable",
-    dateLabel: "Upcoming",
+    dateLabel: "Date to be announced",
+    time: "TBA",
     location: "India",
     description:
       "A forum with city partners to align execution plans, compliance reporting, and operational readiness for large-scale remediation.",
     tag: "Roundtable",
+    image: pickEventAsset(["dma"], 1),
   },
   {
-    id: "event-3",
+    id: "waste-to-resource-knowledge-session",
     title: "Waste-to-Resource Knowledge Session",
-    dateLabel: "Upcoming",
+    dateLabel: "Date to be announced",
+    time: "TBA",
     location: "India",
     description:
       "A knowledge-sharing session covering best practices in landfill mining, daily MSW processing, and integrated alternative fuel solutions.",
-    tag: "Session",
+    tag: "Knowledge Session",
+    image: pickEventAsset(["circular"], 2),
   },
 ];
 
-const DISPLAY_EVENTS: EventAssetItem[] = Object.entries(EVENT_ASSETS)
-  .map(([assetPath, image]) => ({
-    id: assetPath,
-    title: formatGalleryTitle(assetPath),
-    image,
-  }))
-  .sort((a, b) => a.title.localeCompare(b.title));
-
-const PLACEHOLDER_GRADIENTS = [
-  "from-emerald-100 to-teal-200",
-  "from-green-100 to-emerald-200",
-  "from-teal-100 to-cyan-200",
-  "from-lime-100 to-green-200",
-];
+const DISPLAY_EVENTS: EventAssetItem[] = EVENT_ASSET_ENTRIES.map(([assetPath, image]) => ({
+  id: assetPath,
+  title: formatGalleryTitle(assetPath),
+  image,
+})).sort((a, b) => a.title.localeCompare(b.title));
 
 function CalendarIcon() {
   return (
-    <svg className="w-4 h-4 opacity-60 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="h-4 w-4 shrink-0 opacity-70" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
       <rect x="2" y="3" width="12" height="11" rx="1.5" />
       <path d="M5 1v4M11 1v4M2 7h12" />
     </svg>
@@ -91,95 +112,117 @@ function CalendarIcon() {
 
 function PinIcon() {
   return (
-    <svg className="w-4 h-4 opacity-60 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg className="h-4 w-4 shrink-0 opacity-70" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M8 1.5C5.51 1.5 3.5 3.51 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5C12.5 3.51 10.49 1.5 8 1.5z" />
       <circle cx="8" cy="6" r="1.5" />
     </svg>
   );
 }
 
-function ArrowRightIcon() {
+function ClockIcon() {
   return (
-    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M3 8h10M9 4l4 4-4 4" />
+    <svg className="h-4 w-4 shrink-0 opacity-70" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <circle cx="8" cy="8" r="5.5" />
+      <path d="M8 4.8V8l2.4 1.6" />
     </svg>
   );
 }
 
-function ChevronLeft() {
-  return (
-    <svg className="w-5 h-5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M10 3L5 8l5 5" />
-    </svg>
-  );
-}
-
-function ChevronRight() {
-  return (
-    <svg className="w-5 h-5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M6 3l5 5-5 5" />
-    </svg>
-  );
-}
-
-function UpcomingSlider() {
+function UpcomingEventsSection() {
+  const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const total = UPCOMING_EVENTS.length;
-  const prev = () => setCurrent((c) => (c - 1 + total) % total);
-  const next = () => setCurrent((c) => (c + 1) % total);
-  const event = UPCOMING_EVENTS[current];
+
+  useEffect(() => {
+    if (!api) return;
+
+    const syncCurrent = () => setCurrent(api.selectedScrollSnap());
+
+    syncCurrent();
+    api.on("select", syncCurrent);
+    api.on("reInit", syncCurrent);
+
+    return () => {
+      api.off("select", syncCurrent);
+      api.off("reInit", syncCurrent);
+    };
+  }, [api]);
 
   return (
     <section className="section-padding bg-white">
       <div className="container-main">
-        <div className="text-center mb-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Updates</p>
-          <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+        <div className="mx-auto max-w-5xl text-center">
+          <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
+            Featured Updates
+          </p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Upcoming <span className="text-primary">Events</span>
           </h2>
         </div>
 
-        <div className="relative">
-          <article
-            key={event.id}
-            className="grid grid-cols-1 md:grid-cols-[320px_1fr] rounded-2xl border border-slate-200 overflow-hidden bg-white shadow-sm transition-all duration-500"
+        <div className="mx-auto mt-8 max-w-5xl rounded-[24px] bg-muted/30 px-4 py-4 shadow-sm md:px-5 md:py-5 lg:px-6 lg:py-6">
+          <Carousel
+            setApi={setApi}
+            opts={{ loop: true, align: "start" }}
+            className="relative"
           >
-            <div
-              className={`bg-gradient-to-br ${PLACEHOLDER_GRADIENTS[current % PLACEHOLDER_GRADIENTS.length]} min-h-[200px] md:min-h-0 flex items-center justify-center`}
-              aria-hidden="true"
-            >
-              <svg className="w-16 h-16 text-primary/20" viewBox="0 0 64 64" fill="currentColor">
-                <rect x="4" y="4" width="56" height="56" rx="6" />
-                <path fill="white" opacity="0.4" d="M20 44l10-14 8 10 6-8 10 12H20z" />
-                <circle cx="42" cy="22" r="6" fill="white" opacity="0.4" />
-              </svg>
-            </div>
-            <div className="p-7 flex flex-col justify-center gap-3">
-              <span className="inline-block self-start text-[10px] font-bold uppercase tracking-[0.22em] text-primary bg-primary/10 px-3 py-1 rounded-full">
-                {event.tag}
-              </span>
-              <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-snug">
-                {event.title}
-              </h3>
-              <div className="flex flex-wrap gap-4 text-sm text-slate-500">
-                <span className="flex items-center gap-1.5"><CalendarIcon /> {event.dateLabel}</span>
-                <span className="flex items-center gap-1.5"><PinIcon /> {event.location}</span>
-              </div>
-              <p className="text-sm text-slate-600 leading-relaxed">{event.description}</p>
-              <a href="#" className="group mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                Read More <ArrowRightIcon />
-              </a>
-            </div>
-          </article>
+            <CarouselContent className="-ml-0">
+              {UPCOMING_EVENTS.map((event) => (
+                <CarouselItem key={event.id} className="pl-0">
+                  <article className="grid gap-5 rounded-[20px] bg-background/70 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+                    <div className="overflow-hidden rounded-[18px] border border-border bg-card shadow-sm">
+                      <img
+                        src={event.image}
+                        alt={event.title}
+                        className="aspect-[16/10] h-full w-full object-cover lg:aspect-[1.42/1]"
+                      />
+                    </div>
 
-          <div className="flex items-center justify-center gap-4 mt-6">
-            <button onClick={prev} className="p-2 rounded-full border border-slate-200 hover:bg-primary hover:text-white hover:border-primary transition-colors" aria-label="Previous">
-              <ChevronLeft />
-            </button>
-            <span className="text-sm text-slate-500">{current + 1} / {total}</span>
-            <button onClick={next} className="p-2 rounded-full border border-slate-200 hover:bg-primary hover:text-white hover:border-primary transition-colors" aria-label="Next">
-              <ChevronRight />
-            </button>
+                    <div className="px-1 py-1 lg:px-3">
+                      <h3 className="max-w-xl text-xl font-bold leading-snug text-foreground md:text-[1.7rem]">
+                        {event.title}
+                      </h3>
+
+                      <div className="mt-4 flex flex-col gap-2.5 text-sm text-muted-foreground md:flex-row md:flex-wrap md:items-center md:gap-x-6 md:gap-y-2">
+                        <div className="flex items-center gap-2">
+                          <CalendarIcon />
+                          <span>{event.dateLabel}</span>
+                        </div>
+                        {event.time ? (
+                          <div className="flex items-center gap-2">
+                            <ClockIcon />
+                            <span>{event.time}</span>
+                          </div>
+                        ) : null}
+                        <div className="flex items-center gap-2">
+                          <PinIcon />
+                          <span>{event.location}</span>
+                        </div>
+                      </div>
+
+                      <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                        {event.description}
+                      </p>
+                    </div>
+                  </article>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+
+          <div className="mt-5 flex items-center justify-center gap-2.5">
+            {UPCOMING_EVENTS.map((item, index) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => api?.scrollTo(index)}
+                aria-label={`Show event ${index + 1}`}
+                className={`transition-all duration-300 ${
+                  index === current
+                    ? "h-2.5 w-7 rounded-sm bg-primary"
+                    : "h-2.5 w-2.5 rounded-full border-2 border-border bg-transparent"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -216,9 +259,10 @@ export default function Events(): JSX.Element {
           </div>
         </section>
 
-        {/* <UpcomingSlider /> */}
+        <UpcomingEventsSection />
 
         <section
+          id="event-archive"
           className="section-padding bg-top bg-repeat"
           style={{ backgroundImage: `url(${sectionBg})`, backgroundSize: "520px auto" }}
         >
@@ -232,7 +276,10 @@ export default function Events(): JSX.Element {
 
             <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
               {DISPLAY_EVENTS.map((event) => (
-                <article key={event.id} className="group break-inside-avoid mb-8 rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+                <article
+                  key={event.id}
+                  className="group break-inside-avoid mb-8 rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
+                >
                   <div className="relative rounded-xl overflow-hidden">
                     <img
                       src={event.image}
