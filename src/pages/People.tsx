@@ -22,9 +22,61 @@ type MediaCategory = "office" | "plants" | "beyond" | "other";
 type MediaType = {
   src: string;
   label: string;
-  type: "image" | "video";
+  type: "image" | "video" | "youtube";
   category: MediaCategory;
+  poster?: string;
 };
+
+const YOUTUBE_PATTERNS: RegExp[] = [
+  /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([A-Za-z0-9_-]{11})/i,
+  /(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]{11})/i,
+  /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?(?:.*&)?v=([A-Za-z0-9_-]{11})/i,
+  /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([A-Za-z0-9_-]{11})/i,
+];
+
+const getYouTubeId = (source: string): string | null => {
+  for (const pattern of YOUTUBE_PATTERNS) {
+    const match = source.match(pattern);
+    if (match?.[1]) return match[1];
+  }
+  return null;
+};
+
+const getYouTubeEmbedUrl = (source: string): string => {
+  const id = getYouTubeId(source);
+  return id
+    ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1`
+    : source;
+};
+
+const getYouTubeThumbnail = (source: string): string => {
+  const id = getYouTubeId(source);
+  return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : "";
+};
+
+const YOUTUBE_BEYOND_MEDIA: MediaType[] = [
+  {
+    src: "https://youtube.com/shorts/l-IyVxyO1jw",
+    label: "Zigma beyond work short",
+    type: "youtube",
+    category: "beyond",
+    poster: getYouTubeThumbnail("https://youtube.com/shorts/l-IyVxyO1jw"),
+  },
+  {
+    src: "https://youtu.be/W6385dkjsjc",
+    label: "Zigma beyond work video",
+    type: "youtube",
+    category: "beyond",
+    poster: getYouTubeThumbnail("https://youtu.be/W6385dkjsjc"),
+  },
+  {
+    src: "https://www.youtube.com/watch?v=-zGlQTDRWuc",
+    label: "Zigma beyond work video",
+    type: "youtube",
+    category: "beyond",
+    poster: getYouTubeThumbnail("https://www.youtube.com/watch?v=-zGlQTDRWuc"),
+  },
+];
 
 // ==================== MEDIA LOADING & PROCESSING ====================
 /**
@@ -63,18 +115,28 @@ const allMedia: MediaType[] = Object.entries(mediaModules).map(
   })
 );
 
+const mediaItems: MediaType[] = [...allMedia, ...YOUTUBE_BEYOND_MEDIA];
+
 // ==================== HELPER FUNCTIONS ====================
 /**
  * Filters media items by category
  */
 const getMediaByCategory = (category: MediaCategory) =>
-  allMedia.filter((item) => item.category === category);
+  mediaItems.filter((item) => item.category === category);
 
 /**
- * Gets all images (non-video media) for a given category
+ * Gets all gallery media for a given category
  */
-const getAllImages = (category: MediaCategory) =>
-  getMediaByCategory(category).filter((item) => item.type === "image");
+const getGalleryMedia = (category: MediaCategory) => {
+  const items = getMediaByCategory(category);
+
+  if (category !== "beyond") return items;
+
+  return [
+    ...items.filter((item) => item.type === "youtube"),
+    ...items.filter((item) => item.type !== "youtube"),
+  ];
+};
 
 /**
  * Gets the hero image for the hero section
@@ -134,6 +196,55 @@ const getLaneStyle = (duration: number): CSSProperties => ({
   willChange: "transform",
 });
 
+type MediaCardProps = {
+  item: MediaType;
+  className?: string;
+};
+
+const MediaCard = ({ item, className = "" }: MediaCardProps) => {
+  if (item.type === "youtube") {
+    return (
+      <div className={`overflow-hidden rounded-[10px] bg-slate-100 ${className}`}>
+        <iframe
+          src={getYouTubeEmbedUrl(item.src)}
+          title={item.label}
+          className="h-full min-h-[240px] w-full"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  if (item.type === "video") {
+    return (
+      <div className={`overflow-hidden rounded-[10px] bg-slate-100 ${className}`}>
+        <video
+          src={item.src}
+          className="block h-full w-full object-cover"
+          controls
+          playsInline
+          preload="metadata"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className={`overflow-hidden rounded-[10px] bg-slate-100 ${className}`}>
+      <img
+        src={item.src}
+        alt={item.label}
+        className="block h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  );
+};
+
 // ==================== MAIN COMPONENT ====================
 const People = () => {
   // ---- State Management ----
@@ -145,16 +256,16 @@ const People = () => {
   const heroSectionRef = useRef<HTMLElement | null>(null);
 
   // ---- Memoized Values ----
-  const currentImages = useMemo(() => getAllImages(activeTab), [activeTab]);
+  const currentMedia = useMemo(() => getGalleryMedia(activeTab), [activeTab]);
   
   const laneImages = useMemo(
-    () => createLaneImages(currentImages),
-    [currentImages]
+    () => createLaneImages(currentMedia),
+    [currentMedia]
   );
   
   const laneDurations = useMemo(
-    () => calculateLaneDurations(currentImages.length),
-    [currentImages.length]
+    () => calculateLaneDurations(currentMedia.length),
+    [currentMedia.length]
   );
 
   // ---- Effects ----
@@ -285,19 +396,12 @@ const People = () => {
               <div className="mt-5 min-w-0 flex-1">
                 {/* Mobile Gallery - Single Column */}
                 <div className="grid grid-cols-1 gap-3 md:hidden">
-                  {currentImages.map((item, index) => (
-                    <div
+                  {currentMedia.map((item, index) => (
+                    <MediaCard
                       key={`${activeTab}-mobile-${item.src}-${index}`}
-                      className="rounded-[10px] overflow-hidden bg-slate-100"
-                    >
-                      <img
-                        src={item.src}
-                        alt={item.label}
-                        className="w-full h-auto block"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
+                      item={item}
+                      className="min-h-[240px]"
+                    />
                   ))}
                 </div>
 
@@ -312,22 +416,16 @@ const People = () => {
                         className="flex flex-col gap-5 hover:[animation-play-state:paused]"
                         style={{
                           ...getLaneStyle(laneDurations[laneIndex]),
-                          animationDelay: `${laneIndex * -3.5}s`,
+                          animationDelay:
+                            activeTab === "beyond" ? "10s" : `${laneIndex * -3.5}s`,
                         }}
                       >
                         {lane.map((item, index) => (
-                          <div
+                          <MediaCard
                             key={`${activeTab}-lane-${laneIndex}-${item.src}-${index}`}
-                            className="rounded-[10px] overflow-hidden bg-slate-100 h-[300px]"
-                          >
-                            <img
-                              src={item.src}
-                              alt={item.label}
-                              className="w-full h-full object-cover block"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </div>
+                            item={item}
+                            className="h-[300px]"
+                          />
                         ))}
                       </div>
                     </div>
@@ -335,7 +433,7 @@ const People = () => {
                 </div>
 
                 {/* Empty State */}
-                {currentImages.length === 0 && (
+                {currentMedia.length === 0 && (
                   <div className="text-sm text-muted-foreground px-2 py-4">
                     No images found.
                   </div>

@@ -11,6 +11,7 @@ import {
   Play,
   X,
   Image,
+  MapPin,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -413,18 +414,44 @@ const SITE_VISIT_ASSETS = import.meta.glob("../assets/Testimonials/Visits/*.{jpg
 }) as Record<string, string>;
 
 const SITE_VISIT_HEADLINES: Record<string, string> = {
+  "#biomining#landfill_reclamation #landfill_mining #legacy_waste #We_Transform.webp":
+    "Mr. Sandeep, Chief Engineer, and Ms. Meera, Deputy Chief Engineer, Local Self Government Department, Government of Kerala, along with Kollam Municipal Corporation officials, visited Zigma's Kureepuzha Biomining Facility in Kollam on 11 March 2023.",
+  "Kollam Kureepuzha Biomining.webp":
+    "Mr. Sandeep, Chief Engineer, and Ms. Meera, Deputy Chief Engineer, Local Self Government Department, Government of Kerala, along with Kollam Municipal Corporation officials, visited Zigma's Kureepuzha Biomining Facility in Kollam on 11 March 2023.",
   "2.jpg":
     "India-Bhutan Delegation Explores Zigma's Biomining Solutions\nA knowledge exchange on legacy waste remediation and sustainable waste management",
+  "6.jpeg":
+    "Ms. Amanda Kwek, First Secretary (Economics), High Commission of Singapore; Ms. Denise Tan, Regional Director, Enterprise Singapore; and Blue Planet leadership visited Zigma's Noida Biomining Facility.",
   "12.jpeg":
     "TTD Chairman and former DRDO Chairman visit Zigma's Tirumala project site to review sustainable waste management initiatives.",
   "13.jpeg":
     "Sri Lankan Delegation Visits Zigma Global's Perungudi Reclaimed Dumpsite to Observe Bio-Mining Best Practices",
   "17.jpg":
     "KfW and TNUIFSL delegation visit Zigma's Chennai facility for discussions on circular economy and sustainable waste management.",
+  "Biomining Site in Kodungaiyur..webp":
+    "The Additional Collector (Development), Project Director (DRDA), and Executive Engineers (RD) from all districts of Tamil Nadu visited the Kodungaiyur Biomining Site for an exposure visit on scientific legacy municipal solid waste management.",
+  "Blue Planet’s Zigma was delighted to host distinguished representatives of GIZ from Germany at o.webp":
+    "Representatives of GIZ Germany visited Blue Planet's Zigma Guwahati Biomining Facility, highlighting a shared commitment to sustainable waste management and environmental innovation.",
+  "Chairman of Swacch Andhra Corporation Mr. Sr. Pattabhi at our.webp":
+    "Mr. Sr. Pattabhi, Chairman of Swachh Andhra Corporation, visited Zigma's Vizag Dumpsite Mining Facility to review recovered material utilization and sustainable legacy waste management initiatives.",
+  "Chairman of Vadodara Municipal Corporation Dr. Hitendra Patel.webp":
+    "Dr. Hitendra Patel, Standing Committee Chairman, Vadodara Municipal Corporation, along with officials and representatives from Karamsad Nagar Palika and Vallabh Vidyanagar, visited Zigma's Makarpura Biomining Facility in Vadodara on 17 July 2021.",
   "CITIIS 2.0 Visit.webp":
     "NIUA and AFD delegation visit Zigma's Boragaon Bio-Mining Project Site under the CITIIS 2.0 initiative.",
   "Commissioner Visit.webp":
     "Greater Chennai Corporation Commissioner visits Zigma's Chennai bio-mining facility to review scientific landfill reclamation and sustainable waste management.",
+  "Dr. G. S. Sameeran, IAS,.jpeg":
+    "Dr. G. S. Sameeran, IAS, Commissioner, Greater Chennai Corporation, visited Zigma's Kodungaiyur Biomining Project on 21 May 2026 to review ongoing scientific legacy waste remediation activities.",
+  "Dr. G. S. Sameeran, IAS, 2.webp":
+    "Dr. G. S. Sameeran, IAS, Commissioner, Greater Chennai Corporation, visited Zigma's Perungudi Biomining Project on 22 May 2026 to review the project area and the proposed scientific approach for legacy waste remediation.",
+  "Dr. M. C. Dathan, Scientific Advisor to Chief Minister of Kerala at our Kollam biomining (overview).webp":
+    "Dr. M. C. Dathan, Scientific Advisor to the Chief Minister of Kerala, along with Kollam Municipal Corporation representatives, visited Zigma's Kollam Biomining Facility to review sustainable landfill waste reduction initiatives.",
+  "Dr. M. C. Dathan, Scientific Advisor to Chief Minister of Kerala at our Kollam biomining (date).webp":
+    "Dr. M. C. Dathan, Scientific Advisor to the Chief Minister of Kerala, along with Kollam Municipal Corporation representatives, visited Zigma's Kollam Biomining Facility on 30 December 2021.",
+  "Dr. Manish S Narnaware IAS - Deputy Commissioner - Health - Greater Chennai Corporation.webp":
+    "Dr. Manish S. Narnaware, IAS, Deputy Commissioner (Health), Greater Chennai Corporation, along with GCC officials, visited Zigma's Perungudi Biomining Facility on 31 July 2021.",
+  "Dr. V. Jaya Chandra Bhanu Reddy, I.A.S.webp":
+    "Dr. V. Jaya Chandra Bhanu Reddy, IAS, Additional Commissioner (Health), Greater Chennai Corporation, along with GCC dignitaries, visited Zigma's Kodungaiyur Biomining Site for a pre-analysis visit on 8 March 2024.",
   "Educational Visit.webp":
     "AIILSG Nagpur students and faculty visit Zigma's Bhandewadi Bio-Mining Facility to learn about legacy waste processing and sustainable waste management.",
   "Gurukul students visit.webp":
@@ -435,10 +462,38 @@ const SITE_VISIT_HEADLINES: Record<string, string> = {
     "Swachha Andhra Corporation Chairman and Anantapur MLA Visit Zigma's Anantapuram Biomining Facility",
   "Legislative Visit.webp":
     "Tamil Nadu Congress President and senior officials visit Zigma's Kodungaiyur dumpsite mining facility.",
+  "Minister Thiru S. Muthusamy.jpg":
+    "Honorable Minister Thiru S. Muthusamy, Honorable Minister Thiru Siva V. Meyyanathan, Honorable MP Thiru A. Ganeshamurthi, Honorable MLA Thiru A.G. Venkatachalam, Honorable Collector Thiru H. Krishnanunni IAS, Honorable Thiru A.V. Venkatachalam IFS, and Honorable Commissioner Dr. M. Elangovan visited Zigma's Erode biomining facility.",
   "MoHUA Visit.jpg":
     "MoHUA Secretary and senior officials visit Zigma's Tirupati biomining facility to review sustainable legacy waste remediation.",
   "Ministerial Visit.webp":
     "Andhra Pradesh Urban Development Minister visits Zigma's Tirupati Bio-Mining Facility to review sustainable urban transformation.",
+  "Mr. Alex Ellis,.webp":
+    "Zigma showcased its biomining process and milestone achievements at the British Deputy High Commission's Climate Expo 2023 in Chennai, attended by Mr. Alex Ellis, Ms. Supriya Sahu and the Prince of Arcot on 9 March 2023.",
+  "Mr. Anbil Mahesh Poyyamozhi, Minister for School Education- Govt. of Tamilnadu at our Tiruchirapalli.jpg":
+    "Mr. Anbil Mahesh Poyyamozhi, Minister for School Education, Government of Tamil Nadu, along with Tiruchirappalli Municipal Corporation dignitaries, visited Zigma's Tiruchirappalli Biomining Facility on 20 May 2021.",
+  "Mr. Arun Mehta - MD & CEO, SBI Capital and Mr. Manav Bansal-CEO, Neev Fund at our NOIDA Bio-mining.webp":
+    "Mr. Arun Mehta, MD & CEO, SBI Capital, and Mr. Manav Bansal, CEO, Neev Fund, visited Zigma's Noida Biomining Facility on 26 August 2021.",
+  "Mr. Francis Chong - Senior Director; Ms. Magdalene Loh - Director; Ms. Uma Muniandy - Deputy Director, Ministry of Trade and Industry, Singapore at our NOIDA Landfill Mining.jpeg":
+    "Mr. Francis Chong, Senior Director; Ms. Magdalene Loh, Director; and Ms. Uma Muniandy, Deputy Director, Ministry of Trade and Industry, Singapore, visited Zigma's Noida Landfill Mining Facility.",
+  "Mr. Gagandeep Singh Bedi IAS, Commissioner.webp":
+    "Mr. Mahesh Mahajan, Chairman, Special Committee on Medical Services and Health, Nagpur Municipal Corporation, along with other officials, visited Zigma's Bhandewadi Biomining Facility in Nagpur on 20 May 2021.",
+  "Mr. K. N. Nehru, Minister for Municipal Administration, Urban and Water Supply, Govt. of Tamilnadu and other officials at our Ariyamangalam Biomining facility in Trichy.webp":
+    "Mr. K. N. Nehru, Minister for Municipal Administration, Urban and Water Supply, Government of Tamil Nadu, along with officials, visited Zigma's Ariyamangalam Biomining Facility in Tiruchirappalli to review scientific legacy waste segregation operations.",
+  "Mr. Karti Chidambaram, Member of Parliament - Sivagangai DT, and Mr. S. Mangudi, Member of Legislative Assembly- Karaikudi.webp":
+    "Mr. Karti Chidambaram, Member of Parliament for Sivaganga, and Mr. S. Mangudi, Member of the Legislative Assembly for Karaikudi, visited Zigma's Karaikudi Biomining Facility.",
+  "Mr. Krishnan Unni I.A.S - Collector - Erode district.webp":
+    "Mr. Krishnan Unni, IAS, District Collector, Erode, along with Erode City Municipal Corporation officials, visited Zigma's Vendipalayam Biomining Facility in Erode.",
+  "Mr. Mahesh Mahajan- Chairman- Special Committee on Medical Services and Health- Nagpur Municipal Corporation.webp":
+    "Mr. Mahesh Mahajan, Chairman, Special Committee on Medical Services and Health, Nagpur Municipal Corporation, along with other officials, visited Zigma's Bhandewadi Biomining Facility in Nagpur on 20 May 2021.",
+  "Mr. P. Ponnaiah IAS - Commissioner.webp":
+    "Mr. P. Ponnaiah, IAS, Commissioner, Directorate of Municipal Administration, Government of Tamil Nadu, along with officials, visited Zigma's Ariyamangalam Biomining Facility in Tiruchirappalli on 11 July 2021.",
+  "Mr. P Jagadishwasr Reddy, SE, Mr. M Chandramouli Reddy, Deputy EE, Mr. Sunil Kumar, Additional Health Officer from Tirumala Tirupati Desvasthanams.webp":
+    "Mr. P. Jagadishwar Reddy, SE; Mr. M. Chandramouli Reddy, Deputy EE; and Mr. Sunil Kumar, Additional Health Officer, Tirumala Tirupati Devasthanams, visited Zigma's Vendipalayam Biomining Facility on 26 September 2021.",
+  "Mr. Renju R Pillai - Senior Technical Consultant and Mr. Jyothish Chandran G - Director (SWM) from Suchitwa Mission, Kerala Local Self Government Department at our Kollam.webp":
+    "Mr. Renju R. Pillai, Senior Technical Consultant, and Mr. Jyothish Chandran G., Director (SWM), Suchitwa Mission, Kerala Local Self Government Department, along with Kollam Municipal Corporation representatives, visited Zigma's Kollam Biomining Facility.",
+  "Ms. Shalini Agarwal IAS - Commissioner.webp":
+    "Ms. Shalini Agarwal, IAS, Commissioner, Vadodara Municipal Corporation, along with VMC officials, visited Zigma's Makarpura Biomining Facility in Vadodara on 5 July 2021.",
   "nellore2.jpg":
     "Nellore Municipal Commissioner Visits Zigma Blue Planet to Explore Waste Management Best Practices",
   "Workshop Site Visit.webp":
@@ -449,6 +504,22 @@ const SITE_VISIT_HEADLINES: Record<string, string> = {
     "SBM-U Assam State Mission Director Visits Zigma's Guwahati Facility\nExploring biomining solutions for sustainable urban waste management - Simi Karan, Swachh Bharat Mission",
   "Swachh Andhra Corporation, and Mr. Ketan Garg, IAS, Commissioner – GVMC.webp":
     "Swachh Andhra Corporation and GVMC Leadership Visit Zigma's Visakhapatnam Facility\nA collaborative step towards scientific biomining and legacy waste remediation",
+  "Sustainable Initiatives at Tirumala!TTD Chairman Sri B.R. Naidu.jpg":
+    "TTD Chairman Sri B.R. Naidu visited Zigma Plant and the Kakulamanu Dibba dumping yard in Tirumala to review sustainable waste management and recycling initiatives.",
+  "Shri C. M. Saikanth Varma, IAS, Commissioner,.webp":
+    "Shri C. M. Saikanth Varma, IAS, Commissioner, Greater Visakhapatnam Municipal Corporation, along with GVMC officials, visited Zigma's Kapulappada Biomining Facility in Visakhapatnam.",
+  "Shri Manoj Joshi, IAS, Secretary,.jpeg":
+    "Shri Manoj Joshi, IAS, Secretary, Ministry of Housing and Urban Affairs (MoHUA), along with senior officials from the Government of Assam and Guwahati Municipal Corporation, visited Zigma's Boragaon Biomining Facility in Guwahati to review ongoing biomining operations.",
+  "Shiv Das Meena - IAS - Additional Chief Secretary to Government, Municipal Administration.jpg":
+    "Thiru Shiv Das Meena, IAS, Additional Chief Secretary, Municipal Administration and Water Supply Department, Government of Tamil Nadu, and Thiru P. Ponniah, IAS, Director of Municipal Administration, along with Tiruchirappalli Municipal Corporation officials, visited Zigma's Tiruchirappalli Biomining Facility on 12 January 2022.",
+  "Shiv Das Meena - IAS - Secretary to Government, Municipal Administration & Water Supply, Government of Tamil Nadu and Thiru..webp":
+    "Thiru Shiv Das Meena, IAS, Secretary to Government, Municipal Administration and Water Supply Department, and Thiru Gagandeep Singh Bedi, IAS, Commissioner, Greater Chennai Corporation, along with GCC officials, visited Zigma's Perungudi Biomining Facility on 25 January 2022.",
+  "Tamsyn Barton, Chief Commissioner of the United Kingdom’s.webp":
+    "Tamsyn Barton, Chief Commissioner of the United Kingdom's Independent Commission for Aid Impact, visited Zigma's Perungudi Biomining Facility in Chennai on 9 February 2024.",
+  "𝑪𝒉𝒆𝒏𝒏𝒂𝒊 𝒕𝒂𝒌𝒆𝒔 𝒂 𝒈𝒊𝒂𝒏𝒕 𝒍𝒆𝒂𝒑 𝒕𝒐𝒘𝒂𝒓𝒅𝒔 𝒔𝒖𝒔𝒕𝒂𝒊𝒏𝒂𝒃𝒍𝒆 𝒘𝒂𝒔𝒕e.webp":
+    "Thiru K.N. Nehru, Tmt R. Priya and Thiru M. Mahesh Kumar visited Zigma's Kodungaiyur Biomining Facility, highlighting Chennai's commitment to scientific legacy waste remediation and sustainable land reclamation.",
+  "Honored to host a team of 65 representatives from the Greater Hyderabad Municipal Corporation, l.webp":
+    "A team of 65 representatives from the Greater Hyderabad Municipal Corporation, led by Deputy Mayor Mothe Srilatha Reddy, visited Zigma's Guwahati dumpsite mining plant to review operations and sustainable waste management practices.",
   "IIT Madras, IIT Guwahati, IISc Bangalore, IIT BHU, and Saahas NGO.webp":
     "Academic and Industry Experts Visit Zigma's Kodungaiyur Biomining Site. A technical exchange on scientific biomining, resource recovery, and legacy waste remediation",
 };
@@ -473,8 +544,7 @@ const getSiteVisitTagline = (headline?: string): string | null => {
 
   if (!firstLine) return null;
 
-  const [firstSentence] = firstLine.split(/(?<=[.!?])\s+/);
-  return firstSentence?.trim() ?? firstLine;
+  return firstLine;
 };
 
 interface SectionHeaderProps {
@@ -515,19 +585,24 @@ const SiteVisitCard: FC<SiteVisitCardProps> = ({ image }) => {
   const tagline = getSiteVisitTagline(image.headline);
 
   return (
-    <article className="group text-center">
-      <div className="aspect-[4/3] overflow-hidden bg-muted/30 shadow-sm transition-transform duration-300 group-hover:-translate-y-1">
+    <article className="group flex flex-col overflow-hidden border border-border/70 bg-white text-center shadow-[0_18px_45px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
+      <div className="relative aspect-[4/3] overflow-hidden bg-muted/30">
         <img
           src={image.src}
           alt={image.alt}
-          className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+          className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.035]"
           loading="lazy"
           draggable={false}
         />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/22 to-transparent opacity-80" />
+        <div className="absolute bottom-0 left-0 h-[2px] w-full bg-primary/80" />
       </div>
       {tagline ? (
-        <div className="mx-auto flex min-h-[64px] max-w-[30rem] items-start justify-center px-3 pt-4">
-          <p className="text-center text-base font-normal leading-snug text-foreground">
+        <div className="flex min-h-[104px] flex-none items-center justify-center bg-gradient-to-b from-white to-muted/20 px-5 py-4 transition-all duration-300 group-hover:min-h-[142px] group-focus-within:min-h-[142px]">
+          <p
+            className="line-clamp-2 max-w-[28rem] text-center text-sm font-normal leading-relaxed text-foreground transition-all duration-300 group-hover:line-clamp-none group-focus-within:line-clamp-none md:text-[15px]"
+            title={tagline}
+          >
             {tagline}
           </p>
         </div>
@@ -608,11 +683,11 @@ const VisitorsSlider: FC<VisitorsSliderProps> = ({ images }) => {
         opts={{ align: "start", loop: true, slidesToScroll: 1, duration: 45 }}
         className="w-full"
       >
-        <CarouselContent className="-ml-[30px]">
+        <CarouselContent className="-ml-5 py-2 md:-ml-7">
           {images.map((image) => (
             <CarouselItem
               key={image.src}
-              className="basis-full pl-[30px] md:basis-1/2 lg:basis-1/3"
+              className="basis-full pl-5 md:basis-1/2 md:pl-7 lg:basis-1/3"
             >
               <SiteVisitCard image={image} />
             </CarouselItem>
@@ -668,7 +743,8 @@ const SITE_VISIT_IMAGES: SiteVisitImage[] = Object.entries(SITE_VISIT_ASSETS)
     alt: "KFW TNUIFSL and Anna University teams visit",
     headline:
       "KFW, TNUIFSL, and Anna University teams visit Zigma's Kodungaiyur dumpsite mining facility.",
-  });
+  })
+  .sort((a, b) => Number(Boolean(b.headline)) - Number(Boolean(a.headline)));
 
 /*
 const SITE_VISIT_IMAGES_LEGACY: SiteVisitImage[] = [
@@ -1547,7 +1623,7 @@ const Testimonials: FC = () => {
         )}
 
         {/* SITE VISITS GALLERY */}
-        <section className="section-padding overflow-hidden bg-muted/30">
+        <section className="section-padding overflow-hidden">
           <div className="container-main text-center">
             <SectionHeader
               eyebrow="Site Visits"
