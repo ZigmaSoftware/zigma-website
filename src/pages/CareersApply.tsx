@@ -7,17 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Upload, Send } from "lucide-react";
 import { toast } from "sonner";
-import emailjs from "@emailjs/browser";
 
-// EmailJS config (replace via .env in production)
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "SERVICE_ID";
-const EMAILJS_TEMPLATE_ID =
-  import.meta.env.VITE_EMAILJS_CAREERS_TEMPLATE_ID ||
-  import.meta.env.VITE_EMAILJS_TEMPLATE_ID ||
-  "TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "PUBLIC_KEY";
-
-const CAREERS_TO_EMAIL = import.meta.env.VITE_CAREERS_TO_EMAIL || "careers@zigma.in";
+const CAREERS_MAIL_API = "https://zigma.in/zigma_website/career_mail.php";
 const MAX_RESUME_BYTES = 5 * 1024 * 1024; // 5MB
 
 const initialForm = {
@@ -34,12 +25,12 @@ const CareersApply = (): JSX.Element => {
   const [isDragOverResume, setIsDragOverResume] = useState(false);
   const [isRoleLocked, setIsRoleLocked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const formRef = useRef<HTMLFormElement | null>(null);
   const resumeInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const roleFromQuery = params.get("role")?.trim() ?? "";
+
     if (!roleFromQuery) return;
 
     setForm((prev) => ({ ...prev, role: roleFromQuery }));
@@ -49,12 +40,15 @@ const CareersApply = (): JSX.Element => {
   const isPdfFile = (file: File) =>
     file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
+
     if (!file) {
       setResumeFile(null);
       return;
@@ -90,6 +84,7 @@ const CareersApply = (): JSX.Element => {
   const handleResumeDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragOverResume(false);
+
     const file = e.dataTransfer.files?.[0] ?? null;
     if (!file) return;
 
@@ -105,7 +100,6 @@ const CareersApply = (): JSX.Element => {
 
     setResumeFile(file);
 
-    // Ensure EmailJS `sendForm` includes the dropped file by syncing it into the input element.
     if (resumeInputRef.current) {
       const dataTransfer = new DataTransfer();
       dataTransfer.items.add(file);
@@ -116,41 +110,89 @@ const CareersApply = (): JSX.Element => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!resumeFile) {
-      toast.error("Please upload your resume.");
-      return;
-    }
+    if (isSubmitting) return;
 
-    // Prevent runtime issues if EmailJS IDs were not configured
+    const submittedFullName = form.fullName.trim();
+    const submittedEmail = form.email.trim();
+    const submittedPhone = form.phone.trim();
+    const submittedRole = form.role.trim();
+    const submittedMessage = form.coverLetter.trim();
+
     if (
-      EMAILJS_SERVICE_ID === "SERVICE_ID" ||
-      EMAILJS_TEMPLATE_ID === "TEMPLATE_ID" ||
-      EMAILJS_PUBLIC_KEY === "PUBLIC_KEY"
+      !submittedFullName ||
+      !submittedEmail ||
+      !submittedPhone ||
+      !submittedRole ||
+      !submittedMessage
     ) {
-      toast.error("Email service is not configured yet. Please contact support.");
+      toast.error("Please complete all required fields.");
       return;
     }
 
-    if (!formRef.current) {
-      toast.error("Could not submit right now. Please try again.");
+    if (!resumeFile) {
+      toast.error("Please upload your resume PDF.");
       return;
     }
 
     setIsSubmitting(true);
+
     try {
-      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current, {
-        publicKey: EMAILJS_PUBLIC_KEY,
+      const payload = new FormData();
+      payload.append("fullname", submittedFullName);
+      payload.append("mail", submittedEmail);
+      payload.append("phone_no", submittedPhone);
+      payload.append("role", submittedRole);
+      payload.append("resume_pdf", resumeFile);
+      payload.append("message", submittedMessage);
+
+      if (import.meta.env.DEV) {
+        console.log("[CareersApply] career_mail request", CAREERS_MAIL_API, {
+          fullname: submittedFullName,
+          mail: submittedEmail,
+          phone_no: submittedPhone,
+          role: submittedRole,
+          resume_pdf: resumeFile.name,
+          message: submittedMessage,
+        });
+      }
+
+      const response = await fetch(CAREERS_MAIL_API, {
+        method: "POST",
+        body: payload,
       });
 
+      const responseBodyText = await response.text().catch(() => "");
+
+      if (!response.ok) {
+        throw new Error(
+          `Career mail API failed (${response.status}): ${responseBodyText}`
+        );
+      }
+
+      if (responseBodyText) {
+        const apiResult = JSON.parse(responseBodyText) as {
+          status?: string;
+          message?: string;
+        };
+
+        if (apiResult.status === "error") {
+          throw new Error(
+            apiResult.message || "Career mail API returned an error."
+          );
+        }
+      }
+
       toast.success("Your profile was submitted successfully.");
+
       setForm(initialForm);
       setResumeFile(null);
       setIsRoleLocked(false);
+
       if (resumeInputRef.current) {
         resumeInputRef.current.value = "";
       }
     } catch (error) {
-      console.error("EmailJS submission failed:", error);
+      console.error("Career mail submission failed:", error);
       toast.error("Could not submit your application. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -160,6 +202,7 @@ const CareersApply = (): JSX.Element => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+
       <main className="scroll-pt-24">
         <section className="section-padding bg-white pt-28">
           <div className="container-main max-w-3xl">
@@ -167,31 +210,21 @@ const CareersApply = (): JSX.Element => {
               <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground">
                 Career Application
               </p>
+
               <h1 className="mt-3 text-3xl md:text-4xl font-semibold text-foreground leading-tight">
                 Send Your <span className="text-primary">Profile</span>
               </h1>
+
               <p className="mt-4 text-muted-foreground">
-                Fill in your details and upload your resume. Our team will contact you for relevant opportunities.
+                Fill in your details and upload your resume. Our team will
+                contact you for relevant opportunities.
               </p>
             </div>
 
             <form
-              ref={formRef}
               onSubmit={handleSubmit}
               className="mt-8 space-y-4 border border-border bg-card p-5 md:p-6"
             >
-              <input
-                type="hidden"
-                name="subject"
-                value={`Career Application${form.role.trim() ? ` - ${form.role.trim()}` : ""}`}
-              />
-              <input type="hidden" name="to_email" value={CAREERS_TO_EMAIL} />
-              <input type="hidden" name="reply_to" value={form.email.trim()} />
-              <input type="hidden" name="from_name" value={form.fullName.trim()} />
-              <input type="hidden" name="from_email" value={form.email.trim()} />
-              <input type="hidden" name="from_phone" value={form.phone.trim()} />
-              <input type="hidden" name="role" value={form.role.trim()} />
-              <input type="hidden" name="message" value={form.coverLetter.trim()} />
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="fullName">Full Name *</Label>
@@ -204,6 +237,7 @@ const CareersApply = (): JSX.Element => {
                     required
                   />
                 </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone *</Label>
                   <Input
@@ -232,7 +266,7 @@ const CareersApply = (): JSX.Element => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="role">Role You Are Applying For</Label>
+                <Label htmlFor="role">Role You Are Applying For *</Label>
                 <Input
                   id="role"
                   name="role"
@@ -240,7 +274,9 @@ const CareersApply = (): JSX.Element => {
                   onChange={handleInputChange}
                   placeholder="Example: Project Engineer"
                   readOnly={isRoleLocked}
+                  required
                 />
+
                 {isRoleLocked && (
                   <p className="text-xs text-muted-foreground">
                     This role was selected from the Careers page.
@@ -250,6 +286,7 @@ const CareersApply = (): JSX.Element => {
 
               <div className="space-y-2">
                 <Label htmlFor="resumeUpload">Upload Resume *</Label>
+
                 <div
                   onDragOver={handleResumeDragOver}
                   onDragLeave={handleResumeDragLeave}
@@ -263,25 +300,34 @@ const CareersApply = (): JSX.Element => {
                   <input
                     id="resumeUpload"
                     type="file"
-                    name="resume"
+                    name="resume_pdf"
                     accept=".pdf,application/pdf"
                     className="absolute inset-0 cursor-pointer opacity-0"
                     ref={resumeInputRef}
                     onChange={handleResumeUpload}
+                    required
                   />
+
                   <span className="inline-flex items-center gap-1 text-primary text-sm font-medium">
                     <Upload className="h-4 w-4" />
                     Drag & Drop Resume
                   </span>
+
                   <span className="mt-1.5 px-2 text-sm text-muted-foreground">
                     {resumeFile ? resumeFile.name : "or click to browse file"}
                   </span>
-                  <span className="mt-1 text-sm text-muted-foreground/80">PDF only</span>
+
+                  <span className="mt-1 text-sm text-muted-foreground/80">
+                    PDF only, max 5MB
+                  </span>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="coverLetter">Why are you a fit for this role? *</Label>
+                <Label htmlFor="coverLetter">
+                  Why are you a fit for this role? *
+                </Label>
+
                 <Textarea
                   id="coverLetter"
                   name="coverLetter"
@@ -303,6 +349,7 @@ const CareersApply = (): JSX.Element => {
           </div>
         </section>
       </main>
+
       <Footer />
     </div>
   );
