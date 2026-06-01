@@ -120,6 +120,10 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByFileName('tirupathi before.png'),
     afterImage: getProjectImageByFileName('tirupathi before after.png'),
   },
+  [normalizeProjectKey('Tirupati Tirumala Devasthanams')]: {
+    beforeImage: getProjectImageByRelativePath('private projects/1. TTD_Before-28-02-2022.webp'),
+    afterImage: getProjectImageByRelativePath('private projects/3. TTD_After-17-04-2025.webp'),
+  },
   [normalizeProjectKey('Chidambaram')]: {
     beforeImage: getProjectImageByFileName('chidambaram before.png'),
     afterImage: getProjectImageByFileName('chidambaram after.png'),
@@ -269,8 +273,8 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     afterImage: PLACEHOLDER_IMAGE,
   },
   [normalizeProjectKey('Paschim Boragaon- Guwahati')]: {
-    beforeImage: getProjectImageByFileName('Guwahati-Before.JPG.jpeg'),
-    afterImage: PLACEHOLDER_IMAGE,
+    beforeImage: getProjectImageByFileName('Boragaon_Before_19.07.2022.JPG.webp'),
+    afterImage: getProjectImageByFileName('Boragaon_After_12.05.2026.JPG.webp'),
   },
   [normalizeProjectKey('Belortol Guwahati')]: {
     beforeImage: getProjectImageByFileName('Belortol.jpeg'),

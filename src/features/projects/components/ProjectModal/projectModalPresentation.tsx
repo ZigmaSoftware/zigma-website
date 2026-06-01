@@ -15,6 +15,7 @@ import apurbanLogo from "@/assets/icons/apurban_logo.webp";
 import iitgLogo from "@/assets/icons/iitg_logo.webp";
 import itcLimitedLogo from "@/assets/icons/ITC_Limited_Logo.webp";
 import isacLogo from "@/assets/icons/isac-100pxlogo.webp";
+import jagtapLogo from "@/assets/icons/jagtap logo.jpg";
 import jnnurmLogo from "@/assets/icons/JnNURM_logo.png";
 import kpmgLogo from "@/assets/icons/KPMG.png";
 import kswmpLogo from "@/assets/icons/KSWMP.png";
@@ -34,6 +35,7 @@ import smartCityLogo from "@/assets/icons/Smart-City--768x795.webp";
 import smartCitiesMissionLogo from "@/assets/icons/Smart City Logo.webp";
 import tamilnaduPollutionControlBoardLogo from "@/assets/icons/Tamilnadu Pollution Control Board.webp";
 import tnLogo from "@/assets/icons/TN-logo.webp";
+import vaxConsultantsLogo from "@/assets/icons/vax-consultants-logo-120x120.png";
 import tambaramUlbLogo from "@/assets/ULB Logos/Tambaram.webp";
 import cuddaloreLogo from "@/assets/ULB Logos/Cuddlore.webp";
 import dindigulLogo from "@/assets/ULB Logos/Dindugal.png";
@@ -318,6 +320,25 @@ export const getProjectManagementConsultantLogo = (
     return {
       src: iitgLogo,
       alt: "Indian Institute of Technology, Guwahati logo",
+      className: "relative h-12 w-12 object-contain mb-4",
+    };
+  }
+
+  if (normalizedConsultant.includes("jagtap and associates, nagpur")) {
+    return {
+      src: jagtapLogo,
+      alt: "Jagtap and Associates, Nagpur logo",
+      className: "relative h-12 w-12 object-contain mb-4",
+    };
+  }
+
+  if (
+    normalizedConsultant.includes("vax consultants, seethamdhara, visakhapatnam") ||
+    normalizedConsultant.includes("vax consultants")
+  ) {
+    return {
+      src: vaxConsultantsLogo,
+      alt: "VAX Consultants logo",
       className: "relative h-12 w-12 object-contain mb-4",
     };
   }

@@ -467,7 +467,7 @@ const COMPLETED_ROWS: ProjectSheetRowWithStatus[] = [
     status: 'completed',
   },
   {
-    title: "Perungudi - Chennai",
+    title: "Perungudi Phase  1 - Chennai",
     state: "Tamilnadu",
     waste: 1730584.23,
     land: 94.31,
@@ -952,17 +952,7 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
   //   credibility: null,
   //   status: 'ongoing',
   // },
-  {
-    title: "Belortol Guwahati",
-    state: "Assam",
-    waste: 450000,
-    land: null,
-    co2: 311625,
-    start: "Not available",
-    end: "Ongoing",
-    credibility: null,
-    status: 'ongoing',
-  },
+
   {
     title: "Paschim Boragaon- Guwahati",
     state: "Assam",
@@ -974,11 +964,24 @@ const ONGOING_ROWS: ProjectSheetRowWithStatus[] = [
     credibility: "The project was executed on the banks of Deepor Beel which is a RAMSAR identified site and is the largest landfill mining project executed in the state till date. The project is monitored by the Hon. National Green Tribunal.",
     status: 'ongoing',
   },
+
+    {
+    title: "Belortol Guwahati",
+    state: "Assam",
+    waste: 450000,
+    land: null,
+    co2: 311625,
+    start: "Not available",
+    end: "Ongoing",
+    credibility: null,
+    status: 'ongoing',
+  },
 ];
 
 /**
  * Transform sheet row to project
  */
+
 const transformRowToProject = (
   row: ProjectSheetRowWithStatus,
   id: number,
