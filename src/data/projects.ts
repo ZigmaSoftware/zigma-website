@@ -656,8 +656,8 @@ export const PROJECTS: ProjectEntry[] = [
   {
     id: "perungudi-chennai",
     index: 30,
-    name: "Perungudi- Chennai",
-    location: "Perungudi- Chennai",
+    name: "Perungudi Phase  1 - Chennai",
+    location: "Perungudi Phase  1 - Chennai",
     state: "Tamilnadu",
     wasteProcessed: 1730584.23,
     landReclaimed: 94.31,

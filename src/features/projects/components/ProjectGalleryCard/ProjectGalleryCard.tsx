@@ -38,10 +38,9 @@ import pdgPackage5Before from '@/assets/before after projects/PDG/PDG-Package5-B
 import pdgPackage5After from '@/assets/before after projects/PDG/PDG-Package5-After.webp';
 import makarpuraZone1Before from '@/assets/before after projects/Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone1-before.jpeg';
 import makarpuraZone1After from '@/assets/before after projects/Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone1-After.jpeg';
-import makarpuraZone2Before from '@/assets/before after projects/Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone2-Bofore.jpeg';
-import makarpuraZone2After from '@/assets/before after projects/Makarpura-phase-1/Makarpura-Vadodara-Phase-1-zone2-After.jpeg';
+import makarpuraZone2Before from '@/assets/before after projects/Makarpura-phase-1/Makarpura-SLF 1-Before (18-07-2020).webp';
+import makarpuraZone2After from '@/assets/before after projects/Makarpura-phase-1/Makarpura-SLF2-After31-03-2022.webp';
 import makarpuraPhase2Before from '@/assets/before after projects/Makarpura-phase-2/Makarpura-phase-2-before.jpeg';
-import makarpuraPhase2After from '@/assets/before after projects/Makarpura-phase-2/Makarpura-phase-2-after.jpeg';
 
 
 interface ProjectGalleryCardProps {
@@ -284,7 +283,7 @@ const GALLERY_CONFIG: Record<
     ],
   },
   'perungudi-chennai': {
-    title: 'Perungudi - Chennai',
+    title: 'Perungudi Phase  1 - Chennai',
     state: 'Tamilnadu',
     metrics: [
       { key: 'waste', label: 'Waste Processed', title: 'Waste Processed', value: '1,730,584.23', unit: 'TONS' },
@@ -366,8 +365,8 @@ const GALLERY_CONFIG: Record<
     state: 'Gujarat',
     defaultView: {
       beforeImage: makarpuraPhase2Before,
-      afterImage: makarpuraPhase2After,
-      isComparison: true,
+      afterImage: makarpuraPhase2Before,
+      isComparison: false,
       showOngoingBadge: true,
     },
     metrics: [

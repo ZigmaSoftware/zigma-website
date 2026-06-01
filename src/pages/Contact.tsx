@@ -117,7 +117,8 @@ const Contact = () => {
       address:
         "178, Indhu Nagar, Palayapalayam, Perundurai Road, Erode - 638012, Tamil Nadu, India",
       mapUrl:
-        "https://www.google.com/maps/search/?api=1&query=178+Indhu+Nagar+Palayapalayam+Perundurai+Road+Erode+638012",
+           "https://maps.app.goo.gl/Ec4z5pudFxasqnsa7"
+,
     },
      {
       title: "Chennai, India",

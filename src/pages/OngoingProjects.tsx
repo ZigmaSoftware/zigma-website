@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import {
   ProjectCard,
-  ProjectModal,
   StateFilter,
 } from '@/features/projects/components';
 import { useProjectFilter } from '@/features/projects/hooks/useProjectFilter';
 import { getOngoingProjects } from '@/features/projects/data/projects';
+
+const ProjectModal = lazy(() => import('@/features/projects/components/ProjectModal/ProjectModal'));
 
 interface OngoingProjectsProps {
   hideLayout?: boolean;
@@ -70,7 +71,9 @@ const OngoingProjects: React.FC<OngoingProjectsProps> = ({
 
       {/* Modal */}
       {activeProject && (
-        <ProjectModal project={activeProject} onClose={() => setModalId(null)} />
+        <Suspense fallback={null}>
+          <ProjectModal project={activeProject} onClose={() => setModalId(null)} />
+        </Suspense>
       )}
 
       {!hideLayout && <Footer />}
