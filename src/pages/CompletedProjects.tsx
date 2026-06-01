@@ -1,16 +1,17 @@
-import React, { useMemo, useState } from 'react';
+import React, { Suspense, lazy, useMemo, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import {
   ProjectCard,
   ProjectGalleryCard,
-  ProjectModal,
   StateFilter,
 } from '@/features/projects/components';
 import { ProjectGalleryVariant } from '@/features/projects/components/ProjectGalleryCard/ProjectGalleryCard';
 import { useProjectFilter } from '@/features/projects/hooks/useProjectFilter';
 import { getAllProjects } from '@/features/projects/data/projects';
 import { normalizeProjectKey } from '@/features/projects/utils/dataProcessing';
+
+const ProjectModal = lazy(() => import('@/features/projects/components/ProjectModal/ProjectModal'));
 
 interface CompletedProjectsProps {
   hideLayout?: boolean;
@@ -29,7 +30,7 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
       [normalizeProjectKey('Nagpur- Phase 2')]: 'nagpur-phase-2',
       [normalizeProjectKey('Atladara- Vadodara')]: 'atladara-vadodara',
       [normalizeProjectKey('Vendipalayam- Erode')]: 'vendipalayam-erode',
-      [normalizeProjectKey('Perungudi- Chennai')]: 'perungudi-chennai',
+      [normalizeProjectKey('Perungudi Phase  1 - Chennai')]: 'perungudi-chennai',
       [normalizeProjectKey('Kodungaiyur- Chennai')]: 'kodungaiyur-chennai',
       [normalizeProjectKey('Makarpura- Vadodara- Phase 1')]: 'makarpura-vadodara-phase-1',
       [normalizeProjectKey('Makarpura- Vadodara- Phase 2')]: 'makarpura-vadodara-phase-2',
@@ -110,7 +111,9 @@ const CompletedProjects: React.FC<CompletedProjectsProps> = ({
 
       {/* Modal */}
       {activeProject && (
-        <ProjectModal project={activeProject} onClose={() => setModalId(null)} />
+        <Suspense fallback={null}>
+          <ProjectModal project={activeProject} onClose={() => setModalId(null)} />
+        </Suspense>
       )}
 
       {!hideLayout && <Footer />}

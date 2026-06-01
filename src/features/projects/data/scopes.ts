@@ -28,7 +28,7 @@ export const OFFICIAL_SCOPE_BY_KEY: Record<string, string> = {
   "dindigul|tamilnadu": "Removal of Legacy Waste 200000 Cu.m through Bio mining process to Reclaim the existing site at Murugabavanam in Dindigul City Municipal Corporation",
   "visakhapatnam- phase 1|andhra pradesh": "Remediation of existing MSW dumpsite at Kapulappada Dumping Site through Bio-Mining Process in Greater Visakhapatnam Municipal Corporation on \"Design-Build-Operate (DBO)",
   "makarpura- vadodara- phase 1|gujarat": "Biomining of the Legacy waste at Existing Landfill site located at R.S.346 Makarpura Landfill Site using scientific methods for Vadodara Municipal Corporation",
-  "perungudi- chennai|tamilnadu": "Reclamation of Perungudi Dumping Ground through Bio-Mining",
+  "Perungudi Phase  1 - Chennai|tamilnadu": "Reclamation of Perungudi Dumping Ground through Bio-Mining",
   "puducherry|puducherry": "Disposal of legacy waste from the existing Kurumbapet dumping site, through Bioremediation & Bio-mining means with complete reclamation of the dumpsite land in compliance with Solid Waste Management (Management & Handling) Rules 2016 on Design, Build, Finance, Own and Operate model",
   "kollam|Keralam": "Bio-Mining and Scientific Closure of Legacy Wastes at the Dumpsite in Kureepuzha, Kollam",
   "nagpur- phase 2|maharashtra": "Bio-mining of existing old dumped waste at Bhandewadi, Nagpur",

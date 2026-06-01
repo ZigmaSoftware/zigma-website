@@ -456,6 +456,8 @@ const SITE_VISIT_HEADLINES: Record<string, string> = {
     "AIILSG Nagpur students and faculty visit Zigma's Bhandewadi Bio-Mining Facility to learn about legacy waste processing and sustainable waste management.",
   "Gurukul students visit.webp":
     "Sanskriti The Gurukul students visit Boragaon Landfill and Zigma Recycling Plant to learn about sustainable waste management.",
+  "Grace Fu Minister for Envt , Singapore . PDG.jpeg":
+    "Ms. Grace Fu, Minister for Sustainability and the Environment, Singapore, visited Zigma's Perungudi Biomining Facility in Chennai.",
   "IAS Trainee Visit.webp":
     "LBSNAA trainee IAS officers visit Zigma's Makarpura biomining site to learn about sustainable waste management and environmental restoration.",
   "Leadership Visit.webp":
@@ -508,12 +510,18 @@ const SITE_VISIT_HEADLINES: Record<string, string> = {
     "TTD Chairman Sri B.R. Naidu visited Zigma Plant and the Kakulamanu Dibba dumping yard in Tirumala to review sustainable waste management and recycling initiatives.",
   "Shri C. M. Saikanth Varma, IAS, Commissioner,.webp":
     "Shri C. M. Saikanth Varma, IAS, Commissioner, Greater Visakhapatnam Municipal Corporation, along with GVMC officials, visited Zigma's Kapulappada Biomining Facility in Visakhapatnam.",
+  "Shri Jayanta Malla Baruah, Hon’ble Minister for Urban Development, Government of Assam, visited Zigma’s Guwahati Biomining.jpeg":
+    "Shri Jayanta Malla Baruah, Hon'ble Minister for Urban Development, Government of Assam, visited Zigma's Guwahati Biomining Facility to review sustainable legacy waste management and resource recovery practices.",
   "Shri Manoj Joshi, IAS, Secretary,.jpeg":
     "Shri Manoj Joshi, IAS, Secretary, Ministry of Housing and Urban Affairs (MoHUA), along with senior officials from the Government of Assam and Guwahati Municipal Corporation, visited Zigma's Boragaon Biomining Facility in Guwahati to review ongoing biomining operations.",
+  "Shri Ashwini Kumar Tewari, Managing Director - SBI.webp":
+    "Mr. Ashwini Kumar Tewari, Managing Director of the State Bank of India, visited Zigma's Noida Biomining Facility to gain insights into sustainable legacy waste management and resource recovery practices.",
   "Shiv Das Meena - IAS - Additional Chief Secretary to Government, Municipal Administration.jpg":
     "Thiru Shiv Das Meena, IAS, Additional Chief Secretary, Municipal Administration and Water Supply Department, Government of Tamil Nadu, and Thiru P. Ponniah, IAS, Director of Municipal Administration, along with Tiruchirappalli Municipal Corporation officials, visited Zigma's Tiruchirappalli Biomining Facility on 12 January 2022.",
   "Shiv Das Meena - IAS - Secretary to Government, Municipal Administration & Water Supply, Government of Tamil Nadu and Thiru..webp":
     "Thiru Shiv Das Meena, IAS, Secretary to Government, Municipal Administration and Water Supply Department, and Thiru Gagandeep Singh Bedi, IAS, Commissioner, Greater Chennai Corporation, along with GCC officials, visited Zigma's Perungudi Biomining Facility on 25 January 2022.",
+  "Smt. Roopa Mishra, IAS, Joint Secretary, Ministry of Housing.jpeg":
+    "Smt. Roopa Mishra, IAS, Joint Secretary, Ministry of Housing and Urban Affairs (MoHUA), Government of India, and National Mission Director, Swachh Bharat Mission-Urban (SBM-U), visited Zigma's Perungudi Biomining Facility in Chennai.",
   "Tamsyn Barton, Chief Commissioner of the United Kingdom’s.webp":
     "Tamsyn Barton, Chief Commissioner of the United Kingdom's Independent Commission for Aid Impact, visited Zigma's Perungudi Biomining Facility in Chennai on 9 February 2024.",
   "𝑪𝒉𝒆𝒏𝒏𝒂𝒊 𝒕𝒂𝒌𝒆𝒔 𝒂 𝒈𝒊𝒂𝒏𝒕 𝒍𝒆𝒂𝒑 𝒕𝒐𝒘𝒂𝒓𝒅𝒔 𝒔𝒖𝒔𝒕𝒂𝒊𝒏𝒂𝒃𝒍𝒆 𝒘𝒂𝒔𝒕e.webp":
@@ -523,6 +531,11 @@ const SITE_VISIT_HEADLINES: Record<string, string> = {
   "IIT Madras, IIT Guwahati, IISc Bangalore, IIT BHU, and Saahas NGO.webp":
     "Academic and Industry Experts Visit Zigma's Kodungaiyur Biomining Site. A technical exchange on scientific biomining, resource recovery, and legacy waste remediation",
 };
+
+SITE_VISIT_HEADLINES[
+  "Dr. M. C. Dathan, Scientific Advisor to Chief Minister of Kerala at our Kollam biomining.webp"
+] =
+  "Dr. M. C. Dathan, Scientific Advisor to the Chief Minister of Kerala, along with representatives from Kollam Municipal Corporation, visited Zigma's Kollam Biomining Facility to review sustainable legacy waste management practices.";
 
 const formatSiteVisitAlt = (assetPath: string): string => {
   const fileName = assetPath.split("/").pop()?.replace(/\.[^.]+$/, "") ?? "visit";

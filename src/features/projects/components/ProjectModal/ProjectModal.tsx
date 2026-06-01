@@ -10,6 +10,7 @@ import {
   getProjectManagementConsultantLogo,
   getSupportedByLogo,
   normalizeProjectModalValue,
+  type ProjectModalLogo,
 } from "./projectModalPresentation";
 
 // ============ Types ============
@@ -23,6 +24,12 @@ interface ProjectModalProps {
   onClose: () => void;
 }
 
+interface ProjectDetailCard {
+  label: string;
+  value: string;
+  logo: ProjectModalLogo | null;
+}
+
 // ============ Style Constants ============
 const SIZES = {
   modalWidth: "max-w-[1100px]",
@@ -30,6 +37,22 @@ const SIZES = {
 };
 
 // ============ Sub-Components ============
+
+const DetailLogo = ({ logo }: { logo: ProjectModalLogo }) => (
+  <div className="relative flex h-20 w-20 flex-shrink-0 items-center justify-center">
+    <img
+      src={credibilityBg}
+      alt=""
+      className="absolute inset-0 h-full w-full object-contain opacity-80"
+    />
+    <img
+      src={logo.src}
+      alt={logo.alt}
+      loading="lazy"
+      className={logo.className ?? "relative h-12 w-12 object-contain mb-3"}
+    />
+  </div>
+);
 
 /** Header with title, location badge, and close button */
 interface ModalHeaderProps {
@@ -64,9 +87,10 @@ const ModalHeader = ({ title, state, onClose }: ModalHeaderProps) => (
 /** Project brief section */
 interface ProjectBriefProps {
   description: string;
+  inlineDetail?: ProjectDetailCard | null;
 }
 
-const ProjectBrief = ({ description }: ProjectBriefProps) => (
+const ProjectBrief = ({ description, inlineDetail }: ProjectBriefProps) => (
   <section>
     <div className="mb-4 flex items-center gap-2">
       <span className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1f4c8a]">
@@ -75,101 +99,117 @@ const ProjectBrief = ({ description }: ProjectBriefProps) => (
     </div>
     <div className="rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6 sm:px-8">
       <p className="text-base leading-relaxed text-[#394450]">{description}</p>
+      {inlineDetail && (
+        <div className="mt-5 border-t border-[#ced6df] pt-5">
+          <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left">
+            {inlineDetail.logo && <DetailLogo logo={inlineDetail.logo} />}
+            <div className="min-w-0">
+              <p className="text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+                {inlineDetail.label}
+              </p>
+              <p className="mt-1 text-lg leading-snug text-[#394450]">{inlineDetail.value}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   </section>
 );
 
 /** Project details section (Authority, Support, Consultant) */
 interface ProjectDetailsProps {
-  executingAuthority?: string | null;
-  supportedBy?: string | null;
-  projectManagementConsultant?: string | null;
+  detailItems: ProjectDetailItem[];
 }
 
-const ProjectDetailsSection = ({
+interface ProjectDetailItem {
+  label: string;
+  value?: string | null;
+  logo: ProjectModalLogo | null;
+}
+
+const getSupportedByLabel = (supportedBy?: string | null) => {
+  const normalizedSupportedBy = supportedBy?.trim().toLowerCase() ?? "";
+  return normalizedSupportedBy.includes("world bank") ? "Funded By" : "Supported By";
+};
+
+const hasProjectDetailValue = (value?: string | null) => {
+  const normalizedValue = value?.trim().toLowerCase() ?? "";
+  return normalizedValue !== "" && normalizedValue !== "not available";
+};
+
+const buildProjectDetailItems = ({
   executingAuthority,
   supportedBy,
   projectManagementConsultant,
-}: ProjectDetailsProps) => {
-  const authorityLogo = getAuthorityLogo(executingAuthority);
-  const supportedByLogo = getSupportedByLogo(supportedBy);
-  const projectManagementConsultantLogo = getProjectManagementConsultantLogo(projectManagementConsultant);
+}: {
+  executingAuthority?: string | null;
+  supportedBy?: string | null;
+  projectManagementConsultant?: string | null;
+}): ProjectDetailItem[] =>
+  [
+    {
+      label: "Executing Authority",
+      value: executingAuthority,
+      logo: getAuthorityLogo(executingAuthority),
+    },
+    {
+      label: getSupportedByLabel(supportedBy),
+      value: supportedBy,
+      logo: getSupportedByLogo(supportedBy),
+    },
+    {
+      label: "Project Management Consultant",
+      value: projectManagementConsultant,
+      logo: getProjectManagementConsultantLogo(projectManagementConsultant),
+    },
+  ].filter((item) => hasProjectDetailValue(item.value));
+
+const ProjectDetailsSection = ({ detailItems }: ProjectDetailsProps) => {
+  const visibleCardCount = detailItems.length;
+  if (visibleCardCount <= 1) return null;
+
+  const gridColumnsClass =
+    visibleCardCount === 1
+      ? "md:grid-cols-1"
+      : visibleCardCount === 2
+        ? "md:grid-cols-2"
+        : "md:grid-cols-3";
+  const detailCardClass =
+    visibleCardCount === 1
+      ? "mx-auto flex h-full min-h-[150px] w-full max-w-[640px] flex-col items-center justify-center rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-5"
+      : "flex h-full min-h-[220px] flex-col items-center justify-center rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6";
 
   return (
-
-    // Excuting Authority, Supported By, Project Management Consultant cards
-
     <section>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="flex h-full min-h-[220px] flex-col items-center justify-center rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
-          <p className="mb-2 whitespace-nowrap text-center text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
-            Executing Authority
-          </p>
-          <p className="text-center text-base text-[#394450]">{normalizeProjectModalValue(executingAuthority)}</p>
-          {authorityLogo && (
-            <div className="mt-4 flex justify-center">
-              <div className="relative flex h-24 w-24 items-center justify-center">
-                <img
-                  src={credibilityBg}
-                  alt=""
-                  className="absolute inset-0 h-full w-full object-contain opacity-80"
-                />
-                <img
-                  src={authorityLogo.src}
-                  alt={authorityLogo.alt}
-                  loading="lazy"
-                  className={authorityLogo.className ?? "relative  h-14 w-14 object-contain mb-4"}
-                />
+      <div className={`grid grid-cols-1 gap-4 ${gridColumnsClass}`}>
+        {detailItems.map((detail) => (
+          <div
+            key={detail.label}
+            className={detailCardClass}
+          >
+            <p className="mb-2 whitespace-nowrap text-center text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+              {detail.label}
+            </p>
+            <p className="text-center text-base text-[#394450]">{normalizeProjectModalValue(detail.value)}</p>
+            {detail.logo && (
+              <div className="mt-4 flex justify-center">
+                <div className="relative flex h-24 w-24 items-center justify-center">
+                  <img
+                    src={credibilityBg}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-contain opacity-80"
+                  />
+                  <img
+                    src={detail.logo.src}
+                    alt={detail.logo.alt}
+                    loading="lazy"
+                    className={detail.logo.className ?? "relative h-14 w-14 object-contain mb-4"}
+                  />
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-        <div className="flex h-full min-h-[220px] flex-col items-center justify-center rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
-          <p className="mb-2 whitespace-nowrap text-center text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
-            Supported By
-          </p>
-          <p className="text-center text-base text-[#394450]">{normalizeProjectModalValue(supportedBy)}</p>
-          {supportedByLogo && (
-            <div className="mt-4 flex justify-center">
-              <div className="relative flex h-24 w-24 items-center justify-center">
-                <img
-                  src={credibilityBg}
-                  alt=""
-                  className="absolute inset-0 h-full w-full object-contain opacity-80"
-                />
-                <img
-                  src={supportedByLogo.src}
-                  alt={supportedByLogo.alt}
-                  loading="lazy"
-                  className="relative h-14 w-14 object-contain mb-4"
-                />
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="flex h-full min-h-[220px] flex-col items-center justify-center rounded-[14px] border border-[#ced6df] bg-[#eceff3] px-6 py-6">
-          <p className="mb-2 whitespace-nowrap text-center text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
-            Project Management Consultant
-          </p>
-          <p className="text-center text-base text-[#394450]">{normalizeProjectModalValue(projectManagementConsultant)}</p>
-          {projectManagementConsultantLogo && (
-            <div className="mt-4 flex justify-center">
-              <div className="relative flex h-24 w-24 items-center justify-center ">
-                <img
-                  src={credibilityBg}
-                  alt=""
-                  className="absolute inset-0 h-full w-full object-contain opacity-80"
-                />
-                <img
-                  src={projectManagementConsultantLogo.src}
-                  alt={projectManagementConsultantLogo.alt}
-                  loading="lazy"
-                  className={projectManagementConsultantLogo.className ?? "relative h-14 w-14 object-contain mb-4"}
-                />
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -197,31 +237,53 @@ const MarkerCard = ({ icon, text }: MarkerCardProps) =>
 /** Credibility markers section with header */
 interface CredibilityMarkersSectionProps {
   markers: CredibilityMarker[];
+  projectDetail?: ProjectDetailItem | null;
 }
 
-const CredibilityMarkersSection = ({ markers }: CredibilityMarkersSectionProps) => (
-  <section>
-    {/* Section Header with decorative leaves */}
-    <div className="mb-3 flex items-center justify-center  ">
-      <img src={leafLeft} alt="" className="h-32 w-10 object-contain opacity-85" />
-      <div className="text-center">
-        <h3 className="text-2xl uppercase font-bold tracking-[0.2em] mt-4">
-          Credibility Markers
-        </h3>
-      </div>
-      <img src={leafRight} alt="" className="h-32 w-10 object-contain opacity-85" />
+const ProjectDetailMarkerCard = ({ detail }: { detail: ProjectDetailItem }) => (
+  <div className="flex h-full items-center gap-5 rounded-lg border border-[#cae4d8] bg-white px-6 py-5 transition-all hover:shadow-md">
+    {detail.logo ? <DetailLogo logo={detail.logo} /> : null}
+    <div className="min-w-0 flex-1">
+      <p className="text-sm font-semibold uppercase tracking-wider text-[#1f4c8a]">
+        {detail.label}
+      </p>
+      <p className="mt-1 text-base leading-relaxed text-[#394450]">{normalizeProjectModalValue(detail.value)}</p>
     </div>
-
-    {/* Marker Cards Grid */}
-    <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2">
-      {markers.map((marker, index) => (
-        <div key={index} className={markers.length === 1 ? "md:col-span-2" : "h-full"}>
-          <MarkerCard icon={marker.icon} text={marker.text} />
-        </div>
-      ))}
-    </div>
-  </section>
+  </div>
 );
+
+const CredibilityMarkersSection = ({ markers, projectDetail }: CredibilityMarkersSectionProps) => {
+  const totalCards = markers.length + (projectDetail ? 1 : 0);
+
+  return (
+    <section>
+      {/* Section Header with decorative leaves */}
+      <div className="mb-3 flex items-center justify-center  ">
+        <img src={leafLeft} alt="" className="h-32 w-10 object-contain opacity-85" />
+        <div className="text-center">
+          <h3 className="mt-4 text-2xl font-bold uppercase tracking-[0.2em]">
+            Credibility Markers
+          </h3>
+        </div>
+        <img src={leafRight} alt="" className="h-32 w-10 object-contain opacity-85" />
+      </div>
+
+      {/* Marker Cards Grid */}
+      <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2">
+        {projectDetail && (
+          <div className={totalCards === 1 ? "md:col-span-2" : "h-full"}>
+            <ProjectDetailMarkerCard detail={projectDetail} />
+          </div>
+        )}
+        {markers.map((marker, index) => (
+          <div key={index} className={totalCards === 1 ? "md:col-span-2" : "h-full"}>
+            <MarkerCard icon={marker.icon} text={marker.text} />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
 
 // ============ Main Component ============
 
@@ -278,7 +340,13 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
 
   if (!project) return null;
 
+  const detailItems = buildProjectDetailItems({
+    executingAuthority: project.executingAuthority,
+    supportedBy: project.supportedBy,
+    projectManagementConsultant: project.projectManagementConsultant,
+  });
   const credibilityMarkers: CredibilityMarker[] = buildCredibilityMarkers(project);
+  const loneProjectDetail = detailItems.length === 1 ? detailItems[0] : null;
 
   return (
     // Modal Overlay
@@ -294,13 +362,12 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         {/* Content Section */}
         <div className="space-y-8 px-6 py-8 sm:px-10 sm:py-10">
           <ProjectBrief description={project.desc} />
-          <ProjectDetailsSection
-            executingAuthority={project.executingAuthority}
-            supportedBy={project.supportedBy}
-            projectManagementConsultant={project.projectManagementConsultant}
-          />
+          <ProjectDetailsSection detailItems={detailItems} />
           {credibilityMarkers.length > 0 && (
-            <CredibilityMarkersSection markers={credibilityMarkers} />
+            <CredibilityMarkersSection markers={credibilityMarkers} projectDetail={loneProjectDetail} />
+          )}
+          {credibilityMarkers.length === 0 && loneProjectDetail && (
+            <CredibilityMarkersSection markers={[]} projectDetail={loneProjectDetail} />
           )}
         </div>
       </div>

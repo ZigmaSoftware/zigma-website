@@ -525,7 +525,7 @@
                      {
                          "sno":  30,
                          "project_brief":  "Reclamation of Perungudi Dumping Ground through Bio-Mining ",
-                         "project_name":  "Perungudi- Chennai",
+                         "project_name":  "Perungudi Phase  1 - Chennai",
                          "state":  "Tamilnadu",
                          "waste_processed":  1730584.23,
                          "actual_quantity_cleared":  1730584.23,
@@ -1384,7 +1384,7 @@
                          "project_status":  "Ongoing",
                          "executing_authority":  "Kerala State Waste Management Projects (KSWMP)",
                          "supported_by":  "World Bank",
-                         "project_management_consultant":  null
+                         "project_management_consultant":  "KPMG India"
                      },
                      {
                          "sno":  70,
