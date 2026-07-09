@@ -129,7 +129,7 @@ const Vision = () => {
                 </span>
                 <p className="mt-4 text-xs md:text-sm uppercase tracking-[0.3em] text-muted-foreground">Mission</p>
                 <p className="mt-3 text-md text-muted-foreground leading-relaxed">
-                  Deliver technology-driven waste management with integrity and safety.
+                  Deliver technology-driven waste management with integrity and with inbuilt Safety, Health and Environmental Standards.
                 </p>
               </article>
             </div>

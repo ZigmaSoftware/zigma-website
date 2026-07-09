@@ -43,7 +43,11 @@ const CareersApply = (): JSX.Element => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const value = e.target.name === "phone"
+      ? e.target.value.replace(/\D/g, "")
+      : e.target.value;
+
+    setForm((prev) => ({ ...prev, [e.target.name]: value }));
   };
 
   const handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -244,6 +248,8 @@ const CareersApply = (): JSX.Element => {
                     id="phone"
                     type="tel"
                     name="phone"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     value={form.phone}
                     onChange={handleInputChange}
                     placeholder="Enter your phone number"
