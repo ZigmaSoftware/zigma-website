@@ -36,7 +36,19 @@ const withoutExtension = (name: string): string =>
 const toMatchKey = (name: string): string =>
   withoutExtension(name)
     .toLowerCase()
+    .replace(/\b(?:cover|page|coverpage)\b/g, "")
     .replace(/[^a-z0-9]+/g, "");
+
+const findCoverImageUrl = (fileName: string): string | undefined => {
+  const fileKey = toMatchKey(fileName);
+
+  return (
+    coverByBaseName[fileKey] ||
+    Object.entries(coverByBaseName).find(
+      ([coverKey]) => coverKey.includes(fileKey) || fileKey.includes(coverKey)
+    )?.[1]
+  );
+};
 
 const inferYear = (fileName: string): number | null => {
   const fullYearMatch = fileName.match(/(?:19|20)\d{2}/);
@@ -118,10 +130,9 @@ const newsletters: Newsletter[] = Object.entries(newsletterFiles)
       fileName,
       fileUrl,
       ...inferYearMonth(fileName),
-      coverImageUrl: coverByBaseName[toMatchKey(fileName)],
+      coverImageUrl: findCoverImageUrl(fileName),
     };
   })
-  .filter((newsletter) => newsletter.coverImageUrl)
   .sort((a, b) => {
     if (a.year !== b.year) return b.year - a.year;
     if (a.month !== b.month) return b.month - a.month;
@@ -270,4 +281,3 @@ const Newsletters = () => {
 };
 
 export default Newsletters;
-

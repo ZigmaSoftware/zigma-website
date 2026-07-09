@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, lazy } from "react";
+import LoadingScreen from "@/components/ui/LoadingScreen";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import Projects from "./pages/Projects";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -29,7 +30,7 @@ const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const Products = lazy(() => import("./pages/Products"));
 const Careers = lazy(() => import("./pages/Careers"));
 const CareersApply = lazy(() => import("./pages/CareersApply"));
-const Media = lazy(() => import("./pages/Media"));
+// const Media = lazy(() => import("./pages/Media"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const People = lazy(() => import("./pages/People"));
 const Projects = lazy(() => import("./pages/Projects"));
@@ -38,7 +39,7 @@ const WasteManagementShowcase = lazy(() => import("./pages/WasteManagementShowca
 // const GovernancePolicies = lazy(() => import("./pages/GovernancePolicies"));
 const Policies = lazy(() => import("./pages/Policies"));
 // const Servicescp = lazy(() => import("./pages/Servicescp"));
-const Mediacp = lazy(() => import("./pages/Mediacp"));
+// const Mediacp = lazy(() => import("./pages/Mediacp"));
 const AwardsandRecognition = lazy(() => import("./pages/AwardsandRecognition"));
 const Publications = lazy(() => import("./pages/Publications"));
 const Events = lazy(() => import("./pages/Events"));
@@ -63,6 +64,7 @@ const App = () => (
             v7_relativeSplatPath: true,
           }}
         >
+          <LoadingScreen />
           <ScrollToTop />
           <Suspense fallback={null}>
             <ScrollAnimator />
@@ -82,7 +84,7 @@ const App = () => (
               <Route path="/products" element={<Products />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/careers/apply" element={<CareersApply />} />
-              <Route path="/media" element={<Media />} />
+              {/* <Route path="/media" element={<Media />} /> */}
               <Route path="/publications" element={<Publications />} />
               <Route path="/events" element={<Events />} />
               <Route path="/newsletters" element={<Newsletters />} />
@@ -96,7 +98,7 @@ const App = () => (
               <Route path="/policies" element={<Policies />} />
               {/* <Route path="/servicescp" element={<Servicescp />} /> */}
 
-              <Route path="/mediacp" element={<Mediacp />} />
+              {/* <Route path="/mediacp" element={<Mediacp />} /> */}
               <Route path="/awardsandrecognition" element={<AwardsandRecognition />} />
               {/* <Route path="/peopledemo1" element={<Peopledemo1 />} /> */}
               {/* <Route path="/peopledemo2" element={<Peopledemo2 />} /> */}

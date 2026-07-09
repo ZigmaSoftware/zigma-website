@@ -9,8 +9,6 @@ import {
 } from "@/components/ui/carousel";
 import heroBg from "@/assets/website/hero/DA4A6583.webp";
 import sectionBg from "@/assets/website/background-1.png";
-import varunEventPoster from "@/assets/Events/varun.webp";
-import lfmEventPoster from "@/assets/Events/LFM.webp";
 
 type EventAssetItem = {
   id: string;
@@ -18,10 +16,27 @@ type EventAssetItem = {
   image: string;
 };
 
+type UpcomingEventAssetItem = EventAssetItem & {
+  eventDate: string;
+  pastFrom: string;
+};
+
+const UPCOMING_EVENT_DATE_BY_NAME: Record<string, string> = {
+  "waste_to_wealth_expo&summit.webp": "2026-07-02",
+};
+
 const EVENT_ASSETS = import.meta.glob("../assets/Events/*.{jpg,jpeg,jfif,png,webp}", {
   eager: true,
   import: "default",
 }) as Record<string, string>;
+
+const UPCOMING_EVENT_ASSETS = import.meta.glob(
+  "../assets/Events/upcoming/*.{jpg,jpeg,jfif,png,webp}",
+  {
+    eager: true,
+    import: "default",
+  },
+) as Record<string, string>;
 
 const formatGalleryTitle = (assetPath: string) =>
   assetPath
@@ -32,33 +47,48 @@ const formatGalleryTitle = (assetPath: string) =>
     .replace(/\s+/g, " ")
     .trim() ?? "Event Image";
 
+const getAssetName = (assetPath: string) => assetPath.split("/").pop() ?? "";
+
+const formatDateKey = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
+const getTodayDateKey = () => formatDateKey(new Date());
+
+const getPastFromDateKey = (eventDate: string) => {
+  const date = new Date(`${eventDate}T00:00:00`);
+  date.setDate(date.getDate() + 1);
+
+  return formatDateKey(date);
+};
+
 const EVENT_ASSET_ENTRIES = Object.entries(EVENT_ASSETS).sort(([a], [b]) => a.localeCompare(b));
 
-const UPCOMING_EVENT_ASSET_NAMES = ["varun.webp", "LFM.webp"];
-
-const DISPLAY_EVENTS: EventAssetItem[] = EVENT_ASSET_ENTRIES.filter(([assetPath]) => {
-  const assetName = assetPath.split("/").pop() ?? "";
-  return !UPCOMING_EVENT_ASSET_NAMES.includes(assetName);
-}).map(([assetPath, image]) => ({
+const PAST_EVENTS: EventAssetItem[] = EVENT_ASSET_ENTRIES.map(([assetPath, image]) => ({
   id: assetPath,
   title: formatGalleryTitle(assetPath),
   image,
 })).sort((a, b) => a.title.localeCompare(b.title));
 
-const UPCOMING_EVENT_POSTERS = [
-  {
-    id: "varun",
-    title: "Upcoming event poster",
-    image: varunEventPoster,
-  },
-  {
-    id: "lfm",
-    title: "Upcoming event poster",
-    image: lfmEventPoster,
-  },
-];
+const UPCOMING_EVENT_POSTERS: UpcomingEventAssetItem[] = Object.entries(UPCOMING_EVENT_ASSETS)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([assetPath, image]) => {
+    const eventDate = UPCOMING_EVENT_DATE_BY_NAME[getAssetName(assetPath)] ?? "9999-12-30";
 
-function UpcomingEventsSection() {
+    return {
+      id: assetPath,
+      title: formatGalleryTitle(assetPath),
+      image,
+      eventDate,
+      pastFrom: getPastFromDateKey(eventDate),
+    };
+  });
+
+function UpcomingEventsSection({ posters }: { posters: EventAssetItem[] }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -79,14 +109,14 @@ function UpcomingEventsSection() {
   }, [api]);
 
   useEffect(() => {
-    if (!api || isHovered || UPCOMING_EVENT_POSTERS.length < 2) return;
+    if (!api || isHovered || posters.length < 2) return;
 
     const autoplay = window.setInterval(() => {
       api.scrollNext();
     }, 4000);
 
     return () => window.clearInterval(autoplay);
-  }, [api, isHovered]);
+  }, [api, isHovered, posters.length]);
 
   return (
     <section className="section-padding bg-white">
@@ -101,7 +131,7 @@ function UpcomingEventsSection() {
         </div>
 
         <div
-          className="mx-auto mt-6 max-w-xs rounded-xl bg-muted/30 p-2.5 shadow-sm sm:max-w-sm md:max-w-md md:p-3"
+          className="mx-auto mt-6 w-full max-w-[240px] sm:max-w-[280px] md:max-w-xs"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -111,13 +141,13 @@ function UpcomingEventsSection() {
             className="relative"
           >
             <CarouselContent className="-ml-0">
-              {UPCOMING_EVENT_POSTERS.map((poster) => (
+              {posters.map((poster) => (
                 <CarouselItem key={poster.id} className="pl-0">
-                  <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+                  <div className="overflow-hidden rounded-lg shadow-sm">
                     <img
                       src={poster.image}
                       alt={poster.title}
-                      className="h-[350px] w-full max-w-full object-contain md:max-h-[450px]"
+                      className="h-auto max-h-[360px] w-full object-contain"
                     />
                   </div>
                 </CarouselItem>
@@ -126,7 +156,7 @@ function UpcomingEventsSection() {
           </Carousel>
 
           <div className="mt-3 flex items-center justify-center gap-2">
-            {UPCOMING_EVENT_POSTERS.map((poster, index) => (
+            {posters.map((poster, index) => (
               <button
                 key={poster.id}
                 type="button"
@@ -147,6 +177,17 @@ function UpcomingEventsSection() {
 }
 
 export default function Events(): JSX.Element {
+  const todayDateKey = getTodayDateKey();
+  const activeUpcomingEvents = UPCOMING_EVENT_POSTERS.filter(
+    (poster) => todayDateKey < poster.pastFrom,
+  );
+  const expiredUpcomingEvents = UPCOMING_EVENT_POSTERS.filter(
+    (poster) => todayDateKey >= poster.pastFrom,
+  );
+  const displayEvents = [...expiredUpcomingEvents, ...PAST_EVENTS].sort((a, b) =>
+    a.title.localeCompare(b.title),
+  );
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -175,7 +216,9 @@ export default function Events(): JSX.Element {
           </div>
         </section>
 
-        <UpcomingEventsSection />
+        {activeUpcomingEvents.length > 0 ? (
+          <UpcomingEventsSection posters={activeUpcomingEvents} />
+        ) : null}
 
         <section
           id="event-archive"
@@ -191,7 +234,7 @@ export default function Events(): JSX.Element {
             </div>
 
             <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
-              {DISPLAY_EVENTS.map((event) => (
+              {displayEvents.map((event) => (
                 <article
                   key={event.id}
                   className="group break-inside-avoid mb-8 rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
