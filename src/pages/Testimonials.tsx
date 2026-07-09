@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, FC, type ReactNode } from "react";
+import { useState, useEffect, useRef, useCallback, FC } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -8,15 +8,15 @@ import {
   Zap,
   Home,
   Award,
-  Play,
   X,
   Image,
-  MapPin,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/animation/Reveal";
 import VideosCascadeSlider from "@/components/videos/VideosCascadeSlider";
+import SectionHeader from "@/components/testimonials/SectionHeader";
+import InstagramFeedSection from "@/components/testimonials/InstagramFeedSection";
 import {
   Carousel,
   CarouselContent,
@@ -47,19 +47,7 @@ import mrAjayKapurImg from "@/assets/Testimonials/Mr. Ajay Kapur.png";
 import andersBendsenSpohrImg from "@/assets/Testimonials/Anders Bendsen Spohr.webp";
 import nelloreCommissionerVisitImg from "@/assets/people at zigma/Plants/6.webp";
 import kodungaiyurTeamsVisitImg from "@/assets/people at zigma/Plants/10.webp";
-// import andersBendsenSpohrCommentsImg from "@/assets/Testimonials/social proof/Anders Bendsen Spohr comments.jpeg";
-// import arunMaheshBabuCommentsImg from "@/assets/Testimonials/social proof/Arun Mahesh Babu IAS comments.jpeg";
-// Social proof (currently hidden/disabled on the page)
-// import socialImg1 from "@/assets/Testimonials/social proof/social.jpg";
-// import socialImg2 from "@/assets/Testimonials/social proof/social2.png";
-// import socialImg3 from "@/assets/Testimonials/social proof/social3.png";
-// import socialImg4 from "@/assets/Testimonials/social proof/social4.png";
-// import socialImg5 from "@/assets/Testimonials/social proof/social5.png";
-// import socialImg6 from "@/assets/Testimonials/social proof/social6.png";
-// import socialImg7 from "@/assets/Testimonials/social proof/social7.png";
-// import socialImg8 from "@/assets/Testimonials/social proof/social8.png";
-// import socialImg9 from "@/assets/Testimonials/social proof/social9.png";
-// import socialImg10 from "@/assets/Testimonials/social proof/social10.png";
+
 import bg from "@/assets/website/hero/Testimonials-bg.jpeg";
 
 
@@ -104,13 +92,6 @@ interface Stat {
 }
 
 type IconComponent = React.ComponentType<{ size?: number | string; className?: string }>;
-
-const SECTION_EYEBROW_CLASS =
-  "text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground";
-const SECTION_TITLE_CLASS =
-  "mt-3 text-3xl font-bold tracking-tight text-foreground leading-tight md:text-4xl";
-const SECTION_SUBTITLE_CLASS =
-  "mx-auto mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base";
 
 // Social proof wall types (currently hidden/disabled on the page)
 // type Platform = "linkedin" | "twitter";
@@ -559,36 +540,6 @@ const getSiteVisitTagline = (headline?: string): string | null => {
 
   return firstLine;
 };
-
-interface SectionHeaderProps {
-  eyebrow: string;
-  title: ReactNode;
-  description: string;
-  className?: string;
-}
-
-const SectionHeader: FC<SectionHeaderProps> = ({
-  eyebrow,
-  title,
-  description,
-  className,
-}) => (
-  <>
-    <Reveal className={cn("inline-flex items-center gap-2", className)}>
-      <span className={SECTION_EYEBROW_CLASS}>{eyebrow}</span>
-    </Reveal>
-    <Reveal className="mt-3">
-      <h2 className={SECTION_TITLE_CLASS}>{title}</h2>
-    </Reveal>
-    <Reveal
-      className="mt-3"
-      data-anim-duration="0.6"
-      data-anim-ease="power1.out"
-    >
-      <p className={SECTION_SUBTITLE_CLASS}>{description}</p>
-    </Reveal>
-  </>
-);
 
 interface SiteVisitCardProps {
   image: SiteVisitImage;
@@ -1547,7 +1498,7 @@ const Testimonials: FC = () => {
                 id: `video-${index}`,
                 title: video.title,
                 label: video.label,
-                poster: video.poster,
+                poster: videoThumbs[video.src] ?? video.poster,
                 src: video.src,
               }))}
               currentIndex={videoCascadeIndex}
@@ -1634,6 +1585,8 @@ const Testimonials: FC = () => {
             </div>
           </div>
         )}
+
+        <InstagramFeedSection />
 
         {/* SITE VISITS GALLERY */}
         <section className="section-padding overflow-hidden">

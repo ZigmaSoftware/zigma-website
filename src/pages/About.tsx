@@ -22,21 +22,20 @@ import img9 from '@/assets/website/image ewd.png';
 import img10 from '@/assets/website/hero/controll room.png';
 import img11 from '@/assets/website/hero/award12_Swachha Andhra.png';
 
-import picture1 from '@/assets/Leaders/Boopathy Dharmaraj.jpeg';
-import picture2 from '@/assets/Leaders/K P Mutharasu.jpeg';
-import picture3 from '@/assets/Leaders/ANAND THANGARAJ.png';
-import picture4 from '@/assets/Leaders/KTI.png';
-import picture5 from '@/assets/Leaders/NAGESH PRABHU.jpeg';
-import picture6 from '@/assets/Leaders/Aghoramoorthy Rajasekaran.png';
-import picture7 from '@/assets/Leaders/Sridhar Jagannathan.jpeg';
-import picture10 from '@/assets/Leaders/Prashant Singh.jpeg';
-import picture11 from '@/assets/Leaders/Shankar Raman.png';
-import picture13 from '@/assets/Leaders/Varun Boralkar.png';
-import picture14 from '@/assets/Leaders/Maran.png';
-import picture15 from '@/assets/Leaders/Senthil Annamalai.jpeg';
-import picture16 from '@/assets/Leaders/Vijayan.png';
-import picture17 from '@/assets/Leaders/Mohan kumar.png';
-import picture18 from '@/assets/Leaders/ShivashankaraPandian.jpg';
+import picture1 from '@/assets/Leaders/Boopathy Dharmaraj.webp';
+import picture2 from '@/assets/Leaders/K P Mutharasu.webp';
+import picture3 from '@/assets/Leaders/ANAND THANGARAJ.webp';
+import picture4 from '@/assets/Leaders/KTI.webp';
+import picture5 from '@/assets/Leaders/NAGESH PRABHU.webp';
+import picture6 from '@/assets/Leaders/Aghoramoorthy Rajasekaran.webp';
+import picture7 from '@/assets/Leaders/Sridhar Jagannathan.webp';
+import picture11 from '@/assets/Leaders/Shankar Raman.webp';
+import picture13 from '@/assets/Leaders/Varun Boralkar.webp';
+import picture14 from '@/assets/Leaders/Maran.webp';
+import picture15 from '@/assets/Leaders/Senthil Annamalai.webp';
+import picture16 from '@/assets/Leaders/Vijayan.webp';
+import picture17 from '@/assets/Leaders/Mohan kumar.webp';
+import picture18 from '@/assets/Leaders/ShivashankaraPandian.webp';
 
 import milestone2016 from '@/assets/Awards/award7.jpg';
 import milestone2017 from '@/assets/milestone/Chandrababu naidu handing over Vijayawada order.jpeg';
@@ -65,7 +64,9 @@ const INPUT_CLASS =
 const NAV_BUTTON_CLASS =
   'flex h-9 w-9 items-center justify-center rounded-full border-2 border-slate-300 transition-all hover:border-green-700 hover:text-green-700 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-900 lg:h-10 lg:w-10';
 const ABOUT_VIDEO_EMBED_URL =
-  'https://www.youtube.com/embed/0zmdFARwHsA?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=0zmdFARwHsA&rel=0&modestbranding=1&playsinline=1&vq=hd1080';
+  'https://www.youtube.com/embed/0zmdFARwHsA?enablejsapi=1&rel=0&modestbranding=1&playsinline=1&vq=hd1080';
+const ABOUT_VIDEO_AUTOPLAY_EMBED_URL =
+  'https://www.youtube.com/embed/0zmdFARwHsA?enablejsapi=1&autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&vq=hd1080';
 
 interface Milestone {
   year: number;
@@ -328,9 +329,11 @@ const About = (): JSX.Element => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(isReducedMotionPreferred);
   const [autoPlay, setAutoPlay] = useState(false);
   const [isMilestoneInView, setIsMilestoneInView] = useState(false);
+  const [isAboutVideoInView, setIsAboutVideoInView] = useState(false);
 
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const milestoneSectionRef = useRef<HTMLElement | null>(null);
+  const aboutVideoSectionRef = useRef<HTMLElement | null>(null);
   const heroImageRef = useRef<HTMLImageElement | null>(null);
   const milestoneImagePanelRef = useRef<HTMLDivElement | null>(null);
   const milestoneTextPanelRef = useRef<HTMLDivElement | null>(null);
@@ -424,6 +427,25 @@ const About = (): JSX.Element => {
       setIsMilestoneInView(false);
     };
   }, [prefersReducedMotion, preloadMilestoneImage, transitionToMilestone]);
+
+  useEffect(() => {
+    const section = aboutVideoSectionRef.current;
+    if (!section || prefersReducedMotion) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setIsAboutVideoInView(Boolean(entry?.isIntersecting));
+      },
+      { threshold: 0.45 },
+    );
+
+    observer.observe(section);
+    return () => {
+      observer.disconnect();
+      setIsAboutVideoInView(false);
+    };
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -778,11 +800,11 @@ const About = (): JSX.Element => {
           </div>
         </section>
 
-        <section data-no-animate className="scroll-mt-24 lg:scroll-mt-28">
+        <section ref={aboutVideoSectionRef} data-no-animate className="scroll-mt-24 lg:scroll-mt-28">
           <div className="group relative mx-auto w-full overflow-hidden border border-border shadow-xl">
             <div className="relative w-full pt-[56.25%]">
               <iframe
-                src={ABOUT_VIDEO_EMBED_URL}
+                src={isAboutVideoInView ? ABOUT_VIDEO_AUTOPLAY_EMBED_URL : ABOUT_VIDEO_EMBED_URL}
                 title="Zigma corporate video"
                 className="absolute inset-0 h-full w-full"
                 frameBorder={0}

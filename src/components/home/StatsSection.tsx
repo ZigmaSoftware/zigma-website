@@ -545,7 +545,9 @@ const ChainGraphic = ({
 const StatsSection = () => {
   const [hasAnimated, setHasAnimated] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
   const statsRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -581,9 +583,33 @@ const StatsSection = () => {
     return () => observer.disconnect();
   }, [prefersReducedMotion]);
 
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setShouldPlayVideo(false);
+      return;
+    }
+
+    const element = videoRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setShouldPlayVideo(true);
+        observer.disconnect();
+      },
+      { rootMargin: "120px 0px", threshold: 0.25 },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [prefersReducedMotion]);
+
   const videoSrc = prefersReducedMotion
     ? "https://www.youtube.com/embed/tf9xo3Q0x3Q?rel=0&modestbranding=1&playsinline=1"
-    : "https://www.youtube.com/embed/tf9xo3Q0x3Q?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=tf9xo3Q0x3Q&rel=0&modestbranding=1&playsinline=1&vq=hd1080";
+    : shouldPlayVideo
+      ? "https://www.youtube.com/embed/tf9xo3Q0x3Q?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=tf9xo3Q0x3Q&rel=0&modestbranding=1&playsinline=1&vq=hd1080"
+      : "https://www.youtube.com/embed/tf9xo3Q0x3Q?enablejsapi=1&mute=1&loop=1&playlist=tf9xo3Q0x3Q&rel=0&modestbranding=1&playsinline=1&vq=hd1080";
 
   return (
     <section className="relative isolate overflow-hidden bg-background">
@@ -619,14 +645,15 @@ const StatsSection = () => {
         </div>
       </div>
 
-      <div className="group relative mx-auto w-full overflow-hidden border border-border shadow-xl">
+      <div ref={videoRef} className="group relative mx-auto w-full overflow-hidden border border-border shadow-xl">
         <div className="relative w-full pt-[56.25%]">
           <iframe
+            key={videoSrc}
             src={videoSrc}
             title="Zigma avpn summit Video"
             className="absolute inset-0 h-full w-full"
             frameBorder={0}
-            loading="lazy"
+            loading={shouldPlayVideo ? "eager" : "lazy"}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen

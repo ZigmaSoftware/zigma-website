@@ -124,6 +124,10 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
     beforeImage: getProjectImageByRelativePath('private projects/1. TTD_Before-28-02-2022.webp'),
     afterImage: getProjectImageByRelativePath('private projects/3. TTD_After-17-04-2025.webp'),
   },
+  [normalizeProjectKey('ITC Coimbatore')]: {
+    beforeImage: getProjectImageByRelativePath('private projects/ITC_Before_19.02.2023.JPG.webp'),
+    afterImage: getProjectImageByRelativePath('private projects/ITC_After_20.12.2023.JPG.webp'),
+  },
   [normalizeProjectKey('Chidambaram')]: {
     beforeImage: getProjectImageByFileName('chidambaram before.png'),
     afterImage: getProjectImageByFileName('chidambaram after.png'),
@@ -331,6 +335,14 @@ export const IMAGE_LOOKUP: Record<string, { beforeImage: string; afterImage: str
   [normalizeProjectKey('Rayadurgam')]: {
     beforeImage: getProjectImageByFileName('Rayadurgam-Before.jpeg'),
     afterImage: getProjectImageByFileName('Rayadurgam-After.jpeg'),
+  },
+  [normalizeProjectKey('Keeramangalam')]: {
+    beforeImage: getProjectImageByFileName('Keeramangalam_Before_Jun_2023.webp'),
+    afterImage: getProjectImageByFileName('Keeramangalam_After_Sept_2023.webp'),
+  },
+  [normalizeProjectKey('Gurugram')]: {
+    beforeImage: getProjectImageByFileName('Gurugram_Before_Jan_2023.JPG.webp'),
+    afterImage: getProjectImageByFileName('Gurugram_After_Mar_2024.jpg.webp'),
   },
 };
 

@@ -122,6 +122,7 @@ const BSFLorganicwaste: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [autoIndex, setAutoIndex] = useState(0);
+  const visibleMetrics = METRICS.filter((metric) => metric.id !== 'project-status');
 
   const shouldAutoPlay =
     !hoveredSection && !selectedSection && !selectedMetric;
@@ -249,7 +250,7 @@ const BSFLorganicwaste: React.FC = () => {
         </div>
 
         <div className="flex flex-col lg:flex-1 lg:min-h-0 lg:overflow-y-auto">
-          {METRICS.map((item) => {
+          {visibleMetrics.map((item) => {
             const isActive = item.id === selectedMetric;
             return (
               <button
