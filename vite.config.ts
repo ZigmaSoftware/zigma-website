@@ -1,4 +1,5 @@
 import { defineConfig, loadEnv } from "vite";
+import type { Connect, Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
@@ -6,6 +7,31 @@ const INSTAGRAM_USERNAME = "zigma_2015";
 const INSTAGRAM_LIMIT = 100;
 let INSTAGRAM_GRAPH_USER_ID = process.env.IG_USER_ID || "";
 let INSTAGRAM_GRAPH_ACCESS_TOKEN = process.env.IG_ACCESS_TOKEN || "";
+
+interface InstagramGraphMedia {
+  id?: string;
+  caption?: string;
+  media_type?: string;
+  media_url?: string;
+  thumbnail_url?: string;
+  permalink?: string;
+  timestamp?: string;
+  like_count?: number;
+  comments_count?: number;
+}
+
+interface InstagramGraphPayload {
+  data?: InstagramGraphMedia[];
+  paging?: {
+    cursors?: {
+      after?: string;
+    };
+    next?: string;
+  };
+  error?: {
+    message?: string;
+  };
+}
 
 const encodeInstagramImageUrl = (url: string): string =>
   Buffer.from(url, "utf8").toString("base64url");
@@ -185,7 +211,7 @@ const fetchInstagramGraphPosts = async (limit: number, after: string | null) => 
   if (after) graphUrl.searchParams.set("after", after);
 
   const response = await fetch(graphUrl);
-  const payload = await response.json();
+  const payload = (await response.json()) as InstagramGraphPayload;
 
   if (!response.ok) {
     throw new Error(payload?.error?.message || `Instagram Graph API returned ${response.status}`);
@@ -234,90 +260,57 @@ const fetchInstagramGraphPosts = async (limit: number, after: string | null) => 
   return { posts, nextCursor, hasMore };
 };
 
-const instagramDevFeedPlugin = () => ({
-  name: "instagram-dev-feed",
-  configureServer(server) {
-    server.middlewares.use(async (req, res, next) => {
-      if (!req.url?.startsWith("/api/instagram-feed.php")) {
-        next();
-        return;
-      }
+const useInstagramFeedMiddleware = (middlewares: Connect.Server): void => {
+  middlewares.use(async (req, res, next) => {
+    if (!req.url?.startsWith("/api/instagram-feed.php")) {
+      next();
+      return;
+    }
 
-      try {
-        const requestUrl = new URL(req.url, "http://localhost");
-        const imageToken = requestUrl.searchParams.get("image");
+    try {
+      const requestUrl = new URL(req.url, "http://localhost");
+      const imageToken = requestUrl.searchParams.get("image");
 
-        if (imageToken) {
-          const imageUrl = decodeInstagramImageUrl(imageToken);
+      if (imageToken) {
+        const imageUrl = decodeInstagramImageUrl(imageToken);
 
-          if (!isAllowedInstagramImageUrl(imageUrl)) {
-            res.statusCode = 400;
-            res.setHeader("Content-Type", "application/json; charset=utf-8");
-            res.end(JSON.stringify({ error: "Invalid Instagram image URL." }));
-            return;
-          }
-
-          const imageResponse = await fetch(imageUrl, {
-            headers: {
-              Accept: "video/mp4,video/*,image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-              Referer: `https://www.instagram.com/${INSTAGRAM_USERNAME}/`,
-              "User-Agent": "Mozilla/5.0 (compatible; ZigmaWebsiteDev/1.0)",
-            },
-          });
-
-          if (!imageResponse.ok || !imageResponse.body) {
-            throw new Error(`Instagram image returned ${imageResponse.status}`);
-          }
-
-          const contentType = imageResponse.headers.get("content-type") || "image/jpeg";
-          const body = Buffer.from(await imageResponse.arrayBuffer());
-
-          res.statusCode = 200;
-          res.setHeader("Content-Type", contentType);
-          res.setHeader("Cache-Control", "public, max-age=900");
-          res.end(body);
-          return;
-        }
-
-        const limit = Math.max(
-          1,
-          Math.min(100, Number(requestUrl.searchParams.get("limit")) || INSTAGRAM_LIMIT)
-        );
-        const after = requestUrl.searchParams.get("after");
-
-        if (INSTAGRAM_GRAPH_USER_ID && INSTAGRAM_GRAPH_ACCESS_TOKEN) {
-          const graphFeed = await fetchInstagramGraphPosts(limit, after);
-
-          res.statusCode = 200;
+        if (!isAllowedInstagramImageUrl(imageUrl)) {
+          res.statusCode = 400;
           res.setHeader("Content-Type", "application/json; charset=utf-8");
-          res.end(
-            JSON.stringify({
-              profile: {
-                username: INSTAGRAM_USERNAME,
-                name: "Zigma Global Environ Solutions Pvt Ltd",
-                url: `https://www.instagram.com/${INSTAGRAM_USERNAME}/`,
-              },
-              source: "graph",
-              ...graphFeed,
-            })
-          );
+          res.end(JSON.stringify({ error: "Invalid Instagram image URL." }));
           return;
         }
 
-        const response = await fetch(`https://www.instagram.com/${INSTAGRAM_USERNAME}/embed`, {
+        const imageResponse = await fetch(imageUrl, {
           headers: {
-            Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.9",
+            Accept: "video/mp4,video/*,image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+            Referer: `https://www.instagram.com/${INSTAGRAM_USERNAME}/`,
             "User-Agent": "Mozilla/5.0 (compatible; ZigmaWebsiteDev/1.0)",
           },
         });
 
-        if (!response.ok) {
-          throw new Error(`Instagram returned ${response.status}`);
+        if (!imageResponse.ok || !imageResponse.body) {
+          throw new Error(`Instagram image returned ${imageResponse.status}`);
         }
 
-        const html = await response.text();
-        const posts = parseInstagramEmbed(html, limit);
+        const contentType = imageResponse.headers.get("content-type") || "image/jpeg";
+        const body = Buffer.from(await imageResponse.arrayBuffer());
+
+        res.statusCode = 200;
+        res.setHeader("Content-Type", contentType);
+        res.setHeader("Cache-Control", "public, max-age=900");
+        res.end(body);
+        return;
+      }
+
+      const limit = Math.max(
+        1,
+        Math.min(100, Number(requestUrl.searchParams.get("limit")) || INSTAGRAM_LIMIT)
+      );
+      const after = requestUrl.searchParams.get("after");
+
+      if (INSTAGRAM_GRAPH_USER_ID && INSTAGRAM_GRAPH_ACCESS_TOKEN) {
+        const graphFeed = await fetchInstagramGraphPosts(limit, after);
 
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -328,26 +321,66 @@ const instagramDevFeedPlugin = () => ({
               name: "Zigma Global Environ Solutions Pvt Ltd",
               url: `https://www.instagram.com/${INSTAGRAM_USERNAME}/`,
             },
-            source: "embed",
-            posts,
-            nextCursor: null,
-            hasMore: false,
+            source: "graph",
+            ...graphFeed,
           })
         );
-      } catch (error) {
-        res.statusCode = 502;
-        res.setHeader("Content-Type", "application/json; charset=utf-8");
-        res.end(
-          JSON.stringify({
-            error:
-              error instanceof Error
-                ? error.message
-                : "Unable to load Instagram feed in dev server.",
-            posts: [],
-          })
-        );
+        return;
       }
-    });
+
+      const response = await fetch(`https://www.instagram.com/${INSTAGRAM_USERNAME}/embed`, {
+        headers: {
+          Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "Accept-Language": "en-US,en;q=0.9",
+          "User-Agent": "Mozilla/5.0 (compatible; ZigmaWebsiteDev/1.0)",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Instagram returned ${response.status}`);
+      }
+
+      const html = await response.text();
+      const posts = parseInstagramEmbed(html, limit);
+
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      res.end(
+        JSON.stringify({
+          profile: {
+            username: INSTAGRAM_USERNAME,
+            name: "Zigma Global Environ Solutions Pvt Ltd",
+            url: `https://www.instagram.com/${INSTAGRAM_USERNAME}/`,
+          },
+          source: "embed",
+          posts,
+          nextCursor: null,
+          hasMore: false,
+        })
+      );
+    } catch (error) {
+      res.statusCode = 502;
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      res.end(
+        JSON.stringify({
+          error:
+            error instanceof Error
+              ? error.message
+              : "Unable to load Instagram feed in local server.",
+          posts: [],
+        })
+      );
+    }
+  });
+};
+
+const instagramDevFeedPlugin = (): Plugin => ({
+  name: "instagram-dev-feed",
+  configureServer(server) {
+    useInstagramFeedMiddleware(server.middlewares);
+  },
+  configurePreviewServer(server) {
+    useInstagramFeedMiddleware(server.middlewares);
   },
 });
 

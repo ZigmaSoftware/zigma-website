@@ -42,6 +42,29 @@ type InstagramFeedState = "loading" | "ready" | "empty" | "error";
 
 const DEFAULT_PROFILE_URL = "https://www.instagram.com/zigma_2015/";
 const PAGE_SIZE = 9;
+const API_URL = import.meta.env.VITE_INSTAGRAM_API_URL || "/api/instagram-feed.php";
+
+async function fetchInstagramJson(
+  url: string,
+  signal?: AbortSignal
+): Promise<InstagramFeedResponse> {
+  const response = await fetch(url, { signal });
+  const text = await response.text();
+
+  let json: InstagramFeedResponse;
+  try {
+    json = JSON.parse(text);
+  } catch (error) {
+    console.error("Instagram API did not return valid JSON:", text);
+    throw error;
+  }
+
+  if (!response.ok || json.error) {
+    throw new Error(json.error || `Instagram feed returned ${response.status}`);
+  }
+
+  return json;
+}
 
 const formatSocialCount = (value: number | null): string => {
   if (typeof value !== "number") return "";
@@ -91,14 +114,10 @@ function useInstagramFeed(): {
       isFetchingRef.current = true;
 
       try {
-        const response = await fetch(`/api/instagram-feed.php?limit=${PAGE_SIZE}`, {
-          signal: controller.signal,
-        });
-        const payload = (await response.json()) as InstagramFeedResponse;
-
-        if (!response.ok) {
-          throw new Error(payload.error || `Instagram feed returned ${response.status}`);
-        }
+        const payload = await fetchInstagramJson(
+          `${API_URL}?limit=${PAGE_SIZE}`,
+          controller.signal
+        );
 
         if (controller.signal.aborted) return;
 
@@ -140,14 +159,8 @@ function useInstagramFeed(): {
       after: cursorRef.current,
     });
 
-    fetch(`/api/instagram-feed.php?${params.toString()}`)
-      .then(async (response) => {
-        const payload = (await response.json()) as InstagramFeedResponse;
-
-        if (!response.ok) {
-          throw new Error(payload.error || `Instagram feed returned ${response.status}`);
-        }
-
+    fetchInstagramJson(`${API_URL}?${params.toString()}`)
+      .then((payload) => {
         const fetchedPosts = Array.isArray(payload.posts) ? payload.posts : [];
         setPosts((prev) => dedupePosts(prev, fetchedPosts));
         cursorRef.current = payload.nextCursor ?? null;
