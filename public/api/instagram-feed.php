@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+error_reporting(0);
+ini_set('display_errors', '0');
+
 header('Cache-Control: public, max-age=900');
 header('Content-Type: application/json; charset=utf-8');
 
