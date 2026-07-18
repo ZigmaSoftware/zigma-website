@@ -16,7 +16,7 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/animation/Reveal";
 import VideosCascadeSlider from "@/components/videos/VideosCascadeSlider";
 import SectionHeader from "@/components/testimonials/SectionHeader";
-import InstagramFeedSection from "@/components/testimonials/InstagramFeedSection";
+// import InstagramFeedSection from "@/components/testimonials/InstagramFeedSection";
 import {
   Carousel,
   CarouselContent,
@@ -1586,7 +1586,7 @@ const Testimonials: FC = () => {
           </div>
         )}
 
-        <InstagramFeedSection />
+        {/* <InstagramFeedSection /> */}
 
         {/* SITE VISITS GALLERY */}
         <section className="section-padding overflow-hidden">

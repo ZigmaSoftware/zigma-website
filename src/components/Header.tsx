@@ -365,7 +365,7 @@ const Header = () => {
     <>
       {isHeroHeaderHidden && (
         <div
-          className="fixed inset-x-0 top-0 z-[79] hidden h-10 xl:block"
+          className="fixed inset-x-0 top-0 z-[79] hidden h-10 lg:block"
           onMouseEnter={() => setIsHeroHeaderVisible(true)}
         />
       )}
@@ -401,7 +401,7 @@ const Header = () => {
           {/* DESKTOP NAV */}
 
           <nav
-            className="relative hidden xl:flex items-center justify-center gap-4 2xl:gap-8 flex-wrap"
+            className="relative hidden lg:flex items-center justify-center gap-3 xl:gap-5 2xl:gap-8 flex-wrap"
             ref={(el) => {
               dropdownRef.current = el;
               navRef.current = el;
@@ -446,7 +446,7 @@ const Header = () => {
 
                   <button
                     onMouseEnter={() => setActiveDropdown(item.name)}
-                    className={`flex items-center gap-1 py-4 text-sm font-medium transition-colors whitespace-nowrap ${
+                    className={`flex items-center gap-1 py-4 text-[13px] xl:text-sm font-medium transition-colors whitespace-nowrap ${
                       isActive(item.path)
                         ? desktopActiveNavItemClass
                         : desktopNavItemClass
@@ -466,7 +466,7 @@ const Header = () => {
 
                   <Link
                     to={item.path}
-                    className={`flex items-center py-4 text-sm font-medium transition-colors whitespace-nowrap ${
+                    className={`flex items-center py-4 text-[13px] xl:text-sm font-medium transition-colors whitespace-nowrap ${
                       isActive(item.path)
                         ? desktopActiveNavItemClass
                         : desktopNavItemClass
@@ -599,7 +599,7 @@ const Header = () => {
 
           {/* CTA */}
 
-          <div className="hidden xl:block shrink-0">
+          <div className="hidden lg:block shrink-0">
             <Button asChild>
               <Link to="/contact">Contact Us</Link>
             </Button>
@@ -608,7 +608,7 @@ const Header = () => {
           {/* MOBILE TOGGLE */}
 
           <button
-            className="xl:hidden p-2 transition-colors text-foreground"
+            className="lg:hidden p-2 transition-colors text-foreground"
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
               if (isMenuOpen) setMobileDropdown(null);
@@ -627,7 +627,7 @@ const Header = () => {
 
         <div className="container-main">
 
-          <nav className="xl:hidden py-4 border-t border-border max-h-[70vh] overflow-y-auto pb-6">
+          <nav className="lg:hidden py-4 border-t border-border max-h-[70vh] overflow-y-auto pb-6">
 
                         {navItems.map((item) => (
 

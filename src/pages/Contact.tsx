@@ -274,14 +274,14 @@ const Contact = () => {
                     onValueChange={(value) => setFormData({ ...formData, subject: value })}
                   >
                     <SelectTrigger className="h-12 w-full rounded-lg border border-border bg-transparent px-4 text-foreground [&>span]:text-foreground hover:text-green-700 hover:[&>span]:text-green-700 focus:ring-0 focus:ring-offset-0">
-                      <SelectValue placeholder="Select enquiry" />
+                      <SelectValue placeholder="Select Enquiry" />
                     </SelectTrigger>
                     <SelectContent className="rounded-lg border border-border bg-card p-1">
                       <SelectItem
                         value="1"
                         className="rounded-md px-3 py-2 pl-3 text-foreground focus:bg-transparent focus:text-green-700 data-[highlighted]:bg-transparent data-[highlighted]:text-green-700 data-[state=checked]:bg-transparent data-[state=checked]:text-foreground [&>span:first-child]:hidden"
                       >
-                        General enquiry
+                        General Enquiry
                       </SelectItem>
                       <SelectItem
                         value="2"
@@ -323,7 +323,7 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Email"
+                    placeholder="Email*"
                     required
                     className="h-12  rounded-none border-0 border-b border-border bg-transparent px-0  shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
                   />
@@ -335,6 +335,7 @@ const Contact = () => {
                     onChange={handleChange}
                     inputMode="numeric"
                     pattern="[0-9]*"
+                    maxLength={15}
                     placeholder="Contact"
                     className="h-12 rounded-none border-0 border-b border-border bg-transparent px-0 text-foreground shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
                   />

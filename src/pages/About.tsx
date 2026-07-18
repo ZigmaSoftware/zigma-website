@@ -93,7 +93,7 @@ const milestones: Milestone[] = [
       'July: Invited by the Ministry of Urban Development (Govt. of India) to present in workshops for first Swachh Survekshan 2017 for Bio-mining across 500 cities in India.',
     ],
     image: img1,
-  },
+  }, 
   {
     year: 2016,
     title: 'Early Expansion',
@@ -804,7 +804,7 @@ const About = (): JSX.Element => {
           <div className="group relative mx-auto w-full overflow-hidden border border-border shadow-xl">
             <div className="relative w-full pt-[56.25%]">
               <iframe
-                src={isAboutVideoInView ? ABOUT_VIDEO_AUTOPLAY_EMBED_URL : ABOUT_VIDEO_EMBED_URL}
+                src={ABOUT_VIDEO_EMBED_URL}
                 title="Zigma corporate video"
                 className="absolute inset-0 h-full w-full"
                 frameBorder={0}

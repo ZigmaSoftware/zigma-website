@@ -109,7 +109,10 @@ export const InstagramPostModal: FC<InstagramPostModalProps> = ({ post, onClose 
               src={post.video}
               poster={post.image}
               controls
+              autoPlay
+              preload="auto"
               playsInline
+              muted={false}
               className="h-full w-full object-contain"
             />
           ) : (

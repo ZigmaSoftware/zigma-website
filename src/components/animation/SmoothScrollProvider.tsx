@@ -36,8 +36,7 @@ const SmoothScrollProvider = ({ children }: SmoothScrollProviderProps) => {
         ]);
         gsap.registerPlugin(ScrollTrigger);
 
-        const lenisModuleName = "lenis";
-        const imported = await import(/* @vite-ignore */ lenisModuleName);
+        const imported = await import("lenis");
         const Lenis = imported.default;
 
         if (!isActive || !Lenis) return;

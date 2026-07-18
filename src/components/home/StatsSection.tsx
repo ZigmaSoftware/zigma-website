@@ -605,11 +605,10 @@ const StatsSection = () => {
     return () => observer.disconnect();
   }, [prefersReducedMotion]);
 
-  const videoSrc = prefersReducedMotion
-    ? "https://www.youtube.com/embed/tf9xo3Q0x3Q?rel=0&modestbranding=1&playsinline=1"
-    : shouldPlayVideo
-      ? "https://www.youtube.com/embed/tf9xo3Q0x3Q?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=tf9xo3Q0x3Q&rel=0&modestbranding=1&playsinline=1&vq=hd1080"
-      : "https://www.youtube.com/embed/tf9xo3Q0x3Q?enablejsapi=1&mute=1&loop=1&playlist=tf9xo3Q0x3Q&rel=0&modestbranding=1&playsinline=1&vq=hd1080";
+  // Click-to-play: never autoplay; YouTube shows its play button and the
+  // video starts only when the user clicks it.
+  const videoSrc =
+    "https://www.youtube.com/embed/tf9xo3Q0x3Q?rel=0&modestbranding=1&playsinline=1";
 
   return (
     <section className="relative isolate overflow-hidden bg-background">
