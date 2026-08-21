@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -87,7 +87,7 @@ const extractLanguageFromPath = (path: string): string => {
 };
 
 const newsAssets = Object.entries(
-  import.meta.glob("../assets/News/**/*.{jpg,jpeg,png,JPG,JPEG,PNG}", {
+  import.meta.glob("../assets/News/**/*.{webp,jpg,jpeg,png,WEBP,JPG,JPEG,PNG}", {
     eager: true,
     import: "default",
   }),
@@ -158,7 +158,7 @@ function NewsCard({ item, onClick }: NewsCardProps) {
           src={item.thumbnail}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-35 blur-smca"
+          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-35 blur-sm"
         />
         <div className="absolute left-0 top-0 z-10 h-full w-12 bg-gradient-to-r from-white/70 to-transparent" />
         <div className="absolute right-0 top-0 z-10 h-full w-12 bg-gradient-to-l from-white/70 to-transparent" />
@@ -242,6 +242,7 @@ export default function Newsroom() {
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [videoOpen, setVideoOpen] = useState(false);
   const [activeLanguage, setActiveLanguage] = useState<string>("All");
+  const filterRef = useRef<HTMLDivElement>(null);
 
   const filtered =
     activeLanguage === "All"
@@ -411,7 +412,7 @@ export default function Newsroom() {
                   </p>
                 </div>
 
-                <div className="mt-6 mb-8 flex flex-wrap justify-center gap-2">
+                <div ref={filterRef} className="mt-6 mb-8 flex flex-wrap justify-center gap-2">
                   {["All", ...AVAILABLE_LANGUAGES].map((language) => {
                     const isActive = activeLanguage === language;
                     const count =
@@ -420,7 +421,12 @@ export default function Newsroom() {
                       <button
                         key={language}
                         type="button"
-                        onClick={() => setActiveLanguage(language)}
+                        onClick={() => {
+                          setActiveLanguage(language);
+                          // A shorter result set can leave the viewport scrolled past the
+                          // grid, making the page look empty. Bring the filters back into view.
+                          filterRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }}
                         aria-pressed={isActive}
                         className={[
                           "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition",

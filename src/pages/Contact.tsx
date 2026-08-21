@@ -28,6 +28,25 @@ const MAIL_TRIGGER_URL =
   import.meta.env.VITE_CONTACT_MAIL_TRIGGER_URL ||
   "https://zigma.in/zigma_website/mail_trigger.php";
 
+const LIMITS = {
+  name: 60,
+  email: 100,
+  phone: 15,
+  message: 1000,
+} as const;
+
+type FormField = "subject" | "name" | "email" | "phone" | "message";
+
+// Visual order of the fields, used to focus the first invalid one on submit.
+const FIELD_ORDER: FormField[] = ["subject", "name", "email", "phone", "message"];
+
+const fieldClass = (hasError: boolean) =>
+  [
+    "h-12 rounded-none border-0 border-b bg-transparent px-0 text-foreground shadow-none",
+    "focus-visible:ring-0 focus-visible:ring-offset-0",
+    hasError ? "border-destructive" : "border-border",
+  ].join(" ");
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -37,45 +56,83 @@ const Contact = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<FormField, string>>>({});
+
+  const validate = (data: typeof formData) => {
+    const next: Partial<Record<FormField, string>> = {};
+
+    const name = data.name.trim();
+    const email = data.email.trim();
+    const phone = data.phone.trim();
+    const message = data.message.trim();
+
+    if (!data.subject.trim()) {
+      next.subject = "Please select an enquiry.";
+    }
+
+    if (!name) {
+      next.name = "Name is required.";
+    } else if (name.length < 2) {
+      next.name = "Name must be at least 2 characters.";
+    } else if (name.length > LIMITS.name) {
+      next.name = `Name must be ${LIMITS.name} characters or less.`;
+    } else if (!/^[A-Za-z][A-Za-z\s.'-]*$/.test(name)) {
+      next.name = "Name can only contain letters, spaces, apostrophes, hyphens and dots.";
+    }
+
+    if (!email) {
+      next.email = "Email is required.";
+    } else if (email.length > LIMITS.email) {
+      next.email = `Email must be ${LIMITS.email} characters or less.`;
+    } else if (!/^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/.test(email)) {
+      next.email = "Please enter a valid email address.";
+    }
+
+    if (!phone) {
+      next.phone = "Contact number is required.";
+    } else if (phone.length < 7 || phone.length > LIMITS.phone) {
+      next.phone = "Please enter a valid contact number (7-15 digits).";
+    }
+
+    if (!message) {
+      next.message = "Message is required.";
+    } else if (message.length < 10) {
+      next.message = "Message must be at least 10 characters.";
+    } else if (message.length > LIMITS.message) {
+      next.message = `Message must be ${LIMITS.message} characters or less.`;
+    }
+
+    return next;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.subject.trim()) {
-      toast.error("Please select an enquiry.");
+    const nextErrors = validate(formData);
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
+      // Focus the first invalid field so keyboard and screen-reader users land on it.
+      const firstInvalid = FIELD_ORDER.find((field) => nextErrors[field]);
+      if (firstInvalid) {
+        document.querySelector<HTMLElement>(`[name="${firstInvalid}"]`)?.focus();
+      }
       return;
     }
 
-    if (!formData.email.trim()) {
-      toast.error("Email is required.");
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email.trim())) {
-      toast.error("Please enter a valid email address.");
-      return;
-    }
-
-    if (!formData.message.trim()) {
-      toast.error("Message is required.");
-      return;
-    }
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const phone = formData.phone.trim();
+    const message = formData.message.trim();
 
     setIsSubmitting(true);
     try {
-      const submittedName = formData.name.trim() || "Not provided";
-      const submittedEmail = formData.email.trim();
-      const submittedPhone = formData.phone.trim();
-      const submittedSubject = formData.subject.trim();
-      const submittedMessage = formData.message.trim();
-
       const query = new URLSearchParams({
-        type: submittedSubject,
-        name: submittedName,
-        mail: submittedEmail,
-        phone_no: submittedPhone,
-        message: submittedMessage,
+        type: formData.subject.trim(),
+        name,
+        mail: email,
+        phone_no: phone,
+        message,
       });
 
       const apiUrl = `${MAIL_TRIGGER_URL}?${query.toString()}`;
@@ -96,6 +153,7 @@ const Contact = () => {
 
       toast.success("Thank you for your message! We'll get back to you soon.");
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      setErrors({});
     } catch (error) {
       console.error("Contact submission failed:", error);
       toast.error("Could not send your message. Please try again.");
@@ -107,11 +165,25 @@ const Contact = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const value = e.target.name === "phone"
-      ? e.target.value.replace(/\D/g, "")
-      : e.target.value;
+    const field = e.target.name as keyof typeof LIMITS;
+    let value = e.target.value;
+
+    if (field === "phone") {
+      value = value.replace(/\D/g, "");
+    } else if (field === "name") {
+      // Allow letters, spaces, apostrophes, hyphens and dots only.
+      value = value.replace(/[^A-Za-z\s.'-]/g, "");
+    }
+
+    const limit = LIMITS[field];
+    if (limit) {
+      value = value.slice(0, limit);
+    }
 
     setFormData({ ...formData, [e.target.name]: value });
+
+    // Clear this field's error as soon as the user starts correcting it.
+    setErrors((prev) => (prev[field] ? { ...prev, [field]: undefined } : prev));
   };
 
   const officeLocations = [
@@ -258,7 +330,7 @@ const Contact = () => {
                     <div>
                       {/* <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">Phone</p> */}
                       <h3 className="text-base font-bold text-foreground mb-1.5">Call Us</h3>
-                      <a href="tel:+911234567890" className="text-primary hover:underline">
+                      <a href="tel:0424 222 5157" className="text-primary hover:underline">
                         0424 222 5157
                       </a>
                     </div>
@@ -268,13 +340,23 @@ const Contact = () => {
 
               {/* Contact Form */}
               <div className="bg-card p-8 border border-border shadow-xl shadow-black/10 rounded-xl">
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} noValidate className="space-y-4">
                   <Select
                     value={formData.subject}
-                    onValueChange={(value) => setFormData({ ...formData, subject: value })}
+                    onValueChange={(value) => {
+                      setFormData({ ...formData, subject: value });
+                      setErrors((prev) => (prev.subject ? { ...prev, subject: undefined } : prev));
+                    }}
                   >
-                    <SelectTrigger className="h-12 w-full rounded-lg border border-border bg-transparent px-4 text-foreground [&>span]:text-foreground hover:text-green-700 hover:[&>span]:text-green-700 focus:ring-0 focus:ring-offset-0">
-                      <SelectValue placeholder="Select Enquiry" />
+                    <SelectTrigger
+                      name="subject"
+                      aria-invalid={!!errors.subject}
+                      aria-describedby={errors.subject ? "subject-error" : undefined}
+                      className={`h-12 w-full rounded-lg border bg-transparent px-4 text-foreground [&>span]:text-foreground hover:text-green-700 hover:[&>span]:text-green-700 focus:ring-0 focus:ring-offset-0 ${
+                        errors.subject ? "border-destructive" : "border-border"
+                      }`}
+                    >
+                      <SelectValue placeholder="Select Enquiry*" />
                     </SelectTrigger>
                     <SelectContent className="rounded-lg border border-border bg-card p-1">
                       <SelectItem
@@ -309,46 +391,104 @@ const Contact = () => {
                       </SelectItem>
                     </SelectContent>
                   </Select>
+                  {errors.subject && (
+                    <p id="subject-error" className="text-sm text-destructive">
+                      {errors.subject}
+                    </p>
+                  )}
 
-                  <Input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Name"
-                    className="h-12 rounded-none border-0 border-b border-border bg-transparent px-0  shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
+                  <div>
+                    <Input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Name*"
+                      required
+                      minLength={2}
+                      maxLength={LIMITS.name}
+                      autoComplete="name"
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? "name-error" : undefined}
+                      className={fieldClass(!!errors.name)}
+                    />
+                    {errors.name && (
+                      <p id="name-error" className="mt-1 text-sm text-destructive">
+                        {errors.name}
+                      </p>
+                    )}
+                  </div>
 
-                  <Input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Email*"
-                    required
-                    className="h-12  rounded-none border-0 border-b border-border bg-transparent px-0  shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
+                  <div>
+                    <Input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Email*"
+                      required
+                      maxLength={LIMITS.email}
+                      autoComplete="email"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "email-error" : undefined}
+                      className={fieldClass(!!errors.email)}
+                    />
+                    {errors.email && (
+                      <p id="email-error" className="mt-1 text-sm text-destructive">
+                        {errors.email}
+                      </p>
+                    )}
+                  </div>
 
-                  <Input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    maxLength={15}
-                    placeholder="Contact"
-                    className="h-12 rounded-none border-0 border-b border-border bg-transparent px-0 text-foreground shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
+                  <div>
+                    <Input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      inputMode="numeric"
+                      pattern="[0-9]{7,15}"
+                      required
+                      minLength={7}
+                      maxLength={LIMITS.phone}
+                      autoComplete="tel"
+                      placeholder="Contact*"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={errors.phone ? "phone-error" : undefined}
+                      className={fieldClass(!!errors.phone)}
+                    />
+                    {errors.phone && (
+                      <p id="phone-error" className="mt-1 text-sm text-destructive">
+                        {errors.phone}
+                      </p>
+                    )}
+                  </div>
 
-                  <Textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Message"
-                    rows={4}
-                    required
-                    className=" resize-y rounded-none border-0 border-b border-border bg-transparent px-0 text-foreground shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
+                  <div>
+                    <Textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Message*"
+                      rows={4}
+                      required
+                      minLength={10}
+                      maxLength={LIMITS.message}
+                      aria-invalid={!!errors.message}
+                      aria-describedby={errors.message ? "message-error" : undefined}
+                      className={`resize-y rounded-none border-0 border-b bg-transparent px-0 text-foreground shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 ${
+                        errors.message ? "border-destructive" : "border-border"
+                      }`}
+                    />
+                    <div className="mt-1 flex items-start justify-between gap-4">
+                      <p id="message-error" className="text-sm text-destructive">
+                        {errors.message}
+                      </p>
+                      <p className="shrink-0 text-xs text-muted-foreground">
+                        {formData.message.length}/{LIMITS.message}
+                      </p>
+                    </div>
+                  </div>
 
                   <Button type="submit" className="rounded-lg px-10" size="lg" disabled={isSubmitting}>
                     {isSubmitting ? "Sending..." : "Submit"}
